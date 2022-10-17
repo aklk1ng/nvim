@@ -91,8 +91,7 @@ require('packer').startup({
         -- 文件管理器
         use { 'kyazdani42/nvim-tree.lua', config = "require('pack.nvim-tree')", cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' } }
 
-        --ranegr
-        use 'francoiscabrol/ranger.vim'
+        --ranegr use 'francoiscabrol/ranger.vim'
         use 'rbgrouleff/bclose.vim'
 
         --windline
