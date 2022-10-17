@@ -85,6 +85,7 @@ require('packer').startup({
 
         -- markdown预览插件 导航生成插件,需要手动进入插件目录执行 yarn install && yar build
         require('pack.markdown').config()
+        use { 'mzlogin/vim-markdown-toc' }
         use {'iamcco/markdown-preview.nvim'}
         use { 'dhruvasagar/vim-table-mode' }
         -- 文件管理器

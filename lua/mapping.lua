@@ -38,7 +38,9 @@ G.cmd([[
 ]])
 map("n", "tt", ":TagbarToggle<CR>", opt)
 
-
+--markdown-toc
+map("n", "tg", ":GenTocGFM<CR>", opt)
+map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 
 
 --vim-bookmarks
