@@ -1,0 +1,5 @@
+{
+    "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
+    "pairs.enableBackspace": true,
+    "Lua.telemetry.enable": false
+}
