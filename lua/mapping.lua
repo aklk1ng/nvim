@@ -74,3 +74,5 @@ map("n", "ft", ":FloatermToggle<CR>", opt)
 --alternate(逻辑取反)
 map("n", "ta", ":ToggleAlternate<CR>", opt)
 
+--lazygit
+map("n", "lg", ":terminal lazygit<CR>", opt)
