@@ -86,7 +86,7 @@ require('packer').startup({
         -- markdown预览插件 导航生成插件,需要手动进入插件目录执行 yarn install && yar build
         require('pack.markdown').config()
         use { 'mzlogin/vim-markdown-toc' }
-        use {'iamcco/markdown-preview.nvim'}
+        use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown'  })
         use { 'dhruvasagar/vim-table-mode' }
         -- 文件管理器
         use { 'kyazdani42/nvim-tree.lua', config = "require('pack.nvim-tree')", cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' } }
