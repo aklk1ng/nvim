@@ -46,6 +46,12 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.number = true
 
+vim.cmd([[
+    let g:wildfire_objects = {
+    \ "*" : ["i'", 'i"', "i)", "i]", "i}"],
+    \ "html,xml" : ["at", "it"],
+    \ }
+]])
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight
