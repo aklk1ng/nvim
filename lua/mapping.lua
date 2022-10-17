@@ -75,4 +75,4 @@ map("n", "ft", ":FloatermToggle<CR>", opt)
 map("n", "ta", ":ToggleAlternate<CR>", opt)
 
 --lazygit
-map("n", "lg", ":terminal lazygit<CR>", opt)
+map("n", "lg", ":tabe<CR>:-tabmove<CR>:terminal lazygit<CR>", opt)
