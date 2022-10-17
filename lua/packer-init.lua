@@ -84,7 +84,7 @@ require('packer').startup({
         use 'famiu/bufdelete.nvim'
 
         -- markdown预览插件 导航生成插件,需要手动进入插件目录执行 yarn install && yar build
-        require('pack.makrdown').config()
+        require('pack.markdown').config()
         use {'iamcco/markdown-preview.nvim'}
         use { 'dhruvasagar/vim-table-mode' }
         -- 文件管理器
