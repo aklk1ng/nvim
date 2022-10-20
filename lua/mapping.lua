@@ -7,6 +7,8 @@ local opt = {noremap = true, silent = true }
 -- map('模式','按键','映射为XX',opt)
 map("n", "<leader>w", ":write<CR>", opt)
 
+--open the nvim config file anytime
+map("n", "en", ":e ~/.config/nvim/lua/packer-init.lua<CR>", opt)
 --cursor movement
 map("n", "<C-a>", "<Home>", opt)
 map("n", "<C-p>", "<End>", opt)
