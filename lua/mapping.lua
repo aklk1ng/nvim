@@ -59,8 +59,6 @@ map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 
 
 --vim-bookmarks
---mm 打标签
---mc 清除标签
 map("n", "mm", ":BookmarkToggle<CR>", opt)
 map("n", "mp", ":BookmarkPrev<CR>", opt)
 map("n", "mn", ":BookmarkNext<CR>", opt)
