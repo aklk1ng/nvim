@@ -24,7 +24,11 @@ require('packer').startup({
         use { "olimorris/onedarkpro.nvim", config = "require('pack.onedarkpro')" }
 
         --alpha
-        use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = function () require'alpha'.setup(require'alpha.themes.startify'.config) end }
+        use { 'goolord/alpha-nvim',
+            requires = { 'kyazdani42/nvim-web-devicons' },
+            config = function () require'alpha'.setup(require'alpha.themes.startify'.config)
+            end
+        }
 
         -- notification manager
         use({
@@ -91,7 +95,7 @@ require('packer').startup({
         use {'akinsho/bufferline.nvim', config = "require('pack.bufferline')", tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
         use 'famiu/bufdelete.nvim'
 
-        -- markdown预览插件 导航生成插件,需要手动进入插件目录执行 yarn install && yar build
+        -- markdown预览插件 导航生成插件
         require('pack.markdown').config()
         use { 'mzlogin/vim-markdown-toc' }
         use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown'  })
@@ -111,7 +115,7 @@ require('packer').startup({
         use { 'yaocccc/vim-showmarks' }                                                -- 显示mark在signcolumn
         use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' }                       -- 退出输入模式时自动切换到英文
     end,
-    --设置以浮动窗口的形式进行下载插件
+    --设置以浮动窗口的形式下载插件
     config = {
         git = { clone_timeout = 120 },
         display = {
