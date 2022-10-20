@@ -80,6 +80,7 @@ require('packer').startup({
         --preview img
         use { "nvim-telescope/telescope-media-files.nvim" }
         use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+        --place the VIM bookmark
         use { 'MattesGroeger/vim-bookmarks'}
         use { 'tom-anders/telescope-vim-bookmarks.nvim'}
 
@@ -90,14 +91,14 @@ require('packer').startup({
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-autopairs" }
 
-        --colorizer
+        --colorizer(highlight the color)
         use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')" }
 
         --bufferline
         use {'akinsho/bufferline.nvim', config = "require('pack.bufferline')", tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
         use 'famiu/bufdelete.nvim'
 
-        -- markdown预览插件 导航生成插件
+        -- markdown预览插件 导航生成插件(toc)
         require('pack.markdown').config()
         use { 'mzlogin/vim-markdown-toc' }
         use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown'  })
@@ -107,6 +108,7 @@ require('packer').startup({
 
         --ranegr 
         use 'francoiscabrol/ranger.vim'
+        --delete a VIM buffer in VIM without closing the window
         use 'rbgrouleff/bclose.vim'
 
         --windline
