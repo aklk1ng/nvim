@@ -17,6 +17,9 @@ require('packer').startup({
         -- packer 管理自己的版本
         use { 'wbthomason/packer.nvim' }
 
+        -- 启动时间分析
+        use({ "dstein64/vim-startuptime" })
+
         -- Using Packer
         use { "olimorris/onedarkpro.nvim", config = "require('pack.onedarkpro')" }
 
