@@ -6,6 +6,10 @@ local opt = {noremap = true, silent = true }
 -- 之后就可以这样映射按键了
 -- map('模式','按键','映射为XX',opt)
 map("n", "<leader>w", ":write<CR>", opt)
+map("n", "Q", ":q!<CR>", opt)
+
+--find pair
+map("n", ",.", "%", opt)
 
 --open the nvim config file anytime
 map("n", "en", ":e ~/.config/nvim/lua/packer-init.lua<CR>", opt)

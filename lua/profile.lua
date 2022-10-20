@@ -80,6 +80,12 @@ vim.cmd([[
     set mouse=a
     set selection=exclusive
 ]])
+-- 折叠
+G.cmd([[
+    set foldenable
+    set foldmethod=manual
+    set foldexpr=nvim_treesitter#foldexpr()
+]])
 -- 搜索高亮 空格+回车 去除匹配高亮 延迟
 vim.cmd([[
     set hlsearch

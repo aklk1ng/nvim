@@ -26,7 +26,7 @@ function M.config()
         -- { 'n', 'K', ':call CocAction("doHover")<cr>', {silent = true} },
         { 'i', '<TAB>', "coc#pum#visible() ? coc#pum#next(1) : col('.') == 1 || getline('.')[col('.') - 2] =~# '\\s' ? \"\\<TAB>\" : coc#refresh()", {silent = true, noremap = true, expr = true} },
         { 'i', '<s-tab>', "coc#pum#visible() ? coc#pum#prev(1) : \"\\<s-tab>\"", {silent = true, noremap = true, expr = true} },
-        --the next map will have some problem if the nvim-autopairs exist
+        --the map will have some problem if the nvim-autopairs exist
         { 'i', '<cr>', "coc#pum#visible() ? coc#_select_confirm() : \"\\<c-g>u\\<cr>\\<c-r>=coc#on_enter()\\<cr>\"", {silent = true, noremap = true, expr = true} },
         { 'n', '<F3>', ":silent CocRestart<cr>", {silent = true, noremap = true} },
         { 'n', '<F4>', "get(g:, 'coc_enabled', 0) == 1 ? ':CocDisable<cr>' : ':CocEnable<cr>'", {silent = true, noremap = true, expr = true} },
@@ -38,7 +38,6 @@ function M.config()
         { 'n', '\\g', ":call coc#config('git.addGBlameToVirtualText',  !get(g:coc_user_config, 'git.addGBlameToVirtualText', 0)) | call nvim_buf_clear_namespace(bufnr(), -1, line('.') - 1, line('.'))<cr>", {silent = true} },
     })
 end
-        -- 'coc-prettier',
 
 function M.setup()
     -- do nothing
