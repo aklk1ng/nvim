@@ -107,6 +107,7 @@ require('packer').startup({
 
         --ranegr 
         use 'francoiscabrol/ranger.vim'
+        use 'rbgrouleff/bclose.vim'
 
         --windline
         use { 'windwp/windline.nvim', config = "require('pack.windline')"}

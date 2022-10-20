@@ -7,6 +7,10 @@ local opt = {noremap = true, silent = true }
 -- map('模式','按键','映射为XX',opt)
 map("n", "<leader>w", ":write<CR>", opt)
 
+map("n", "sp", ":split ", opt)
+map("n", "vsp", ":vsplit ", opt)
+map("n", "<leader><left>", ":vertical resize+5<CR>", opt)
+map("n", "<leader><right>", ":vertical resize-5<CR> ", opt)
 --packer
 map("n", "<leader><leader>i", ":PackerInstall<CR>", opt)
 map("n", "<leader><leader>d", ":PackerClean<CR>", opt)
