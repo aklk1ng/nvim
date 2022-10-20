@@ -77,6 +77,7 @@ require('packer').startup({
         --telescope
         use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0', requires = { {'nvim-lua/plenary.nvim'} } }
         use { 'nvim-lua/popup.nvim'}
+        --preview img
         use { "nvim-telescope/telescope-media-files.nvim" } use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
         use { 'MattesGroeger/vim-bookmarks'}
         use { 'tom-anders/telescope-vim-bookmarks.nvim'}
