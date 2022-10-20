@@ -7,7 +7,7 @@ telescope.setup({
     extensions = {
         media_files = {
             filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "mp3" },
-            find_cmd = "fd",-- sudo pacman -S ripgrep
+            find_cmd = "rg",-- sudo pacman -S ripgrep
         },
         fzf = {
             fuzzy = true,                    -- false will only do exact matching
