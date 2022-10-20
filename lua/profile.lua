@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+-- vim.cmd("colorscheme solarized8_high")  -- Lua
 vim.cmd("colorscheme onedarkpro")  -- Lua
 -- Disable some default plugins
 vim.g.loaded_gzip = 1
