@@ -7,8 +7,13 @@ local opt = {noremap = true, silent = true }
 -- map('模式','按键','映射为XX',opt)
 map("n", "<leader>w", ":write<CR>", opt)
 
+--cursor movement
+map("n", "<C-a>", "<Home>", opt)
+map("n", "<C-p>", "<End>", opt)
+
 map("n", "sp", ":split ", opt)
 map("n", "vsp", ":vsplit ", opt)
+--resize split windows
 map("n", "<leader><left>", ":vertical resize+5<CR>", opt)
 map("n", "<leader><right>", ":vertical resize-5<CR> ", opt)
 --packer
