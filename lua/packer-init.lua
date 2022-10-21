@@ -1,10 +1,10 @@
 local ensure_packer = function()
     local fn = vim.fn
-    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     -- local compiled_path = fn.stdpath('config')..'/plugin/packer_compiled.lua'
     if fn.empty(fn.glob(install_path)) > 0 then
         print('Installing packer.nvim...')
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
         vim.cmd [[packadd packer.nvim]]
         return true
     end
@@ -26,7 +26,7 @@ require('packer').startup({
         --alpha
         use { 'goolord/alpha-nvim',
             requires = { 'kyazdani42/nvim-web-devicons' },
-            config = function () require'alpha'.setup(require'alpha.themes.startify'.config)
+            config = function() require 'alpha'.setup(require 'alpha.themes.startify'.config)
             end
         }
 
@@ -41,7 +41,7 @@ require('packer').startup({
         })
 
         -- lspconfig,for telescope's lsp support
-        use {'neovim/nvim-lspconfig'}
+        use { 'neovim/nvim-lspconfig' }
 
         -- coc-nvim
         -- require('pack/coc').config()
@@ -50,41 +50,43 @@ require('packer').startup({
 
         -- nvim-cmp
         use 'hrsh7th/cmp-nvim-lsp' -- { name = nvim_lsp }
-        use 'hrsh7th/cmp-buffer'   -- { name = 'buffer' },
-        use 'hrsh7th/cmp-path'     -- { name = 'path' }
+        use 'hrsh7th/cmp-buffer' -- { name = 'buffer' },
+        use 'hrsh7th/cmp-path' -- { name = 'path' }
         use 'hrsh7th/cmp-cmdline'
         -- use {'hrsh7th/cmp-emoji'}
         use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp')" }
-        use { 'L3MON4D3/LuaSnip'}
+        use { 'L3MON4D3/LuaSnip' }
         use { "rafamadriz/friendly-snippets" }
-        use { 'saadparwaiz1/cmp_luasnip'}
+        use { 'saadparwaiz1/cmp_luasnip' }
         use { "onsails/lspkind.nvim" }
 
-        use { 'tpope/vim-commentary'}
-        use { 'tpope/vim-surround'}
-        use { 'gcmt/wildfire.vim'}
+        use { 'tpope/vim-commentary' }
+        use { 'tpope/vim-surround' }
+        use { 'gcmt/wildfire.vim' }
         --cursor movement
-        use { 'easymotion/vim-easymotion'}
+        use { 'easymotion/vim-easymotion' }
         -- 多光标插件
         require('pack.vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
-        use {'rmagatti/alternate-toggler'}
-        use { 'preservim/tagbar'}
+        use { 'rmagatti/alternate-toggler' }
+        use { 'preservim/tagbar' }
         use { 'lewis6991/gitsigns.nvim', config = "require('pack.gitsigns')" }
         use "ravenxrz/DAPInstall.nvim" -- help us install several debuggers
-        use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}, config = "require('pack.dap')" }
+        use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.dap')" }
+        use { 'dense-analysis/ale' }
         --floaterm
         use 'voldikss/vim-floaterm'
 
         --telescope
-        use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0', requires = { {'nvim-lua/plenary.nvim'} } }
-        use { 'nvim-lua/popup.nvim'}
+        use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0',
+            requires = { { 'nvim-lua/plenary.nvim' } } }
+        use { 'nvim-lua/popup.nvim' }
         --preview img
         use { "nvim-telescope/telescope-media-files.nvim" }
-        use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+        use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
         --place the VIM bookmark
-        use { 'MattesGroeger/vim-bookmarks'}
-        use { 'tom-anders/telescope-vim-bookmarks.nvim'}
+        use { 'MattesGroeger/vim-bookmarks' }
+        use { 'tom-anders/telescope-vim-bookmarks.nvim' }
 
         -- tree-sitter
         use { 'nvim-treesitter/nvim-treesitter', config = "require('pack.treesitter').setup()" }
@@ -97,36 +99,39 @@ require('packer').startup({
         use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')" }
 
         --bufferline
-        use {'akinsho/bufferline.nvim', config = "require('pack.bufferline')", tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+        use { 'akinsho/bufferline.nvim', config = "require('pack.bufferline')", tag = "v2.*",
+            requires = 'kyazdani42/nvim-web-devicons' }
         use 'famiu/bufdelete.nvim'
 
         -- markdown预览插件 导航生成插件(toc)
         require('pack.markdown').config()
         use { 'mzlogin/vim-markdown-toc' }
-        use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown'  })
+        use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown' })
         use { 'dhruvasagar/vim-table-mode' }
         -- 文件管理器
-        use { 'kyazdani42/nvim-tree.lua', config = "require('pack.nvim-tree')", cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' } }
+        use { 'kyazdani42/nvim-tree.lua', config = "require('pack.nvim-tree')",
+            cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' } }
 
-        --ranegr 
+        --ranegr
         use 'francoiscabrol/ranger.vim'
         --delete a VIM buffer in VIM without closing the window
         use 'rbgrouleff/bclose.vim'
 
         --windline
-        use { 'windwp/windline.nvim', config = "require('pack.windline')"}
+        use { 'windwp/windline.nvim', config = "require('pack.windline')" }
         --scolling
         use { 'declancm/cinnamon.nvim', config = function() require('cinnamon').setup() end }
 
-        use { 'yaocccc/nvim-hlchunk' }                                                 -- 高亮{}范围
-        use { 'yaocccc/vim-showmarks' }                                                -- 显示mark在signcolumn
-        use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' }                       -- 退出输入模式时自动切换到英文
+        use { 'yaocccc/nvim-hlchunk' } -- 高亮{}范围
+        use { 'yaocccc/vim-showmarks' } -- 显示mark在signcolumn
+        use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' } -- 退出输入模式时自动切换到英文
     end,
     --设置以浮动窗口的形式下载插件
     config = {
         git = { clone_timeout = 120 },
         display = {
-            working_sym = '[ ]', error_sym = '[✗]', done_sym = '[✓]', removed_sym = ' - ', moved_sym = ' → ', header_sym = '─',
+            working_sym = '[ ]', error_sym = '[✗]', done_sym = '[✓]', removed_sym = ' - ', moved_sym = ' → ',
+            header_sym = '─',
             open_fn = function() return require("packer.util").float({ border = "rounded" }) end
         }
     }
