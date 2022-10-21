@@ -32,6 +32,7 @@ map("n", "<leader><leader>c", ":PackerCompile<CR>", opt)
 
 --nvim-tree
 map('n', '<leader>t', ':NvimTreeToggle<CR>', opt)
+map('n', 'tf', ':NvimTreeFocus<CR>', opt)
 
 -- bufferline 左右Tab切换
 map("n", "<leader>p", ":BufferLineCyclePrev<CR>", opt)

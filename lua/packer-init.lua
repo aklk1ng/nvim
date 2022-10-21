@@ -110,7 +110,7 @@ require('packer').startup({
         use { 'dhruvasagar/vim-table-mode' }
         -- 文件管理器
         use { 'kyazdani42/nvim-tree.lua', config = "require('pack.nvim-tree')",
-            cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' } }
+            cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' }, }
 
         --ranegr
         use 'francoiscabrol/ranger.vim'
