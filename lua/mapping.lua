@@ -5,7 +5,7 @@ local opt = {noremap = true, silent = true }
 
 -- 之后就可以这样映射按键了
 -- map('模式','按键','映射为XX',opt)
-map("n", "<leader>w", ":write<CR>", opt)
+map("n", "W", ":write<CR>", opt)
 map("n", "Q", ":q!<CR>", opt)
 
 --find pair
@@ -57,6 +57,9 @@ map("n", "tt", ":TagbarToggle<CR>", opt)
 map("n", "tg", ":GenTocGFM<CR>", opt)
 map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 
+--easymoton
+map("n", "<leader>w", "<Plug>(easymotion-overwin-w)", opt)
+
 
 --vim-bookmarks
 map("n", "mm", ":BookmarkToggle<CR>", opt)
@@ -89,3 +92,5 @@ map("n", "ta", ":ToggleAlternate<CR>", opt)
 
 --lazygit
 map("n", "lg", ":tabe<CR>:-tabmove<CR>:terminal lazygit<CR>", opt)
+--lazynpm
+map("n", "lnm", ":tabe<CR>:-tabmove<CR>:terminal lazynpm<CR>", opt)

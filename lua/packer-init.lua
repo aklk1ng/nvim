@@ -63,6 +63,8 @@ require('packer').startup({
         use { 'tpope/vim-commentary'}
         use { 'tpope/vim-surround'}
         use { 'gcmt/wildfire.vim'}
+        --cursor movement
+        use { 'easymotion/vim-easymotion'}
         -- 多光标插件
         require('pack.vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
