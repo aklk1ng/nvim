@@ -85,6 +85,7 @@ map("n", "fd", ":Telescope diagnostics<CR>", opt)--查找当前工程所有的�
 map("n", "fk", ":Telescope keymaps<CR>", opt)--查找键盘映射
 map("n", "fw", ":Telelscope live_grep<CR>", opt)--查找当前目录的字符串
 
+
 --floaterm
 map("n", "ft", ":FloatermToggle<CR>", opt)
 -- map("n", "fk", ":FloatermKill<CR>", opt)
