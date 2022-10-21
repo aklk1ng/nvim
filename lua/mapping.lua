@@ -8,6 +8,8 @@ local opt = {noremap = true, silent = true }
 map("n", "W", ":write<CR>", opt)
 map("n", "Q", ":q!<CR>", opt)
 
+
+-- . 与 ~ 作用在nvim中都是更改字母大小写
 --find pair
 map("n", ",.", "%", opt)
 
