@@ -123,7 +123,6 @@ require('packer').startup({
         use { 'declancm/cinnamon.nvim', config = function() require('cinnamon').setup() end }
 
         use { 'yaocccc/nvim-hlchunk' } -- 高亮{}范围
-        use { 'yaocccc/vim-showmarks' } -- 显示mark在signcolumn
         use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' } -- 退出输入模式时自动切换到英文
     end,
     --设置以浮动窗口的形式下载插件
