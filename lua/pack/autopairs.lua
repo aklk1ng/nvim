@@ -3,12 +3,7 @@ local npairs = require('nvim-autopairs')
 local cond = require('nvim-autopairs.conds')
 local Rule = require('nvim-autopairs.rule')
 require('nvim-autopairs').setup{
-
-
     npairs.add_rule(Rule("$$","$$","tex"))
-
-    -- you can use some built-in conditions
-
     print(vim.inspect(cond))
 
     npairs.add_rules({
@@ -37,8 +32,7 @@ require('nvim-autopairs').setup{
                     return false
                 end
             end)
-    }
-    )
+    })
 
     -- you can use regex
     -- press u1234 => u1234number
@@ -46,8 +40,6 @@ require('nvim-autopairs').setup{
         Rule("u%d%d%d%d$", "number", "lua")
             :use_regex(true)
     })
-
-
 
     -- press x1234 => x12341234
     npairs.add_rules({
@@ -58,7 +50,6 @@ require('nvim-autopairs').setup{
                 return opts.prev_char:sub(#opts.prev_char - 3,#opts.prev_char)
             end)
     })
-
 
     -- you can do anything with regex +special key
     -- example press tab to uppercase text:
@@ -79,5 +70,4 @@ require('nvim-autopairs').setup{
         Rule("$$","$$")
             :with_pair(cond.not_filetypes({"lua"}))
     )
-    --- check ./lua/nvim-autopairs/rules/basic.lua
 }

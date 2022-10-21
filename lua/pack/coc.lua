@@ -1,6 +1,12 @@
 local G = require('G')
 local M = {}
 
+--对nvim-autopairs回车键的消除影响
+local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
+npairs.setup({map_cr=false})
+_G.MUtils= {}
+
 function M.config()
     G.g.coc_global_extensions = {
         'coc-tsserver',
@@ -37,6 +43,15 @@ function M.config()
         { 'n', 'C', "get(b:, 'coc_git_blame', '') ==# 'Not committed yet' ? \"<Plug>(coc-git-chunkinfo)\" : \"<Plug>(coc-git-commit)\"", {silent = true, expr = true} },
         { 'n', '\\g', ":call coc#config('git.addGBlameToVirtualText',  !get(g:coc_user_config, 'git.addGBlameToVirtualText', 0)) | call nvim_buf_clear_namespace(bufnr(), -1, line('.') - 1, line('.'))<cr>", {silent = true} },
     })
+
+    MUtils.completion_confirm=function()
+    if vim.fn["coc#pum#visible"]() ~= 0  then
+        return vim.fn["coc#pum#confirm"]()
+    else
+        return npairs.autopairs_cr()
+    end
+end
+remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
 end
 
 function M.setup()
