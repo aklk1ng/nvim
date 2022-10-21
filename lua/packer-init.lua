@@ -14,7 +14,7 @@ end
 local packer_bootstrap = ensure_packer()
 require('packer').startup({
     function(use)
-        -- packer 管理自己的版本
+        -- packer
         use { 'wbthomason/packer.nvim' }
 
         -- 启动时间分析
