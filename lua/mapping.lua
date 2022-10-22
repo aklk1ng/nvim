@@ -83,6 +83,7 @@ map("n", "mC", ":BookmarkClearAll<CR>", opt)
 --telescope
 map("n", "fl", ":Telescope file_browser<CR>", opt) --列出当前工作目录中的目录及文件，非递归
 map("n", "ff", ":Telescope find_files<CR>", opt) --列出当前工作目录中的文件
+map("n", "fg", ":Telescope live_grep<CR>", opt) --列出当前工作目录中的文件
 map("n", "fb", ":Telescope buffers<CR>", opt) --列出当前neovim实例中打开的缓冲区
 map("n", "fp", ":Telescope media_files<CR>", opt) --
 map("n", "fc", ":Telescope command_history<CR>", opt) --查找命令历史
