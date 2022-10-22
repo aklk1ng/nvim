@@ -63,7 +63,7 @@ require('packer').startup({
         -- 多光标插件
         require('pack.vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
-        use { 'rmagatti/alternate-toggler' }
+        use { 'rmagatti/alternate-toggler', config = "require('pack.alternate-toggle')" }
         use { 'preservim/tagbar' }
         use { 'lewis6991/gitsigns.nvim', config = "require('pack.gitsigns')" }
         use "ravenxrz/DAPInstall.nvim" -- help us install several debuggers
