@@ -14,14 +14,17 @@ end
 local packer_bootstrap = ensure_packer()
 require('packer').startup({
     function(use)
-        -- packer
         use { 'wbthomason/packer.nvim' }
 
         -- 启动时间分析
         use({ "dstein64/vim-startuptime" })
 
-        -- Using Packer
-        use { "olimorris/onedarkpro.nvim", config = "require('pack.onedarkpro')" }
+        -- use { "olimorris/onedarkpro.nvim", config = "require('pack.onedarkpro')" }
+        use {
+            'svrana/neosolarized.nvim',
+            requires = { 'tjdevries/colorbuddy.nvim' },
+            config = "require('pack/neosolarized')"
+        }
 
         --alpha
         use { 'goolord/alpha-nvim',

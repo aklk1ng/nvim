@@ -1,7 +1,7 @@
 local G = require('G')
 vim.g.mapleader = " "
 -- G.cmd([[ colorscheme solarized8_high ]])  -- Lua
-vim.cmd("colorscheme onedarkpro")  -- Lua
+-- vim.cmd("colorscheme onedarkpro")  -- Lua
 -- Disable some default plugins
 vim.g.loaded_gzip = 1
 vim.g.loaded_zip = 1

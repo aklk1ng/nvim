@@ -68,6 +68,10 @@ cmp.setup({
         })
     }
 })
+vim.cmd [[
+  set completeopt=menuone,noinsert,noselect
+  highlight! default link CmpItemKind CmpItemMenuDefault
+]]
 --<CR>键冲突
 require("nvim-autopairs").setup()
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
