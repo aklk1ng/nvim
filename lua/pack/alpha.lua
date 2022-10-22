@@ -75,7 +75,7 @@ local mru = {
     {
       type = 'group',
       val = function()
-        return { startify.mru(1, vim.fn.getcwd(), 5) }
+        return { startify.mru(1, vim.fn.getcwd(), 22) }
       end,
     },
   },
@@ -99,8 +99,8 @@ local buttons = {
     startify.button('a', '  Live grep', "<cmd>lua require('telescope.builtin').live_grep({shorten_path=true})<CR>"),
     startify.button(
       'd',
-      '  Dotfiles',
-      "<cmd>lua require('telescope.builtin').find_files({ search_dirs = { os.getenv('HOME') .. '/dotfiles' } })<CR>"
+      '  Config',
+      "<cmd>lua require('telescope.builtin').find_files({ search_dirs = { os.getenv('HOME') .. '/.config' } })<CR>"
     ),
     startify.button('u', '  Update plugins', ':PackerSync<CR>'),
     startify.button('q', '  Quit', ':qa<CR>'),
