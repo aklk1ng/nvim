@@ -15,23 +15,18 @@ local packer_bootstrap = ensure_packer()
 require('packer').startup({
     function(use)
         use { 'wbthomason/packer.nvim' }
-
         -- 启动时间分析
         use({ "dstein64/vim-startuptime" })
-
         -- neosolarized
         use {
             'svrana/neosolarized.nvim',
             requires = { 'tjdevries/colorbuddy.nvim' },
             config = "require('pack/neosolarized')"
         }
-
         --alpha
         use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha')" }
-
         --lspsaga
         use({ "glepnir/lspsaga.nvim", branch = "main", config = "require('pack.lspsaga')"})
-
         --null-ls
         use { 'jose-elias-alvarez/null-ls.nvim', config = "require('pack.null-ls')" } -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 
@@ -92,7 +87,6 @@ require('packer').startup({
         use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-autopairs" }
-
         --colorizer(highlight the color)
         use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')" }
 
@@ -106,10 +100,10 @@ require('packer').startup({
         use { 'mzlogin/vim-markdown-toc' }
         use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown' })
         use { 'dhruvasagar/vim-table-mode' }
+
         -- 文件管理器
         use { 'kyazdani42/nvim-tree.lua', config = "require('pack.nvim-tree')",
             cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' }, }
-
         --ranegr
         use 'francoiscabrol/ranger.vim'
         --delete a VIM buffer in VIM without closing the window
