@@ -83,7 +83,6 @@ map("n", "mC", ":BookmarkClearAll<CR>", opt)
 --telescope
 map("n", "fl", ":Telescope file_browser<CR>", opt) --列出当前工作目录中的目录及文件，非递归
 map("n", "ff", ":Telescope find_files<CR>", opt) --列出当前工作目录中的文件
-map("n", "fg", ":Telescope live_grep<CR>", opt) --列出当前工作目录中的文件
 map("n", "fb", ":Telescope buffers<CR>", opt) --列出当前neovim实例中打开的缓冲区
 map("n", "fp", ":Telescope media_files<CR>", opt) --
 map("n", "fc", ":Telescope command_history<CR>", opt) --查找命令历史
@@ -94,7 +93,7 @@ map("n", "fs", ":Telescope lsp_document_symbols<CR>", opt) --查找当前文件�
 map("n", "fS", ":Telescope lsp_workspace_symbols<CR>", opt) --查找当前工程所有的标识符
 map("n", "fd", ":Telescope diagnostics<CR>", opt) --查找当前工程所有的诊断信息
 map("n", "fk", ":Telescope keymaps<CR>", opt) --查找键盘映射
-map("n", "fw", ":Telelscope live_grep<CR>", opt) --查找当前目录的字符串
+map("n", "fw", ":Telescope live_grep<CR>", opt) --查找当前目录的字符串
 
 --fzf
 map("n", "fz", ":FZF<CR>", opt) --列出当前工作目录中的文件
