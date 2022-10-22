@@ -95,8 +95,8 @@ local buttons = {
     },
     { type = 'padding', val = 1 },
     startify.button('e', '  New file', ':ene <BAR> startinsert<CR>'),
-    startify.button('f', '  Find file', "<cmd>lua require('telescope.builtin').find_files()<CR>"),
-    startify.button('a', '  Live grep', "<cmd>lua require('telescope.builtin').live_grep({shorten_path=true})<CR>"),
+    startify.button('ff', '  Find file', "<cmd>lua require('telescope.builtin').find_files()<CR>"),
+    startify.button('fw', '  Live grep', "<cmd>lua require('telescope.builtin').live_grep({shorten_path=true})<CR>"),
     startify.button(
       'd',
       '  Config',
