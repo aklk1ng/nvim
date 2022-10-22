@@ -30,6 +30,22 @@ require('packer').startup({
             end
         }
 
+        --lspsaga
+        use({
+            "glepnir/lspsaga.nvim",
+            branch = "main",
+            config = function()
+                local saga = require("lspsaga")
+                saga.init_lsp_saga({
+                    -- your configuration
+                })
+            end,
+        })
+
+        --null-ls
+        require('pack.null-ls')
+        use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
+
         -- notification manager
         use({
             "rcarriga/nvim-notify",
@@ -53,7 +69,7 @@ require('packer').startup({
         use 'hrsh7th/cmp-buffer' -- { name = 'buffer' },
         use 'hrsh7th/cmp-path' -- { name = 'path' }
         use 'hrsh7th/cmp-cmdline'
-        -- use {'hrsh7th/cmp-emoji'}
+        use {'hrsh7th/cmp-emoji'}
         use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp')" }
         use { 'L3MON4D3/LuaSnip' }
         use { "rafamadriz/friendly-snippets" }
@@ -74,8 +90,6 @@ require('packer').startup({
         use "ravenxrz/DAPInstall.nvim" -- help us install several debuggers
         use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.dap')" }
         use { 'dense-analysis/ale' }
-        --floaterm
-        use 'voldikss/vim-floaterm'
 
         --telescope
         use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0',

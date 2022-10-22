@@ -89,10 +89,6 @@ map("n", "fw", ":Telelscope live_grep<CR>", opt) --查找当前目录的字符�
 --fzf
 map("n", "fz", ":FZF<CR>", opt) --列出当前工作目录中的文件
 
---floaterm
-map("n", "ft", ":FloatermToggle<CR>", opt)
--- map("n", "fk", ":FloatermKill<CR>", opt)
-
 --alternate(逻辑取反)
 map("n", "ta", ":ToggleAlternate<CR>", opt)
 

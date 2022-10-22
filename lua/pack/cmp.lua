@@ -59,7 +59,7 @@ cmp.setup({
         { name = 'luasnip' }, -- For luasnip users.
         { name = 'buffer' },
         { name = "path" },
-        -- { name = 'emoji' },
+        { name = 'emoji' },
     }),
     formatting = {
         format = lspkind.cmp_format({
