@@ -77,7 +77,6 @@ require('packer').startup({
         use { 'lewis6991/gitsigns.nvim', config = "require('pack.gitsigns')" }
         use "ravenxrz/DAPInstall.nvim" -- help us install several debuggers
         use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.dap')" }
-        use { 'dense-analysis/ale' }
 
         --telescope
         use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0',
