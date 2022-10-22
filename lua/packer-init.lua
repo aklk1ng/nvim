@@ -19,7 +19,7 @@ require('packer').startup({
         -- 启动时间分析
         use({ "dstein64/vim-startuptime" })
 
-        -- use { "olimorris/onedarkpro.nvim", config = "require('pack.onedarkpro')" }
+        -- neosolarized
         use {
             'svrana/neosolarized.nvim',
             requires = { 'tjdevries/colorbuddy.nvim' },
@@ -27,11 +27,7 @@ require('packer').startup({
         }
 
         --alpha
-        use { 'goolord/alpha-nvim',
-            requires = { 'kyazdani42/nvim-web-devicons' },
-            config = function() require 'alpha'.setup(require 'alpha.themes.startify'.config)
-            end
-        }
+        use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha')" }
 
         --lspsaga
         use({ "glepnir/lspsaga.nvim", branch = "main", config = "require('pack.lspsaga')"})
