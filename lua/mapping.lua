@@ -1,7 +1,7 @@
 -- 保存本地变量
 local G = require('G')
 local map = G.api.nvim_set_keymap
-local opt = {noremap = true, silent = true }
+local opt = { noremap = true, silent = true }
 
 -- 之后就可以这样映射按键了
 -- map('模式','按键','映射为XX',opt)
@@ -73,19 +73,21 @@ map("n", "mc", ":BookmarkClear<CR>", opt)
 map("n", "mC", ":BookmarkClearAll<CR>", opt)
 
 --telescope
-map("n", "ff", ":Telescope find_files<CR>", opt)--列出当前工作目录中的文件
-map("n", "fb", ":Telescope buffers<CR>", opt)--列出当前neovim实例中打开的缓冲区
-map("n", "fp", ":Telescope media_files<CR>", opt)--
-map("n", "fc", ":Telescope command_history<CR>", opt)--查找命令历史
-map("n", "fo", ":Telescope oldfiles<CR>", opt)--查找文件历史
-map("n", "fm", ":Telescope vim_bookmarks current_file<CR>", opt)--显示当前文件标签
-map("n", "fM", ":Telescope vim_bookmarks all<CR>", opt)--查找工程所有的标签
-map("n", "fs", ":Telescope lsp_document_symbols<CR>", opt)--查找当前文件所有的标识符
-map("n", "fS", ":Telescope lsp_workspace_symbols<CR>", opt)--查找当前工程所有的标识符
-map("n", "fd", ":Telescope diagnostics<CR>", opt)--查找当前工程所有的诊断信息
-map("n", "fk", ":Telescope keymaps<CR>", opt)--查找键盘映射
-map("n", "fw", ":Telelscope live_grep<CR>", opt)--查找当前目录的字符串
+map("n", "ff", ":Telescope find_files<CR>", opt) --列出当前工作目录中的文件
+map("n", "fb", ":Telescope buffers<CR>", opt) --列出当前neovim实例中打开的缓冲区
+map("n", "fp", ":Telescope media_files<CR>", opt) --
+map("n", "fc", ":Telescope command_history<CR>", opt) --查找命令历史
+map("n", "fo", ":Telescope oldfiles<CR>", opt) --查找文件历史
+map("n", "fm", ":Telescope vim_bookmarks current_file<CR>", opt) --显示当前文件标签
+map("n", "fM", ":Telescope vim_bookmarks all<CR>", opt) --查找工程所有的标签
+map("n", "fs", ":Telescope lsp_document_symbols<CR>", opt) --查找当前文件所有的标识符
+map("n", "fS", ":Telescope lsp_workspace_symbols<CR>", opt) --查找当前工程所有的标识符
+map("n", "fd", ":Telescope diagnostics<CR>", opt) --查找当前工程所有的诊断信息
+map("n", "fk", ":Telescope keymaps<CR>", opt) --查找键盘映射
+map("n", "fw", ":Telelscope live_grep<CR>", opt) --查找当前目录的字符串
 
+--fzf
+map("n", "fz", ":FZF<CR>", opt) --列出当前工作目录中的文件
 
 --floaterm
 map("n", "ft", ":FloatermToggle<CR>", opt)
