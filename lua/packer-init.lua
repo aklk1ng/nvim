@@ -88,6 +88,7 @@ require('packer').startup({
         --preview img
         use { "nvim-telescope/telescope-media-files.nvim" }
         use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+        use 'nvim-telescope/telescope-file-browser.nvim'
         --place the VIM bookmark
         use { 'MattesGroeger/vim-bookmarks' }
         use { 'tom-anders/telescope-vim-bookmarks.nvim' }
