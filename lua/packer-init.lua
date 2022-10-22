@@ -49,11 +49,6 @@ require('packer').startup({
         -- lspconfig,for telescope's lsp support
         use { 'neovim/nvim-lspconfig' }
 
-        -- coc-nvim
-        -- require('pack/coc').config()
-        -- use { 'neoclide/coc.nvim', config = "require('pack/coc').setup()", branch = 'release' }
-        -- use  { 'honza/vim-snippets'}
-
         -- nvim-cmp
         use 'hrsh7th/cmp-nvim-lsp' -- { name = nvim_lsp }
         use 'hrsh7th/cmp-buffer' -- { name = 'buffer' },
