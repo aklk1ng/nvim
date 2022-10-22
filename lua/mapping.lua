@@ -6,7 +6,7 @@ local opt = { noremap = true, silent = true }
 -- 之后就可以这样映射按键了
 -- map('模式','按键','映射为XX',opt)
 map("n", "W", ":write<CR>", opt)
-map("n", "Q", ":q!<CR>", opt)
+map("n", "Q", ":q<CR>", opt)
 map("n", "<C-a>", "gg<S-v>G", opt)
 
 
