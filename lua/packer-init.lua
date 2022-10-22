@@ -30,20 +30,7 @@ require('packer').startup({
             end
         }
 
-        --lspsaga
-        use({
-            "glepnir/lspsaga.nvim",
-            branch = "main",
-            config = function()
-                local saga = require("lspsaga")
-                saga.init_lsp_saga({
-                    -- your configuration
-                })
-            end,
-        })
-
         --null-ls
-        require('pack.null-ls')
         use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 
         -- notification manager

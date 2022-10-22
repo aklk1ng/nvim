@@ -7,6 +7,7 @@ local opt = { noremap = true, silent = true }
 -- map('模式','按键','映射为XX',opt)
 map("n", "W", ":write<CR>", opt)
 map("n", "Q", ":q!<CR>", opt)
+map("n", "<C-a>", "gg<S-v>G", opt)
 
 
 -- . 与 ~ 作用在nvim中都是更改字母大小写
@@ -14,13 +15,20 @@ map("n", "Q", ":q!<CR>", opt)
 map("n", ",.", "%", opt)
 
 --open the nvim config file anytime
-map("n", "en", ":e ~/.config/nvim/lua/packer-init.lua<CR>", opt)
+map("n", "en", ":e ~/.config/nvim/lua/-init.lua<CR>", opt)
 --cursor movement
-map("n", "<C-a>", "<Home>", opt)
+map("n", "<C-i>", "<Home>", opt)
 map("n", "<C-p>", "<End>", opt)
 
-map("n", "sp", ":split ", opt)
-map("n", "vsp", ":vsplit ", opt)
+--window touch and movement
+map("n", "<Space>", ":<C-w>w", opt)
+map("n", "te", ":tabedit<CR>", opt)
+map("n", "ss", ":split<CR>", opt)
+map("n", "sv", ":vsplit<CR> ", opt)
+map("", "sh", ":<C-w>h<CR>", opt)
+map("", "sj", ":<C-w>j<CR>", opt)
+map("", "sk", ":<C-w>k<CR>", opt)
+map("", "sl", ":<C-w>l<CR>", opt)
 --resize split windows
 map("n", "<leader><left>", ":vertical resize+5<CR>", opt)
 map("n", "<leader><right>", ":vertical resize-5<CR> ", opt)
