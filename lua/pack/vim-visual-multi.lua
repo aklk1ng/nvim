@@ -7,7 +7,7 @@ function M.config()
     G.g.VM_maps = {
         ['Find Under'] = '<C-n>',
         ['Find Subword Under'] = '<C-n>',
-        ['Select All'] = '<C-d>',
+        -- ['Select All'] = '<C-d>',
         ['Select h'] = '<C-Left>',
         ['Select l'] = '<C-Right>',
         ['Add Cursor Up'] = '<C-Up>',
