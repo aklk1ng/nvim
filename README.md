@@ -7,29 +7,34 @@
 
 ## use
 1. Make usre you have installed te neovim(just to find corresponding distribution's way)
-2. clone the repositories:
+2. Clone the repository:
 ```plaintext
 cd ~/.config
 git clone https://github.com/aklk1ng/nvim.git
 ```
-3. start your neovim and exec the next command
+3. Start your neovim and exec the next command
 ```plaintext
 :PackerInstall
 ```
-4. now waiting to download
+4. Now waiting to download
+5. If you want change something,just remember to exec
+```plaintext
+:PackerSync
+```
+6. Ok,that's all.And welcome you change or replace my plugins or configuration
 ## File tree
+
 ```dir
-├── coc-settings.json
-├── colors
+├── colors                          --some color theme and makrdown format
 │   ├── markdown.css
 │   ├── onedark.vim
 │   └── solarized8_high.vim
-├── init.lua
+├── init.lua                        --like the main function in cpp/c to load my config files
 ├── lua
-│   ├── G.lua
-│   ├── macos.lua
-│   ├── mapping.lua
-│   ├── pack
+│   ├── G.lua                       --my options prefix configuration
+│   ├── macos.lua                   --a file for macos config(maybe i will use it in the furture)
+│   ├── mapping.lua                 --my major mappings in my neovim,others are in the corresponding plugin file in the pack folder
+│   ├── pack                        --all my plugin config
 │   │   ├── alpha.lua
 │   │   ├── alternate-toggle.lua
 │   │   ├── autopairs.lua
@@ -56,11 +61,11 @@ git clone https://github.com/aklk1ng/nvim.git
 │   │   ├── telescope.lua
 │   │   ├── treesitter.lua
 │   │   └── vim-visual-multi.lua
-│   ├── packer-init.lua
-│   ├── profile.lua
-│   ├── snippets
-│   └── windows.lua
+│   ├── packer-init.lua             --the plugin manager and i list all my plugin in this file
+│   ├── profile.lua                 --my neovim options major configuration
+│   ├── snippets                    --now it is empty(although i think the snippets are not comfortable for me,but i can change a another way to use it)
+│   └── windows.lua                 --a file for windows config(though i haven't use)
 ├── plugin
-│   └── packer_compiled.lua
+│   └── packer_compiled.lua         --the packer's complite file,i ignore it because it's unique to each user and chang frequently if you use the update command frequently
 └── README.md
 ```
