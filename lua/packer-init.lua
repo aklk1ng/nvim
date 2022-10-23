@@ -109,8 +109,9 @@ require('packer').startup({
         --delete a VIM buffer in VIM without closing the window
         use 'rbgrouleff/bclose.vim'
 
-        --windline
-        use { 'windwp/windline.nvim', config = "require('pack.windline')" }
+        --luaine
+        use { 'nvim-lualine/lualine.nvim', config = "require('pack.lualine')" , requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
+
         --scolling
         use { 'declancm/cinnamon.nvim', config = function() require('cinnamon').setup() end }
 
