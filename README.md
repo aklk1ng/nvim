@@ -1,7 +1,7 @@
 <!-- vim-markdown-toc GFM -->
 
 * [use](#use)
-* [Filetree(this maybe isn't correct beacause the file tree is complex to change the format)](#filetreethis-maybe-isnt-correct-beacause-the-file-tree-is-complex-to-change-the-format)
+* [File tree(this maybe isn't correct beacause the file tree is complex to change the format)](#file-treethis-maybe-isnt-correct-beacause-the-file-tree-is-complex-to-change-the-format)
 
 <!-- vim-markdown-toc -->
 
@@ -22,7 +22,8 @@ git clone https://github.com/aklk1ng/nvim.git
 :PackerSync
 ```
 6. Ok,that's all.And welcome you change or replace my plugins or configuration
-## Filetree(this maybe isn't correct beacause the file tree is complex to change the format)
+## File tree(this maybe isn't correct beacause the file tree is complex to change the format)
+***This maybe isn't correct beacause the file tree is complex to change the format*!**
 
 ```dir
 ├── colors                          --some color theme and makrdown format
