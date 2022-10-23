@@ -1,9 +1,7 @@
--- 保存本地变量
 local G = require('G')
 local map = G.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
--- 之后就可以这样映射按键了
 -- map('模式','按键','映射为XX',opt)
 map("n", "W", ":write<CR>", opt)
 map("n", "Q", ":q<CR>", opt)
@@ -96,7 +94,7 @@ map("n", "fk", ":Telescope keymaps<CR>", opt) --查找键盘映射
 map("n", "fw", ":Telescope live_grep<CR>", opt) --查找当前目录的字符串
 
 --fzf
-map("n", "fz", ":FZF<CR>", opt) --列出当前工作目录中的文件
+map("n", "fz", ":FZF<CR>", opt) --fuzzy finder
 
 --alternate(逻辑取反)
 map("n", "ta", ":ToggleAlternate<CR>", opt)

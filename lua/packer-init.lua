@@ -1,7 +1,8 @@
+--make sure to download the packer automatically
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    -- local compiled_path = fn.stdpath('config')..'/plugin/packer_compiled.lua'
+    local compiled_path = fn.stdpath('config')..'/plugin/packer_compiled.lua'
     if fn.empty(fn.glob(install_path)) > 0 then
         print('Installing packer.nvim...')
         fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
@@ -15,7 +16,7 @@ local packer_bootstrap = ensure_packer()
 require('packer').startup({
     function(use)
         use { 'wbthomason/packer.nvim' }
-        -- 启动时间分析
+        -- startup time analysis
         use({ "dstein64/vim-startuptime" })
         -- neosolarized
         use {
@@ -23,7 +24,7 @@ require('packer').startup({
             requires = { 'tjdevries/colorbuddy.nvim' },
             config = "require('pack/neosolarized')"
         }
-        --alpha
+        --alpha(the start page)
         use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha')" }
         --lspsaga
         use({ "glepnir/lspsaga.nvim", branch = "main", config = "require('pack.lspsaga')"})
@@ -60,7 +61,7 @@ require('packer').startup({
         use { 'gcmt/wildfire.vim' }
         --cursor movement
         use { 'easymotion/vim-easymotion' }
-        -- 多光标插件
+        -- multi cursor
         require('pack.vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
         use { 'rmagatti/alternate-toggler', config = "require('pack.alternate-toggle')" }
@@ -95,13 +96,13 @@ require('packer').startup({
             requires = 'kyazdani42/nvim-web-devicons' }
         use 'famiu/bufdelete.nvim'
 
-        -- markdown预览插件 导航生成插件(toc)
+        -- markdown preview and toc
         require('pack.markdown').config()
         use { 'mzlogin/vim-markdown-toc' }
         use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown' })
         use { 'dhruvasagar/vim-table-mode' }
 
-        -- 文件管理器
+        -- file explorer
         use { 'kyazdani42/nvim-tree.lua', config = "require('pack.nvim-tree')",
             cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' }, }
         --ranegr
@@ -118,7 +119,7 @@ require('packer').startup({
         use { 'yaocccc/nvim-hlchunk' } -- 高亮{}范围
         use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' } -- 退出输入模式时自动切换到英文
     end,
-    --设置以浮动窗口的形式下载插件
+    --set up to download plugins as a floating window
     config = {
         git = { clone_timeout = 120 },
         display = {
