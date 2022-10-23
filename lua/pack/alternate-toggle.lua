@@ -5,6 +5,7 @@ local default_table = {
   ["True"] = "False",
   ["TRUE"] = "FALSE",
   ["Yes"] = "No",
+  ["yes"] = "no",
   ["YES"] = "NO",
   ["1"] = "0",
   ["<"] = ">",
