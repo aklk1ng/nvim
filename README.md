@@ -23,6 +23,7 @@ git clone https://github.com/aklk1ng/nvim.git
 ```
 6. Ok,that's all.And welcome you change or replace my plugins or configuration
 ## File tree(this maybe isn't correct beacause the file tree is complex to change the format)
+
 ***This maybe isn't correct beacause the file tree is complex to change the format*!**
 
 ```dir
