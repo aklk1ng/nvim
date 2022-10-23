@@ -103,8 +103,7 @@ require('packer').startup({
         use { 'dhruvasagar/vim-table-mode' }
 
         -- file explorer
-        use { 'kyazdani42/nvim-tree.lua', config = "require('pack.nvim-tree')",
-            cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, required = { 'kyazdani42/nvim-web-devicons' }, }
+        use { 'nvim-tree/nvim-tree.lua', config = "require('pack.nvim-tree')", required = { 'kyazdani42/nvim-web-devicons' }, }
         --ranegr
         use 'francoiscabrol/ranger.vim'
         --delete a VIM buffer in VIM without closing the window
