@@ -66,6 +66,7 @@ require('packer').startup({
         use { 'rmagatti/alternate-toggler', config = "require('pack.alternate-toggle')" }
         use { 'preservim/tagbar' }
         use { 'lewis6991/gitsigns.nvim', config = "require('pack.gitsigns')" }
+        use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
         use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.dap')" }
 
         --telescope
