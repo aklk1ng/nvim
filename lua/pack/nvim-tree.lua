@@ -4,7 +4,7 @@ vim.opt_local.buftype = 'nofile'
 require'nvim-tree'.setup {
     -- 不显示 git 状态图标
     git = {
-        enable = false
+        enable = true
     },
     update_focused_file = { enable = true },
     view = {
