@@ -26,7 +26,7 @@ require('packer').startup({
         -- }
        
         --tokyonight
-        use { 'folke/tokyonight.nvim', config = function() require('pack.tokyonight') vim.cmd("colorscheme tokyonight") end,}
+        use { 'aklk1ng/tokyonight', config = function() require('pack.tokyonight') vim.cmd("colorscheme tokyonight") end,}
         
         --alpha(the start page)
         use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha')" }
