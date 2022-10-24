@@ -1,7 +1,7 @@
-require('profile')
-require('mapping')
 require('packer-init')
 require('pack.lsp.setup')
+require('profile')
+require('mapping')
 
 local has = vim.fn.has
 local is_mac = has "macunix"

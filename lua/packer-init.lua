@@ -19,11 +19,15 @@ require('packer').startup({
         -- startup time analysis
         use({ "dstein64/vim-startuptime" })
         -- neosolarized
-        use {
-            'svrana/neosolarized.nvim',
-            requires = { 'tjdevries/colorbuddy.nvim' },
-            config = "require('pack/neosolarized')"
-        }
+        -- use {
+        --     'svrana/neosolarized.nvim',
+        --     requires = { 'tjdevries/colorbuddy.nvim' },
+        --     config = "require('pack/neosolarized')"
+        -- }
+       
+        --tokyonight
+        use { 'folke/tokyonight.nvim', config = function() require('pack.tokyonight') vim.cmd("colorscheme tokyonight") end,}
+        
         --alpha(the start page)
         use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha')" }
         --lspsaga
@@ -37,8 +41,7 @@ require('packer').startup({
             config = function()
                 vim.notify = require("notify")
                 -- hardcoded background color
-                vim.notify.setup({ background_colour = "#282c34" })
-            end
+                vim.notify.setup({ background_colour = "#282c34" }) end
         })
 
         -- lspconfig,for telescope's lsp support

@@ -1,5 +1,7 @@
 local G = require('G')
 vim.g.mapleader = " "
+-- Lua
+-- vim.cmd[[colorscheme tokyonight-night]]
 -- Disable some default plugins
 vim.g.loaded_gzip = 1
 vim.g.loaded_zip = 1
