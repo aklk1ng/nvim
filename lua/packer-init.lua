@@ -18,16 +18,12 @@ require('packer').startup({
         use { 'wbthomason/packer.nvim' }
         -- startup time analysis
         use({ "dstein64/vim-startuptime" })
-        -- neosolarized
-        -- use {
-        --     'svrana/neosolarized.nvim',
-        --     requires = { 'tjdevries/colorbuddy.nvim' },
-        --     config = "require('pack/neosolarized')"
-        -- }
        
         --tokyonight
-        use { 'aklk1ng/tokyonight', config = function() require('pack.tokyonight') vim.cmd("colorscheme tokyonight") end,}
+        -- use { 'aklk1ng/tokyonight', config = function() require('pack.tokyonight') vim.cmd("colorscheme tokyonight") end,}
         
+        use {'rmehri01/onenord.nvim', config = function() require('pack.onenord') vim.cmd("colorscheme onenord") end,}
+
         --alpha(the start page)
         use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha')" }
         --lspsaga
