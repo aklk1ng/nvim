@@ -18,9 +18,6 @@ require('packer').startup({
         use { 'wbthomason/packer.nvim' }
         -- startup time analysis
         use({ "dstein64/vim-startuptime" })
-       
-        --tokyonight
-        -- use { 'aklk1ng/tokyonight', config = function() require('pack.tokyonight') vim.cmd("colorscheme tokyonight") end,}
         
         use {'rmehri01/onenord.nvim', config = function() require('pack.onenord') vim.cmd("colorscheme onenord") end,}
 
