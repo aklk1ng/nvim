@@ -18,8 +18,11 @@ require('packer').startup({
         use { 'wbthomason/packer.nvim' }
         -- startup time analysis
         use({ "dstein64/vim-startuptime" })
-        
-        use {'rmehri01/onenord.nvim', config = function() require('pack.onenord') vim.cmd("colorscheme onenord") end,}
+
+        use {"olimorris/onedarkpro.nvim", config = function ()
+            require('pack.onedarkpro')
+            vim.cmd("colorscheme onedarkpro")
+        end}
 
         --alpha(the start page)
         use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha')" }
@@ -130,3 +133,4 @@ require('packer').startup({
 if packer_bootstrap then
     require('packer').sync()
 end
+
