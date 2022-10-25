@@ -21,7 +21,11 @@ git clone https://github.com/aklk1ng/nvim.git
 ```plaintext
 :PackerSync
 ```
-6. Ok,that's all.And welcome you change or replace my plugins or configuration
+6. Ok,that's all.And welcome you change or replace my plugins or configuration.
+***Last but not least, if you find something wrong,try to complite the packer.lua file.You may find the problem disappear.***
+```plaintext
+:packer_compiled
+```
 ## File tree(this maybe isn't correct beacause the file tree is complex to change the format)
 
 ***This maybe isn't correct beacause the file tree is complex to change the format*!**
