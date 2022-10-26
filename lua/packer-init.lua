@@ -67,7 +67,7 @@ require('packer').startup({
         use { 'preservim/tagbar' }
         use { 'lewis6991/gitsigns.nvim'}
         use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
-        use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.dap')" }
+        use { "rcarriga/nvim-dap-ui", requires = {{ "mfussenegger/nvim-dap" },{ "theHamsta/nvim-dap-virtual-text" }}, config = "require('pack.dap')" }
 
         --telescope
         use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0',
