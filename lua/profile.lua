@@ -1,21 +1,5 @@
 local G = require('G')
 vim.g.mapleader = " "
--- Lua
--- vim.cmd[[colorscheme tokyonight-night]]
--- Disable some default plugins
-vim.g.loaded_gzip = 1
-vim.g.loaded_zip = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_tar = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_getscript = 1
-vim.g.loaded_getscriptPlugin = 1
-vim.g.loaded_2html_plugin = 1
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_netrwSettings = 1
-
 -- Split to the right in vsplit
 vim.o.splitright = true
 -- Split to the bottom in split
@@ -24,8 +8,7 @@ vim.o.splitbelow = true
 vim.o.writebackup = false
 vim.o.termguicolors = true
 vim.o.tabstop = 5
-vim.o.shiftwidth = 4
-vim.o.softtabstop = 4
+vim.o.shiftwidth = 4 vim.o.softtabstop = 4
 vim.o.smartindent = true
 vim.o.expandtab = true
 -- Show line number
