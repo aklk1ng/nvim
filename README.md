@@ -12,19 +12,12 @@
 cd ~/.config
 git clone https://github.com/aklk1ng/nvim.git
 ```
-3. Start your neovim and exec the next command
-```plaintext
-:PackerInstall
-```
+3. Start your neovim and if'will start download all plugins automatically
 4. Now waiting to download
-5. If you want change something,just remember to exec
-```plaintext
-:PackerSync
-```
-6. Ok,that's all.And welcome you change or replace my plugins or configuration.
+5. Ok,that's all.And welcome you change or replace my plugins or configuration.
 ***Last but not least, if you find something wrong,try to complite the packer.lua file.You may find the problem disappear.***
 ```plaintext
-:packer_compiled
+:PackerCompile
 ```
 ## File tree(this maybe isn't correct beacause the file tree is complex to change the format)
 
