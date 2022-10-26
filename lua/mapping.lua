@@ -48,6 +48,9 @@ map("n", "<leader>d", ":bdelete<CR>", opt)
 --markdonw
 map("n", "<leader>m", ":MarkdownPreview<CR>", opt)
 map("n", "<leader>tm", ":TableModeToggle<CR>", opt)
+--markdown-toc
+map("n", "tg", ":GenTocGFM<CR>", opt)
+map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 
 --ranger
 G.cmd([[
@@ -61,10 +64,6 @@ G.cmd([[
      let g:tagbar_width = 45
 ]])
 map("n", "tt", ":TagbarToggle<CR>", opt)
-
---markdown-toc
-map("n", "tg", ":GenTocGFM<CR>", opt)
-map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 
 --easymoton
 map("n", "<leader>w", "<Plug>(easymotion-overwin-w)", opt)
