@@ -3,8 +3,8 @@ local npairs = require('nvim-autopairs')
 local cond = require('nvim-autopairs.conds')
 local Rule = require('nvim-autopairs.rule')
 require('nvim-autopairs').setup{
-    npairs.add_rule(Rule("$$","$$","tex"))
-    print(vim.inspect(cond))
+    npairs.add_rule(Rule("$$","$$","tex")),
+    print(vim.inspect(cond)),
 
     npairs.add_rules({
         Rule("$", "$",{"tex", "latex"})
@@ -18,10 +18,10 @@ require('nvim-autopairs').setup{
             :with_del(cond.not_after_regex("xx"))
             -- disable adding a newline when you press <cr>
             :with_cr(cond.none())
-    },
+    }
         -- disable for .vim files, but it work for another filetypes
         -- Rule("a","a","-vim")
-    )
+    ),
 
     npairs.add_rules({
         Rule("$$","$$","tex")
@@ -32,14 +32,14 @@ require('nvim-autopairs').setup{
                     return false
                 end
             end)
-    })
+    }),
 
     -- you can use regex
     -- press u1234 => u1234number
     npairs.add_rules({
         Rule("u%d%d%d%d$", "number", "lua")
             :use_regex(true)
-    })
+    }),
 
     -- press x1234 => x12341234
     npairs.add_rules({
@@ -49,7 +49,7 @@ require('nvim-autopairs').setup{
                 -- print(vim.inspect(opts))
                 return opts.prev_char:sub(#opts.prev_char - 3,#opts.prev_char)
             end)
-    })
+    }),
 
     -- you can do anything with regex +special key
     -- example press tab to uppercase text:
@@ -63,7 +63,7 @@ require('nvim-autopairs').setup{
                     opts.prev_char:sub(#opts.prev_char - 4,#opts.prev_char)
                     .."<esc>viwU"
             end)
-    })
+    }),
 
     -- you can exclude filetypes
     npairs.add_rule(

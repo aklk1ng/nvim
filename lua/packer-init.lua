@@ -90,7 +90,9 @@ require('packer').startup({
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-autopairs" }
         --colorizer(highlight the color)
-        use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')" }
+        use { 'NvChad/nvim-colorizer.lua', config = function ()
+            require'colorizer'.setup()
+        end}
 
         --bufferline
         use { 'akinsho/bufferline.nvim', config = "require('pack.bufferline')", tag = "v2.*",
