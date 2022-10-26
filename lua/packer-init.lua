@@ -30,7 +30,6 @@ require('packer').startup({
         use({ "glepnir/lspsaga.nvim", branch = "main", config = "require('pack.lspsaga')"})
         --null-ls
         use { 'jose-elias-alvarez/null-ls.nvim', config = "require('pack.null-ls')" } -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
-
         -- notification manager
         use({
             "rcarriga/nvim-notify",
@@ -42,7 +41,6 @@ require('packer').startup({
 
         -- lspconfig,for telescope's lsp support
         use { 'neovim/nvim-lspconfig' }
-
         -- nvim-cmp
         use 'hrsh7th/cmp-nvim-lsp' -- { name = nvim_lsp }
         use 'hrsh7th/cmp-buffer' -- { name = 'buffer' },
