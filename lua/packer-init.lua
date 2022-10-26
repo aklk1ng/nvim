@@ -19,7 +19,7 @@ require('packer').startup({
         -- startup time analysis
         use({ "dstein64/vim-startuptime" })
 
-        use {"olimorris/onedarkpro.nvim", config = function ()
+        use {"aklk1ng/onedarkpro", config = function ()
             require('pack.onedarkpro')
             vim.cmd("colorscheme onedarkpro")
         end}
