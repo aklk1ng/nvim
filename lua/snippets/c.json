@@ -97,13 +97,6 @@
         "body": ["#define $0"],
         "description": "Code snippet for #define \" \""
     },
-    "func": {
-        "prefix": "func",
-        "body": ["${1:void} ${2:function} (${3:arg1}, ${4:arg2}) {",
-            "\t$0",
-            "}"],
-        "description": "Template for function"
-    },
     "Main function template": {
         "prefix": "main",
         "body": [
@@ -161,7 +154,7 @@
     },
     "Create a function": {
         "prefix": "func",
-        "body": ["${2:void} ${1:func}(${4:void})", "{", "\t$3", "}"],
+        "body": ["${2:void} ${1:func}(${3:void})", "{", "\t$4", "}"],
         "description": "Creates a function"
     },
     "Create int function": {

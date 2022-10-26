@@ -1,7 +1,7 @@
 local cmp = require'cmp'
 local lspkind = require'lspkind'
 local luasnip = require'luasnip'
-require("luasnip.loaders.from_vscode").lazy_load({ path = { "../snippets" }})
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/" }})
 cmp.setup({
     snippet = {
         expand = function(args)
