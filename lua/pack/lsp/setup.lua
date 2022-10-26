@@ -44,6 +44,10 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 
 --activate language clients
 require'lspconfig'.clangd.setup{
@@ -54,6 +58,12 @@ require'lspconfig'.jedi_language_server.setup{
 }
 require'lspconfig'.bashls.setup{
     on_attach = on_attach,
+}
+require'lspconfig'.cmake.setup{
+    on_attach = on_attach,
+}
+require'lspconfig'.jsonls.setup {
+  capabilities = capabilities,
 }
 require'lspconfig'.html.setup{
     on_attach = on_attach,
