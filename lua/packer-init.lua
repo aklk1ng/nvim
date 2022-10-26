@@ -65,7 +65,9 @@ require('packer').startup({
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
         use { 'rmagatti/alternate-toggler', config = "require('pack.alternate-toggle')" }
         use { 'preservim/tagbar' }
-        use { 'lewis6991/gitsigns.nvim'}
+        use { 'lewis6991/gitsigns.nvim',  config = function()
+            require('gitsigns').setup()
+        end}
         use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
         use { "rcarriga/nvim-dap-ui", requires = {{ "mfussenegger/nvim-dap" },{ "theHamsta/nvim-dap-virtual-text" }}, config = "require('pack.dap')" }
 
