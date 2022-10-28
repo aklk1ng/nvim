@@ -6,10 +6,6 @@ telescope.setup({
         borderchars = { "═", "║", "═", "║", "╔", "╗", "╝", "╚" },
     },
     extensions = {
-        media_files = {
-            filetypes = { "png", "webp", "jpg", "jpeg", "mp4", "mp3" },
-            find_cmd = "rg",-- sudo pacman -S ripgrep
-        },
         fzf = {
             fuzzy = true,                    -- false will only do exact matching
             override_generic_sorter = true,  -- override the generic sorter
@@ -42,7 +38,6 @@ telescope.setup({
     },
 })
 
-telescope.load_extension('media_files')
 telescope.load_extension('fzf')
 telescope.load_extension("file_browser")
 telescope.load_extension('vim_bookmarks')
