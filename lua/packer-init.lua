@@ -28,7 +28,7 @@ require('packer').startup({
         --lspsaga
         use({ "glepnir/lspsaga.nvim", branch = "main", config = "require('pack.lspsaga')"})
         --null-ls
-        use { 'jose-elias-alvarez/null-ls.nvim', config = "require('pack.null-ls')" } -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
+        -- use { 'jose-elias-alvarez/null-ls.nvim', config = "require('pack.null-ls')" } -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
         -- notification manager
         use({
             "rcarriga/nvim-notify",
