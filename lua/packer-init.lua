@@ -62,7 +62,7 @@ require('packer').startup({
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
         use { 'rmagatti/alternate-toggler', config = "require('pack.alternate-toggle')" }
         use { 'preservim/tagbar' }
-        use { 'lewis6991/gitsigns.nvim',  config = function()
+        use { 'lewis6991/gitsigns.nvim',tag ="v0.5", config = function()
             require('gitsigns').setup()
         end}
         use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
