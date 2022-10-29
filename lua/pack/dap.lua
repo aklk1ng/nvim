@@ -107,8 +107,6 @@ dap.configurations.cpp = {
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
     args = {},
-
-    -- 💀
     -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
     --
     --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
@@ -126,13 +124,20 @@ dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
 dap.configurations.python = {
-    {
-        type = "python",
-        request = "launch",
-        name = "Launch file",
-        program = "${file}",
-        pythonPath = function()
-            return "/usr/bin/python"
-        end,
-    },
+  {
+    type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
+    request = 'launch';
+    name = "Launch file";
+    program = "${file}"; -- This configuration will launch the current file if used.
+    pythonPath = function()
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+        return cwd .. '/venv/bin/python'
+      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+        return cwd .. '/.venv/bin/python'
+      else
+        return '/usr/bin/python'
+      end
+    end;
+  },
 }
