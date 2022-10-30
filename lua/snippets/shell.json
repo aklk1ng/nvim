@@ -1,7 +1,7 @@
 {
   "bash": {
     "prefix": ["bash", "#!", "shebang"],
-    "body": "${1|#!/bin/bash,#!/usr/bin/env bash,#!/bin/sh,#!/usr/bin/env sh|}\n",
+    "body": "${1|#! /bin/bash,#! /usr/bin/env bash,#! /bin/sh,#! /usr/bin/env sh|}\n",
     "description": [
       "Option 1:\n",
       "#!/bin/bash\n",
