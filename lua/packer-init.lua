@@ -67,6 +67,7 @@ require('packer').startup({
         end}
         use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
         use { "rcarriga/nvim-dap-ui", requires = {{ "mfussenegger/nvim-dap" },{ "theHamsta/nvim-dap-virtual-text" }}, config = "require('pack.dap')" }
+        use 'voldikss/vim-floaterm'
 
         --telescope
         use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0',
