@@ -25,7 +25,6 @@ function M.setup()
             'jsx',
             'rescript',
             'xml',
-            'lua',
             'php',
             'markdown',
             'glimmer','handlebars','hbs'
