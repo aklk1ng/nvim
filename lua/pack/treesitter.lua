@@ -13,7 +13,7 @@ function M.setup()
             max_file_lines = nil,
         },
         autopairs = { enable = true },
-        autotag = { enable = true, filetypes = { "html" , "xml" } },
+        autotag = { enable = true, filetypes = { "html" , "xml", "lua" } },
         indent = { enable = true },
     }
 end

@@ -16,7 +16,7 @@ local packer_bootstrap = ensure_packer()
 require('packer').startup({
     function(use)
         use { 'wbthomason/packer.nvim' }
-        -- startup time analysis
+        -- startup time analysis 
         use({ "dstein64/vim-startuptime" })
 
         use {"aklk1ng/onedarkpro", config = function ()
@@ -86,9 +86,7 @@ require('packer').startup({
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-autopairs" }
         --colorizer(highlight the color)
-        use { 'NvChad/nvim-colorizer.lua', config = function ()
-            require'colorizer'.setup()
-        end}
+        use { 'NvChad/nvim-colorizer.lua', require'colorizer'.setup()}
 
         --bufferline
         use { 'akinsho/bufferline.nvim', config = "require('pack.bufferline')", tag = "v2.*",
