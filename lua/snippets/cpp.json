@@ -163,6 +163,11 @@
         "body": ["struct ${1:MyStruct}", "{", "\t$0", "};"],
         "description": "Code snippet for struct"
     },
+    "typedef struct": {
+        "prefix": "structt",
+        "body": ["typedef struct {", "\t$0", "} ${1:MyStruct};"],
+        "description": "Code snippet to define a type with struct"
+    },
     "switch": {
         "prefix": "switch",
         "body": ["switch (${1:switch_on}) {", "\tdefault:", "\t\t$0", "\t\tbreak;", "}"],
