@@ -4,7 +4,7 @@
 * [File tree(this maybe isn't correct beacause the file tree is complex to change the format)](#file-treethis-maybe-isnt-correct-beacause-the-file-tree-is-complex-to-change-the-format)
 
 <!-- vim-markdown-toc -->
-![screenshot](./2022-10-31_21-45.png)
+![screenshot](./2022-10-31_21-57.png)
 ## use
 1. Make usre you have installed te neovim(just to find corresponding distribution's way)
 2. Clone the repository:
