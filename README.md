@@ -21,7 +21,7 @@ git clone https://github.com/aklk1ng/nvim.git
 ```
 ## File tree(this maybe isn't correct beacause the file tree is complex to change the format)
 
-***This maybe isn't correct beacause the file tree is complex to change the format*!**
+***This maybe isn't correct beacause the file tree is complex to change the format!***
 
 ```dir
 ├── colors                          --some color theme and makrdown format
