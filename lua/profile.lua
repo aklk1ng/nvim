@@ -90,3 +90,6 @@ vim.cmd([[
     set clipboard=unnamed
     set clipboard+=unnamedplus
 ]])
+G.cmd([[
+    let g:python3_host_prog = $PYTHON
+]])
