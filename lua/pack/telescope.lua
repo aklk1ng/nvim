@@ -19,7 +19,6 @@ telescope.setup({
             -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
             mappings = {
-                -- your custom insert mode mappings
                 ["i"] = {
                     ["<C-w>"] = function() vim.cmd('normal vbd') end,
                 },
