@@ -99,7 +99,8 @@ require('packer').startup({
         -- markdown preview and toc
         require('pack.markdown').config()
         use { 'mzlogin/vim-markdown-toc' }
-        use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown' })
+        --use nodejs and yarn to build this plugin(make sure you have installed them)
+        use { "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown' }
         use { 'dhruvasagar/vim-table-mode' }
 
         -- file explorer
