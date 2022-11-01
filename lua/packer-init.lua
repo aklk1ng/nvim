@@ -37,7 +37,16 @@ require('packer').startup({
         })
 
         -- lspconfig,for telescope's lsp support
-        use { 'neovim/nvim-lspconfig' }
+        use {
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            require("mason").setup(),
+            require("mason-lspconfig").setup({
+                automatic_installation = true,
+            })
+            -- config = "require('pack.lspconfig')"
+        }
+        use {"neovim/nvim-lspconfig"}
         -- nvim-cmp
         use 'hrsh7th/cmp-nvim-lsp' -- { name = nvim_lsp }
         use 'hrsh7th/cmp-buffer' -- { name = 'buffer' },
