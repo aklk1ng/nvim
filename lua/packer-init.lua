@@ -35,17 +35,13 @@ require('packer').startup({
                 -- hardcoded background color
                 vim.notify.setup({ background_colour = "#282c34" }) end
         })
-
-        -- lspconfig,for telescope's lsp support
         use {
             "williamboman/mason.nvim",
-            "williamboman/mason-lspconfig.nvim",
-            -- require("mason").setup(),
-            -- require("mason-lspconfig").setup({
-            --     automatic_installation = true,
-            -- })
-            require('pack.lspconfig')
+            "mfussenegger/nvim-dap",
+            "jayp0521/mason-nvim-dap.nvim",
         }
+
+        -- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig"}
         -- nvim-cmp
         use 'hrsh7th/cmp-nvim-lsp' -- { name = nvim_lsp }

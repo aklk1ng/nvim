@@ -1,26 +1,17 @@
 require("mason").setup({
     PATH = "prepend",
     pip = {
-        -- These args will be added to `pip install` calls. Note that setting extra args might impact intended behavior
-        -- and is not recommended.
-        --
         -- Example: { "--proxy", "https://proxyserver" }
         install_args = {},
     },
     log_level = vim.log.levels.INFO,
     max_concurrent_installers = 4,
     github = {
-        -- The template URL to use when downloading assets from GitHub.
-        -- The placeholders are the following (in order):
-        -- 1. The repository (e.g. "rust-lang/rust-analyzer")
-        -- 2. The release version (e.g. "v0.3.0")
-        -- 3. The asset name (e.g. "rust-analyzer-v0.3.0-x86_64-unknown-linux-gnu.tar.gz")
         download_url_template = "https://github.com/%s/releases/download/%s/%s",
     },
     providers = {
         "mason.providers.registry-api",
     },
-
     ui = {
         check_outdated_packages_on_open = true,
         border = "none",
@@ -50,6 +41,7 @@ require("mason").setup({
         },
     }
 })
-require("mason-lspconfig").setup({
-    automatic_installation = true,
+
+require("mason-nvim-dap").setup({
+    ensure_installed = { "python", "cppdbg", "chrome" }
 })
