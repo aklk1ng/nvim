@@ -40,11 +40,11 @@ require('packer').startup({
         use {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            require("mason").setup(),
-            require("mason-lspconfig").setup({
-                automatic_installation = true,
-            })
-            -- config = "require('pack.lspconfig')"
+            -- require("mason").setup(),
+            -- require("mason-lspconfig").setup({
+            --     automatic_installation = true,
+            -- })
+            require('pack.lspconfig')
         }
         use {"neovim/nvim-lspconfig"}
         -- nvim-cmp
