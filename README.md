@@ -1,11 +1,11 @@
 <!-- vim-markdown-toc GFM -->
 
-* [use](#use)
-* [File tree(this maybe isn't correct beacause the file tree is complex to change the format)](#file-treethis-maybe-isnt-correct-beacause-the-file-tree-is-complex-to-change-the-format)
+* [use(I using the archlinux so i directly download language severs by pacman,if you can't,use the mason plugin to install them and let them work)](#usei-using-the-archlinux-so-i-directly-download-language-severs-by-pacmanif-you-cantuse-the-mason-plugin-to-install-them-and-let-them-work)
+* [File tree( the file tree is complex to change the format)](#file-tree-the-file-tree-is-complex-to-change-the-format)
 
 <!-- vim-markdown-toc -->
 ![screenshot](./2022-10-31_21-57.png)
-## use
+## use(I using the archlinux so i directly download language severs by pacman,if you can't,use the mason plugin to install them and let them work)
 1. Make usre you have installed te neovim(just to find corresponding distribution's way)
 2. Clone the repository:
 ```plaintext
@@ -15,13 +15,13 @@ git clone https://github.com/aklk1ng/nvim.git
 3. Start your neovim and if'will start download all plugins automatically
 4. Now waiting to download
 5. Ok,that's all.And welcome you change or replace my plugins or configuration.
-***Last but not least, if you find something wrong,try to complite the packer.lua file.You may find the problem disappear.***
+***Last but not least, if you find something wrong,try to complite the packer.lua file.You may find the problem disappear(if this isn't useful, try to read the woring message or delete the packer_compiled file)***
 ```plaintext
 :PackerCompile
 ```
-## File tree(this maybe isn't correct beacause the file tree is complex to change the format)
+## File tree( the file tree is complex to change the format)
 
-***This maybe isn't correct beacause the file tree is complex to change the format!***
+***This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!***
 
 ```dir
 ├── colors                          --some color theme and makrdown format
