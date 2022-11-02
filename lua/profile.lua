@@ -17,8 +17,6 @@ vim.o.relativenumber = false
 vim.o.cursorline = true
 -- Display long text in one line
 vim.o.wrap = false
--- Do not fold on default
-vim.o.foldenable = false
 -- Add scrolloff for better zt/zb
 vim.o.scrolloff = 5
 -- Show sign column (e.g. lsp Error sign)

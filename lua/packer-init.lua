@@ -17,7 +17,7 @@ require('packer').startup({
     function(use)
         use { 'wbthomason/packer.nvim' }
         -- startup time analysis 
-        use({ "dstein64/vim-startuptime" })
+        use({ "dstein64/vim-startuptime", cmd = 'StartupTime' })
 
         use {"aklk1ng/onedarkpro", config = function ()
             vim.cmd("colorscheme onedarkpro")
@@ -35,6 +35,7 @@ require('packer').startup({
                 -- hardcoded background color
                 vim.notify.setup({ background_colour = "#282c34" }) end
         })
+        --provide another way to download language servers and deguggers if you can' download them easily
         use {
             "williamboman/mason.nvim",
             "mfussenegger/nvim-dap",
@@ -43,7 +44,7 @@ require('packer').startup({
 
         -- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig"}
-        -- nvim-cmp
+        -- nvim-cmp 
         use 'hrsh7th/cmp-nvim-lsp' -- { name = nvim_lsp }
         use 'hrsh7th/cmp-buffer' -- { name = 'buffer' },
         use 'hrsh7th/cmp-path' -- { name = 'path' }
@@ -53,7 +54,7 @@ require('packer').startup({
         use { 'L3MON4D3/LuaSnip' }
         use { "rafamadriz/friendly-snippets" }
         use { 'saadparwaiz1/cmp_luasnip' }
-        use { "onsails/lspkind.nvim" }
+        use { "onsails/lspkind.nvim"}
 
         use { 'tpope/vim-commentary' }
         use { 'tpope/vim-surround' }
@@ -89,7 +90,7 @@ require('packer').startup({
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-autopairs" }
         --colorizer(highlight the color)
-        use { 'NvChad/nvim-colorizer.lua', require'colorizer'.setup()}
+        use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')"}
 
         --bufferline
         use { 'akinsho/bufferline.nvim', config = "require('pack.bufferline')", tag = "v2.*",
@@ -98,15 +99,15 @@ require('packer').startup({
 
         -- markdown preview and toc
         require('pack.markdown').config()
-        use { 'mzlogin/vim-markdown-toc' }
+        use { 'mzlogin/vim-markdown-toc', cmd = 'MarkdownPreview', ft = 'markdown' }
         --use nodejs and yarn to build this plugin(make sure you have installed them)
         use { "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown' }
-        use { 'dhruvasagar/vim-table-mode' }
+        use { 'dhruvasagar/vim-table-mode' , cmd = 'MarkdownPreview', ft = 'markdown'}
 
         -- file explorer
-        use { 'nvim-tree/nvim-tree.lua', config = "require('pack.nvim-tree')", required = { 'kyazdani42/nvim-web-devicons' }, }
+        use { 'nvim-tree/nvim-tree.lua', config = "require('pack.nvim-tree')", cmd = "NvimTreeToggle", required = { 'kyazdani42/nvim-web-devicons' }, }
         --ranegr
-        use 'francoiscabrol/ranger.vim'
+        use { 'francoiscabrol/ranger.vim', cmd = 'Ranger' }
         --delete a VIM buffer in VIM without closing the window
         use 'rbgrouleff/bclose.vim'
 
@@ -117,7 +118,6 @@ require('packer').startup({
         use { 'declancm/cinnamon.nvim', config = function() require('cinnamon').setup() end }
 
         --highlight the word and find them efficient
-        use { 'lfv89/vim-interestingwords' }
         use { 'yaocccc/nvim-hlchunk' } -- 高亮{}范围
         use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' } -- 退出输入模式时自动切换到英文
     end,
