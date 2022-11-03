@@ -1,11 +1,14 @@
 <!-- vim-markdown-toc GFM -->
 
-* [use(I using the archlinux so i directly download language severs by pacman,if you can't,use the mason plugin to install them and let them work)](#usei-using-the-archlinux-so-i-directly-download-language-severs-by-pacmanif-you-cantuse-the-mason-plugin-to-install-them-and-let-them-work)
-* [File tree( the file tree is complex to change the format)](#file-tree-the-file-tree-is-complex-to-change-the-format)
+* [use](#use)
+  * [I using the archlinux so i directly download language severs by pacman,if you can't,use the mason plugin to install them and let them work](#i-using-the-archlinux-so-i-directly-download-language-severs-by-pacmanif-you-cantuse-the-mason-plugin-to-install-them-and-let-them-work)
+* [File tree](#file-tree)
+  * [This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!](#this-maybe-isnt-correct-because-i-will-change-or-update-my-plugins-and-config-but-the-file-tree-is-complex-to-change-the-format)
 
 <!-- vim-markdown-toc -->
 ![screenshot](./2022-10-31_21-57.png)
-## use(I using the archlinux so i directly download language severs by pacman,if you can't,use the mason plugin to install them and let them work)
+## use
+### I using the archlinux so i directly download language severs by pacman,if you can't,use the mason plugin to install them and let them work
 1. Make usre you have installed te neovim(just to find corresponding distribution's way)
 2. Clone the repository:
 ```plaintext
@@ -19,9 +22,8 @@ git clone https://github.com/aklk1ng/nvim.git
 ```plaintext
 :PackerCompile
 ```
-## File tree( the file tree is complex to change the format)
-
-***This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!***
+## File tree
+### This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!
 
 ```dir
 ├── colors                          --some color theme and makrdown format
