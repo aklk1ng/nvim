@@ -1,5 +1,6 @@
 local G = require('G')
 vim.g.mapleader = " "
+-- vim.cmd('colorscheme solarized8_high')
 -- Split to the right in vsplit
 vim.o.splitright = true
 -- Split to the bottom in split

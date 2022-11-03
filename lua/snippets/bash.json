@@ -1,0 +1,11 @@
+{
+   "func": {
+        "prefix": "func",
+        "body":[
+            "function ${1:name}() {",
+            "\t$0",
+            "}"
+        ],
+        "description": "The Shell's simple Function Template"
+    } 
+}
