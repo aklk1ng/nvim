@@ -28,8 +28,10 @@ map("n", "sj", "<C-w>j<CR>", opt)
 map("n", "sk", "<C-w>k<CR>", opt)
 map("n", "sl", "<C-w>l<CR>", opt)
 --resize split windows
-map("n", "<leader><left>", ":vertical resize+5<CR>", opt)
-map("n", "<leader><right>", ":vertical resize-5<CR> ", opt)
+map("n", "<leader>h", ":vertical resize+5<CR>", opt)
+map("n", "<leader>l", ":vertical resize-5<CR> ", opt)
+map("n", "<leader>j", ":resize-5<CR> ", opt)
+map("n", "<leader>k", ":resize+5<CR> ", opt)
 --packer
 map("n", "<leader><leader>i", ":PackerInstall<CR>", opt)
 map("n", "<leader><leader>d", ":PackerClean<CR>", opt)
