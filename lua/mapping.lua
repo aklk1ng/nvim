@@ -38,6 +38,12 @@ map("n", "<leader><leader>d", ":PackerClean<CR>", opt)
 map("n", "<leader><leader>s", ":PackerSync<CR>", opt)
 map("n", "<leader><leader>c", ":PackerCompile<CR>", opt)
 
+--wildfire
+--select the next closest text object
+map("n", "<ENTER>", "<Plug>(wildfire-fuel)", opt)
+--select the previous closest text object
+map("v",  "<SPACE-ENTER>", "<Plug>(wildfire-water)", opt)
+
 --nvim-tree
 map('n', '<leader>t', ':NvimTreeToggle<CR>', opt)
 map('n', 'tf', ':NvimTreeFocus<CR>', opt)
