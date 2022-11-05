@@ -19,6 +19,7 @@ require('packer').startup({
         -------------------- startup time analysis 
         use({ "dstein64/vim-startuptime", cmd = 'StartupTime' })
 
+        -------------------- my colorscheme,i change many styles with the normal onedarkpro theme
         use {"aklk1ng/onedarkpro", config = function ()
             vim.cmd("colorscheme onedarkpro")
         end}
