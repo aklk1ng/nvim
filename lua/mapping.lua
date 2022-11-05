@@ -38,12 +38,6 @@ map("n", "<leader><leader>d", ":PackerClean<CR>", opt)
 map("n", "<leader><leader>s", ":PackerSync<CR>", opt)
 map("n", "<leader><leader>c", ":PackerCompile<CR>", opt)
 
---wildfire
---select the next closest text object
-map("n", "<ENTER>", "<Plug>(wildfire-fuel)", opt)
---select the previous closest text object
-map("v",  "<SPACE-ENTER>", "<Plug>(wildfire-water)", opt)
-
 --nvim-tree
 map('n', '<leader>t', ':NvimTreeToggle<CR>', opt)
 map('n', 'tf', ':NvimTreeFocus<CR>', opt)
@@ -71,7 +65,7 @@ G.cmd([[
     silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 ]])
 
---tabgar
+--tabgar(a list of functions,variables,defines and so on)
 G.cmd([[
      let g:tagbar_width = 45
 ]])
@@ -92,11 +86,11 @@ map("n", "mC", ":BookmarkClearAll<CR>", opt)
 --telescope
 map("n", "fl", ":Telescope file_browser<CR>", opt) --列出当前工作目录中的目录及文件，非递归(与nvim-tree类似)
 map("n", "ff", ":Telescope find_files<CR>", opt) --列出当前工作目录中的文件
-map("n", "fb", ":Telescope buffers<CR>", opt) --列出当前neovim实例中打开的缓冲区
+map("n", "fb", ":Telescope buffers<CR>", opt) --列出当前打开的缓冲区
 map("n", "fc", ":Telescope command_history<CR>", opt) --查找命令历史
 map("n", "fo", ":Telescope oldfiles<CR>", opt) --查找文件历史
 map("n", "fm", ":Telescope vim_bookmarks current_file<CR>", opt) --显示当前文件标签
-map("n", "fM", ":Telescope vim_bookmarks all<CR>", opt) --查找工程所有的标签
+map("n", "fM", ":Telescope vim_bookmarks all<CR>", opt) --查找当前工程所有的标签
 map("n", "fs", ":Telescope lsp_document_symbols<CR>", opt) --查找当前文件所有的标识符
 map("n", "fS", ":Telescope lsp_workspace_symbols<CR>", opt) --查找当前工程所有的标识符
 map("n", "fd", ":Telescope diagnostics<CR>", opt) --查找当前工程所有的诊断信息
