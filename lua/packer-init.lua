@@ -109,7 +109,7 @@ require('packer').startup({
         use { 'nvim-tree/nvim-tree.lua', config = "require('pack.nvim-tree')", cmd = "NvimTreeToggle", required = { 'kyazdani42/nvim-web-devicons' }, }
         -------------------- ranegr
         use { 'francoiscabrol/ranger.vim', cmd = 'Ranger' }
-        --delete a VIM buffer in VIM without closing the window
+        --delete a VIM buffer in VIM automatically
         use 'rbgrouleff/bclose.vim'
 
         -------------------- luaine
