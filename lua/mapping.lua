@@ -8,17 +8,17 @@ map("n", "Q", ":q<CR>", opt)
 map("n", "<C-a>", "gg<S-v>G", opt)
 
 
--- . 与 ~ 作用在nvim中都是更改字母大小写
---find pair
+---------------------------- . 与 ~ 作用在nvim中都是更改字母大小写
+---------------------------- find pair
 map("n", ",.", "%", opt)
 
---open the nvim config file anytime
+---------------------------- open the nvim config file anytime
 map("n", "en", ":e ~/.config/nvim/lua/packer-init.lua<CR>", opt)
---cursor movement
+---------------------------- cursor movement
 map("n", "<C-i>", "<Home>", opt)
 map("n", "<C-p>", "<End>", opt)
 
---window touch and movement(now have some problems)
+---------------------------- window touch and movement(now have some problems)
 map("n", ";", "<C-w>w", opt)
 map("n", "te", ":tabedit<CR>", opt)
 map("n", "ss", ":split<CR>", opt)
@@ -27,34 +27,34 @@ map("n", "sh", "<C-w>h<CR>", opt)
 map("n", "sj", "<C-w>j<CR>", opt)
 map("n", "sk", "<C-w>k<CR>", opt)
 map("n", "sl", "<C-w>l<CR>", opt)
---resize split windows
+---------------------------- resize split windows
 map("n", "<leader>h", ":vertical resize+5<CR>", opt)
 map("n", "<leader>l", ":vertical resize-5<CR> ", opt)
 map("n", "<leader>j", ":resize-5<CR> ", opt)
 map("n", "<leader>k", ":resize+5<CR> ", opt)
---packer
+---------------------------- packer
 map("n", "<leader><leader>i", ":PackerInstall<CR>", opt)
 map("n", "<leader><leader>d", ":PackerClean<CR>", opt)
 map("n", "<leader><leader>s", ":PackerSync<CR>", opt)
 map("n", "<leader><leader>c", ":PackerCompile<CR>", opt)
 
---nvim-tree
+---------------------------- nvim-tree
 map('n', '<leader>t', ':NvimTreeToggle<CR>', opt)
 map('n', 'tf', ':NvimTreeFocus<CR>', opt)
 
--- bufferline
+---------------------------- bufferline
 map("n", "<leader>p", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<leader>n", ":BufferLineCycleNext<CR>", opt)
 map("n", "<leader>d", ":bdelete<CR>", opt)
 
---markdonw
+---------------------------- markdonw
 map("n", "<leader>m", ":MarkdownPreview<CR>", opt)
 map("n", "<leader>tm", ":TableModeToggle<CR>", opt)
---markdown-toc
+---------------------------- markdown-toc
 map("n", "tg", ":GenTocGFM<CR>", opt)
 map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 
---ranger
+---------------------------- ranger
 G.cmd([[
     let g:ranger_map_keys = 0
     let g:NERDTreeHijackNetrw = 0
@@ -65,17 +65,17 @@ G.cmd([[
     silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 ]])
 
---tabgar(a list of functions,variables,defines and so on)
+---------------------------- tabgar(a list of functions,variables,defines and so on)
 G.cmd([[
      let g:tagbar_width = 45
 ]])
 map("n", "tt", ":TagbarToggle<CR>", opt)
 
---easymoton
+---------------------------- easymoton
 map("n", "<leader>w", "<Plug>(easymotion-overwin-w)", opt)
 
 
---vim-bookmarks
+---------------------------- vim-bookmarks
 map("n", "mm", ":BookmarkToggle<CR>", opt)
 map("n", "mp", ":BookmarkPrev<CR>", opt)
 map("n", "mn", ":BookmarkNext<CR>", opt)
@@ -83,7 +83,7 @@ map("n", "ma", ":BookmarkShowAll<CR>", opt)
 map("n", "mc", ":BookmarkClear<CR>", opt)
 map("n", "mC", ":BookmarkClearAll<CR>", opt)
 
---telescope
+---------------------------- telescope
 map("n", "fl", ":Telescope file_browser<CR>", opt) --列出当前工作目录中的目录及文件，非递归(与nvim-tree类似)
 map("n", "ff", ":Telescope find_files<CR>", opt) --列出当前工作目录中的文件
 map("n", "fb", ":Telescope buffers<CR>", opt) --列出当前打开的缓冲区
@@ -97,18 +97,18 @@ map("n", "fd", ":Telescope diagnostics<CR>", opt) --查找当前工程所有的�
 map("n", "fk", ":Telescope keymaps<CR>", opt) --查找键盘映射
 map("n", "fw", ":Telescope live_grep<CR>", opt) --查找当前目录的字符串
 
---floaterm
+---------------------------- floaterm
 map("n", "fn", ":FloatermNew<CR>", opt) --open a terminal window
 map("n", "ft", ":FloatermKill<CR>", opt) --kill the terminal window
 
 
---fzf
+----------------------------- fzf
 map("n", "fz", ":FZF<CR>", opt) --fuzzy finder
 
---alternate(逻辑取反)
+---------------------------- alternate(逻辑取反)
 map("n", "ta", ":ToggleAlternate<CR>", opt)
 
---lazygit
+---------------------------- lazygit
 map("n", "lg", ":tabe<CR>:-tabmove<CR>:terminal lazygit<CR>", opt)
---lazynpm
+---------------------------- lazynpm
 map("n", "lnm", ":tabe<CR>:-tabmove<CR>:terminal lazynpm<CR>", opt)
