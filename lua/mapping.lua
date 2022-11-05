@@ -67,6 +67,10 @@ G.cmd([[
 ]])
 map("n", "ra", ":Ranger<CR>", opt)
 
+G.cmd([[ 
+    silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+]])
+
 --tabgar
 G.cmd([[
      let g:tagbar_width = 45

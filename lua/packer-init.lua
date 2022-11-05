@@ -59,6 +59,7 @@ require('packer').startup({
         -------------------- some useful plugins for coding
         use { 'tpope/vim-commentary' }
         use { 'tpope/vim-surround' }
+        use { 'tpope/vim-repeat'}
         use { 'gcmt/wildfire.vim' }
         --cursor movement
         use { 'easymotion/vim-easymotion' }
