@@ -67,7 +67,7 @@ require('packer').startup({
         -- multi cursor
         require('pack.vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
-        use { 'rmagatti/alternate-toggler', config = "require('pack.alternate-toggle')" }
+        use { 'rmagatti/alternate-toggler'}
         use { 'preservim/tagbar' }
         use { 'lewis6991/gitsigns.nvim',tag ="v0.5", config = function()
             require('gitsigns').setup()
