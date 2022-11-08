@@ -62,6 +62,7 @@ G.cmd([[
 ]])
 map("n", "ra", ":Ranger<CR>", opt)
 
+---------------------------- repeat
 G.cmd([[ 
     silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 ]])
@@ -106,7 +107,7 @@ map("n", "ft", ":FloatermKill<CR>", opt) --kill the terminal window
 ----------------------------- fzf
 map("n", "fz", ":FZF<CR>", opt) --fuzzy finder
 
----------------------------- alternate(逻辑取反)
+---------------------------- alternate
 map("n", "ta", ":ToggleAlternate<CR>", opt)
 
 ---------------------------- lazygit
