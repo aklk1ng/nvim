@@ -9,12 +9,11 @@ vim.o.splitbelow = true
 vim.o.writebackup = false
 vim.o.termguicolors = true
 vim.o.tabstop = 5
-vim.o.shiftwidth = 4 vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
 vim.o.smartindent = true
 vim.o.expandtab = true
--- Show line number
 vim.o.relativenumber = false
--- Highlight current line number
 vim.o.cursorline = true
 -- Display long text in one line
 vim.o.wrap = false
@@ -28,6 +27,7 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.number = true
 
+-- wildfire
 vim.cmd([[
     let g:wildfire_objects = {
     \ "*" : ["i'", 'i"', "i)", "i]", "i}"],
@@ -44,7 +44,6 @@ vim.cmd([[
 -- 提示多余空格和TODO
 vim.cmd([[
     hi ErrSpace ctermbg=238
-    " autocmd BufWinEnter * syn match ErrSpace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
     autocmd BufWinEnter * syn match Todo /TODO\(:.*\)*/
 ]])
 -- 光标回到上次位置
@@ -61,12 +60,6 @@ vim.cmd([[
 vim.cmd([[
     set mouse=a
     set selection=exclusive
-]])
--- 折叠
-G.cmd([[
-    set foldenable
-    set foldmethod=manual
-    set foldexpr=nvim_treesitter#foldexpr()
 ]])
 -- 搜索高亮 空格+回车 去除匹配高亮 延迟
 vim.cmd([[
@@ -88,7 +81,4 @@ vim.cmd([[
     set conceallevel=0
     set clipboard=unnamed
     set clipboard+=unnamedplus
-]])
-G.cmd([[
-    let g:python3_host_prog = $PYTHON
 ]])
