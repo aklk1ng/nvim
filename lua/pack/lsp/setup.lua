@@ -52,21 +52,35 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --activate language clients
 require'lspconfig'.clangd.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 require'lspconfig'.jedi_language_server.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 require'lspconfig'.bashls.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 require'lspconfig'.cmake.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 require'lspconfig'.jsonls.setup {
-  capabilities = capabilities,
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
 require'lspconfig'.html.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
+}
+require('lspconfig').cssls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+require'lspconfig'.cssmodules_ls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
 require'lspconfig'.gopls.setup{
     on_attach = on_attach,
@@ -90,6 +104,7 @@ require'lspconfig'.sumneko_lua.setup{
 }
 require('lspconfig').yamlls.setup {
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 require'lspconfig'.tsserver.setup{
     on_attach = on_attach,
@@ -98,4 +113,5 @@ require'lspconfig'.tsserver.setup{
 }
 require'lspconfig'.marksman.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
