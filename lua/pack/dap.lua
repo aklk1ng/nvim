@@ -100,9 +100,10 @@ dapui.setup({
     }
 })
 
+
 dap.adapters.lldb = {
   type = 'executable',
-  command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
+  command = '/home/linuxbrew/.linuxbrew//bin/lldb-vscode', -- adjust as needed, must be absolute path
   name = 'lldb'
 }
 dap.adapters.python = {
@@ -110,6 +111,7 @@ dap.adapters.python = {
     command = "python",
     args = { "-m", "debugpy.adapter" },
 }
+
 dap.configurations.cpp = {
   {
     name = 'Launch',
