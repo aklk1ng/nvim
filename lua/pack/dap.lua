@@ -4,10 +4,10 @@ if not status_ok then
   return
 end
 local dap = require("dap")
-vim.keymap.set("n", "<C-F5>", require("dap").continue)
-vim.keymap.set("n", "<C-F7>", require("dap").step_into)
-vim.keymap.set("n", "<C-F8>", require("dap").step_over)
-vim.keymap.set("n", "<S-F8>", require("dap").step_out)
+vim.keymap.set("n", "<F5>", require("dap").continue)
+vim.keymap.set("n", "<F7>", require("dap").step_into)
+vim.keymap.set("n", "<F8>", require("dap").step_over)
+vim.keymap.set("n", "<F8>", require("dap").step_out)
 vim.keymap.set("n", "<Leader>db", require("dap").toggle_breakpoint)
 vim.keymap.set("n", "<Leader>dB", function()
     require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
