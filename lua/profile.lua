@@ -76,6 +76,7 @@ vim.cmd([[
 vim.cmd([[
     set showcmd
     set encoding=utf-8
+    set fileencoding = "utf-8"
     set wildmenu
     set pumheight=10
     set conceallevel=0
