@@ -43,6 +43,11 @@ require('packer').startup({
             "jayp0521/mason-nvim-dap.nvim",
         }
 
+        -------------------- a plugin for interating with database
+        require('pack/vim-dadbod').config()
+        use { 'tpope/vim-dadbod' }
+        use { 'kristijanhusak/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
+
         -------------------- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig"}
         -- nvim-cmp 
