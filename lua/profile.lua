@@ -38,7 +38,6 @@ vim.cmd([[
 vim.cmd([[
     let g:markdown_syntax_conceal=0
     let g:indentLine_fileTypeExclude = ['help', 'alpha']
-    let g:indentLine_color_term = 244
 ]])
 -- Highlight on yank
 vim.cmd([[
