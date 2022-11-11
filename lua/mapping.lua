@@ -18,6 +18,8 @@ map("n", "en", ":e ~/.config/nvim/lua/packer-init.lua<CR>", opt)
 ---------------------------- cursor movement
 map("n", "<C-i>", "<Home>", opt)
 map("n", "<C-p>", "<End>", opt)
+map("n", "<S-j>", "5j", opt)
+map("n", "<S-k>", "5k", opt)
 
 ---------------------------- window touch and movement(now have some problems)
 map("n", ";", "<C-w>w", opt)
