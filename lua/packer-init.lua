@@ -128,6 +128,7 @@ require('packer').startup({
         use {'Yggdroot/indentLine'}
 
         -------------------- yaocccc's plugins
+        use {'yaocccc/nvim-hlchunk'}
         use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' } -- 退出输入模式时自动切换到英文
     end,
     --set up to download plugins as a floating window
