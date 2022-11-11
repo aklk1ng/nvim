@@ -34,6 +34,11 @@ vim.cmd([[
     \ "html,xml" : ["at", "it"],
     \ }
 ]])
+--indentline
+vim.cmd([[
+    let g:markdown_syntax_conceal=0
+    let g:indentLine_fileTypeExclude = ['help', 'alpha']
+]])
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight
