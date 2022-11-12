@@ -81,7 +81,7 @@ vim.cmd([[
 vim.cmd([[
     set showcmd
     set encoding=utf-8
-    set fileencoding = "utf-8"
+    set fileencodings =utf-8,ucs-bom,gbk,cp936,gb2312,gb18030
     set wildmenu
     set pumheight=10
     set conceallevel=0
