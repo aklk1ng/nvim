@@ -55,6 +55,7 @@ require('packer').startup({
         use 'hrsh7th/cmp-buffer' -- { name = 'buffer' },
         use 'hrsh7th/cmp-path' -- { name = 'path' }
         use 'hrsh7th/cmp-cmdline'
+        use("hrsh7th/cmp-nvim-lua")
         use {'hrsh7th/cmp-emoji'}
         use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp')" }
         use { 'L3MON4D3/LuaSnip' }
@@ -124,6 +125,11 @@ require('packer').startup({
 
         -------------------- scolling
         use { 'declancm/cinnamon.nvim', config = function() require('cinnamon').setup() end }
+        use { 'gen740/SmoothCursor.nvim',
+            config = function()
+                require('pack.smoothcursor')
+            end
+        }
         -------------------- indentLine
         use {'Yggdroot/indentLine'}
 
