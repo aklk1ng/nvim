@@ -105,7 +105,6 @@ map("n", "fw", ":Telescope live_grep<CR>", opt) --查找当前目录的字符串
 
 ---------------------------- floaterm
 map("n", "fn", ":FloatermNew<CR>", opt) --open a terminal window
-map("n", "ft", ":FloatermKill<CR>", opt) --kill the terminal window(i use C-d more)
 
 
 ----------------------------- fzf
