@@ -20,7 +20,7 @@ saga.init_lsp_saga {
     --transparent background. Values between 0-30 are typically most useful.
     saga_winblend = 0,
     -- when cursor in saga window you config these to move
-    move_in_saga = { prev = '<C-p>',next = '<C-n>'},
+    move_in_saga = { prev = '<C-p>', next = '<C-n>' },
     -- Error, Warn, Info, Hint
     -- use emoji like
     -- and diagnostic_header can be a function type
@@ -39,8 +39,8 @@ saga.init_lsp_saga {
     code_action_lightbulb = {
         enable = false,
         enable_in_insert = true,
-        cache_code_action = false,
-        sign = false,
+        cache_code_action = true,
+        sign = true,
         update_time = 150,
         sign_priority = 20,
         virtual_text = true,
