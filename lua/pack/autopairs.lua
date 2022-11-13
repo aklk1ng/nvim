@@ -1,4 +1,3 @@
-local G = require('G')
 local npairs = require('nvim-autopairs')
 local cond = require('nvim-autopairs.conds')
 local Rule = require('nvim-autopairs.rule')
