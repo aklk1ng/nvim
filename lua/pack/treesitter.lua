@@ -27,7 +27,7 @@ function M.setup()
             "go",
             "markdown",
             "javascript",
-            "typescipt",
+            "typescript",
             "cmake",
             "sql",
             "vim",
