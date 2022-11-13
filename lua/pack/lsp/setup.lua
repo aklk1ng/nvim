@@ -5,13 +5,6 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
---the diagnostic symbol for the message
-vim.diagnostic.config({
-  virtual_text = {
-    prefix = '■', -- Could be '●', '▎', 'x'
-  }
-})
-
 --highlight the signcolumn not use symbol
 vim.cmd [[
   highlight! DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
@@ -84,6 +77,7 @@ require'lspconfig'.cssmodules_ls.setup{
 }
 require'lspconfig'.gopls.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 require'lspconfig'.sumneko_lua.setup{
     on_attach = on_attach,
