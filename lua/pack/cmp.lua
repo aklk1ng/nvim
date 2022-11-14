@@ -1,4 +1,5 @@
-local cmp = require'cmp'
+local status, cmp = pcall(require, "cmp")
+if (not status) then return end
 local lspkind = require'lspkind'
 local luasnip = require'luasnip'
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/" }})
@@ -54,7 +55,7 @@ cmp.setup({
     }),
     formatting = {
         format = lspkind.cmp_format({
-            wirth_text = false,
+            wirth_text = true,
             maxwidth = 50
         })
     }
