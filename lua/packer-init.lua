@@ -130,8 +130,6 @@ require('packer').startup({
                 require('pack.smoothcursor')
             end
         }
-        -------------------- indentLine
-        use {'Yggdroot/indentLine'}
 
         -------------------- yaocccc's plugins
         use {'yaocccc/nvim-hlchunk'}
