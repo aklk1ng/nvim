@@ -35,7 +35,7 @@ git clone https://github.com/aklk1ng/nvim.git
 │   ├── G.lua                       --my options prefix configuration
 │   ├── macos.lua                   --a file for macos config(maybe i will use it in the furture)
 │   ├── mapping.lua                 --my major mappings in my neovim,others are in the corresponding plugin file in the pack folder
-│   ├── pack                        --all my plugin config
+│   ├── pack                        --all my plugins config
 │   │   ├── alpha.lua
 │   │   ├── alternate-toggle.lua
 │   │   ├── autopairs.lua
