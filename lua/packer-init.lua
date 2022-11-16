@@ -74,13 +74,13 @@ require('packer').startup({
         require('pack.vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
         use { 'rmagatti/alternate-toggler'}
-        use { 'preservim/tagbar' }
+        use { 'preservim/tagbar', cmd = 'TagbarToggle' }
         use { 'lewis6991/gitsigns.nvim',tag ="v0.5", config = function()
             require('gitsigns').setup()
         end}
         use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
         use { "rcarriga/nvim-dap-ui", requires = {{ "mfussenegger/nvim-dap" },{ "theHamsta/nvim-dap-virtual-text" }}, config = "require('pack.dap')" }
-        use 'voldikss/vim-floaterm'
+        use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
         -------------------- telescope
         use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0',
