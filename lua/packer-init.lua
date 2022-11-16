@@ -46,6 +46,7 @@ require('packer').startup({
         -------------------- a plugin for interating with database
         require('pack/vim-dadbod').config()
         use { 'tpope/vim-dadbod' }
+        use {'kristijanhusak/vim-dadbod-completion'}
         use { 'kristijanhusak/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
 
         -------------------- lspconfig,for telescope's lsp support
