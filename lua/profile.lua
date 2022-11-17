@@ -42,6 +42,11 @@ vim.cmd([[
     let g:completion_matching_ignore_case = 1
 ]])
 
+--leap
+require('leap').add_default_mappings()
+--highlight the search result
+require('leap').opts.highlight_unlabeled_phase_one_targets = true
+
 -- wildfire
 vim.cmd([[
     let g:wildfire_objects = {
