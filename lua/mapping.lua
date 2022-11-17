@@ -77,9 +77,6 @@ G.cmd([[
 ]])
 map("n", "tt", ":TagbarToggle<CR>", opt)
 
----------------------------- easymoton
-map("n", "<leader>w", "<Plug>(easymotion-overwin-w)", opt)
-
 
 ---------------------------- vim-bookmarks
 map("n", "mm", ":BookmarkToggle<CR>", opt)
