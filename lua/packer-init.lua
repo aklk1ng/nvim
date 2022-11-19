@@ -101,6 +101,9 @@ require('packer').startup({
         --colorizer(highlight the color)
         use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')"}
 
+
+        use { 'itchyny/vim-cursorword'}
+
         -------------------- bufferline
         use { 'akinsho/bufferline.nvim', config = "require('pack.bufferline')", tag = "v2.*",
             requires = 'kyazdani42/nvim-web-devicons' }
