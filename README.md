@@ -1,22 +1,28 @@
+# WELCOME!!!
 <!-- vim-markdown-toc GFM -->
 
 * [use](#use)
-  * [I using the archlinux so i directly download language severs by pacman,if you can't,use the mason plugin to install them and let them work](#i-using-the-archlinux-so-i-directly-download-language-severs-by-pacmanif-you-cantuse-the-mason-plugin-to-install-them-and-let-them-work)
+  * [I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work](#i-using-the-archlinux-so-i-can-directly-download-language-severs-by-pacman-and-other-package-managerif-you-cantuse-the-mason-plugin-to-install-them-and-let-them-work)
 * [File tree](#file-tree)
   * [This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!](#this-maybe-isnt-correct-because-i-will-change-or-update-my-plugins-and-config-but-the-file-tree-is-complex-to-change-the-format)
 
 <!-- vim-markdown-toc -->
 ![screenshot](./2022-10-31_21-57.png)
 ## use
-### I using the archlinux so i directly download language severs by pacman,if you can't,use the mason plugin to install them and let them work
-1. Make usre you have installed te neovim(just to find corresponding distribution's way)
-2. Clone the repository:
+### I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work
+1. Make usre you have installed te neovim(just to find corresponding distribution's way) and install other dependencies of other packages(pip,nodejs,yarn and others)
+
+**use the next commmand to check the neovim isn't work normally** 
+```plaintext
+:Checkhealth
+```
+2. **Clone the repository:**
 ```plaintext
 cd ~/.config
 git clone https://github.com/aklk1ng/nvim.git
 ```
 3. Start your neovim and if'will start download all plugins automatically
-4. Now waiting to download
+4. Now waiting to download(**the internet may be the most problem**)
 5. Ok,that's all.And welcome you change or replace my plugins or configuration.
 ***Last but not least, if you find something wrong,try to complite the packer.lua file.You may find the problem disappear(if this isn't useful, try to read the woring message or delete the packer_compiled file)***
 ```plaintext
