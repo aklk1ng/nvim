@@ -12,7 +12,7 @@ vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
 vim.o.smartindent = true
 vim.o.expandtab = true
-vim.o.relativenumber = false
+vim.o.relativenumber = true
 vim.o.cursorline = true
 -- Display long text in one line
 vim.o.wrap = false
