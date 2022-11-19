@@ -43,5 +43,5 @@ require("mason").setup({
 })
 
 require("mason-nvim-dap").setup({
-    ensure_installed = { "python", "chrome" }
+    ensure_installed = { "python"}
 })
