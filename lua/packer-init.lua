@@ -101,7 +101,7 @@ require('packer').startup({
         --colorizer(highlight the color)
         use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')"}
 
-
+        -------------------- highlight the current word
         use { 'itchyny/vim-cursorword'}
 
         -------------------- bufferline
