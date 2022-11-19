@@ -5,7 +5,6 @@ vim.g.mapleader = " "
 vim.o.splitright = true
 -- Split to the bottom in split
 vim.o.splitbelow = true
--- Enable mouse for any mode
 vim.o.writebackup = false
 vim.o.termguicolors = true
 vim.o.tabstop = 4
@@ -54,11 +53,7 @@ vim.cmd([[
     \ "html,xml" : ["at", "it"],
     \ }
 ]])
---indentline
-vim.cmd([[
-    let g:markdown_syntax_conceal=0
-    let g:indentLine_fileTypeExclude = ['help', 'alpha']
-]])
+
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight
