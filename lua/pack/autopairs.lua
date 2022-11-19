@@ -1,12 +1,12 @@
 local npairs = require('nvim-autopairs')
 local cond = require('nvim-autopairs.conds')
 local Rule = require('nvim-autopairs.rule')
-require('nvim-autopairs').setup{
-    npairs.add_rule(Rule("$$","$$","tex")),
+require('nvim-autopairs').setup {
+    npairs.add_rule(Rule("$$", "$$", "tex")),
     print(vim.inspect(cond)),
 
     npairs.add_rules({
-        Rule("$", "$",{"tex", "latex"})
+        Rule("$", "$", { "tex", "latex" })
             -- don't add a pair if the next character is %
             :with_pair(cond.not_after_regex("%%"))
             -- don't add a pair if  the previous character is xxx
@@ -18,15 +18,15 @@ require('nvim-autopairs').setup{
             -- disable adding a newline when you press <cr>
             :with_cr(cond.none())
     }
-        -- disable for .vim files, but it work for another filetypes
-        -- Rule("a","a","-vim")
+    -- disable for .vim files, but it work for another filetypes
+    -- Rule("a","a","-vim")
     ),
 
     npairs.add_rules({
-        Rule("$$","$$","tex")
+        Rule("$$", "$$", "tex")
             :with_pair(function(opts)
                 print(vim.inspect(opts))
-                if opts.line=="aa $$" then
+                if opts.line == "aa $$" then
                     -- don't add pair on that line
                     return false
                 end
@@ -46,7 +46,7 @@ require('nvim-autopairs').setup{
             :use_regex(true)
             :replace_endpair(function(opts)
                 -- print(vim.inspect(opts))
-                return opts.prev_char:sub(#opts.prev_char - 3,#opts.prev_char)
+                return opts.prev_char:sub(#opts.prev_char - 3, #opts.prev_char)
             end)
     }),
 
@@ -56,17 +56,16 @@ require('nvim-autopairs').setup{
 
     npairs.add_rules({
         Rule("b%d%d%d%d%w$", "", "vim")
-            :use_regex(true,"<tab>")
+            :use_regex(true, "<tab>")
             :replace_endpair(function(opts)
-                return
-                    opts.prev_char:sub(#opts.prev_char - 4,#opts.prev_char)
-                    .."<esc>viwU"
+                return opts.prev_char:sub(#opts.prev_char - 4, #opts.prev_char)
+                    .. "<esc>viwU"
             end)
     }),
 
     -- you can exclude filetypes
     npairs.add_rule(
-        Rule("$$","$$")
-            :with_pair(cond.not_filetypes({"lua"}))
+        Rule("$$", "$$")
+        :with_pair(cond.not_filetypes({ "lua" }))
     )
 }
