@@ -103,3 +103,11 @@ vim.cmd([[
     set clipboard=unnamed
     set clipboard+=unnamedplus
 ]])
+-- set the number and relativenumber automatically when i'm in insert or normal
+vim.cmd([[
+    augroup relative_numbers
+    autocmd!
+    autocmd InsertEnter * :set norelativenumber
+    autocmd InsertLeave * :set relativenumber
+    augroup END
+]])
