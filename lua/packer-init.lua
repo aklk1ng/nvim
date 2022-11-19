@@ -125,11 +125,6 @@ require('packer').startup({
 
         -------------------- scolling
         use { 'declancm/cinnamon.nvim', config = function() require('cinnamon').setup() end }
-        use { 'gen740/SmoothCursor.nvim',
-            config = function()
-                require('pack.smoothcursor')
-            end
-        }
 
         -------------------- yaocccc's plugins
         use {'yaocccc/nvim-hlchunk'}
