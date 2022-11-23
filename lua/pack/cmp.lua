@@ -2,6 +2,7 @@ local status, cmp = pcall(require, "cmp")
 if (not status) then return end
 local lspkind = require'lspkind'
 local luasnip = require'luasnip'
+-- use my snippets
 require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/" }})
 cmp.setup({
     snippet = {
