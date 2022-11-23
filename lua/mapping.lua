@@ -103,10 +103,6 @@ map("n", "fw", ":Telescope live_grep<CR>", opt) --查找当前目录的字符串
 ---------------------------- floaterm
 map("n", "fn", ":FloatermNew<CR>", opt) --open a terminal window
 
-
------------------------------ fzf in telescope
-map("n", "fz", ":FZF<CR>", opt)
-
 ---------------------------- alternate
 map("n", "ta", ":ToggleAlternate<CR>", opt)
 
