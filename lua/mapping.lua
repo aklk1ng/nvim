@@ -85,6 +85,8 @@ map("n", "mn", ":BookmarkNext<CR>", opt)
 map("n", "ma", ":BookmarkShowAll<CR>", opt)
 map("n", "mc", ":BookmarkClear<CR>", opt)
 map("n", "mC", ":BookmarkClearAll<CR>", opt)
+map("n", "<leader>jj", ":BookmarkMoveDown<CR>", opt)
+map("n", "<leader>kk", ":BookmarkMoveUp<CR>", opt)
 
 ---------------------------- telescope
 map("n", "fl", ":Telescope file_browser<CR>", opt) --列出当前工作目录中的目录及文件，非递归(与nvim-tree类似)
