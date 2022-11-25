@@ -26,7 +26,7 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.number = true
 
---leap
+-- leap
 require('leap').add_default_mappings()
 --highlight the search result
 require('leap').opts.highlight_unlabeled_phase_one_targets = true
