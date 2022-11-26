@@ -88,7 +88,7 @@ require('packer').startup({
         use { 'nvim-lua/popup.nvim' }
         use 'nvim-telescope/telescope-file-browser.nvim'
         --place the VIM bookmark
-        use { 'MattesGroeger/vim-bookmarks', cmd = 'BookmarkToggle' }
+        use { 'MattesGroeger/vim-bookmarks'}
         use { 'tom-anders/telescope-vim-bookmarks.nvim' }
 
         -------------------- tree-sitter
