@@ -97,7 +97,7 @@ saga.init_lsp_saga {
         --set special filetype win that outline window split.like NvimTree neotree
         -- defx, db_ui
         win_with = '',
-        win_width = 30,
+        win_width = 40,
         auto_enter = true,
         auto_preview = true,
         virt_text = '┃',
@@ -111,9 +111,13 @@ saga.init_lsp_saga {
 }
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<C-j>', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+vim.keymap.set('n', '<leader>j', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
 vim.keymap.set('n', ',,', '<Cmd>Lspsaga hover_doc<CR>', opts)
-vim.keymap.set('n', 'gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
+vim.keymap.set('n', 'gh', '<Cmd>Lspsaga lsp_finder<CR>', opts)
+vim.keymap.set({"n","v"}, "ca", "<cmd>Lspsaga code_action<CR>", opts)
+vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
 vim.keymap.set('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
 vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
 vim.keymap.set('n', '<leader>rn', '<Cmd>Lspsaga rename<CR>', opts)
+-- outline / show symbols in some files when the lsp is supported
+vim.keymap.set("n","<leader>o", "<cmd>LSoutlineToggle<CR>",opts)
