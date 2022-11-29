@@ -2,6 +2,7 @@
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+---@diagnostic disable-next-line: unused-local
     local compiled_path = fn.stdpath('config')..'/plugin/packer_compiled.lua'
     if fn.empty(fn.glob(install_path)) > 0 then
         print('Installing packer.nvim...')
@@ -68,6 +69,8 @@ require('packer').startup({
         use { 'tpope/vim-surround' }
         use { 'tpope/vim-repeat'}
         use { 'gcmt/wildfire.vim' }
+        -------------------- show the contents of the registers
+        use { 'junegunn/vim-peekaboo'}
         --cursor movement
         use { 'ggandor/leap.nvim' }
         -- multi cursor

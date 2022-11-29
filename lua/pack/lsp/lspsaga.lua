@@ -111,13 +111,36 @@ saga.init_lsp_saga {
 }
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<leader>j', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+
+-- Diagnsotic jump can use `<c-o>` to jump back
+vim.keymap.set('n', '[n', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+vim.keymap.set('n', '[p', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
+
+-- Show line diagnostics
+vim.keymap.set("n", "<leader>sd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+-- Show cursor diagnostic
+vim.keymap.set("n", "<leader>sd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
+
+-- Hover Doc
 vim.keymap.set('n', ',,', '<Cmd>Lspsaga hover_doc<CR>', opts)
+
+-- Lsp finder find the symbol definition implement reference
+-- if there is no implement it will hide
+-- when you use action in finder like open vsplit then you can
+-- use <C-t> to jump back
 vim.keymap.set('n', 'gh', '<Cmd>Lspsaga lsp_finder<CR>', opts)
-vim.keymap.set({"n","v"}, "ca", "<cmd>Lspsaga code_action<CR>", opts)
-vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
-vim.keymap.set('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
+
+-- Code action
+vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
+
+-- Peek Definition
+-- you can edit the definition file in this flaotwindow
+-- also support open/vsplit/etc operation check definition_action_keys
+-- support tagstack C-t jump back
 vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
+
+-- Rename
 vim.keymap.set('n', '<leader>rn', '<Cmd>Lspsaga rename<CR>', opts)
+
 -- outline / show symbols in some files when the lsp is supported
 vim.keymap.set("n","<leader>o", "<cmd>LSoutlineToggle<CR>",opts)
