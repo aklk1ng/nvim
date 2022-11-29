@@ -96,7 +96,6 @@ require('packer').startup({
 
         -------------------- tree-sitter
         use { 'nvim-treesitter/nvim-treesitter', config = "require('pack.treesitter').setup()" }
-        use { 'nvim-treesitter/playground', after = { 'nvim-treesitter' } }
         use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-autopairs" }
