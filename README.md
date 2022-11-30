@@ -2,9 +2,9 @@
 <!-- vim-markdown-toc GFM -->
 
 * [use](#use)
-  * [I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work](#i-using-the-archlinux-so-i-can-directly-download-language-severs-by-pacman-and-other-package-managerif-you-cantuse-the-mason-plugin-to-install-them-and-let-them-work)
+    * [I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work](#i-using-the-archlinux-so-i-can-directly-download-language-severs-by-pacman-and-other-package-managerif-you-cantuse-the-mason-plugin-to-install-them-and-let-them-work)
 * [File tree](#file-tree)
-  * [This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!](#this-maybe-isnt-correct-because-i-will-change-or-update-my-plugins-and-config-but-the-file-tree-is-complex-to-change-the-format)
+    * [This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!](#this-maybe-isnt-correct-because-i-will-change-or-update-my-plugins-and-config-but-the-file-tree-is-complex-to-change-the-format)
 
 <!-- vim-markdown-toc -->
 ![screenshot](./2022-11-30_16-17.png)
@@ -32,6 +32,10 @@ git clone https://github.com/aklk1ng/nvim.git
 ***Last but not least, if you find something wrong,try to complite the packer.lua file.You may find the problem disappear(if this isn't useful, try to read the woring message or delete the packer_compiled file)***
 ```plaintext
 :PackerCompile
+```
+6. If you find the text can't highlight like before,try to run the next command,it always appear when you update the nvim-treesitter plugin,so you should update the config also
+```plaintext
+:TSUpdateSync
 ```
 ## File tree
 ### This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!
