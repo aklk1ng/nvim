@@ -78,6 +78,12 @@ require('packer').startup({
         use { "rcarriga/nvim-dap-ui", requires = {{ "mfussenegger/nvim-dap" },{ "theHamsta/nvim-dap-virtual-text" }}, config = "require('pack.dap')" }
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
+
+        -------------------- fzf
+        require('pack.fzf').config()
+        use { 'junegunn/fzf' }
+        use { 'junegunn/fzf.vim', after = "fzf" }
+
         -------------------- telescope
         use { 'nvim-telescope/telescope.nvim',
             config = "require('pack/telescope')",
