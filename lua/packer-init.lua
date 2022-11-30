@@ -37,16 +37,14 @@ require('packer').startup({
                 -- hardcoded background color
                 vim.notify.setup({ background_colour = "#282c34" }) end
         })
-        -------------------- provide another way to download language servers if you can' download them easily
-        use { "williamboman/mason.nvim" }
 
         -------------------- a plugin for interating with database
-        require('pack/vim-dadbod').config()
-        use { 'tpope/vim-dadbod' }
-        use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
-            config = "require('pack/vim-dadbod').setup()",
-            after = 'vim-dadbod'
-        }
+        -- require('pack/vim-dadbod').config()
+        -- use { 'tpope/vim-dadbod' }
+        -- use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
+        --     config = "require('pack/vim-dadbod').setup()",
+        --     after = 'vim-dadbod'
+        -- }
 
         -------------------- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig"}
@@ -67,14 +65,13 @@ require('packer').startup({
         use { 'tpope/vim-surround' }
         use { 'gcmt/wildfire.vim' }
         -------------------- show the contents of the registers
-        use { 'junegunn/vim-peekaboo'}
+        use { 'junegunn/vim-peekaboo', event = "BufRead"}
         --cursor movement
         use { 'ggandor/leap.nvim'}
         -- multi cursor
         require('pack.vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
         use { 'rmagatti/alternate-toggler', cmd = 'ToggleAlternate'}
-        use { 'preservim/tagbar', cmd = 'TagbarToggle' }
         use { 'lewis6991/gitsigns.nvim', event = { 'BufRead', 'BufNewfile' },tag ="v0.5", config = function()
             require('gitsigns').setup()
         end}
@@ -98,14 +95,19 @@ require('packer').startup({
         use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' }}
         use { "windwp/nvim-autopairs"}
         --colorizer(highlight the color)
-        use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')"}
+        use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = "require('pack.colorizer')"}
 
         -------------------- highlight the current word
         use { 'itchyny/vim-cursorword', event = 'BufRead'}
 
         -------------------- bufferline
         use {'kyazdani42/nvim-web-devicons' }
-        use { 'akinsho/bufferline.nvim', event = 'BufRead', config = "require('pack.bufferline')", tag = "v2.*" }
+        use { 'akinsho/bufferline.nvim',
+            event = "BufWinEnter",
+            config = "require('pack.bufferline')",
+            tag = "v2.*",
+            requires = { 'kyazdani42/nvim-web-devicons' }
+        }
         use { 'famiu/bufdelete.nvim', after = 'bufferline.nvim' }
 
         -------------------- markdown preview and toc
@@ -127,12 +129,10 @@ require('packer').startup({
 
         -------------------- luaine
         use { 'nvim-lualine/lualine.nvim',
-            event = 'BufRead',
+            event = "BufWinEnter",
             config = "require('pack.lualine')",
+            requires = { 'kyazdani42/nvim-web-devicons' }
         }
-
-        -------------------- scolling
-        use { 'declancm/cinnamon.nvim', event = "BufWinEnter", config = function() require('cinnamon').setup() end }
 
         -------------------- yaocccc's plugins
         use {'yaocccc/nvim-hlchunk', event = "BufRead"}

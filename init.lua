@@ -1,6 +1,5 @@
 require('packer-init')
 require('pack.lsp.setup')
-require('pack.lsp.lspconfig')
 require('profile')
 require('mapping')
 
