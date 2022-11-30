@@ -51,20 +51,6 @@ require('packer').startup({
         -------------------- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig"}
         -- nvim-cmp 
-        -- use {
-        --     'hrsh7th/nvim-cmp',
-        --     -- event = 'InsertEnter',
-        --     config = "require('pack.cmp')",
-        --     requires = {
-        --         { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' },
-        --         { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-        --         { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-        --         {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
-        --         {'hrsh7th/cmp-emoji', after = 'nvim-cmp' },
-        --         {'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp'},
-        --         { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
-        --     },
-        -- }
         use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig'  } -- { name = nvim_lsp }
         use {'hrsh7th/cmp-buffer', after = 'nvim-cmp'}  -- { name = 'buffer' },
         use { 'hrsh7th/cmp-path', after = 'nvim-cmp'  } -- { name = 'path' }
@@ -109,6 +95,7 @@ require('packer').startup({
         use { 'nvim-treesitter/nvim-treesitter', config = "require('pack.treesitter').setup()" }
         use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
+        use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' }}
         use { "windwp/nvim-autopairs"}
         --colorizer(highlight the color)
         use { 'NvChad/nvim-colorizer.lua', config = "require('pack.colorizer')"}
@@ -132,7 +119,6 @@ require('packer').startup({
         use { 'nvim-tree/nvim-tree.lua',
             config = "require('pack.nvim-tree')",
             cmd = "NvimTreeToggle",
-            event = 'BufWinEnter',
         }
         -------------------- ranegr
         use { 'francoiscabrol/ranger.vim', cmd = 'Ranger', event = 'BufWinEnter' }
