@@ -72,7 +72,7 @@ map("n", "ra", ":Ranger<CR>", opt)
 
 ---------------------------- tabgar(a list of functions,variables,defines and so on)
 vim.cmd([[
-     let g:tagbar_width = 45
+     let g:tagbar_width = 40
 ]])
 map("n", "tt", ":TagbarToggle<CR>", opt)
 
@@ -84,8 +84,8 @@ map("n", "mn", ":BookmarkNext<CR>", opt)
 map("n", "ma", ":BookmarkShowAll<CR>", opt)
 map("n", "mc", ":BookmarkClear<CR>", opt)
 map("n", "mC", ":BookmarkClearAll<CR>", opt)
-map("n", "<leader>jj", ":BookmarkMoveDown<CR>", opt)
-map("n", "<leader>kk", ":BookmarkMoveUp<CR>", opt)
+map("n", "<leader>mn", ":BookmarkMoveDown<CR>", opt)
+map("n", "<leader>mp", ":BookmarkMoveUp<CR>", opt)
 
 ---------------------------- telescope
 map("n", "fl", ":Telescope file_browser<CR>", opt) --列出当前工作目录中的目录及文件，非递归(与nvim-tree类似)
