@@ -50,6 +50,7 @@ require('packer').startup({
         use {"neovim/nvim-lspconfig"}
         -- nvim-cmp 
         use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig'  } -- { name = nvim_lsp }
+        use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
         use {'hrsh7th/cmp-buffer', after = 'nvim-cmp'}  -- { name = 'buffer' },
         use { 'hrsh7th/cmp-path', after = 'nvim-cmp'  } -- { name = 'path' }
         use {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
@@ -57,13 +58,11 @@ require('packer').startup({
         use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp')" }
         use { 'L3MON4D3/LuaSnip'}
         use { "rafamadriz/friendly-snippets" }
-        use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
         use { "onsails/lspkind.nvim"}
 
         -------------------- some useful plugins for coding
         use { 'tpope/vim-commentary' }
         use { 'tpope/vim-surround' }
-        use { 'gcmt/wildfire.vim' }
         -------------------- show the contents of the registers
         use { 'junegunn/vim-peekaboo', event = "BufRead"}
         --cursor movement
@@ -80,7 +79,9 @@ require('packer').startup({
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
         -------------------- telescope
-        use { 'nvim-telescope/telescope.nvim', config = "require('pack/telescope')", tag = '0.1.0',
+        use { 'nvim-telescope/telescope.nvim',
+            config = "require('pack/telescope')",
+            tag = '0.1.0',
             requires = { { 'nvim-lua/plenary.nvim' } } }
         use { 'nvim-lua/popup.nvim' }
         use { 'nvim-telescope/telescope-file-browser.nvim'}
@@ -89,7 +90,7 @@ require('packer').startup({
         use { 'MattesGroeger/vim-bookmarks', event = 'BufRead'}
 
         -------------------- tree-sitter
-        use { 'nvim-treesitter/nvim-treesitter', config = "require('pack.treesitter').setup()" }
+        use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = "require('pack.treesitter').setup()" }
         use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' }}
@@ -112,9 +113,9 @@ require('packer').startup({
 
         -------------------- markdown preview and toc
         require('pack.markdown').config()
-        use { 'mzlogin/vim-markdown-toc', cmd = 'MarkdownPreview', after = 'markdown-preview.nvim', ft = 'markdown' }
         --use nodejs and yarn to build this plugin(make sure you have installed them)
         use { "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown' }
+        use { 'mzlogin/vim-markdown-toc', cmd = 'MarkdownPreview', after = 'markdown-preview.nvim', ft = 'markdown' }
         use { 'dhruvasagar/vim-table-mode' , cmd = 'MarkdownPreview', after = 'markdown-preview.nvim',ft = 'markdown'}
 
         -------------------- file explorer

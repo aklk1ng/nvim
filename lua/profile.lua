@@ -89,7 +89,7 @@ vim.cmd([[
     set clipboard=unnamed
     set clipboard+=unnamedplus
 ]])
--- set the number and relativenumber automatically when i'm in insert or normal
+-- set the relativenumber automatically when i'm in insert or normal
 vim.cmd([[
     augroup relative_numbers
     autocmd!
