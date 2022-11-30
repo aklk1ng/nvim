@@ -117,8 +117,8 @@ require('packer').startup({
         use { 'itchyny/vim-cursorword', event = 'BufRead'}
 
         -------------------- bufferline
-        use { 'akinsho/bufferline.nvim', event = 'BufRead', config = "require('pack.bufferline')", tag = "v2.*",
-            requires = 'kyazdani42/nvim-web-devicons' }
+        use {'kyazdani42/nvim-web-devicons' }
+        use { 'akinsho/bufferline.nvim', event = 'BufRead', config = "require('pack.bufferline')", tag = "v2.*" }
         use { 'famiu/bufdelete.nvim', after = 'bufferline.nvim' }
 
         -------------------- markdown preview and toc
@@ -133,7 +133,6 @@ require('packer').startup({
             config = "require('pack.nvim-tree')",
             cmd = "NvimTreeToggle",
             event = 'BufWinEnter',
-            required = { 'kyazdani42/nvim-web-devicons' },
         }
         -------------------- ranegr
         use { 'francoiscabrol/ranger.vim', cmd = 'Ranger', event = 'BufWinEnter' }
@@ -141,10 +140,13 @@ require('packer').startup({
         use { 'rbgrouleff/bclose.vim', event = 'BufWinEnter' }
 
         -------------------- luaine
-        use { 'nvim-lualine/lualine.nvim', event = 'BufRead', config = "require('pack.lualine')" , requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
+        use { 'nvim-lualine/lualine.nvim',
+            event = 'BufRead',
+            config = "require('pack.lualine')",
+        }
 
         -------------------- scolling
-        use { 'declancm/cinnamon.nvim', config = function() require('cinnamon').setup() end }
+        use { 'declancm/cinnamon.nvim', event = "BufWinEnter", config = function() require('cinnamon').setup() end }
 
         -------------------- yaocccc's plugins
         use {'yaocccc/nvim-hlchunk'}
