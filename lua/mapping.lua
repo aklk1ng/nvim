@@ -56,7 +56,7 @@ map("n", "<leader>p", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<leader>n", ":BufferLineCycleNext<CR>", opt)
 map("n", "<leader>d", ":bdelete<CR>", opt)
 
----------------------------- markdonw
+---------------------------- markdown
 map("n", "<leader>m", ":MarkdownPreview<CR>", opt)
 map("n", "<leader>tm", ":TableModeToggle<CR>", opt)
 ---------------------------- markdown-toc
@@ -64,19 +64,14 @@ map("n", "tg", ":GenTocGFM<CR>", opt)
 map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 
 ---------------------------- ranger
-G.cmd([[
+vim.cmd([[
     let g:ranger_map_keys = 0
     let g:NERDTreeHijackNetrw = 0
 ]])
 map("n", "ra", ":Ranger<CR>", opt)
 
----------------------------- repeat
-G.cmd([[ 
-    silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
-]])
-
 ---------------------------- tabgar(a list of functions,variables,defines and so on)
-G.cmd([[
+vim.cmd([[
      let g:tagbar_width = 45
 ]])
 map("n", "tt", ":TagbarToggle<CR>", opt)

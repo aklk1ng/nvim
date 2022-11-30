@@ -1,4 +1,3 @@
-local G = require('G')
 vim.g.mapleader = " "
 -- vim.cmd('colorscheme solarized8_high')
 -- Split to the right in vsplit
@@ -32,14 +31,6 @@ vim.o.number = true
 require('leap').add_default_mappings()
 --highlight the search result
 require('leap').opts.highlight_unlabeled_phase_one_targets = true
-
--- wildfire
-vim.cmd([[
-    let g:wildfire_objects = {
-    \ "*" : ["i'", 'i"', "i)", "i]", "i}"],
-    \ "html,xml" : ["at", "it"],
-    \ }
-]])
 
 -- vim-bookmarks
 vim.cmd([[

@@ -7,12 +7,17 @@
   * [This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!](#this-maybe-isnt-correct-because-i-will-change-or-update-my-plugins-and-config-but-the-file-tree-is-complex-to-change-the-format)
 
 <!-- vim-markdown-toc -->
-![screenshot](./2022-10-31_21-57.png)
+![screenshot](./2022-11-30_16-17.png)
 ## use
 ### I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work
 1. Make usre you have installed te neovim(just to find corresponding distribution's way) and install other dependencies of other packages(pip,nodejs,yarn and others)
 
-**use the next commmand to check the neovim isn't work normally** 
+- Python3 install `pynvim`
+- Nodejs install `neovim`
+- Install Nerd font(I use hack)
+- Install yarn
+
+**use the next commmand in neovim to check the neovim isn't work normally** 
 ```plaintext
 :Checkhealth
 ```

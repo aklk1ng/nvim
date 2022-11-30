@@ -6,6 +6,12 @@ telescope.setup({
         borderchars = { "═", "║", "═", "║", "╔", "╗", "╝", "╚" },
     },
     extensions = {
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+        },
         file_browser = {
             theme = "ivy",
             -- disables netrw and use telescope-file-browser in its place
@@ -29,6 +35,7 @@ telescope.setup({
     },
 })
 
+telescope.load_extension("fzf")
 telescope.load_extension("file_browser")
 telescope.load_extension('vim_bookmarks')
 telescope.load_extension("notify")
