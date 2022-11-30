@@ -149,7 +149,7 @@ require('packer').startup({
         use { 'declancm/cinnamon.nvim', event = "BufWinEnter", config = function() require('cinnamon').setup() end }
 
         -------------------- yaocccc's plugins
-        use {'yaocccc/nvim-hlchunk'}
+        use {'yaocccc/nvim-hlchunk', event = "BufRead"}
         use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' } -- 退出输入模式时自动切换到英文
     end,
     --set up to download plugins as a floating window
