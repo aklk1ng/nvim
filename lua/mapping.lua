@@ -93,8 +93,6 @@ map("n", "ff", ":Telescope find_files<CR>", opt) --列出当前工作目录中�
 map("n", "fb", ":Telescope buffers<CR>", opt) --列出当前打开的缓冲区
 map("n", "fc", ":Telescope command_history<CR>", opt) --查找命令历史
 map("n", "fo", ":Telescope oldfiles<CR>", opt) --查找文件历史
-map("n", "fm", ":Telescope vim_bookmarks current_file<CR>", opt) --显示当前文件标签
-map("n", "fM", ":Telescope vim_bookmarks all<CR>", opt) --查找当前工程所有的标签
 map("n", "fs", ":Telescope lsp_document_symbols<CR>", opt) --查找当前文件所有的标识符
 map("n", "fS", ":Telescope lsp_workspace_symbols<CR>", opt) --查找当前工程所有的标识符
 map("n", "fd", ":Telescope diagnostics<CR>", opt) --查找当前工程所有的诊断信息

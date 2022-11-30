@@ -38,7 +38,7 @@ require('packer').startup({
                 vim.notify.setup({ background_colour = "#282c34" }) end
         })
         -------------------- provide another way to download language servers if you can' download them easily
-        use { "williamboman/mason.nvim"}
+        use { "williamboman/mason.nvim" }
 
         -------------------- a plugin for interating with database
         require('pack/vim-dadbod').config()
@@ -101,7 +101,6 @@ require('packer').startup({
             requires = { { 'nvim-lua/plenary.nvim' } } }
         use { 'nvim-lua/popup.nvim' }
         use { 'nvim-telescope/telescope-file-browser.nvim'}
-        use { 'tom-anders/telescope-vim-bookmarks.nvim'}
         use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
         --place the VIM bookmark
         use { 'MattesGroeger/vim-bookmarks', event = 'BufRead'}
