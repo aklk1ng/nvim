@@ -55,14 +55,16 @@ require('packer').startup({
         use { 'hrsh7th/cmp-path', after = 'nvim-cmp'  } -- { name = 'path' }
         use {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
         use {'hrsh7th/cmp-emoji', after = 'nvim-cmp' }
-        use { 'hrsh7th/nvim-cmp', event = 'InsertEnter', config = "require('pack.cmp').config()" }
-        use { 'L3MON4D3/LuaSnip', event = 'InsertCharPre', config = "require('pack.cmp').lua_snip()"}
+        use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp').config()" }
+        use { 'L3MON4D3/LuaSnip', config = "require('pack.cmp').lua_snip()"}
+
         use { "rafamadriz/friendly-snippets" }
         use { "onsails/lspkind.nvim"}
 
         -------------------- some useful plugins for coding
         use { 'tpope/vim-commentary' }
         use { 'tpope/vim-surround' }
+        use {'gcmt/wildfire.vim'}
         -------------------- show the contents of the registers
         use { 'junegunn/vim-peekaboo', event = "BufRead"}
         --cursor movement
@@ -99,7 +101,7 @@ require('packer').startup({
         use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' }}
-        use { "windwp/nvim-autopairs"}
+        use { "windwp/nvim-autopairs", event = 'InsertEnter', config = "require('pack.cmp').nvim_autopairs()"}
         --colorizer(highlight the color)
         use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = "require('pack.colorizer')"}
 

@@ -1,6 +1,4 @@
 local M = {}
-local status, cmp = pcall(require, "cmp")
-if (not status) then return end
 
 function M.lua_snip()
   local ls = require('luasnip')
@@ -14,6 +12,13 @@ function M.lua_snip()
   })
 end
 function M.config()
+    local status, cmp = pcall(require, "cmp")
+    if (not status) then return end
+    local has_words_before = function()
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    end
+    local luasnip = require("luasnip")
     local lspkind = require'lspkind'
     cmp.setup({
         snippet = {
@@ -36,6 +41,24 @@ function M.config()
             ['<CR>'] = cmp.mapping.confirm({
                 select = true,
             }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+
+            ["<Tab>"] = cmp.mapping(function(fallback)
+                if luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
+                elseif has_words_before() then
+                    cmp.complete()
+                else
+                    fallback()
+                end
+            end, { "i", "s" }),
+
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+                if luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
+                else
+                    fallback()
+                end
+            end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
             { name = 'nvim_lsp' },
@@ -51,8 +74,14 @@ function M.config()
             })
         }
     })
+end
+
+function M.nvim_autopairs()
 	require("nvim-autopairs").setup()
+    local status, cmp = pcall(require, "cmp")
+    if (not status) then return end
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
+
 return M
