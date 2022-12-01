@@ -26,7 +26,7 @@ require('packer').startup({
         end}
 
         -------------------- alpha(the start page)
-        use { 'goolord/alpha-nvim', event = "BufWinEnter", requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha')" }
+        use { 'goolord/alpha-nvim', event = "BufWinEnter", requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha').setup()" }
         -------------------- lspsaga
         use({ "glepnir/lspsaga.nvim", after = 'nvim-lspconfig', branch = "main", config = "require('pack.lsp.lspsaga')"})
         -------------------- notification manager
@@ -90,7 +90,7 @@ require('packer').startup({
             requires = { 'nvim-tree/nvim-web-devicons' }
         }
 
-        use { 'nvim-lua/popup.nvim' }
+        -- use { 'nvim-lua/popup.nvim' }
         --place the VIM bookmark
         use { 'MattesGroeger/vim-bookmarks', event = 'BufRead'}
 
@@ -136,7 +136,7 @@ require('packer').startup({
         -------------------- luaine
         use { 'nvim-lualine/lualine.nvim',
             event = "BufWinEnter",
-            config = "require('pack.lualine')",
+            config = "require('pack.lualine').setup()",
             requires = { 'kyazdani42/nvim-web-devicons' }
         }
 
