@@ -10,8 +10,23 @@ require'nvim-tree'.setup {
     view = {
         mappings = {
             list = {
+                -------- default mappings
+                -- d remove
+                -- D trash
+                -- r rename
+                -- <C-r> full_rename
+                -- x cut
+                -- c copy
+                -- p paste
+                -- m toggle_mark
+                -- y copy_name
+                -- Y copy_path
+                -- gy copy_absolute_path
+
+                -------- self mappins
                 { key='<cr>', action = "edit" },
                 { key='R'   , action = "refresh" },
+                { key='n'   , action = "create" },
                 { key='K'   , action = "preview" },
             }
         }

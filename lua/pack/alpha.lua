@@ -95,13 +95,8 @@ local buttons = {
         },
         { type = 'padding', val = 1 },
         startify.button('e', '  New file', ':ene <BAR> startinsert<CR>'),
-        startify.button('ff', '  Find file', "<cmd>lua require('telescope.builtin').find_files()<CR>"),
-        startify.button('fo', '  Old files', "<cmd>lua require('telescope.builtin').oldfiles()<CR>"),
-        startify.button(
-            'd',
-            '  Config',
-            "<cmd>lua require('telescope.builtin').find_files({ search_dirs = { os.getenv('HOME') .. '/.config' } })<CR>"
-        ),
+        startify.button('ff', '  Find file', "<cmd>lua require('fzf-lua').files()<CR>"),
+        startify.button('fo', '  Old files', "<cmd>lua require('fzf-lua').oldfiles()<CR>"),
         startify.button('u', '  Update plugins', ':PackerSync<CR>'),
         startify.button('q', '  Quit', ':qa<CR>'),
     },

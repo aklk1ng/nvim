@@ -79,19 +79,16 @@ require('packer').startup({
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
 
-        -------------------- fzf
-        require('pack.fzf').config()
-        use { 'junegunn/fzf' }
-        use { 'junegunn/fzf.vim', after = "fzf" }
+        -------------------- fzf and fzflua
+        use { 'junegunn/fzf', run = './install --bin' }
+        use { 'ibhagwan/fzf-lua',
+            -- optional for icon support
+            event = "BufWinEnter",
+            config = "require('pack.fzflua')",
+            requires = { 'nvim-tree/nvim-web-devicons' }
+        }
 
-        -------------------- telescope
-        use { 'nvim-telescope/telescope.nvim',
-            config = "require('pack/telescope')",
-            tag = '0.1.0',
-            requires = { { 'nvim-lua/plenary.nvim' } } }
         use { 'nvim-lua/popup.nvim' }
-        use { 'nvim-telescope/telescope-file-browser.nvim'}
-        use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
         --place the VIM bookmark
         use { 'MattesGroeger/vim-bookmarks', event = 'BufRead'}
 

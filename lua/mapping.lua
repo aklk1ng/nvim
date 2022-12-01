@@ -80,17 +80,18 @@ map("n", "mC", ":BookmarkClearAll<CR>", opt)
 map("n", "<leader>mn", ":BookmarkMoveDown<CR>", opt)
 map("n", "<leader>mp", ":BookmarkMoveUp<CR>", opt)
 
----------------------------- telescope
-map("n", "fl", ":Telescope file_browser<CR>", opt) --列出当前工作目录中的目录及文件，非递归(与nvim-tree类似)
-map("n", "ff", ":Telescope find_files<CR>", opt) --列出当前工作目录中的文件
-map("n", "fb", ":Telescope buffers<CR>", opt) --列出当前打开的缓冲区
-map("n", "fc", ":Telescope command_history<CR>", opt) --查找命令历史
-map("n", "fo", ":Telescope oldfiles<CR>", opt) --查找文件历史
-map("n", "fs", ":Telescope lsp_document_symbols<CR>", opt) --查找当前文件所有的标识符
-map("n", "fS", ":Telescope lsp_workspace_symbols<CR>", opt) --查找当前工程所有的标识符
-map("n", "fd", ":Telescope diagnostics<CR>", opt) --查找当前工程所有的诊断信息
-map("n", "fk", ":Telescope keymaps<CR>", opt) --查找键盘映射
-map("n", "fw", ":Telescope live_grep<CR>", opt) --查找当前目录的字符串
+---------------------------- FzfLua
+map("n", "ff", ":FzfLua files<CR>", opt) --列出当前工作目录中的文件
+map("n", "fb", ":FzfLua buffers<CR>", opt) --列出当前打开的缓冲区
+map("n", "fc", ":FzfLua command_history<CR>", opt) --查找命令历史
+map("n", "fo", ":FzfLua oldfiles<CR>", opt) --查找文件历史
+map("n", "fs", ":FzfLua lsp_document_symbols<CR>", opt) --查找当前文件所有的标识符
+map("n", "fS", ":FzfLua lsp_workspace_symbols<CR>", opt) --查找当前工程所有的标识符
+map("n", "fa", ":FzfLua lsp_code_actions<CR>", opt) --查找当前文件的代码操作
+map("n", "fd", ":FzfLua diagnostics_document<CR>", opt) --查找当前工程所有的诊断信息
+map("n", "fD", ":FzfLua diagnostics_workspace<CR>", opt) --查找当前工程所有的诊断信息
+map("n", "fk", ":FzfLua keymaps<CR>", opt) --查找键盘映射
+map("n", "fw", ":FzfLua live_grep<CR>", opt) --查找当前目录的字符串
 
 ---------------------------- floaterm
 map("n", "fn", ":FloatermNew<CR>", opt) --open a terminal window
