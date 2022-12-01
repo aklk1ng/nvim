@@ -39,15 +39,15 @@ require('packer').startup({
         })
 
         -------------------- a plugin for interating with database
-        -- require('pack/vim-dadbod').config()
-        -- use { 'tpope/vim-dadbod' }
-        -- use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
-        --     config = "require('pack/vim-dadbod').setup()",
-        --     after = 'vim-dadbod'
-        -- }
+        require('pack/vim-dadbod').config()
+        use { 'tpope/vim-dadbod' }
+        use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
+            config = "require('pack/vim-dadbod').setup()",
+            after = 'vim-dadbod'
+        }
 
         -------------------- lspconfig,for telescope's lsp support
-        use {"neovim/nvim-lspconfig", config = "require('pack.lsp.setup').config()"}
+        use {"neovim/nvim-lspconfig", config = "require('pack.lsp.setup').setup()"}
         -- nvim-cmp 
         use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig'  } -- { name = nvim_lsp }
         use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
@@ -55,8 +55,8 @@ require('packer').startup({
         use { 'hrsh7th/cmp-path', after = 'nvim-cmp'  } -- { name = 'path' }
         use {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
         use {'hrsh7th/cmp-emoji', after = 'nvim-cmp' }
-        use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp').config()" }
-        use { 'L3MON4D3/LuaSnip', config = "require('pack.cmp').lua_snip()"}
+        use { 'hrsh7th/nvim-cmp', event = 'InsertEnter', config = "require('pack.cmp').config()" }
+        use { 'L3MON4D3/LuaSnip', event = 'InsertCharPre', config = "require('pack.cmp').lua_snip()"}
         use { "rafamadriz/friendly-snippets" }
         use { "onsails/lspkind.nvim"}
 
@@ -75,7 +75,9 @@ require('packer').startup({
             require('gitsigns').setup()
         end}
         use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
-        use { "rcarriga/nvim-dap-ui", requires = {{ "mfussenegger/nvim-dap" },{ "theHamsta/nvim-dap-virtual-text" }}, config = "require('pack.dap')" }
+        require('pack.nvim-dap-virtual-text').setup()
+        use {"theHamsta/nvim-dap-virtual-text"}
+        use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.dap')" }
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
 

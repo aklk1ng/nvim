@@ -1,6 +1,9 @@
 --define the diagnostic symbol
 local M = {}
 function M.config()
+    
+end
+function M.setup()
     local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
     for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
