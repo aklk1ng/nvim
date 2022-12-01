@@ -47,7 +47,7 @@ require('packer').startup({
         -- }
 
         -------------------- lspconfig,for telescope's lsp support
-        use {"neovim/nvim-lspconfig"}
+        use {"neovim/nvim-lspconfig", config = "require('pack.lsp.setup').config()"}
         -- nvim-cmp 
         use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig'  } -- { name = nvim_lsp }
         use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
@@ -55,8 +55,8 @@ require('packer').startup({
         use { 'hrsh7th/cmp-path', after = 'nvim-cmp'  } -- { name = 'path' }
         use {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
         use {'hrsh7th/cmp-emoji', after = 'nvim-cmp' }
-        use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp')" }
-        use { 'L3MON4D3/LuaSnip'}
+        use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp').config()" }
+        use { 'L3MON4D3/LuaSnip', config = "require('pack.cmp').lua_snip()"}
         use { "rafamadriz/friendly-snippets" }
         use { "onsails/lspkind.nvim"}
 
@@ -84,7 +84,7 @@ require('packer').startup({
         use { 'ibhagwan/fzf-lua',
             -- optional for icon support
             event = "BufWinEnter",
-            config = "require('pack.fzflua')",
+            config = "require('pack.fzflua').config()",
             requires = { 'nvim-tree/nvim-web-devicons' }
         }
 
@@ -123,7 +123,7 @@ require('packer').startup({
 
         -------------------- file explorer
         use { 'nvim-tree/nvim-tree.lua',
-            config = "require('pack.nvim-tree')",
+            config = "require('pack.nvim-tree').config()",
             cmd = "NvimTreeToggle",
         }
         -------------------- ranegr
