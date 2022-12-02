@@ -56,7 +56,7 @@ require('packer').startup({
         use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp'}
         use { 'hrsh7th/cmp-emoji', after = 'nvim-cmp'}
         use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
-        use { 'L3MON4D3/LuaSnip',  config = require('pack.cmp').lua_snip}
+        use { 'L3MON4D3/LuaSnip', config = require('pack.cmp').lua_snip}
 
         use { "rafamadriz/friendly-snippets" }
         use { "onsails/lspkind.nvim"}
