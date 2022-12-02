@@ -47,20 +47,15 @@ require('packer').startup({
         }
 
         -------------------- lspconfig,for telescope's lsp support
-        use {"neovim/nvim-lspconfig", config = "require('pack.lsp.setup').setup()"}
+        use {"neovim/nvim-lspconfig", config = require('pack.lsp.setup').setup}
         -- nvim-cmp 
-        use ({
-            'hrsh7th/nvim-cmp',
-            config = require('pack.cmp').config,
-            requires = {
-                { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' },
-                { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-                { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-                { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp'},
-                { 'hrsh7th/cmp-emoji', after = 'nvim-cmp'},
-                { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
-            },
-        })
+        use { 'hrsh7th/nvim-cmp', config = require('pack.cmp').config}
+        use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' }
+        use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }
+        use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
+        use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp'}
+        use { 'hrsh7th/cmp-emoji', after = 'nvim-cmp'}
+        use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
         use { 'L3MON4D3/LuaSnip',  config = require('pack.cmp').lua_snip}
 
         use { "rafamadriz/friendly-snippets" }
