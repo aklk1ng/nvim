@@ -5,7 +5,6 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.writebackup = false
 vim.o.termguicolors = true
-vim.o.timeout = 500
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
@@ -38,6 +37,10 @@ vim.cmd([[
     highlight BookmarkLine ctermbg=194 ctermfg=NONE
     let g:bookmark_sign = '♥'
     let g:bookmark_highlight_lines = 1
+]])
+
+vim.cmd([[
+    let g:python3_host_prog = $PYTHON
 ]])
 
 -- Highlight on yank
@@ -76,11 +79,12 @@ vim.cmd([[
     set inccommand=
     set ignorecase
     set smartcase
-    set timeoutlen=100
+    set timeoutlen=400
 ]])
 -- 设置命令提示 唯一标识 共享剪贴板
 vim.cmd([[
     set showcmd
+    set updatetime=300
     set encoding=utf-8
     set fileencodings =utf-8,ucs-bom,gbk,cp936,gb2312,gb18030
     set wildmenu
