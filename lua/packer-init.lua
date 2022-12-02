@@ -26,7 +26,7 @@ require('packer').startup({
         end}
 
         -------------------- alpha(the start page)
-        use { 'goolord/alpha-nvim', event = "BufWinEnter", requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('pack.alpha').setup()" }
+        use { 'goolord/alpha-nvim', event = "BufWinEnter", requires = { 'kyazdani42/nvim-web-devicons' }, config = require('pack.alpha').setup }
         -------------------- lspsaga
         use({ "glepnir/lspsaga.nvim", after = 'nvim-lspconfig', branch = "main", config = "require('pack.lsp.lspsaga')"})
         -------------------- notification manager
@@ -49,14 +49,17 @@ require('packer').startup({
         -------------------- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig", config = "require('pack.lsp.setup').setup()"}
         -- nvim-cmp 
-        use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig'  } -- { name = nvim_lsp }
-        use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
-        use {'hrsh7th/cmp-buffer', after = 'nvim-cmp'}  -- { name = 'buffer' },
-        use { 'hrsh7th/cmp-path', after = 'nvim-cmp'  } -- { name = 'path' }
-        use {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' }
-        use {'hrsh7th/cmp-emoji', after = 'nvim-cmp' }
-        use { 'hrsh7th/nvim-cmp', config = "require('pack.cmp').config()" }
-        use { 'L3MON4D3/LuaSnip', config = "require('pack.cmp').lua_snip()"}
+        use ({
+            'hrsh7th/nvim-cmp',
+            config = require('pack.cmp').config,
+            requires = {
+                { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' },
+                { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+                { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+                { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
+            },
+        })
+        use { 'L3MON4D3/LuaSnip',  config = require('pack.cmp').lua_snip}
 
         use { "rafamadriz/friendly-snippets" }
         use { "onsails/lspkind.nvim"}
@@ -88,7 +91,7 @@ require('packer').startup({
         use { 'ibhagwan/fzf-lua',
             -- optional for icon support
             event = "BufWinEnter",
-            config = "require('pack.fzflua').config()",
+            config = require('pack.fzflua').config,
             requires = { 'nvim-tree/nvim-web-devicons' }
         }
 
@@ -101,7 +104,7 @@ require('packer').startup({
         use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' }}
-        use { "windwp/nvim-autopairs", event = 'InsertEnter', config = "require('pack.cmp').nvim_autopairs()"}
+        use { "windwp/nvim-autopairs", event = 'InsertEnter', config = require('pack.cmp').nvim_autopairs}
         --colorizer(highlight the color)
         use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = "require('pack.colorizer')"}
 
