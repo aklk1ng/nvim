@@ -21,7 +21,7 @@ require('packer').startup({
         use({ "dstein64/vim-startuptime", cmd = 'StartupTime' })
 
         -------------------- my colorscheme,i change many styles with the normal onedarkpro theme
-        use {"aklk1ng/onedarkpro", event = 'BufWinEnter', config = function ()
+        use {"aklk1ng/onedarkpro", config = function ()
             vim.cmd("colorscheme onedarkpro")
         end}
 
@@ -56,6 +56,8 @@ require('packer').startup({
                 { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' },
                 { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
                 { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+                { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp'},
+                { 'hrsh7th/cmp-emoji', after = 'nvim-cmp'},
                 { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
             },
         })
@@ -80,7 +82,6 @@ require('packer').startup({
             require('gitsigns').setup()
         end}
         use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
-        require('pack.nvim-dap-virtual-text').setup()
         use {"theHamsta/nvim-dap-virtual-text"}
         use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.dap')" }
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}

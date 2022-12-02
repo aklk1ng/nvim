@@ -1,5 +1,4 @@
 vim.g.mapleader = " "
--- vim.cmd('colorscheme solarized8_high')
 -- Split to the right in vsplit
 vim.o.splitright = true
 -- Split to the bottom in split
@@ -7,7 +6,6 @@ vim.o.splitbelow = true
 vim.o.writebackup = false
 vim.o.termguicolors = true
 vim.o.timeout = 500
-vim.o.updatetime = 100
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
@@ -78,7 +76,7 @@ vim.cmd([[
     set inccommand=
     set ignorecase
     set smartcase
-    set timeoutlen=10
+    set timeoutlen=100
 ]])
 -- 设置命令提示 唯一标识 共享剪贴板
 vim.cmd([[
