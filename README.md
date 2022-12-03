@@ -41,47 +41,39 @@ git clone https://github.com/aklk1ng/nvim.git
 ### This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!
 
 ```dir
-├── colors                          --some color theme and makrdown format
-│   ├── markdown.css
-│   ├── onedark.vim
-│   └── solarized8_high.vim
-├── init.lua                        --like the main function in cpp/c to load my config files
+.
+├── 2022-11-30_16-17.png
+├── colors                                  
+│   └── markdown.css                        -- markdown format
+├── init.lua                                -- the neovim's begin
 ├── lua
-│   ├── G.lua                       --my options prefix configuration
-│   ├── macos.lua                   --a file for macos config(maybe i will use it in the furture)
-│   ├── mapping.lua                 --my major mappings in my neovim,others are in the corresponding plugin file in the pack folder
-│   ├── pack                        --all my plugins config
-│   │   ├── alpha.lua
-│   │   ├── alternate-toggle.lua
-│   │   ├── autopairs.lua
-│   │   ├── bufferline.lua
-│   │   ├── cmp.lua
-│   │   ├── coc.lua
-│   │   ├── colorizer.lua
-│   │   ├── dap.lua
-│   │   ├── git.lua
-│   │   ├── gitsigns.lua
-│   │   ├── lsp
-│   │   │   ├── c.lua
-│   │   │   ├── lua.lua
-│   │   │   ├── python.lua
-│   │   │   └── setup.lua
-│   │   ├── lspkind.lua
-│   │   ├── lspsaga.lua
-│   │   ├── lualine.lua
-│   │   ├── markdown.lua
-│   │   ├── neosolarized.lua
-│   │   ├── null-ls.lua
-│   │   ├── nvim-cmp.lua
-│   │   ├── nvim-tree.lua
-│   │   ├── telescope.lua
-│   │   ├── treesitter.lua
-│   │   └── vim-visual-multi.lua
-│   ├── packer-init.lua             --the plugin manager and i list all my plugin in this file
-│   ├── profile.lua                 --my neovim options major configuration
-│   ├── snippets                    --now it is empty(although i think the snippets are not comfortable for me,but i can change a another way to use it)
-│   └── windows.lua                 --a file for windows config(though i haven't use)
+│   ├── G.lua
+│   ├── mapping.lua                         -- keymaps
+│   ├── pack
+│   │   ├── completion                      -- completion plugins config
+│   │   │   ├── cmp.lua
+│   │   │   └── lspconfig.lua
+│   │   ├── language                        -- language plugins config
+│   │   │   ├── markdown.lua
+│   │   │   └── treesitter.lua
+│   │   ├── tools                           -- some useful tools plugins config
+│   │   │   ├── dap.lua
+│   │   │   ├── fzflua.lua
+│   │   │   ├── nvim-dap-virtual-text.lua
+│   │   │   ├── nvim-tree.lua
+│   │   │   ├── vim-dadbod.lua
+│   │   │   └── vim-visual-multi.lua
+│   │   └── ui                              -- some beautiful ui plugins config
+│   │       ├── alpha.lua
+│   │       ├── bufferline.lua
+│   │       ├── colorizer.lua
+│   │       ├── lspsaga.lua
+│   │       └── lualine.lua
+│   ├── package.json                        -- my snippets config
+│   ├── packer-init.lua                     -- plugins list
+│   ├── profile.lua                         -- all the neovim's options
+│   └── snippets                            -- all my snippets
 ├── plugin
-│   └── packer_compiled.lua         --the packer's complite file,i ignore it because it's unique to each user and chang frequently if you use the update command frequently
+│   └── packer_compiled.lua
 └── README.md
 ```
