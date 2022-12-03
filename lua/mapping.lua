@@ -1,5 +1,4 @@
-local G = require('G')
-local map = G.api.nvim_set_keymap
+local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 ---------------------------- map('模式','按键','映射为XX',opt)

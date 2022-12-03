@@ -14,10 +14,7 @@ vim.keymap.set("n", "<Leader>dB", function()
 end)
 vim.keymap.set("n", "<Leader>dr", require "dapui".toggle)
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
+  dapui.open()
 end
 dapui.setup({
     icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
@@ -86,7 +83,7 @@ dapui.setup({
 
 dap.adapters.lldb = {
     type = 'executable',
-    command = '/home/linuxbrew/.linuxbrew//bin/lldb-vscode', -- adjust as needed, must be absolute path
+    command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
     name = 'lldb'
 }
 dap.adapters.python = {
