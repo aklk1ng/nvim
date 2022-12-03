@@ -127,7 +127,7 @@ require('packer').startup({
 
         -------------------- file explorer
         use { 'nvim-tree/nvim-tree.lua',
-            config = "require('pack.ui.nvim-tree').config()",
+            config = "require('pack.tools.nvim-tree').config()",
             cmd = "NvimTreeToggle",
         }
         -------------------- ranegr
