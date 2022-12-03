@@ -26,7 +26,7 @@ require('packer').startup({
         end}
 
         -------------------- alpha(the start page)
-        use { 'goolord/alpha-nvim', event = "BufWinEnter", requires = { 'kyazdani42/nvim-web-devicons' }, config = require('pack.ui.alpha').setup }
+        use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = require('pack.ui.alpha').setup }
         -------------------- lspsaga
         use({ "glepnir/lspsaga.nvim", after = 'nvim-lspconfig', branch = "main", config = "require('pack.ui.lspsaga')"})
         -------------------- notification manager
@@ -39,12 +39,12 @@ require('packer').startup({
         })
 
         -------------------- a plugin for interating with database
-        require('pack.tools.vim-dadbod').config()
-        use { 'tpope/vim-dadbod' }
-        use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
-            config = "require('pack.tools.vim-dadbod').setup()",
-            after = 'vim-dadbod'
-        }
+        -- require('pack.tools.vim-dadbod').config()
+        -- use { 'tpope/vim-dadbod' }
+        -- use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
+        --     config = "require('pack.tools.vim-dadbod').setup()",
+        --     after = 'vim-dadbod'
+        -- }
 
         -------------------- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig",
@@ -79,9 +79,8 @@ require('packer').startup({
         use { 'lewis6991/gitsigns.nvim', event = { 'BufRead', 'BufNewfile' },tag ="v0.5", config = function()
             require('gitsigns').setup()
         end}
-        use { 'dinhhuy258/git.nvim', config = "require('pack.tools.git')"}
         use {"theHamsta/nvim-dap-virtual-text"}
-        use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.tools.dap')" }
+        use { "rcarriga/nvim-dap-ui", after = 'nvim-dap', requires = { "mfussenegger/nvim-dap" }, config = "require('pack.tools.dap')" }
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
 
@@ -89,7 +88,6 @@ require('packer').startup({
         use { 'junegunn/fzf', run = './install --bin' }
         use { 'ibhagwan/fzf-lua',
             -- optional for icon support
-            event = "BufWinEnter",
             config = require('pack.tools.fzflua').config,
             requires = { 'nvim-tree/nvim-web-devicons' }
         }
