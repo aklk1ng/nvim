@@ -26,9 +26,9 @@ require('packer').startup({
         end}
 
         -------------------- alpha(the start page)
-        use { 'goolord/alpha-nvim', event = "BufWinEnter", requires = { 'kyazdani42/nvim-web-devicons' }, config = require('pack.alpha').setup }
+        use { 'goolord/alpha-nvim', event = "BufWinEnter", requires = { 'kyazdani42/nvim-web-devicons' }, config = require('pack.ui.alpha').setup }
         -------------------- lspsaga
-        use({ "glepnir/lspsaga.nvim", after = 'nvim-lspconfig', branch = "main", config = "require('pack.lsp.lspsaga')"})
+        use({ "glepnir/lspsaga.nvim", after = 'nvim-lspconfig', branch = "main", config = "require('pack.ui.lspsaga')"})
         -------------------- notification manager
         use({
             "rcarriga/nvim-notify",
@@ -39,24 +39,27 @@ require('packer').startup({
         })
 
         -------------------- a plugin for interating with database
-        require('pack/vim-dadbod').config()
+        require('pack.tools.vim-dadbod').config()
         use { 'tpope/vim-dadbod' }
         use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
-            config = "require('pack/vim-dadbod').setup()",
+            config = "require('pack.tools.vim-dadbod').setup()",
             after = 'vim-dadbod'
         }
 
         -------------------- lspconfig,for telescope's lsp support
-        use {"neovim/nvim-lspconfig", config = require('pack.lsp.setup').setup}
+        use {"neovim/nvim-lspconfig",
+            ft = {'c', 'cpp', 'lua', 'go', 'sh', 'typescript', 'python', 'html', 'css', 'json', 'typescriptreact', 'markdown'},
+            config = require('pack.completion.lspconfig').setup
+        }
         -- nvim-cmp 
-        use { 'hrsh7th/nvim-cmp', config = require('pack.cmp').config}
+        use { 'hrsh7th/nvim-cmp', config = require('pack.completion.cmp').config}
         use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' }
         use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }
         use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
         use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp'}
         use { 'hrsh7th/cmp-emoji', after = 'nvim-cmp'}
         use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
-        use { 'L3MON4D3/LuaSnip', config = require('pack.cmp').lua_snip}
+        use { 'L3MON4D3/LuaSnip', config = require('pack.completion.cmp').lua_snip}
 
         use { "rafamadriz/friendly-snippets" }
         use { "onsails/lspkind.nvim"}
@@ -70,15 +73,15 @@ require('packer').startup({
         --cursor movement
         use { 'ggandor/leap.nvim'}
         -- multi cursor
-        require('pack.vim-visual-multi').config()
-        use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()" }
+        require('pack.tools.vim-visual-multi').config()
+        use { 'mg979/vim-visual-multi', config = "require('pack.tools.vim-visual-multi').setup()" }
         use { 'rmagatti/alternate-toggler', cmd = 'ToggleAlternate'}
         use { 'lewis6991/gitsigns.nvim', event = { 'BufRead', 'BufNewfile' },tag ="v0.5", config = function()
             require('gitsigns').setup()
         end}
-        use { 'dinhhuy258/git.nvim', config = "require('pack.git')"}
+        use { 'dinhhuy258/git.nvim', config = "require('pack.tools.git')"}
         use {"theHamsta/nvim-dap-virtual-text"}
-        use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.dap')" }
+        use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" }, config = "require('pack.tools.dap')" }
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
 
@@ -87,7 +90,7 @@ require('packer').startup({
         use { 'ibhagwan/fzf-lua',
             -- optional for icon support
             event = "BufWinEnter",
-            config = require('pack.fzflua').config,
+            config = require('pack.tools.fzflua').config,
             requires = { 'nvim-tree/nvim-web-devicons' }
         }
 
@@ -96,13 +99,13 @@ require('packer').startup({
         use { 'MattesGroeger/vim-bookmarks', event = 'BufRead'}
 
         -------------------- tree-sitter
-        use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = "require('pack.treesitter').setup()" }
+        use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = "require('pack.language.treesitter').setup()" }
         use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' }}
-        use { "windwp/nvim-autopairs", event = 'InsertEnter', config = require('pack.cmp').nvim_autopairs}
+        use { "windwp/nvim-autopairs", event = 'InsertEnter', config = require('pack.completion.cmp').nvim_autopairs}
         --colorizer(highlight the color)
-        use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = "require('pack.colorizer')"}
+        use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = "require('pack.ui.colorizer')"}
 
         -------------------- highlight the current word
         use { 'itchyny/vim-cursorword', event = 'BufRead'}
@@ -111,14 +114,14 @@ require('packer').startup({
         use {'kyazdani42/nvim-web-devicons' }
         use { 'akinsho/bufferline.nvim',
             event = "BufWinEnter",
-            config = "require('pack.bufferline')",
+            config = "require('pack.ui.bufferline')",
             tag = "v2.*",
             requires = { 'kyazdani42/nvim-web-devicons' }
         }
         use { 'famiu/bufdelete.nvim', after = 'bufferline.nvim' }
 
         -------------------- markdown preview and toc
-        require('pack.markdown').config()
+        require('pack.language.markdown').config()
         --use nodejs and yarn to build this plugin(make sure you have installed them)
         use { "iamcco/markdown-preview.nvim", run = "cd app && npm install", cmd = 'MarkdownPreview', ft = 'markdown' }
         use { 'mzlogin/vim-markdown-toc', cmd = 'MarkdownPreview', after = 'markdown-preview.nvim', ft = 'markdown' }
@@ -126,7 +129,7 @@ require('packer').startup({
 
         -------------------- file explorer
         use { 'nvim-tree/nvim-tree.lua',
-            config = "require('pack.nvim-tree').config()",
+            config = "require('pack.ui.nvim-tree').config()",
             cmd = "NvimTreeToggle",
         }
         -------------------- ranegr
@@ -137,7 +140,7 @@ require('packer').startup({
         -------------------- luaine
         use { 'nvim-lualine/lualine.nvim',
             event = "BufWinEnter",
-            config = "require('pack.lualine').setup()",
+            config = "require('pack.ui.lualine').setup()",
             requires = { 'kyazdani42/nvim-web-devicons' }
         }
 
