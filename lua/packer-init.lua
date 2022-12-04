@@ -61,7 +61,6 @@ require('packer').startup({
         use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
         use { 'L3MON4D3/LuaSnip', config = require('pack.completion.cmp').lua_snip}
 
-        use { "rafamadriz/friendly-snippets" }
         use { "onsails/lspkind.nvim"}
 
         -------------------- some useful plugins for coding
