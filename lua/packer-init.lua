@@ -39,12 +39,12 @@ require('packer').startup({
         })
 
         -------------------- a plugin for interating with database
-        -- require('pack.tools.vim-dadbod').config()
-        -- use { 'tpope/vim-dadbod' }
-        -- use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
-        --     config = "require('pack.tools.vim-dadbod').setup()",
-        --     after = 'vim-dadbod'
-        -- }
+        require('pack.tools.vim-dadbod').config()
+        use { 'tpope/vim-dadbod' }
+        use { 'kristijanhusak/vim-dadbod-ui', cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
+            config = "require('pack.tools.vim-dadbod').setup()",
+            after = 'vim-dadbod'
+        }
 
         -------------------- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig",
