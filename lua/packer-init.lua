@@ -144,7 +144,7 @@ require('packer').startup({
 
         -------------------- yaocccc's plugins
         use {'yaocccc/nvim-hlchunk', event = "BufRead"}
-        use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' } -- 退出输入模式时自动切换到英文
+        use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' }
     end,
     --set up to download plugins as a floating window
     config = {

@@ -51,27 +51,27 @@ vim.cmd([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
 ]])
--- 提示多余空格和TODO
+-- prompt to remove extra spaces
 vim.cmd([[
     hi ErrSpace ctermbg=238
     autocmd BufWinEnter * syn match Todo /TODO\(:.*\)*/
 ]])
--- 光标回到上次位置
+-- cursor returns last position
 vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]])
--- vim保存1000条文件记录
+-- vim save 1000 files
 vim.cmd([[ set viminfo=!,'10000,<50,s10,h ]])
--- 不自动备份 不换行
+-- no automatic backup,no newline
 vim.cmd([[
     set nobackup
     set noswapfile
     set nowrap
 ]])
--- 设置鼠标移动
+-- set mouse movement
 vim.cmd([[
     set mouse=a
     set selection=exclusive
 ]])
--- 搜索高亮 空格+回车 去除匹配高亮 延迟
+-- highlight the search and delay
 vim.cmd([[
     set hlsearch
     set showmatch
@@ -82,7 +82,7 @@ vim.cmd([[
     set smartcase
     set timeoutlen=400
 ]])
--- 设置命令提示 唯一标识 共享剪贴板
+-- share clipboard
 vim.cmd([[
     set showcmd
     set updatetime=300

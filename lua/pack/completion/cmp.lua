@@ -36,7 +36,7 @@ function M.config()
         mapping = cmp.mapping.preset.insert({
             ['<C-e>'] = cmp.mapping.abort(),
             ['<A-.>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-            -- 取消
+            -- cancel
             ['<A-,>'] = cmp.mapping({
                 i = cmp.mapping.abort(),
                 c = cmp.mapping.close(),

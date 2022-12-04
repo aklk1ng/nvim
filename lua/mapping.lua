@@ -1,7 +1,7 @@
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
----------------------------- map('模式','按键','映射为XX',opt)
+---------------------------- map('model','old keymap','new keymap',opt)
 map("n", "W", ":write<CR>", opt)
 map("n", "Q", ":q<CR>", opt)
 map("n", "<C-a>", "gg<S-v>G", opt)

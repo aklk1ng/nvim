@@ -2,14 +2,13 @@
 <!-- vim-markdown-toc GFM -->
 
 * [use](#use)
-    * [I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work](#i-using-the-archlinux-so-i-can-directly-download-language-severs-by-pacman-and-other-package-managerif-you-cantuse-the-mason-plugin-to-install-them-and-let-them-work)
 * [File tree](#file-tree)
-    * [This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!](#this-maybe-isnt-correct-because-i-will-change-or-update-my-plugins-and-config-but-the-file-tree-is-complex-to-change-the-format)
 
 <!-- vim-markdown-toc -->
 ![screenshot](./2022-11-30_16-17.png)
 ## use
-### I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work
+
+**I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work**
 1. Make usre you have installed te neovim(just to find corresponding distribution's way) and install other dependencies of other packages(pip,nodejs,yarn and others)
 
 - Python3 install `pynvim`
@@ -38,7 +37,8 @@ git clone https://github.com/aklk1ng/nvim.git
 :TSUpdateSync
 ```
 ## File tree
-### This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!
+
+**This maybe isn't correct because i will change or update my plugins and config but the file tree is complex to change the format!**
 
 ```dir
 .
