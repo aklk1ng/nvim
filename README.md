@@ -5,7 +5,7 @@
 * [File tree](#file-tree)
 
 <!-- vim-markdown-toc -->
-![screenshot](./2022-11-30_16-17.png)
+![screenshot](./2022-12-04_19-08.png)
 ## use
 
 **I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work**
