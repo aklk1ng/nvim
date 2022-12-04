@@ -186,8 +186,8 @@ function M.setup()
     ins_right {
         'fileformat',
         fmt = string.upper,
-        icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-        color = { fg = colors.green, gui = 'bold' },
+        icons_enabled = true, -- I think icons are cool but Eviline doesn't have them. sigh
+        color = { fg = colors.yellow, gui = 'bold' },
     }
 
     ins_right {

@@ -17,6 +17,8 @@ map("n", "<leader>e", ":e ~/.config/nvim/lua/packer-init.lua<CR>", opt)
 ---------------------------- cursor movement
 map("n", "<C-i>", "<Home>", opt)
 map("n", "<C-p>", "<End>", opt)
+map("n", "<S-y>", "y$", opt)
+map("n", "<S-c>", "c$", opt)
 map("n", "<S-j>", "5j", opt)
 map("v", "<S-j>", "5j", opt)
 map("n", "<S-k>", "5k", opt)
@@ -102,6 +104,6 @@ map("n", "<leader>co", ":ColorizerToggle<CR>", opt)
 map("n", "ta", ":ToggleAlternate<CR>", opt)
 
 ---------------------------- lazygit
-map("n", "lg", ":tabe<CR>:-tabmove<CR>:terminal lazygit<CR>", opt)
+map("n", "<leader>lg", ":tabe<CR>:-tabmove<CR>:terminal lazygit<CR>", opt)
 ---------------------------- lazynpm
-map("n", "lnm", ":tabe<CR>:-tabmove<CR>:terminal lazynpm<CR>", opt)
+map("n", "<leader>lnm", ":tabe<CR>:-tabmove<CR>:terminal lazynpm<CR>", opt)

@@ -52,7 +52,7 @@ require('packer').startup({
             config = require('pack.completion.lspconfig').setup
         }
         -- nvim-cmp 
-        use { 'hrsh7th/nvim-cmp', event = 'InsertEnter', after = 'LuaSnip', config = require('pack.completion.cmp').config}
+        use { 'hrsh7th/nvim-cmp', after = 'LuaSnip', config = require('pack.completion.cmp').config}
         use { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
         use { 'hrsh7th/cmp-nvim-lsp', after = 'cmp_luasnip' }
         use { 'hrsh7th/cmp-path', after = 'cmp-nvim-lsp' }
