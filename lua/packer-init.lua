@@ -52,14 +52,14 @@ require('packer').startup({
             config = require('pack.completion.lspconfig').setup
         }
         -- nvim-cmp 
-        use { 'hrsh7th/nvim-cmp', config = require('pack.completion.cmp').config}
-        use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-lspconfig' }
-        use { 'hrsh7th/cmp-path', after = 'nvim-cmp' }
-        use { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' }
-        use { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp'}
-        use { 'hrsh7th/cmp-emoji', after = 'nvim-cmp'}
-        use { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' }
-        use { 'L3MON4D3/LuaSnip', config = require('pack.completion.cmp').lua_snip}
+        use { 'hrsh7th/nvim-cmp', event = 'InsertEnter', after = 'LuaSnip', config = require('pack.completion.cmp').config}
+        use { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
+        use { 'hrsh7th/cmp-nvim-lsp', after = 'cmp_luasnip' }
+        use { 'hrsh7th/cmp-path', after = 'cmp-nvim-lsp' }
+        use { 'hrsh7th/cmp-buffer', after = 'cmp-path' }
+        use { 'hrsh7th/cmp-cmdline', after = 'cmp-buffer'}
+        use { 'hrsh7th/cmp-emoji', after = 'cmp-cmdline'}
+        use { 'L3MON4D3/LuaSnip', event = 'InsertEnter', config = require('pack.completion.cmp').lua_snip}
 
         use { "onsails/lspkind.nvim"}
 
