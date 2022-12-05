@@ -105,7 +105,7 @@ require('packer').startup({
         use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = "require('pack.ui.colorizer')"}
 
         -------------------- highlight the current word
-        use { 'itchyny/vim-cursorword', event = 'BufRead'}
+        use { 'RRethy/vim-illuminate', event = 'BufRead'}
 
         -------------------- bufferline
         use {'kyazdani42/nvim-web-devicons' }
