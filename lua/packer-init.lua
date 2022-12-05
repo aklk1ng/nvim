@@ -20,10 +20,17 @@ require('packer').startup({
         -------------------- startup time analysis 
         use({ "dstein64/vim-startuptime", cmd = 'StartupTime' })
 
-        -------------------- my colorscheme,i change many styles with the normal onedarkpro theme
-        use {"aklk1ng/onedarkpro", config = function ()
-            vim.cmd("colorscheme onedarkpro")
-        end}
+        -------------------- colorscheme
+        -- use {"aklk1ng/onedarkpro", config = function ()
+        --     vim.cmd("colorscheme onedarkpro")
+        -- end}
+        use({
+            'aklk1ng/zephyr-nvim',
+            requires = { 'nvim-treesitter/nvim-treesitter', opt = true },
+            config = function ()
+                vim.cmd("colorscheme zephyr")
+            end
+        })
 
         -------------------- alpha(the start page)
         use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = require('pack.ui.alpha').setup }
@@ -105,7 +112,7 @@ require('packer').startup({
         use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = "require('pack.ui.colorizer')"}
 
         -------------------- highlight the current word
-        use { 'RRethy/vim-illuminate', event = 'BufRead'}
+        use { 'itchyny/vim-cursorword', event = 'BufRead'}
 
         -------------------- bufferline
         use {'kyazdani42/nvim-web-devicons' }
