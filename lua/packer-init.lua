@@ -74,13 +74,14 @@ require('packer').startup({
         use { 'tpope/vim-commentary' }
         use { 'tpope/vim-surround' }
         use {'gcmt/wildfire.vim'}
+        use { 'glepnir/mcc.nvim', config = "require('pack.tools.mcc')"}
         -------------------- show the contents of the registers
         use { 'junegunn/vim-peekaboo', event = "BufRead"}
         --cursor movement
         use { 'ggandor/leap.nvim'}
         -- multi cursor
         require('pack.tools.vim-visual-multi').config()
-        use { 'mg979/vim-visual-multi', config = "require('pack.tools.vim-visual-multi').setup()" }
+        use { 'mg979/vim-visual-multi', event = 'CursorHold', config = "require('pack.tools.vim-visual-multi').setup()" }
         use { 'rmagatti/alternate-toggler', cmd = 'ToggleAlternate'}
         use { 'lewis6991/gitsigns.nvim', event = { 'BufRead', 'BufNewfile' },tag ="v0.5", config = function()
             require('gitsigns').setup()
@@ -94,6 +95,7 @@ require('packer').startup({
         use { 'junegunn/fzf', run = './install --bin' }
         use { 'ibhagwan/fzf-lua',
             -- optional for icon support
+            cmd = 'FzfLua',
             config = require('pack.tools.fzflua').config,
             requires = { 'nvim-tree/nvim-web-devicons' }
         }
