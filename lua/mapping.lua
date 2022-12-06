@@ -11,6 +11,7 @@ map("n", "<C-a>", "gg<S-v>G", opt)
 map("n", "..", "~", opt)
 ---------------------------- find pair
 map("n", ",.", "%", opt)
+map("v", ",.", "%", opt)
 
 ---------------------------- open the nvim config file anytime
 map("n", "<leader>e", ":e ~/.config/nvim/lua/packer-init.lua<CR>", opt)
@@ -83,17 +84,17 @@ map("n", "<leader>mn", ":BookmarkMoveDown<CR>", opt)
 map("n", "<leader>mp", ":BookmarkMoveUp<CR>", opt)
 
 ---------------------------- FzfLua
-map("n", "ff", ":FzfLua files<CR>", opt) --列出当前工作目录中的文件
-map("n", "fb", ":FzfLua buffers<CR>", opt) --列出当前打开的缓冲区
-map("n", "fc", ":FzfLua command_history<CR>", opt) --查找命令历史
-map("n", "fo", ":FzfLua oldfiles<CR>", opt) --查找文件历史
-map("n", "fs", ":FzfLua lsp_document_symbols<CR>", opt) --查找当前文件所有的标识符
-map("n", "fS", ":FzfLua lsp_workspace_symbols<CR>", opt) --查找当前工程所有的标识符
-map("n", "fa", ":FzfLua lsp_code_actions<CR>", opt) --查找当前文件的代码操作
-map("n", "fd", ":FzfLua diagnostics_document<CR>", opt) --查找当前工程所有的诊断信息
-map("n", "fD", ":FzfLua diagnostics_workspace<CR>", opt) --查找当前工程所有的诊断信息
-map("n", "fk", ":FzfLua keymaps<CR>", opt) --查找键盘映射
-map("n", "fw", ":FzfLua live_grep<CR>", opt) --查找当前目录的字符串
+map("n", "ff", ":FzfLua files<CR>", opt) -- find files at current folder
+map("n", "fb", ":FzfLua buffers<CR>", opt) -- find buffers
+map("n", "fc", ":FzfLua command_history<CR>", opt) -- find the history of command
+map("n", "fo", ":FzfLua oldfiles<CR>", opt) -- find old files
+map("n", "fs", ":FzfLua lsp_document_symbols<CR>", opt) -- find lsp symbols in the current buffer
+map("n", "fS", ":FzfLua lsp_workspace_symbols<CR>", opt) -- find lsp symbols in all buffers
+map("n", "fa", ":FzfLua lsp_code_actions<CR>", opt) -- find useable code actions
+map("n", "fd", ":FzfLua diagnostics_document<CR>", opt) -- find diagnostics document in current buffer
+map("n", "fD", ":FzfLua diagnostics_workspace<CR>", opt) -- find diagnostics document in all buffers
+map("n", "fk", ":FzfLua keymaps<CR>", opt) -- find the keymaps
+map("n", "fw", ":FzfLua live_grep<CR>", opt) -- find the word int current buffer
 
 ---------------------------- floaterm
 map("n", "fn", ":FloatermNew<CR>", opt) --open a terminal window
