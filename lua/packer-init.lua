@@ -67,14 +67,13 @@ require('packer').startup({
         use { 'hrsh7th/cmp-cmdline', after = 'cmp-buffer'}
         use { 'hrsh7th/cmp-emoji', after = 'cmp-cmdline'}
         use { 'L3MON4D3/LuaSnip', event = 'InsertEnter', config = require('pack.completion.cmp').lua_snip}
-
         use { "onsails/lspkind.nvim"}
 
         -------------------- some useful plugins for coding
-        use { 'tpope/vim-commentary' }
-        use { 'tpope/vim-surround' }
+        use { 'tpope/vim-commentary'}
+        use { 'tpope/vim-surround', event = 'CursorHold' }
         use {'gcmt/wildfire.vim'}
-        use { 'glepnir/mcc.nvim', config = "require('pack.tools.mcc')"}
+        use { 'glepnir/mcc.nvim', event = 'InsertEnter',config = "require('pack.tools.mcc')"}
         -------------------- show the contents of the registers
         use { 'junegunn/vim-peekaboo', event = "BufRead"}
         --cursor movement
@@ -87,20 +86,20 @@ require('packer').startup({
             require('gitsigns').setup()
         end}
         use {"theHamsta/nvim-dap-virtual-text"}
-        use { "rcarriga/nvim-dap-ui", after = 'nvim-dap', requires = { "mfussenegger/nvim-dap" }, config = "require('pack.tools.dap')" }
+        use { "mfussenegger/nvim-dap" }
+        use { "rcarriga/nvim-dap-ui", after = 'nvim-dap',  config = "require('pack.tools.dap')" }
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
 
         -------------------- fzf and fzflua
-        use { 'junegunn/fzf', run = './install --bin' }
+        -- if you already have fzf installed you do not need to install the next plugin
+        -- use { 'junegunn/fzf', run = './install --bin' }
         use { 'ibhagwan/fzf-lua',
-            -- optional for icon support
             cmd = 'FzfLua',
             config = require('pack.tools.fzflua').config,
             requires = { 'nvim-tree/nvim-web-devicons' }
         }
 
-        -- use { 'nvim-lua/popup.nvim' }
         --place the VIM bookmark
         use { 'MattesGroeger/vim-bookmarks', event = 'BufRead'}
 
@@ -139,7 +138,7 @@ require('packer').startup({
             cmd = "NvimTreeToggle",
         }
         -------------------- ranegr
-        use { 'francoiscabrol/ranger.vim', cmd = 'Ranger', event = 'BufWinEnter' }
+        use { 'francoiscabrol/ranger.vim', cmd = 'Ranger'}
         --delete a VIM buffer in VIM automatically
         use { 'rbgrouleff/bclose.vim', event = 'BufWinEnter' }
 

@@ -98,8 +98,9 @@ function M.setup()
             },
             { type = 'padding', val = 1 },
             startify.button('e', '  New file', ':ene <BAR> startinsert<CR>'),
-            startify.button('ff', '  Find file', "<cmd>lua require('fzf-lua').files()<CR>"),
-            startify.button('fo', '  Old files', "<cmd>lua require('fzf-lua').oldfiles()<CR>"),
+            -- if i use next commands i can't open the FzfLua normally(other FzfLua commands are normal)
+            -- startify.button('ff', '  Find file', "<cmd>lua require('fzf-lua').files()<CR>"),
+            -- startify.button('fo', '  Old files', "<cmd>lua require('fzf-lua').oldfiles()<CR>"),
             startify.button('u', '  Update plugins', ':PackerSync<CR>'),
             startify.button('q', '  Quit', ':qa<CR>'),
         },
