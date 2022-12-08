@@ -58,6 +58,11 @@ require('packer').startup({
             ft = {'c', 'cpp', 'lua', 'cmake', 'go', 'sh', 'typescript', 'python', 'html', 'css', 'json', 'typescriptreact', 'markdown'},
             config = require('pack.completion.lspconfig').setup
         }
+        -------------------- provide another way to download language server
+        use { "williamboman/mason.nvim", cmd = 'Mason',
+            config = function ()
+                require("mason").setup()
+        end}
         -- nvim-cmp 
         use { 'hrsh7th/nvim-cmp', after = 'LuaSnip', config = require('pack.completion.cmp').config}
         use { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
@@ -85,9 +90,11 @@ require('packer').startup({
         use { 'lewis6991/gitsigns.nvim', event = { 'BufRead', 'BufNewfile' },tag ="v0.5", config = function()
             require('gitsigns').setup()
         end}
-        use {"theHamsta/nvim-dap-virtual-text"}
-        use { "mfussenegger/nvim-dap" }
-        use { "rcarriga/nvim-dap-ui", after = 'nvim-dap',  config = "require('pack.tools.dap')" }
+        use {"theHamsta/nvim-dap-virtual-text",require("nvim-dap-virtual-text").setup()}
+        use { "mfussenegger/nvim-dap", config = "require('pack.tools.dap')"}
+        use { "rcarriga/nvim-dap-ui",
+            config = "require('pack.tools.dapui')"
+        }
         use {'voldikss/vim-floaterm', cmd = 'FloatermNew'}
 
 
