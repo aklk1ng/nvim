@@ -114,6 +114,7 @@ require('packer').startup({
         use { 'nvim-treesitter/nvim-treesitter', event = 'BufRead', run = ':TSUpdate', config = "require('modules.language.treesitter').setup()" }
         use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
+        use { 'nvim-treesitter/playground', after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' }}
         use { "windwp/nvim-autopairs", event = 'InsertEnter', config = require('modules.completion.cmp').nvim_autopairs}
         --colorizer(highlight the color)
