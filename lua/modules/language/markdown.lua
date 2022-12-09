@@ -1,4 +1,4 @@
-local G = require('G')
+local G = require('core.G')
 local M = {}
 
 

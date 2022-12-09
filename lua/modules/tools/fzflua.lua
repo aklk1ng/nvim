@@ -396,23 +396,6 @@ function M.config()
                 ["ctrl-x"] = { actions.buf_del, actions.resume },
             }
         },
-        tabs                = {
-            prompt      = 'Tabs❯ ',
-            tab_title   = "Tab",
-            tab_marker  = "<<",
-            file_icons  = true, -- show file icons?
-            color_icons = true, -- colorize file|git icons
-            actions     = {
-                -- actions inherit from 'actions.buffers' and merge
-                ["default"] = actions.buf_switch,
-                ["ctrl-x"]  = { actions.buf_del, actions.resume },
-            },
-            fzf_opts    = {
-                -- hide tabnr
-                ['--delimiter'] = "'[\\):]'",
-                ["--with-nth"]  = '2..',
-            },
-        },
         lines               = {
             previewer       = "builtin", -- set to 'false' to disable
             prompt          = 'Lines❯ ',
@@ -450,41 +433,6 @@ function M.config()
                 ["alt-l"]   = actions.buf_sel_to_ll
             },
         },
-        tags                = {
-            prompt       = 'Tags❯ ',
-            ctags_file   = "tags",
-            multiprocess = true,
-            file_icons   = true,
-            git_icons    = true,
-            color_icons  = true,
-            -- 'tags_live_grep' options, `rg` prioritizes over `grep`
-            rg_opts      = "--no-heading --color=always --smart-case",
-            grep_opts    = "--color=auto --perl-regexp",
-            actions      = {
-                -- actions inherit from 'actions.files' and merge
-                -- this action toggles between 'grep' and 'live_grep'
-                ["ctrl-g"] = { actions.grep_lgrep }
-            },
-            no_header    = false, -- hide grep|cwd header?
-            no_header_i  = false, -- hide interactive header?
-        },
-        btags               = {
-            prompt        = 'BTags❯ ',
-            ctags_file    = "tags",
-            ctags_autogen = false, -- dynamically generate ctags each call
-            multiprocess  = true,
-            file_icons    = true,
-            git_icons     = true,
-            color_icons   = true,
-            rg_opts       = "--no-heading --color=always",
-            grep_opts     = "--color=auto --perl-regexp",
-            fzf_opts      = {
-                ['--delimiter'] = "'[\\]:]'",
-                ["--with-nth"]  = '2..',
-                ["--tiebreak"]  = 'index',
-            },
-            -- actions inherit from 'actions.files'
-        },
         quickfix            = {
             file_icons = true,
             git_icons  = true,
@@ -493,7 +441,7 @@ function M.config()
             prompt_postfix   = '❯ ', -- will be appended to the LSP label
             -- to override use 'prompt' instead
             cwd_only         = false, -- LSP/diagnostics for cwd only?
-            async_or_timeout = 5000, -- timeout(ms) or 'true' for async calls
+            async_or_timeout = 1000, -- timeout(ms) or 'true' for async calls
             file_icons       = true,
             git_icons        = false,
             -- settings for 'lsp_{document|workspace|lsp_live_workspace}_symbols'

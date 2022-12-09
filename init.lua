@@ -1,3 +1,3 @@
-require('packer-init')
-require('profile')
-require('mapping')
+require('core.pack')
+require('core.profile')
+require('core.mapping')
