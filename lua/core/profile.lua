@@ -25,7 +25,9 @@ vim.o.autoindent = true
 vim.o.smartindent = true
 vim.o.number = true
 
-
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- leap
 require('leap').add_default_mappings()
