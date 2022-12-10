@@ -112,7 +112,7 @@ require('packer').startup({
 
         -------------------- tree-sitter
         use { 'nvim-treesitter/nvim-treesitter', event = 'BufRead', run = ':TSUpdate', config = "require('modules.language.treesitter').setup()" }
-        use { "p00f/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
+        use { "aklk1ng/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/playground', after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' }}
