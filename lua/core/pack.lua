@@ -90,7 +90,7 @@ require('packer').startup({
         use { 'lewis6991/gitsigns.nvim', event = { 'BufRead', 'BufNewfile' },tag ="v0.5", config = function()
             require('gitsigns').setup()
         end}
-        use {"theHamsta/nvim-dap-virtual-text",require("nvim-dap-virtual-text").setup()}
+        use {"theHamsta/nvim-dap-virtual-text", after = 'nvim-dap', config = require('modules.tools.nvim-dap-virtual-text').setup}
         use { "mfussenegger/nvim-dap", config = "require('modules.tools.dap')"}
         use { "rcarriga/nvim-dap-ui",
             config = "require('modules.tools.dapui')"
