@@ -20,7 +20,6 @@ dashboard.section.buttons.val = {
     dashboard.button( "e", "  > New file" , ":ene <BAR> startinsert <CR>"),
     dashboard.button( "ff", "  > Find file", ":FzfLua files<CR>"),
     dashboard.button( "fo", "  > Recent"   , ":FzfLua oldfiles<CR>"),
-    dashboard.button( "s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
     dashboard.button( "u", "  > Update" , ":PackerSync"),
     dashboard.button( "q", "  > Quit NVIM", ":qa<CR>"),
 }
