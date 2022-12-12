@@ -4,7 +4,6 @@ local opt = { noremap = true, silent = true }
 ---------------------------- map('model','old keymap','new keymap',opt)
 map("n", "W", ":write<CR>", opt)
 map("n", "Q", ":q<CR>", opt)
-map("n", "<C-a>", "gg<S-v>G", opt)
 
 
 ---------------------------- change letter case

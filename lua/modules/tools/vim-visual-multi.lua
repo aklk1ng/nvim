@@ -12,7 +12,7 @@ function M.config()
         ['Select l'] = '<C-l>',
         ['Add Cursor Up'] = '<C-k>',
         ['Add Cursor Down'] = '<C-j>',
-        ['Add Cursor At Pos'] = '<C-x>',
+        -- ['Add Cursor At Pos'] = '<C-x>',
         -- ['Add Cursor At Word'] = '<C-w>',
         ['Move Left'] = '<C-S-Left>',
         ['Move Right'] = '<C-S-Right>',
