@@ -250,6 +250,20 @@
         "body": ["${2:void} ${1:func}(${3:void})", "{", "\t$4", "}"],
         "description": "Creates a function"
     },
+    "Standard Starter Template": {
+        "prefix": "sst",
+        "body": [
+            "#include <iostream>",
+            "using namespace std;",
+            "",
+            "int main (int argc, char *argv[])",
+            "{",
+            "\t$0",
+            "\treturn 0;",
+            "}"
+        ],
+        "description": "A standard starter template for a CPP program"
+    },
     "Main function template": {
         "prefix": "main",
         "body": [
