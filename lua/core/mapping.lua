@@ -13,7 +13,7 @@ map("n", ",.", "%", opt)
 map("v", ",.", "%", opt)
 
 ---------------------------- open the nvim config file anytime
-map("n", "<leader>e", ":e ~/.config/nvim/lua/packer-init.lua<CR>", opt)
+map("n", "<leader>e", ":e ~/.config/nvim/lua/core/pack.lua<CR>", opt)
 ---------------------------- cursor movement
 map("n", "<C-i>", "<Home>", opt)
 map("n", "<C-p>", "<End>", opt)
