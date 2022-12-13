@@ -16,6 +16,7 @@ function M.setup()
         magenta  = '#c678dd',
         blue     = '#51afef',
         red      = '#ec5f67',
+        pink     = '#ff7fa8',
     }
 
     local conditions = {
@@ -81,7 +82,7 @@ function M.setup()
         function()
             return '▊'
         end,
-        color = { fg = colors.magenta }, -- Sets highlighting of component
+        color = { fg = colors.pink }, -- Sets highlighting of component
         padding = { left = 0, right = 1 }, -- We don't need space before this
     }
 
@@ -212,7 +213,7 @@ function M.setup()
         function()
             return '▊'
         end,
-        color = { fg = colors.magenta },
+        color = { fg = colors.pink },
         padding = { left = 1 },
     }
 
