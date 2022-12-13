@@ -44,7 +44,7 @@ function M.config()
                 select = true,
             }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
-            ["<C-o>"] = cmp.mapping(function(fallback)
+            ["<C-j>"] = cmp.mapping(function(fallback)
                 if luasnip.expand_or_jumpable() then
                     luasnip.expand_or_jump()
                 else
@@ -52,7 +52,7 @@ function M.config()
                 end
             end, { "i", "s" }),
 
-            ["<S-Tab>"] = cmp.mapping(function(fallback)
+            ["<C-k>"] = cmp.mapping(function(fallback)
                 if luasnip.jumpable(-1) then
                     luasnip.jump(-1)
                 else
