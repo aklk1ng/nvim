@@ -5,10 +5,10 @@ if not status_ok then
 end
 local dap = require("dap")
 dap.listeners.after.event_initialized["dapui_config"] = function()
+---@diagnostic disable-next-line: missing-parameter
     dapui.open()
 end
 dapui.setup({
-    icons = { expanded = "", collapsed = "", current_frame = "" },
     mappings = {
         -- Use a table to apply multiple mappings
         expand = { "<CR>", "<2-LeftMouse>" },
