@@ -68,7 +68,6 @@ map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 ---------------------------- ranger
 vim.cmd([[
     let g:ranger_map_keys = 0
-    let g:NERDTreeHijackNetrw = 0
 ]])
 map("n", "ra", ":Ranger<CR>", opt)
 
