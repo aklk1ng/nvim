@@ -1,6 +1,13 @@
 local M = {}
 
 function M.lua_snip()
+    local ls = require('luasnip')
+    ls.config.set_config({
+        -- disable the jump when i move outside the selection
+        history = false,
+        -- dynamic udpate the snippets when i type
+        updateevents = 'TextChanged,TextChangedI',
+    })
     require('luasnip.loaders.from_vscode').lazy_load()
     require('luasnip.loaders.from_vscode').lazy_load({
         paths = { '~/.config/nvim/lua/snippets/' },
@@ -37,7 +44,7 @@ function M.config()
                 select = true,
             }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
-            ["<C-y>"] = cmp.mapping(function(fallback)
+            ["<C-o>"] = cmp.mapping(function(fallback)
                 if luasnip.expand_or_jumpable() then
                     luasnip.expand_or_jump()
                 else
