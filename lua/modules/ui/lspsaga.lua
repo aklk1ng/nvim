@@ -5,20 +5,9 @@ if (not status) then
 end
 
 saga.init_lsp_saga {
-    -- server_filetype_map = {
-    --     typescript = 'typescript',
-    --     c="clangd",
-    --     cpp="clangd",
-    --     python="jedi_language_server",
-    --     bash="bashls",
-    --     lua="sumneko_lua",
-    --     markdown="marksman",
-    --     go="gopls",
-    --     html="html",
-    -- },
     -- Options with default value
     -- "single" | "double" | "rounded" | "bold" | "plus"
-    border_style = "single",
+    border_style = "rounded",
     saga_winblend = 0,
     move_in_saga = { prev = '<C-p>', next = '<C-n>' },
     diagnostic_header = { " ", " ", " ", "ﴞ " },
