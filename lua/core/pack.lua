@@ -33,7 +33,7 @@ require('packer').startup({
         })
 
         -------------------- alpha(the start page)
-        use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = require('modules.ui.alpha').setup }
+        use { 'goolord/alpha-nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = require('modules.ui.dashboard').setup }
         -------------------- lspsaga
         use({ "glepnir/lspsaga.nvim", after = 'nvim-lspconfig', branch = "main", config = "require('modules.ui.lspsaga')"})
         -------------------- notification manager
