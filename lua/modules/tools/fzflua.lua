@@ -23,27 +23,6 @@ function M.config()
             -- 'none', 'single', 'double', 'thicc' or 'rounded' (default)
             border     = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
             fullscreen = false, -- start fullscreen?
-            -- highlights should optimally be set by the colorscheme using
-            -- FzfLuaXXX highlights. If your colorscheme doesn't set these
-            -- or you wish to override its defaults use these:
-            --[[ hl = {
-      normal         = 'Normal',        -- window normal color (fg+bg)
-      border         = 'FloatBorder',   -- border color
-      help_normal    = 'Normal',        -- <F1> window normal
-      help_border    = 'FloatBorder',   -- <F1> window border
-      -- Only used with the builtin previewer:
-      cursor         = 'Cursor',        -- cursor highlight (grep/LSP matches)
-      cursorline     = 'CursorLine',    -- cursor line
-      cursorlinenr   = 'CursorLineNr',  -- cursor line number
-      search         = 'IncSearch',     -- search matches (ctags|help)
-      title          = 'Normal',        -- preview border title (file/buffer)
-      -- Only used with 'winopts.preview.scrollbar = 'float'
-      scrollfloat_e  = 'PmenuSbar',     -- scrollbar "empty" section highlight
-      scrollfloat_f  = 'PmenuThumb',    -- scrollbar "full" section highlight
-      -- Only used with 'winopts.preview.scrollbar = 'border'
-      scrollborder_e = 'FloatBorder',   -- scrollbar "empty" section highlight
-      scrollborder_f = 'FloatBorder',   -- scrollbar "full" section highlight
-    }, ]]
             preview    = {
                 border       = 'border', -- border|noborder, applies only to
                 -- native fzf previewers (bat/cat/git/etc)
@@ -140,7 +119,7 @@ function M.config()
                 ["ctrl-t"]  = actions.buf_tabedit,
             }
         },
-        fzf_opts            = {
+        fzf_opts = {
             -- options are sent as `<left>=<right>`
             -- set to `false` to remove a flag
             -- set to '' for a non-value flag
@@ -151,23 +130,7 @@ function M.config()
             ['--layout'] = 'reverse-list',
             ['--border'] = 'none',
         },
-        -- fzf '--color=' options (optional)
-        --[[ fzf_colors = {
-      ["fg"]          = { "fg", "CursorLine" },
-      ["bg"]          = { "bg", "Normal" },
-      ["hl"]          = { "fg", "Comment" },
-      ["fg+"]         = { "fg", "Normal" },
-      ["bg+"]         = { "bg", "CursorLine" },
-      ["hl+"]         = { "fg", "Statement" },
-      ["info"]        = { "fg", "PreProc" },
-      ["prompt"]      = { "fg", "Conditional" },
-      ["pointer"]     = { "fg", "Exception" },
-      ["marker"]      = { "fg", "Keyword" },
-      ["spinner"]     = { "fg", "Label" },
-      ["header"]      = { "fg", "Comment" },
-      ["gutter"]      = { "bg", "Normal" },
-  }, ]]
-        previewers          = {
+        previewers = {
             cat = {
                 cmd  = "cat",
                 args = "--number",
@@ -508,4 +471,5 @@ function M.config()
         -- nbsp = '\xc2\xa0',
     }
 end
+
 return M
