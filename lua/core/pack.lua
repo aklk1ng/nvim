@@ -78,7 +78,6 @@ require('packer').startup({
         use { 'tpope/vim-commentary'}
         use { 'tpope/vim-surround', event = 'CursorHold' }
         use {'gcmt/wildfire.vim'}
-        use { 'glepnir/mcc.nvim', event = 'InsertEnter',config = "require('modules.tools.mcc')"}
         -------------------- show the contents of the registers
         use { 'junegunn/vim-peekaboo', event = "BufRead"}
         --cursor movement
