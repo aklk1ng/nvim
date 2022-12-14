@@ -1,16 +1,15 @@
-local G = require('core.G')
 local M = {}
 
 function DBUI()
-    G.cmd('set laststatus=0 showtabline=0 nonu signcolumn=no nofoldenable')
-    G.cmd('exec "DBUI"')
+    vim.api.nvim_command('set laststatus=0 showtabline=0 nonu signcolumn=no nofoldenable')
+    vim.api.nvim_command('exec "DBUI"')
 end
 
 function M.config()
-    G.g.db_ui_save_location = '~/.config/zsh/cache'
-    G.g.db_ui_use_nerd_fonts = 1
-    G.g.db_ui_force_echo_notifications = 1
-    G.g.db_ui_table_helpers = {
+    vim.g.db_ui_save_location = '~/.config/zsh/cache'
+    vim.g.db_ui_use_nerd_fonts = 1
+    vim.g.db_ui_force_echo_notifications = 1
+    vim.g.db_ui_table_helpers = {
         mysql = {
             ['List'] = 'SELECT * from `{schema}`.`{table}` LIMIT 100;',
             ['Indexes'] = 'SHOW INDEXES FROM `{schema}`.`{table}`;',
@@ -18,7 +17,7 @@ function M.config()
             ['Alter Table'] = 'ALTER TABLE `{schema}`.`{table}` ADD '
         }
     }
-    G.cmd('com! CALLDB call v:lua.DBUI()')
+    vim.api.nvim_command('com! CALLDB call v:lua.DBUI()')
 end
 
 function M.setup()

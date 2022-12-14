@@ -1,10 +1,9 @@
-local G = require('core.G')
 local M = {}
 
 function M.config()
-    G.g.VM_theme = 'ocean'
-    G.g.VM_highlight_matches = 'underline'
-    G.g.VM_maps = {
+    vim.g.VM_theme = 'ocean'
+    vim.g.VM_highlight_matches = 'underline'
+    vim.g.VM_maps = {
         ['Find Under'] = '<C-n>',
         ['Find Subword Under'] = '<C-n>',
         -- ['Select All'] = '<C-d>',
