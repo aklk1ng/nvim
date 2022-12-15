@@ -125,4 +125,4 @@ vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
 vim.keymap.set('n', '<leader>rn', '<Cmd>Lspsaga rename<CR>', opts)
 
 -- outline / show symbols in some files when the lsp is supported
-vim.keymap.set("n","<leader>o", "<cmd>LSoutlineToggle<CR>",opts)
+vim.keymap.set("n","<leader>o", "<cmd>Lspsaga outline<CR>",opts)
