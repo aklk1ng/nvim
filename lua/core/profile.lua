@@ -118,7 +118,7 @@ func! CompileRunGcc()
 		set splitbelow
 		exec "!g++ -std=c++11 % -Wall -o %<"
 		:sp
-		:res -15
+		:res -5
 		:term ./%<
 	elseif &filetype == 'cs'
 		set splitbelow
@@ -157,7 +157,7 @@ func! CompileRunGcc()
 	elseif &filetype == 'go'
 		set splitbelow
 		:sp
-		:term go run .
+		:term go run %
 	endif
 endfunc
 ]])
