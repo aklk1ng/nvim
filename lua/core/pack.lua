@@ -1,9 +1,8 @@
---download the packer automatically
+ --download the packer automatically
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
----@diagnostic disable-next-line: unused-local
-    local compiled_path = fn.stdpath('config')..'/plugin/packer_compiled.lua'
+---@diagnostic disable-next-line: unused-local local compiled_path = fn.stdpath('config')..'/plugin/packer_compiled.lua'
     if fn.empty(fn.glob(install_path)) > 0 then
         print('Installing packer.nvim...')
         fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
@@ -58,6 +57,8 @@ require('packer').startup({
             ft = {'c', 'cpp', 'lua', 'cmake', 'go', 'sh', 'typescript', 'python', 'html', 'css', 'json', 'typescriptreact', 'markdown'},
             config = require('modules.completion.lspconfig').setup
         }
+        -------------------- Standalone UI for nvim-lsp progress
+        use {'j-hui/fidget.nvim', require"fidget".setup{}}
         -------------------- provide another way to download language server
         use { "williamboman/mason.nvim", cmd = 'Mason',
             config = function ()
