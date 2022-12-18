@@ -1,14 +1,8 @@
 local M = {}
 function M.setup()
---define the diagnostic symbol
-    local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-    for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    end
 
-    --highlight the signcolumn not use symbol
-    vim.cmd [[
+--highlight the signcolumn not use symbol
+vim.cmd [[
   highlight! DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
   highlight! DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
   highlight! DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
@@ -19,7 +13,6 @@ function M.setup()
   sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
   sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
 ]]
-
 
     --the lspconfig maps
     ---@diagnostic disable-next-line: unused-local
@@ -97,6 +90,28 @@ function M.setup()
     }
     require 'lspconfig'.marksman.setup {
         on_attach = on_attach,
+        capabilities = capabilities,
+    }
+    require'lspconfig'.rust_analyzer.setup{
+        on_attach = on_attach,
+        settings = {
+            ["rust-analyzer"] = {
+                imports = {
+                    granularity = {
+                        group = "module",
+                    },
+                    prefix = "self",
+                },
+                cargo = {
+                    buildScripts = {
+                        enable = true,
+                    },
+                },
+                procMacro = {
+                    enable = true
+                },
+            }
+        },
         capabilities = capabilities,
     }
 end

@@ -54,7 +54,6 @@ require('packer').startup({
 
         -------------------- lspconfig,for telescope's lsp support
         use {"neovim/nvim-lspconfig",
-            ft = {'c', 'cpp', 'lua', 'cmake', 'go', 'sh', 'typescript', 'python', 'html', 'css', 'json', 'typescriptreact', 'markdown'},
             config = require('modules.completion.lspconfig').setup
         }
         -------------------- Standalone UI for nvim-lsp progress
