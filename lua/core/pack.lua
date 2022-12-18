@@ -81,7 +81,10 @@ require('packer').startup({
         -------------------- show the contents of the registers
         use { 'junegunn/vim-peekaboo', event = "BufRead"}
         --cursor movement
-        use { 'ggandor/leap.nvim'}
+         use { 'ggandor/leap.nvim',
+             require('leap').add_default_mappings(),
+             config = require('modules.tools.leap').setup
+         }
         -- multi cursor
         require('modules.tools.vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', event = 'CursorHold', config = "require('modules.tools.vim-visual-multi').setup()" }

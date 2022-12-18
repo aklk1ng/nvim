@@ -30,11 +30,6 @@ vim.o.number = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- leap
-require('leap').add_default_mappings()
---highlight the search result
-require('leap').opts.highlight_unlabeled_phase_one_targets = true
-
 -- vim-bookmarks
 vim.cmd([[
     highlight BookmarkSign ctermbg=NONE ctermfg=160
