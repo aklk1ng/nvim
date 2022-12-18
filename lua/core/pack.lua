@@ -58,7 +58,7 @@ require('packer').startup({
             config = require('modules.completion.lspconfig').setup
         }
         -------------------- Standalone UI for nvim-lsp progress
-        use {'j-hui/fidget.nvim', require"fidget".setup{}}
+        use {'j-hui/fidget.nvim', config = require('modules.tools.fidget').setup}
         -------------------- provide another way to download language server
         use { "williamboman/mason.nvim", cmd = 'Mason',
             config = function ()
