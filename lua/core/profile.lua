@@ -13,7 +13,6 @@ vim.o.smartindent = true
 vim.o.expandtab = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
-vim.o.list = true
 -- Display long text in one line
 vim.o.wrap = false
 -- Add scrolloff for better zt/zb
