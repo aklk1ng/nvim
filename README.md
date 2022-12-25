@@ -12,11 +12,18 @@
 1. Make usre you have installed te neovim(just to find corresponding distribution's way) and install other dependencies of other packages(pip,nodejs,yarn and others)
 
 - Python3 install `pynvim`
+```plaintext
+pip install pynvim
+```
 - Nodejs install `neovim`
-- Install Nerd font(I use hack)
+```plaintext
+npm install -g neovim
+```
+- Install Nerd font(I use cousine)
+[nerd font](https://www.nerdfonts.com/font-downloads) 
 - Install yarn
 
-**use the next commmand in neovim to check the neovim isn't work normally** 
+**use the next commmand in neovim to check the neovim** 
 ```plaintext
 :Checkhealth
 ```

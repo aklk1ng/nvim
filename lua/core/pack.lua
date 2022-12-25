@@ -85,7 +85,7 @@ require('packer').startup({
         use { "onsails/lspkind.nvim" }
 
         -------------------- some useful plugins for coding
-        use { 'tpope/vim-commentary' }
+        use { 'tpope/vim-commentary', keys = {'gc','gcc'} }
         use { 'tpope/vim-surround', event = 'CursorHold' }
         use { 'gcmt/wildfire.vim' }
         -------------------- show the contents of the registers
