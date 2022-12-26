@@ -1,4 +1,5 @@
 local M = {}
+
 function M.setup()
     local alpha = require("alpha")
     local dashboard = require("alpha.themes.dashboard")

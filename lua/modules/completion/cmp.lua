@@ -21,7 +21,6 @@ function M.config()
         return
     end
     local luasnip = require("luasnip")
-    local lspkind = require 'lspkind'
     cmp.setup({
         snippet = {
             expand = function(args)
@@ -68,11 +67,8 @@ function M.config()
             { name = 'emoji' },
         }),
         formatting = {
-            format = lspkind.cmp_format({
-                wirth_text = true,
-                maxwidth = 50
-            })
-        }
+            fields = { 'abbr', 'kind', 'menu' },
+        },
     })
 end
 

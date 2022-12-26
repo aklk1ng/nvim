@@ -1,5 +1,11 @@
-local status, colorizer = pcall(require, "colorizer")
-if (not status) then return end
+local M = {}
 
-colorizer.setup({
-})
+function M.config()
+    local status, colorizer = pcall(require, "colorizer")
+    if (not status) then return end
+
+    colorizer.setup({
+    })
+end
+
+return M

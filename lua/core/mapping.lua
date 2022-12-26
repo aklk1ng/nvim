@@ -94,9 +94,6 @@ map("n", "fD", ":FzfLua diagnostics_workspace<CR>", opt) -- find diagnostics doc
 map("n", "fk", ":FzfLua keymaps<CR>", opt) -- find the keymaps
 map("n", "fw", ":FzfLua live_grep<CR>", opt) -- find the word int current buffer
 
----------------------------- floaterm
-map("n", "fn", ":FloatermNew<CR>", opt) --open a terminal window
-
 ---------------------------- colorizer
 map("n", "<leader>co", ":ColorizerToggle<CR>", opt)
 

@@ -1,4 +1,4 @@
---download the packer automatically
+-- download the packer automatically
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -12,6 +12,7 @@ local ensure_packer = function()
     return false
 end
 
+-- automatically download plugins when firstly start
 local packer_bootstrap = ensure_packer()
 require('packer').startup({
     function(use)
@@ -36,7 +37,7 @@ require('packer').startup({
         use({ "glepnir/lspsaga.nvim",
             after = 'nvim-lspconfig',
             branch = "main",
-            config = "require('modules.ui.lspsaga')"
+            config = require('modules.ui.lspsaga').config
         })
         -------------------- notification manager
         use({
@@ -47,15 +48,6 @@ require('packer').startup({
                 vim.notify.setup({ background_colour = "#282c34" })
             end
         })
-
-        -------------------- a plugin for interating with database
-        require('modules.tools.vim-dadbod').config()
-        use { 'tpope/vim-dadbod' }
-        use { 'kristijanhusak/vim-dadbod-ui',
-            cmd = { 'DBUIToggle', 'DBUIAddConnection', 'DBUI', 'DBUIFindBuffer', 'DBUIRenameBuffer' },
-            config = "require('modules.tools.vim-dadbod').setup()",
-            after = 'vim-dadbod'
-        }
 
         -------------------- lspconfig,for telescope's lsp support
         use { "neovim/nvim-lspconfig",
@@ -82,7 +74,6 @@ require('packer').startup({
         use { 'hrsh7th/cmp-cmdline', after = 'cmp-buffer' }
         use { 'hrsh7th/cmp-emoji', after = 'cmp-cmdline' }
         use { 'L3MON4D3/LuaSnip', event = 'InsertEnter', config = require('modules.completion.cmp').lua_snip }
-        use { "onsails/lspkind.nvim" }
 
         -------------------- some useful plugins for coding
         use { 'tpope/vim-commentary', keys = {'gc','gcc'} }
@@ -108,11 +99,10 @@ require('packer').startup({
                 require('gitsigns').setup()
             end
         }
-        use { "mfussenegger/nvim-dap", config = "require('modules.tools.dap')" }
+        use { "mfussenegger/nvim-dap", config = require('modules.tools.dap').config }
         use { "rcarriga/nvim-dap-ui",
-            config = "require('modules.tools.dapui')"
+            config = require('modules.tools.dapui').config
         }
-        use { 'voldikss/vim-floaterm', cmd = 'FloatermNew' }
 
 
         -------------------- fzf and fzflua
@@ -129,14 +119,14 @@ require('packer').startup({
 
         -------------------- tree-sitter
         use { 'nvim-treesitter/nvim-treesitter', event = { 'BufRead', 'BufNewfile' }, run = ':TSUpdate',
-            config = "require('modules.language.treesitter').setup()" }
+            config = require('modules.language.treesitter').setup }
         use { "aklk1ng/nvim-ts-rainbow", after = { 'nvim-treesitter' } }
         use { "windwp/nvim-ts-autotag", after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/playground', after = { 'nvim-treesitter' } }
         use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' } }
         use { "windwp/nvim-autopairs", event = 'InsertEnter', config = require('modules.completion.cmp').nvim_autopairs }
         --colorizer(highlight the color)
-        use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = "require('modules.ui.colorizer')" }
+        use { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = require('modules.ui.colorizer').config }
 
         -------------------- highlight the current word
         use { 'itchyny/vim-cursorword', event = 'BufRead' }
@@ -145,7 +135,7 @@ require('packer').startup({
         use { 'kyazdani42/nvim-web-devicons' }
         use { 'akinsho/bufferline.nvim',
             event = "BufWinEnter",
-            config = "require('modules.ui.bufferline')",
+            config = require('modules.ui.bufferline').config,
             tag = "v2.*",
             requires = { 'kyazdani42/nvim-web-devicons' }
         }
@@ -171,7 +161,7 @@ require('packer').startup({
         -------------------- luaine
         use { 'nvim-lualine/lualine.nvim',
             event = "BufWinEnter",
-            config = "require('modules.ui.lualine').setup()",
+            config = require('modules.ui.lualine').setup,
             requires = { 'kyazdani42/nvim-web-devicons' }
         }
 

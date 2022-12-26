@@ -1,4 +1,5 @@
 local M = {}
+
 function M.setup()
     --evil_lualine
     local lualine = require('lualine')
