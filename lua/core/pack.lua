@@ -58,13 +58,7 @@ require('packer').startup({
             after = "nvim-lspconfig",
             config = require('modules.tools.fidget').setup
         }
-        -------------------- provide another way to download language server
-        use { "williamboman/mason.nvim",
-            cmd = 'Mason',
-            config = function()
-                require("mason").setup()
-            end
-        }
+
         -- nvim-cmp
         use { 'hrsh7th/nvim-cmp', after = 'LuaSnip', config = require('modules.completion.cmp').config }
         use { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' }
