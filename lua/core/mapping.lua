@@ -44,10 +44,7 @@ map("n", "<leader>l", ":vertical resize-5<CR> ", opt)
 map("n", "<leader>j", ":resize-5<CR> ", opt)
 map("n", "<leader>k", ":resize+5<CR> ", opt)
 ---------------------------- packer
-map("n", "<leader><leader>i", ":PackerInstall<CR>", opt)
-map("n", "<leader><leader>d", ":PackerClean<CR>", opt)
-map("n", "<leader><leader>s", ":PackerSync<CR>", opt)
-map("n", "<leader><leader>c", ":PackerCompile<CR>", opt)
+map("n", "<leader><leader>i", ":Lazy<CR>", opt)
 
 ---------------------------- nvim-tree
 map('n', '<leader>t', ':NvimTreeToggle<CR>', opt)
