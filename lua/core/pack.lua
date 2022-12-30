@@ -70,7 +70,7 @@ require("lazy").setup({
     { 'L3MON4D3/LuaSnip', event = 'InsertEnter', config = require('modules.completion.cmp').lua_snip },
 
     -------------------- some useful plugins for coding
-    { 'tpope/vim-commentary', keys = {'gc','gcc'} },
+    { 'tpope/vim-commentary'},
     { 'tpope/vim-surround', event = 'CursorHold' },
     { 'gcmt/wildfire.vim', event = 'CursorHold' },
     -------------------- show the contents of the registers
@@ -162,23 +162,10 @@ require("lazy").setup({
     { 'rbgrouleff/bclose.vim', event = {'BufRead','BufNewfile'} },
 
     -------------------- luaine
-    -- { 'nvim-lualine/lualine.nvim',
-    --     event = "VimEnter",
-    --     config = require('modules.ui.lualine').setup,
-    --     dependencies = { 'kyazdani42/nvim-web-devicons' }
-    -- },
-
-    ({
-        'aklk1ng/galaxyline.nvim',
-        branch = 'main',
-        config = require('modules.ui.galaxyline').config,
-        -- your statusline
-        -- config = function()
-        --     require('my_statusline')
-        -- end,
-        -- some optional icons
-        dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true },
-    }),
+    { 'nvim-lualine/lualine.nvim',
+        config = require('modules.ui.lualine').setup,
+        dependencies = { 'kyazdani42/nvim-web-devicons' }
+    },
 
     { "lukas-reineke/indent-blankline.nvim",
         config = require('modules.ui.indent-blankline').config,
