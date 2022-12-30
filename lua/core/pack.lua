@@ -118,7 +118,6 @@ require("lazy").setup({
             { "aklk1ng/nvim-ts-rainbow" },
             { "windwp/nvim-ts-autotag" },
             { 'nvim-treesitter/playground' },
-            { 'nvim-treesitter/nvim-treesitter-textobjects' },
         }
     },
     { "windwp/nvim-autopairs", event = 'InsertEnter', config = require('modules.completion.cmp').nvim_autopairs },
@@ -156,7 +155,7 @@ require("lazy").setup({
         config = require('modules.tools.nvim-tree').config,
         cmd = "NvimTreeToggle",
     },
-    -------------------- ranegr
+    -------------------- ranger
     { 'francoiscabrol/ranger.vim', cmd = 'Ranger' },
     --delete a VIM buffer in VIM automatically
     { 'rbgrouleff/bclose.vim', event = {'BufRead','BufNewfile'} },
