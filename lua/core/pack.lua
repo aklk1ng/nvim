@@ -132,7 +132,7 @@ require("lazy").setup({
     { 'kyazdani42/nvim-web-devicons'},
 
     { 'akinsho/bufferline.nvim',
-        event = "BufWinEnter",
+        event = "UIEnter",
         config = require('modules.ui.bufferline').config,
         version = "v2.*",
         dependencies = { 'famiu/bufdelete.nvim', 'kyazdani42/nvim-web-devicons' }
@@ -162,11 +162,23 @@ require("lazy").setup({
     { 'rbgrouleff/bclose.vim', event = {'BufRead','BufNewfile'} },
 
     -------------------- luaine
-    { 'nvim-lualine/lualine.nvim',
-        event = "BufWinEnter",
-        config = require('modules.ui.lualine').setup,
-        dependencies = { 'kyazdani42/nvim-web-devicons' }
-    },
+    -- { 'nvim-lualine/lualine.nvim',
+    --     event = "VimEnter",
+    --     config = require('modules.ui.lualine').setup,
+    --     dependencies = { 'kyazdani42/nvim-web-devicons' }
+    -- },
+
+    ({
+        'aklk1ng/galaxyline.nvim',
+        branch = 'main',
+        config = require('modules.ui.galaxyline').config,
+        -- your statusline
+        -- config = function()
+        --     require('my_statusline')
+        -- end,
+        -- some optional icons
+        dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true },
+    }),
 
     { "lukas-reineke/indent-blankline.nvim",
         config = require('modules.ui.indent-blankline').config,
