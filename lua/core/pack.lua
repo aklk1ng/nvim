@@ -14,13 +14,12 @@ vim.g.mapleader = " " -- make sure to set `mapleader` before lazy so your mappin
 
 require("lazy").setup({
     -------------------- startup time analysis
-    ({ "dstein64/vim-startuptime", cmd = 'StartupTime' }),
+    ({ "dstein64/vim-startuptime", lazy = true, cmd = 'StartupTime' }),
 
     -------------------- colorscheme
     ({
         'aklk1ng/zephyr-nvim',
-        priority = 1000,
-        dependencies = { 'nvim-treesitter/nvim-treesitter', lazy = true },
+        dependencies = { 'nvim-treesitter/nvim-treesitter',"lukas-reineke/indent-blankline.nvim", lazy = true },
         config = function()
             vim.cmd("colorscheme zephyr")
         end
@@ -28,11 +27,14 @@ require("lazy").setup({
 
     -------------------- alpha(the start page)
     { 'goolord/alpha-nvim',
+        event = "BufWinEnter",
         config = require('modules.ui.dashboard').setup
     },
+
     -------------------- notification manager
     ({
         "rcarriga/nvim-notify",
+        event = { "BufRead", "BufNewFile"},
         config = function ()
             vim.notify = require("notify")
         end
@@ -40,19 +42,26 @@ require("lazy").setup({
 
     -------------------- lspsaga
     ({ "glepnir/lspsaga.nvim",
+        event = "LspAttach",
         branch = "main",
-        config = require('modules.ui.lspsaga').config,
-        dependencies = {'kyazdani42/nvim-web-devicons'}
+        config = require('modules.ui.lspsaga').config
     }),
 
     -------------------- lspconfig,for telescope's lsp support
     { "neovim/nvim-lspconfig",
-        config = require('modules.completion.lspconfig').setup
-    },
-    -------------------- Standalone UI for nvim-lsp progress
-    { 'j-hui/fidget.nvim',
-        config = require('modules.tools.fidget').setup,
-        dependencies = {"neovim/nvim-lspconfig"}
+        event = {"BufReadPre","BufNewFile"},
+        config = require('modules.completion.lspconfig').setup,
+        dependencies = {
+            -------------------- Standalone UI for nvim-lsp progress
+            { 'j-hui/fidget.nvim',
+                config = require('modules.tools.fidget').setup,
+            },
+            -------------------- luaine
+            { 'nvim-lualine/lualine.nvim',
+                config = require('modules.ui.lualine').setup,
+                dependencies = { 'kyazdani42/nvim-web-devicons' }
+            },
+        }
     },
 
     -- nvim-cmp
@@ -65,25 +74,37 @@ require("lazy").setup({
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-cmdline' },
             { 'hrsh7th/cmp-emoji' },
+            { "kdheepak/cmp-latex-symbols" },
         },
-        config = require('modules.completion.cmp').config },
+        config = require('modules.completion.cmp').config
+    },
+
     { 'L3MON4D3/LuaSnip', event = 'InsertEnter', config = require('modules.completion.cmp').lua_snip },
 
     -------------------- some useful plugins for coding
     { 'tpope/vim-commentary'},
+
     { 'tpope/vim-surround', event = 'CursorHold' },
+
     { 'gcmt/wildfire.vim', event = 'CursorHold' },
+
     -------------------- show the contents of the registers
     { 'junegunn/vim-peekaboo', event = "BufRead" },
+
     --cursor movement
     { 'ggandor/leap.nvim',
+        event = { "BufRead", "BufNewFile"},
         config = require('modules.tools.leap').setup
     },
+
     -- multi cursor
-    { 'mg979/vim-visual-multi', event = 'CursorHold',
+    { 'mg979/vim-visual-multi',
+        event = 'CursorHold',
         config = require('modules.tools.vim-visual-multi').config()
     },
-    { 'rmagatti/alternate-toggler',cmd = "ToggleAlternate"},
+
+    { 'rmagatti/alternate-toggler', cmd = "ToggleAlternate"},
+
     { 'lewis6991/gitsigns.nvim',
         event = { 'BufRead', 'BufNewfile' },
         version = "v0.5",
@@ -91,14 +112,18 @@ require("lazy").setup({
             require('gitsigns').setup()
         end
     },
-    { "rcarriga/nvim-dap-ui",
-        event = { 'BufRead', 'BufNewfile' },
-        config = require('modules.tools.dapui').config,
+
+    { "mfussenegger/nvim-dap",
+        keys = {
+            "<F5>","<F6>","<F7>","<F8>","<leader>db","<leader>dB"
+        },
+        config = require('modules.tools.dap').config,
         dependencies = {
-            { "mfussenegger/nvim-dap", config = require('modules.tools.dap').config },
+            { "rcarriga/nvim-dap-ui",
+                config = require('modules.tools.dapui').config,
+            },
         }
     },
-
 
     -------------------- fzf and fzflua
     -- if you already have fzf installed you do not need to install the next plugin
@@ -112,7 +137,9 @@ require("lazy").setup({
     { 'MattesGroeger/vim-bookmarks', event = 'BufRead' },
 
     -------------------- tree-sitter
-    { 'nvim-treesitter/nvim-treesitter', event = { 'BufRead', 'BufNewfile' }, build = ':TSUpdate',
+    { 'nvim-treesitter/nvim-treesitter',
+        -- event = { 'BufRead', 'BufNewfile' },
+        build = ':TSUpdate',
         config = require('modules.language.treesitter').setup,
         dependencies = {
             { "aklk1ng/nvim-ts-rainbow" },
@@ -120,25 +147,29 @@ require("lazy").setup({
             { 'nvim-treesitter/playground' },
         }
     },
+
     { "windwp/nvim-autopairs", event = 'InsertEnter', config = require('modules.completion.cmp').nvim_autopairs },
-    --colorizer(highlight the color)
+
+    -------------------- colorizer(highlight the color)
     { 'NvChad/nvim-colorizer.lua', cmd = "ColorizerToggle", config = require('modules.ui.colorizer').config },
 
     -------------------- highlight the current word
     { 'itchyny/vim-cursorword', event = {'BufRead', 'BufNewfile'} },
 
     -------------------- bufferline
-    { 'kyazdani42/nvim-web-devicons'},
+    { 'kyazdani42/nvim-web-devicons', lazy = true},
 
     { 'akinsho/bufferline.nvim',
         event = "UIEnter",
         config = require('modules.ui.bufferline').config,
         version = "v2.*",
-        dependencies = { 'famiu/bufdelete.nvim', 'kyazdani42/nvim-web-devicons' }
+        dependencies = { 'kyazdani42/nvim-web-devicons' }
     },
 
+    {'famiu/bufdelete.nvim', keys = "<leader>d"},
+
     -------------------- markdown preview and toc
-    -- nodejs and yarn to build this plugin(make sure you have installed them)
+    -- use nodejs and yarn to build this plugin(make sure you have installed them)
     { "iamcco/markdown-preview.nvim",
         config = require('modules.language.markdown').config,
         dependencies = {
@@ -155,22 +186,16 @@ require("lazy").setup({
         config = require('modules.tools.nvim-tree').config,
         cmd = "NvimTreeToggle",
     },
+
     -------------------- ranger
     { 'francoiscabrol/ranger.vim', cmd = 'Ranger' },
-    --delete a VIM buffer in VIM automatically
+
+    -------------------- delete a unuse VIM buffer in VIM automatically
     { 'rbgrouleff/bclose.vim', event = {'BufRead','BufNewfile'} },
 
-    -------------------- luaine
-    { 'nvim-lualine/lualine.nvim',
-        config = require('modules.ui.lualine').setup,
-        dependencies = { 'kyazdani42/nvim-web-devicons' }
-    },
 
     { "lukas-reineke/indent-blankline.nvim",
+        event = { "BufRead", "BufNewFile"},
         config = require('modules.ui.indent-blankline').config,
-        dependencies = {'aklk1ng/zephyr-nvim'}
     },
-
-    -------------------- yaocccc's plugins
-    { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' },
 })

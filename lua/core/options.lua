@@ -42,19 +42,22 @@ vim.cmd([[
 ]])
 
 -- Highlight on yank
-vim.cmd([[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup YankHighlight
+--     autocmd!
+--     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+--   augroup end
+-- ]])
+
 -- prompt to remove extra spaces
 vim.cmd([[
     hi ErrSpace ctermbg=238
     autocmd BufWinEnter * syn match Todo /TODO\(:.*\)*/
 ]])
+
 -- cursor returns last position
-vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]])
+-- vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]])
+
 -- vim save 1000 files
 vim.cmd([[ set viminfo=!,'10000,<50,s10,h ]])
 -- no automatic backup,no newline
@@ -63,11 +66,13 @@ vim.cmd([[
     set noswapfile
     set nowrap
 ]])
+
 -- set mouse movement
 vim.cmd([[
     set mouse=a
     set selection=exclusive
 ]])
+
 -- highlight the search and delay
 vim.cmd([[
     set hlsearch
@@ -79,6 +84,7 @@ vim.cmd([[
     set smartcase
     set timeoutlen=400
 ]])
+
 -- share clipboard
 vim.cmd([[
     set noshowcmd
@@ -91,6 +97,7 @@ vim.cmd([[
     set clipboard=unnamed
     set clipboard+=unnamedplus
 ]])
+
 -- set the relativenumber automatically when i'm in insert or normal
 vim.cmd([[
     augroup relative_numbers
@@ -99,6 +106,7 @@ vim.cmd([[
     autocmd InsertLeave * :set relativenumber
     augroup END
 ]])
+
 -- quickly compile and run the file
 vim.api.nvim_set_keymap("n", "<leader>r", ":call CompileRunGcc()<CR>", {noremap = true, silent = true})
 vim.cmd([[

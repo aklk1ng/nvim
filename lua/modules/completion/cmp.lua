@@ -61,10 +61,16 @@ function M.config()
         }),
         sources = cmp.config.sources({
             { name = 'nvim_lsp' },
-            { name = 'luasnip' }, -- For luasnip users.
+            { name = 'luasnip' },
             { name = 'buffer' },
             { name = "path" },
             { name = 'emoji' },
+            {
+                name = "latex_symbols",
+                option = {
+                    strategy = 0, -- mixed
+                },
+            }
         }),
         formatting = {
             fields = { 'abbr', 'kind', 'menu' },
