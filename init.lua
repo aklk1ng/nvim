@@ -1,3 +1,3 @@
 require('core.pack')
-require('core.profile')
+require('core.options')
 require('core.mapping')

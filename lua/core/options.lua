@@ -115,12 +115,6 @@ func! CompileRunGcc()
 		:sp
 		:res -5
 		:term ./%<
-	elseif &filetype == 'cs'
-		set splitbelow
-		silent! exec "!mcs %"
-		:sp
-		:res -5
-		:term mono %<.exe
 	elseif &filetype == 'java'
 		set splitbelow
 		:sp
@@ -137,18 +131,10 @@ func! CompileRunGcc()
 	elseif &filetype == 'tex'
 		silent! exec "VimtexStop"
 		silent! exec "VimtexCompile"
-	elseif &filetype == 'dart'
-		exec "CocCommand flutter.run -d ".g:flutter_default_device." ".g:flutter_run_args
-		silent! exec "CocCommand flutter.dev.openDevLog"
 	elseif &filetype == 'javascript'
 		set splitbelow
 		:sp
 		:term export DEBUG="INFO,ERROR,WARNING"; node --trace-warnings .
-	elseif &filetype == 'racket'
-		set splitbelow
-		:sp
-		:res -5
-		term racket %
 	elseif &filetype == 'go'
 		set splitbelow
 		:sp
