@@ -4,6 +4,10 @@ vim.o.splitright = true
 -- Split to the bottom in split
 vim.o.splitbelow = true
 vim.o.writebackup = false
+vim.o.hidden = true
+vim.o.showmode = false
+vim.o.showcmd = false
+vim.o.ruler = false
 vim.o.termguicolors = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
@@ -87,8 +91,7 @@ vim.cmd([[
 
 -- share clipboard
 vim.cmd([[
-    set noshowcmd
-    set updatetime=300
+    set updatetime=100
     set encoding=utf-8
     set fileencodings =utf-8,ucs-bom,gbk,cp936,gb2312,gb18030
     set pumheight=10
@@ -106,8 +109,25 @@ vim.cmd([[
     augroup END
 ]])
 
+if vim.loop.os_uname().sysname == 'Darwin' then
+    vim.g.clipboard = {
+        name = 'macOS-clipboard',
+        copy = {
+            ['+'] = 'pbcopy',
+            ['*'] = 'pbcopy',
+        },
+        paste = {
+            ['+'] = 'pbpaste',
+            ['*'] = 'pbpaste',
+        },
+        cache_enabled = 0,
+    }
+    vim.g.python_host_prog = '/usr/bin/python'
+    vim.g.python3_host_prog = '/usr/local/bin/python3'
+end
+
 -- quickly compile and run the file
-vim.api.nvim_set_keymap("n", "<leader>r", ":call CompileRunGcc()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>r", ":call CompileRunGcc()<CR>", { noremap = true, silent = true })
 vim.cmd([[
 func! CompileRunGcc()
 	exec "w"

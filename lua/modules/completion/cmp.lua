@@ -77,9 +77,10 @@ function M.config()
                 option = {
                     strategy = 0, -- mixed
                 },
-            }
+            },
         }),
         formatting = {
+            -- the old method to show the completion
             -- fields = { 'abbr', 'kind', 'menu' },
             format = lspkind.cmp_format({
                 maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)

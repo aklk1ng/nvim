@@ -25,11 +25,12 @@ require("lazy").setup({
         end
     }),
 
-    -------------------- alpha(the start page)
-    { 'goolord/alpha-nvim',
-        event = "BufWinEnter",
-        config = require('modules.ui.dashboard').setup
-    },
+    -------------------- dashboard(the start page)
+	{
+		'glepnir/dashboard-nvim',
+		event = "BufWinEnter",
+		config = require('modules.ui.dashboard').setup
+	},
 
     -------------------- notification manager
     ({
@@ -74,7 +75,7 @@ require("lazy").setup({
             { 'hrsh7th/cmp-buffer' },
             { 'hrsh7th/cmp-cmdline' },
             { 'hrsh7th/cmp-emoji' },
-            { "kdheepak/cmp-latex-symbols" },
+            { 'kdheepak/cmp-latex-symbols' },
             { 'onsails/lspkind.nvim'},
         },
         config = require('modules.completion.cmp').config
@@ -83,7 +84,7 @@ require("lazy").setup({
     { 'L3MON4D3/LuaSnip', event = 'InsertEnter', config = require('modules.completion.cmp').lua_snip },
 
     -------------------- some useful plugins for coding
-    { 'tpope/vim-commentary'},
+    { 'tpope/vim-commentary', event = 'CursorHold' },
 
     { 'tpope/vim-surround', event = 'CursorHold' },
 
@@ -105,6 +106,13 @@ require("lazy").setup({
     },
 
     { 'rmagatti/alternate-toggler', cmd = "ToggleAlternate"},
+
+    { 'dinhhuy258/git.nvim',
+        cmd = {"GitBlame","GitDiff"},
+        config = function()
+            require('git').setup()
+        end
+    },
 
     { 'lewis6991/gitsigns.nvim',
         event = { 'BufRead', 'BufNewfile' },

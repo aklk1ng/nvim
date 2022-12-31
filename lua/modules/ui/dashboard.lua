@@ -1,52 +1,26 @@
 local M = {}
 
 function M.setup()
-    local alpha = require("alpha")
-    local dashboard = require("alpha.themes.dashboard")
-
-    -- Set header
-    dashboard.section.header.val = {
-        "                                                     ",
-        "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-        "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-        "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-        "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-        "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-        "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-        "                                                     ",
+    local home = os.getenv('HOME')
+    local db = require('dashboard')
+    -- macos
+    db.preview_command = 'cat | lolcat -F 0.3'
+    -- linux(have problem in my archlinux machine)
+    -- db.preview_command = 'ueberzug'
+    --
+    db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
+    db.preview_file_height = 15
+    db.preview_file_width = 70
+    db.custom_center = {
+        {icon = '  ',
+            desc = 'Recently opened files                    ',
+            action =  'FzfLua oldfiles',
+            shortcut = 'f o'},
+        {icon = '  ',
+            desc = 'Find  File                               ',
+            action = 'FzfLua files',
+            shortcut = 'f f'},
     }
-
-    -- Set menu
-    dashboard.section.buttons.val = {
-        dashboard.button("ff", "  > Find file", ":FzfLua files<CR>"),
-        dashboard.button("fo", "  > Recent", ":FzfLua oldfiles<CR>"),
-        dashboard.button("u", "  > Update", ":Lazy update<CR>"),
-        dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
-    }
-
-    -- Set footer
-    --   NOTE: This is currently a feature in my fork of alpha-nvim (opened PR #21, will update snippet if added to main)
-    --   To see test this yourself, add the function as a dependecy in packer and uncomment the footer lines
-    --   ```init.lua
-    --   return require('packer').startup(function()
-    --       use 'wbthomason/packer.nvim'
-    --       use {
-    --           'goolord/alpha-nvim', branch = 'feature/startify-fortune',
-    --           requires = {'BlakeJC94/alpha-nvim-fortune'},
-    --           config = function() require("config.alpha") end
-    --       }
-    --   end)
-    --   ```
-    -- local fortune = require("alpha.fortune")
-    -- dashboard.section.footer.val = fortune()
-
-    -- Send config to alpha
-    alpha.setup(dashboard.opts)
-
-    -- Disable folding on alpha buffer
-    vim.cmd([[
-    autocmd FileType alpha setlocal nofoldenable
-]]   )
 end
 
 return M

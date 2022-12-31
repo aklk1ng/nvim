@@ -43,7 +43,7 @@ map("n", "<leader>h", ":vertical resize+5<CR>", opt)
 map("n", "<leader>l", ":vertical resize-5<CR> ", opt)
 map("n", "<leader>j", ":resize-5<CR> ", opt)
 map("n", "<leader>k", ":resize+5<CR> ", opt)
----------------------------- packer
+---------------------------- plugin manager
 map("n", "<leader><leader>i", ":Lazy<CR>", opt)
 
 ---------------------------- nvim-tree
@@ -61,6 +61,11 @@ map("n", "<leader>tm", ":TableModeToggle<CR>", opt)
 ---------------------------- markdown-toc
 map("n", "tg", ":GenTocGFM<CR>", opt)
 map("n", "tr", ":GenTocRedcarpet<CR>", opt)
+
+---------------------------- git
+map("n", ";b", ":GitBlame<CR>", opt)
+map("n", ";d", ":GitDiff<CR>", opt)
+
 
 ---------------------------- ranger
 vim.cmd([[
