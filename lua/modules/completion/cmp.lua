@@ -21,6 +21,7 @@ function M.config()
         return
     end
     local luasnip = require("luasnip")
+    local lspkind = require("lspkind")
     cmp.setup({
         snippet = {
             expand = function(args)
@@ -66,6 +67,12 @@ function M.config()
             { name = "path" },
             { name = 'emoji' },
             {
+                name = 'cmdline',
+                option = {
+                    ignore_cmds = { 'Man', '!' }
+                }
+            },
+            {
                 name = "latex_symbols",
                 option = {
                     strategy = 0, -- mixed
@@ -73,7 +80,10 @@ function M.config()
             }
         }),
         formatting = {
-            fields = { 'abbr', 'kind', 'menu' },
+            -- fields = { 'abbr', 'kind', 'menu' },
+            format = lspkind.cmp_format({
+                maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            })
         },
     })
 end

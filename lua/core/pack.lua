@@ -75,6 +75,7 @@ require("lazy").setup({
             { 'hrsh7th/cmp-cmdline' },
             { 'hrsh7th/cmp-emoji' },
             { "kdheepak/cmp-latex-symbols" },
+            { 'onsails/lspkind.nvim'},
         },
         config = require('modules.completion.cmp').config
     },

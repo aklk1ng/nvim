@@ -9,7 +9,7 @@
 ## use
 
 **I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work**
-1. Make usre you have installed te neovim(just to find corresponding distribution's way) and install other dependencies of other packages(pip,nodejs,yarn and others)
+1. Make usre you have installed te neovim(just to find corresponding distribution's way) and install other dependencies of other packages(**pip**,**nodejs**,**yarn** and others)
 
 - Python3 install `pynvim`
 ```plaintext
