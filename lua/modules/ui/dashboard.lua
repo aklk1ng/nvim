@@ -10,7 +10,7 @@ function M.setup()
     --
     db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
     db.preview_file_height = 15
-    db.preview_file_width = 70
+    db.preview_file_width = 67
     db.custom_center = {
         {icon = '  ',
             desc = 'Recently opened files                    ',

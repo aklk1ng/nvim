@@ -113,7 +113,7 @@ pack({ 'lewis6991/gitsigns.nvim',
 
 pack({ "mfussenegger/nvim-dap",
     keys = {
-    "<F5>","<F6>","<F7>","<F8>","<leader>db","<leader>dB"
+        "<F5>","<F6>","<F7>","<F8>","<leader>db","<leader>dB"
     },
     config = require('modules.tools.dap').config,
     dependencies = {
@@ -128,7 +128,7 @@ pack({ "mfussenegger/nvim-dap",
 --  { 'junegunn/fzf', run = './install --bin' }
 pack({ 'ibhagwan/fzf-lua',
     cmd = 'FzfLua',
-config = require('modules.tools.fzflua').config,
+    config = require('modules.tools.fzflua').config,
 })
 
 --place the VIM bookmark
