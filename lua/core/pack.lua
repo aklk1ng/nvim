@@ -6,14 +6,9 @@ M.plugins = {}
 function M:boot_load()
     local lazypath = string.format('%s/lazy/lazy.nvim', helper.get_data_path())
     if not vim.loop.fs_stat(lazypath) then
-        vim.fn.system({
-            "git",
-            "clone",
-            "--filter=blob:none",
-            "--single-branch",
-            "https://github.com/folke/lazy.nvim.git",
-            lazypath,
-        })
+        vim.notify("Start clone the lazy.nvim ...")
+        local cmd = '!git clone https://github.com/folke/lazy.nvim ' .. lazypath
+        vim.api.nvim_command(cmd)
     end
     vim.opt.runtimepath:prepend(lazypath)
     local lazy = require("lazy")
