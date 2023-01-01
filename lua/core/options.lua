@@ -46,12 +46,12 @@ vim.cmd([[
 ]])
 
 -- Highlight on yank
--- vim.cmd([[
---   augroup YankHighlight
---     autocmd!
---     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
---   augroup end
--- ]])
+vim.cmd([[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  augroup end
+]])
 
 -- prompt to remove extra spaces
 vim.cmd([[
@@ -60,7 +60,7 @@ vim.cmd([[
 ]])
 
 -- cursor returns last position
--- vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]])
+vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]])
 
 -- vim save 1000 files
 vim.cmd([[ set viminfo=!,'10000,<50,s10,h ]])

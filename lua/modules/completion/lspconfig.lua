@@ -50,15 +50,7 @@ vim.cmd [[
         on_attach = on_attach,
         capabilities = capabilities,
     }
-    require 'lspconfig'.html.setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    }
     require('lspconfig').cssls.setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    }
-    require 'lspconfig'.cssmodules_ls.setup {
         on_attach = on_attach,
         capabilities = capabilities,
     }
@@ -74,7 +66,7 @@ vim.cmd [[
                     -- Get the language server to recognize the `vim` global
                     globals = { 'vim' },
                 },
-
+                runtime = { version = 'LuaJIT' },
                 workspace = {
                     -- Make the server aware of Neovim runtime files
                     library = vim.api.nvim_get_runtime_file("", true),
@@ -87,6 +79,7 @@ vim.cmd [[
         on_attach = on_attach,
         filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
         cmd = { "typescript-language-server", "--stdio" },
+        capabilities = capabilities,
     }
     require 'lspconfig'.marksman.setup {
         on_attach = on_attach,
