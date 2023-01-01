@@ -147,13 +147,14 @@ require("lazy").setup({
 
     -------------------- tree-sitter
     { 'nvim-treesitter/nvim-treesitter',
-        -- event = { 'BufRead', 'BufNewfile' },
+        event = { 'BufRead', 'BufNewfile' },
         build = ':TSUpdate',
         config = require('modules.language.treesitter').setup,
         dependencies = {
             { "aklk1ng/nvim-ts-rainbow" },
             { "windwp/nvim-ts-autotag" },
             { 'nvim-treesitter/playground' },
+            { 'nvim-treesitter/nvim-treesitter-textobjects' }
         }
     },
 
@@ -207,4 +208,4 @@ require("lazy").setup({
         event = { "BufRead", "BufNewFile"},
         config = require('modules.ui.indent-blankline').config,
     },
-})
+},{})

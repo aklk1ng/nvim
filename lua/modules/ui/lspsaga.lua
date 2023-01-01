@@ -58,8 +58,6 @@ function M.config()
             tabe = '<C-c>t',
             quit = 'q',
         },
-        rename_action_quit = "<C-c>",
-        rename_in_select = true,
         -- show symbols in winbar must nightly
         -- in_custom mean use lspsaga api to get symbols
         -- and set it to your custom winbar or some winbar plugins.

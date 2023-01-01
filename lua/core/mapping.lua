@@ -1,7 +1,7 @@
 local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
----------------------------- map('model','old keymap','new keymap',opt)
+---------------------------- map('mode','old keymap','new keymap',opt)
 map("n", "W", ":write<CR>", opt)
 map("n", "Q", ":q<CR>", opt)
 
@@ -30,7 +30,6 @@ map("v", "<", "<<", opt)
 map("v", ">", ">>", opt)
 
 ---------------------------- window touch and movement(now have some problems)
-map("n", ";", "<C-w>w", opt)
 map("n", "te", ":tabedit<CR>", opt)
 map("n", "ss", ":split<CR>", opt)
 map("n", "sv", ":vsplit<CR> ", opt)
@@ -94,7 +93,8 @@ map("n", "fa", ":FzfLua lsp_code_actions<CR>", opt) -- find useable code actions
 map("n", "fd", ":FzfLua diagnostics_document<CR>", opt) -- find diagnostics document in current buffer
 map("n", "fD", ":FzfLua diagnostics_workspace<CR>", opt) -- find diagnostics document in all buffers
 map("n", "fk", ":FzfLua keymaps<CR>", opt) -- find the keymaps
-map("n", "fw", ":FzfLua live_grep<CR>", opt) -- find the word int current buffer
+map("n", "fw", ":FzfLua live_grep<CR>", opt) -- find the word in current buffer
+map("n", "fm", ":FzfLua marks<CR>", opt) -- find marks in all buffer
 
 ---------------------------- colorizer
 map("n", "<leader>co", ":ColorizerToggle<CR>", opt)

@@ -5,7 +5,7 @@ function M.setup()
     local db = require('dashboard')
     -- macos
     db.preview_command = 'cat | lolcat -F 0.3'
-    -- linux(have problem in my archlinux machine)
+    -- linux
     -- db.preview_command = 'ueberzug'
     --
     db.preview_file_path = home .. '/.config/nvim/static/neovim.cat'
