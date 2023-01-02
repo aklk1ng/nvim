@@ -5,6 +5,7 @@ pack({ "dstein64/vim-startuptime", lazy = true, cmd = 'StartupTime' })
 -------------------- colorscheme
 pack({
     'aklk1ng/zephyr-nvim',
+    priority = 1000,
     dependencies = { 'nvim-treesitter/nvim-treesitter',"lukas-reineke/indent-blankline.nvim", lazy = true },
     config = function()
         vim.cmd("colorscheme zephyr")

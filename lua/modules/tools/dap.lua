@@ -32,6 +32,8 @@ function M.config()
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
             args = {},
+
+            -- 💀
             -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
             --
             --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
@@ -45,6 +47,9 @@ function M.config()
             -- runInTerminal = false,
         },
     }
+
+    -- If you want to use this for Rust and C, add something like this:
+
     dap.configurations.c = dap.configurations.cpp
     dap.configurations.rust = dap.configurations.cpp
 

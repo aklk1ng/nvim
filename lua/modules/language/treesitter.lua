@@ -121,7 +121,7 @@ function M.setup()
                 goto_node = '<cr>',
                 show_help = '?',
             },
-        }
+        },
     }
 end
 

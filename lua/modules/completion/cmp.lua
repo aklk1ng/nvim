@@ -34,12 +34,6 @@ function M.config()
         },
         mapping = cmp.mapping.preset.insert({
             ['<C-e>'] = cmp.mapping.abort(),
-            ['<A-.>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-            -- cancel
-            ['<A-,>'] = cmp.mapping({
-                i = cmp.mapping.abort(),
-                c = cmp.mapping.close(),
-            }),
             ['<CR>'] = cmp.mapping.confirm({
                 select = true,
             }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.

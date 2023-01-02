@@ -48,7 +48,9 @@ function M.setup()
                 inactive = { c = { fg = colors.fg, bg = colors.bg } },
             },
             disabled_filetypes = {
-                "dashboard"
+                "dashboard",
+                "NvimTree",
+                "lspsagaoutline",
             },
         },
         sections = {
