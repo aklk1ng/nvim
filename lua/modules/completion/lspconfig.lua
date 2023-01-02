@@ -34,9 +34,19 @@ vim.cmd [[
         on_attach = on_attach,
         capabilities = capabilities,
     }
-    require 'lspconfig'.jedi_language_server.setup {
+    require'lspconfig'.pylsp.setup{
         on_attach = on_attach,
         capabilities = capabilities,
+        settings = {
+            pylsp = {
+                plugins = {
+                    pycodestyle = {
+                        ignore = {'W391'},
+                        maxLineLength = 100
+                    }
+                }
+            }
+        }
     }
     require 'lspconfig'.bashls.setup {
         on_attach = on_attach,
