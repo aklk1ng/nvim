@@ -66,6 +66,8 @@ map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 map("n", ";b", ":GitBlame<CR>", opt)
 map("n", ";d", ":GitDiff<CR>", opt)
 
+---------------------------- nvim-playground
+map("n", ";h", ":TSHighlightCapturesUnderCursor<CR>", opt)
 
 ---------------------------- ranger
 vim.cmd([[
