@@ -4,7 +4,7 @@
 * [use](#use)
 
 <!-- vim-markdown-toc -->
-![screenshot](./2023-01-02_12-07.png)
+![screenshot](./2023-01-03_19-15.png)
 ## use
 
 **I using the archlinux so i can directly download language severs by pacman and other package manager,if you can't,use the mason plugin to install them and let them work**

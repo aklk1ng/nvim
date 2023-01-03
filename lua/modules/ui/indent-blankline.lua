@@ -4,10 +4,19 @@ function M.config()
 
     require("indent_blankline").setup {
         char = '│',
-        use_treesitter_scope = true,
-        show_current_context = false,
+        use_treesitter= true,
+        show_current_context = true,
         show_current_context_start = false,
-        show_current_context_start_on_current_line = false,
+        show_trailing_blankline_indent = false,
+        context_highlight_list = {
+            'rainbowcol1',
+            'rainbowcol2',
+            'rainbowcol3',
+            'rainbowcol4',
+            'rainbowcol5',
+            'rainbowcol6',
+            'rainbowcol7',
+        },
         filetype_exclude = {
             'dashboard',
             'DogicPrompt',

@@ -12,7 +12,7 @@ map("n", "..", "~", opt)
 map("n", ",.", "%", opt)
 map("v", ",.", "%", opt)
 
----------------------------- open the nvim config file anytime
+---------------------------- open the nvim plugins file anytime
 map("n", "<leader>e", ":e ~/.config/nvim/lua/core/plugins.lua<CR>", opt)
 ---------------------------- cursor movement
 map("n", "<C-i>", "<Home>", opt)

@@ -42,6 +42,11 @@ vim.cmd([[
 ]])
 
 vim.cmd([[
+    set foldmethod=manual
+    set nofoldenable
+]])
+
+vim.cmd([[
     let g:python3_host_prog = $PYTHON
 ]])
 

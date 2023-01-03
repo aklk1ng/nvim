@@ -37,6 +37,10 @@ func! CompileRunGcc()
 		set splitbelow
 		:sp
 		:term go run %
+	elseif &filetype == 'rust'
+		set splitbelow
+		:sp
+		:term cargo run %
 	endif
 endfunc
 ]])
