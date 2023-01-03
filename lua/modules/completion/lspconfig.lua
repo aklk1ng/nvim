@@ -48,6 +48,10 @@ vim.cmd [[
             }
         }
     }
+    -- require 'lspconfig'.jedi_language_server.setup {
+    --     on_attach = on_attach,
+    --     capabilities = capabilities,
+    -- }
     require 'lspconfig'.bashls.setup {
         on_attach = on_attach,
         capabilities = capabilities,

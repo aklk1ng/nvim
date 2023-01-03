@@ -25,18 +25,22 @@ function M.config()
     cmp.setup({
         snippet = {
             expand = function(args)
-                require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                require('luasnip').lsp_expand(args.body)
             end,
         },
         window = {
             completion = cmp.config.window.bordered(),
             documentation = cmp.config.window.bordered(),
         },
+        completion = {
+            -- make the completion trigged when i type a letter not other invalid characters
+            keyword_length = 1,
+        },
         mapping = cmp.mapping.preset.insert({
             ['<C-e>'] = cmp.mapping.abort(),
             ['<CR>'] = cmp.mapping.confirm({
                 select = true,
-            }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+            }),
 
             ["<C-j>"] = cmp.mapping(function(fallback)
                 if luasnip.expand_or_jumpable() then
@@ -54,18 +58,23 @@ function M.config()
                 end
             end, { "i", "s" }),
         }),
+        sorting = {
+            comparators = {
+                cmp.config.compare.offset,
+                cmp.config.compare.exact,
+                cmp.config.compare.score,
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+            },
+        },
         sources = cmp.config.sources({
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
             { name = 'buffer' },
             { name = "path" },
             { name = 'emoji' },
-            {
-                name = 'cmdline',
-                option = {
-                    ignore_cmds = { 'Man', '!' }
-                }
-            },
             {
                 name = "latex_symbols",
                 option = {
@@ -74,10 +83,8 @@ function M.config()
             },
         }),
         formatting = {
-            -- the old method to show the completion
-            -- fields = { 'abbr', 'kind', 'menu' },
             format = lspkind.cmp_format({
-                maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                maxwidth = 50,
             })
         },
     })

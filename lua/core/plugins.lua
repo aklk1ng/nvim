@@ -29,14 +29,16 @@ pack({
 })
 
 -------------------- lspsaga
-pack({ "glepnir/lspsaga.nvim",
+pack({
+    "glepnir/lspsaga.nvim",
     event = "LspAttach",
     branch = "main",
     config = require('modules.ui.lspsaga').config
 })
 
 -------------------- lspconfig
-pack({ "neovim/nvim-lspconfig",
+pack({
+    "neovim/nvim-lspconfig",
     event = {"BufReadPre","BufNewFile"},
     config = require('modules.completion.lspconfig').setup,
     dependencies = {
@@ -47,24 +49,23 @@ pack({ "neovim/nvim-lspconfig",
     },
 })
 
+-------------------- lualine
 pack({
-    -------------------- luaine
-    { 'nvim-lualine/lualine.nvim',
-        event = "UIEnter",
-        config = require('modules.ui.lualine').setup,
-        dependencies = { 'kyazdani42/nvim-web-devicons' }
-    },
+    'nvim-lualine/lualine.nvim',
+    event = "UIEnter",
+    config = require('modules.ui.lualine').setup,
+    dependencies = { 'kyazdani42/nvim-web-devicons' }
 })
 
 -- nvim-cmp
-pack({ 'hrsh7th/nvim-cmp',
+pack({
+    'hrsh7th/nvim-cmp',
     event = "InsertEnter",
     dependencies = {
         { 'hrsh7th/cmp-nvim-lsp' },
         { 'saadparwaiz1/cmp_luasnip' },
         { 'hrsh7th/cmp-path' },
         { 'hrsh7th/cmp-buffer' },
-        { 'hrsh7th/cmp-cmdline' },
         { 'hrsh7th/cmp-emoji' },
         { 'kdheepak/cmp-latex-symbols' },
         { 'onsails/lspkind.nvim'},
@@ -83,28 +84,32 @@ pack({ 'gcmt/wildfire.vim', event = 'CursorHold' })
 -------------------- show the contents of the registers
 pack({ 'junegunn/vim-peekaboo', event = "BufRead" })
 
---cursor movement
-pack({ 'ggandor/leap.nvim',
+-------------------- cursor movement
+pack({
+    'ggandor/leap.nvim',
     event = { "BufRead", "BufNewFile"},
     config = require('modules.tools.leap').setup
 })
 
 -- multi cursor
-pack({ 'mg979/vim-visual-multi',
+pack({
+    'mg979/vim-visual-multi',
     event = 'CursorHold',
     config = require('modules.tools.vim-visual-multi').config()
 })
 
 pack({ 'rmagatti/alternate-toggler', cmd = "ToggleAlternate"})
 
-pack({ 'dinhhuy258/git.nvim',
+pack({
+    'dinhhuy258/git.nvim',
     cmd = {"GitBlame","GitDiff"},
     config = function()
         require('git').setup()
     end
 })
 
-pack({ 'lewis6991/gitsigns.nvim',
+pack({
+    'lewis6991/gitsigns.nvim',
     event = { 'BufRead', 'BufNewfile' },
     version = "v0.5",
     config = function()
@@ -112,7 +117,8 @@ pack({ 'lewis6991/gitsigns.nvim',
     end
 })
 
-pack({ "mfussenegger/nvim-dap",
+pack({
+    "mfussenegger/nvim-dap",
     keys = {
         "<F5>","<F6>","<F7>","<F8>","<leader>db","<leader>dB"
     },
@@ -124,10 +130,11 @@ pack({ "mfussenegger/nvim-dap",
     }
 })
 
--------------------- fzf and fzflua
--- if you already have fzf installed you do not need to install the next plugin
---  { 'junegunn/fzf', run = './install --bin' }
-pack({ 'ibhagwan/fzf-lua',
+-------------------- fzflua
+-- if you already have installed fzf you don't need the plugin
+-- pack({ 'junegunn/fzf', build = './install --bin' }) 
+pack({
+    'ibhagwan/fzf-lua',
     cmd = 'FzfLua',
     config = require('modules.tools.fzflua').config,
 })
@@ -136,7 +143,8 @@ pack({ 'ibhagwan/fzf-lua',
 pack({ 'MattesGroeger/vim-bookmarks', event = 'BufRead' })
 
 -------------------- tree-sitter
-pack({ 'nvim-treesitter/nvim-treesitter',
+pack({
+    'nvim-treesitter/nvim-treesitter',
     event = { 'BufRead', 'BufNewfile' },
     build = ':TSUpdate',
     config = require('modules.language.treesitter').setup,
@@ -159,7 +167,8 @@ pack({ 'itchyny/vim-cursorword', event = {'BufRead', 'BufNewfile'} })
 -------------------- bufferline
 pack({ 'kyazdani42/nvim-web-devicons', lazy = true})
 
-pack({ 'akinsho/bufferline.nvim',
+pack({
+    'akinsho/bufferline.nvim',
     event = "UIEnter",
     config = require('modules.ui.bufferline').config,
     version = "v2.*",
@@ -170,7 +179,8 @@ pack({'famiu/bufdelete.nvim', keys = "<leader>d"})
 
 -------------------- markdown preview and toc
 -- use nodejs and yarn to build this plugin(make sure you have installed them)
-pack({ "iamcco/markdown-preview.nvim",
+pack({
+    "iamcco/markdown-preview.nvim",
     config = require('modules.language.markdown').config,
     dependencies = {
         { 'mzlogin/vim-markdown-toc', cmd = 'MarkdownPreview', ft = 'markdown' },
@@ -182,7 +192,8 @@ pack({ "iamcco/markdown-preview.nvim",
 })
 
 -------------------- file explorer
-pack({ 'nvim-tree/nvim-tree.lua',
+pack({
+    'nvim-tree/nvim-tree.lua',
     config = require('modules.tools.nvim-tree').config,
     cmd = "NvimTreeToggle",
 })
@@ -194,7 +205,8 @@ pack({ 'francoiscabrol/ranger.vim', cmd = 'Ranger' })
 pack({ 'rbgrouleff/bclose.vim', event = {'BufRead','BufNewfile'} })
 
 -------------------- indent-line
-pack({ "lukas-reineke/indent-blankline.nvim",
+pack({
+    "lukas-reineke/indent-blankline.nvim",
     event = { "BufRead", "BufNewFile"},
     config = require('modules.ui.indent-blankline').config,
 })
