@@ -15,7 +15,9 @@ function M.setup()
     require('nvim-treesitter.configs').setup {
         ensure_installed = {
             "c",
+            "c_sharp",
             "cpp",
+            "dockerfile",
             "python",
             "lua",
             "bash",
@@ -37,7 +39,7 @@ function M.setup()
         highlight = {
             enable = true,
             disable = function(lang, buf)
-                local max_filesize = 100 * 1024 -- 100 KB
+                local max_filesize = 200 * 1024 -- 200 KB
                 local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                 if ok and stats and stats.size > max_filesize then
                     return true
@@ -110,7 +112,7 @@ function M.setup()
                 -- * query_string: eg '@function.inner'
                 -- * selection_mode: eg 'v'
                 -- and should return true of false
-                include_surrounding_whitespace = true,
+                include_surrounding_whitespace = false,
             },
         },
         playground = {

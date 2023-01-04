@@ -121,5 +121,9 @@ vim.cmd [[
         },
         capabilities = capabilities,
     }
+    require'lspconfig'.dockerls.setup{
+        on_attach = on_attach,
+        capabilities = capabilities,
+    }
 end
 return M
