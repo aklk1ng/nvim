@@ -41,7 +41,7 @@
   },
   "function declaration": {
     "prefix": "func",
-    "body": "func $1($2) $3 {\n\t$0\n}",
+    "body": "func $1($2) $3{\n\t$0\n}",
     "description": "Snippet for function declaration"
   },
   "variable declaration": {

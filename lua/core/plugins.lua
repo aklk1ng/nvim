@@ -101,14 +101,6 @@ pack({
 pack({ 'rmagatti/alternate-toggler', cmd = "ToggleAlternate"})
 
 pack({
-    'dinhhuy258/git.nvim',
-    cmd = {"GitBlame","GitDiff"},
-    config = function()
-        require('git').setup()
-    end
-})
-
-pack({
     'lewis6991/gitsigns.nvim',
     event = { 'BufRead', 'BufNewfile' },
     version = "v0.5",
