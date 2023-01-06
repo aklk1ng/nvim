@@ -6,7 +6,6 @@ pack({ "dstein64/vim-startuptime", lazy = true, cmd = 'StartupTime' })
 pack({
     'aklk1ng/zephyr-nvim',
     priority = 1000,
-    dependencies = { 'nvim-treesitter/nvim-treesitter',"lukas-reineke/indent-blankline.nvim", lazy = true },
     config = function()
         vim.cmd("colorscheme zephyr")
     end
@@ -52,7 +51,7 @@ pack({
 -------------------- lualine
 pack({
     'nvim-lualine/lualine.nvim',
-    event = "UIEnter",
+    event = { 'BufRead', 'BufNewfile' },
     config = require('modules.ui.lualine').setup,
     dependencies = { 'kyazdani42/nvim-web-devicons' }
 })
@@ -161,7 +160,7 @@ pack({ 'kyazdani42/nvim-web-devicons', lazy = true})
 
 pack({
     'akinsho/bufferline.nvim',
-    event = "UIEnter",
+    event = { 'BufRead', 'BufNewfile' },
     config = require('modules.ui.bufferline').config,
     version = "v2.*",
     dependencies = { 'kyazdani42/nvim-web-devicons' }
@@ -201,6 +200,23 @@ pack({
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufRead", "BufNewFile"},
     config = require('modules.ui.indent-blankline').config,
+})
+
+------------------- vim-cmake
+pack({
+    'cdelledonne/vim-cmake',
+    cmd = { 'CMakeGenerate', 'CMakeBuild'}
+})
+
+------------------- vim-floaterm
+pack({
+    'voldikss/vim-floaterm',
+    cmd = "FloatermNew"
+})
+
+------------------- plenary.nvim
+pack({
+    'nvim-lua/plenary.nvim'
 })
 
 ------------------- automatically toggle the fcitx5

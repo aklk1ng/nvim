@@ -51,6 +51,13 @@ map("n", "<leader><leader>i", ":Lazy<CR>", opt)
 map('n', '<leader>t', ':NvimTreeToggle<CR>', opt)
 map('n', 'tf', ':NvimTreeFocus<CR>', opt)
 
+---------------------------- vim-cmake
+map('n', '<leader>cg', ':CMakeGenerate<CR>', opt)
+map('n', '<leader>cb', ':CMakeBuild<CR>', opt)
+
+---------------------------- vim-floaterm
+map('n', 'fn', ':FloatermNew<CR>', opt)
+
 ---------------------------- gitsigns
 map('n', ';d', ':Gitsigns diffthis<CR>', opt)
 map('n', '<leader><leader>p', ':Gitsigns preview_hunk<CR>', opt)
