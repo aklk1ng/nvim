@@ -214,9 +214,11 @@ pack({
     cmd = "FloatermNew"
 })
 
-------------------- plenary.nvim
+------------------- mutchar.nvim
 pack({
-    'nvim-lua/plenary.nvim'
+    'glepnir/mutchar.nvim',
+    ft = { 'c', 'cpp', 'go' },
+    config = require('modules.tools.mutchar').config
 })
 
 ------------------- automatically toggle the fcitx5

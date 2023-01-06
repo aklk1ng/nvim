@@ -67,7 +67,7 @@ map('n', ';p', ':Gitsigns prev_hunk<CR>', opt)
 ---------------------------- bufferline
 map("n", "<leader>p", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<leader>n", ":BufferLineCycleNext<CR>", opt)
-map("n", "<leader>d", ":bdelete<CR>", opt)
+map("n", "<leader>s", ":bdelete<CR>", opt)
 
 map("n", "<leader>m", ":MarkdownPreview<CR>", opt)
 map("n", "<leader>tm", ":TableModeToggle<CR>", opt)
