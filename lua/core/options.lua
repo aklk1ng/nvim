@@ -64,6 +64,11 @@ vim.cmd([[
     autocmd BufWinEnter * syn match Todo /TODO\(:.*\)*/
 ]])
 
+-- vim-dadbod-completion
+vim.cmd([[
+  autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
+]])
+
 -- cursor returns last position
 vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]])
 

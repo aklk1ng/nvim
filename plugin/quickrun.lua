@@ -37,6 +37,10 @@ func! CompileRunGcc()
 		set splitbelow
 		:sp
 		:term go run %
+	elseif &filetype == 'lua'
+		set splitbelow
+		:sp
+		:term lua %
 	elseif &filetype == 'rust'
 		set splitbelow
 		:sp

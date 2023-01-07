@@ -208,10 +208,21 @@ pack({
     cmd = { 'CMakeGenerate', 'CMakeBuild'}
 })
 
+------------------- vim-dadbod
+pack({
+    'kristijanhusak/vim-dadbod-ui',
+    cmd = 'DBUI',
+    dependencies = {
+        'tpope/vim-dadbod',
+        'kristijanhusak/vim-dadbod-completion'
+    },
+    config = require('modules.tools.vim-dadbod-ui').config
+})
 ------------------- vim-floaterm
 pack({
     'voldikss/vim-floaterm',
-    cmd = "FloatermNew"
+    cmd = "FloatermNew",
+    config = require('modules.tools.vim-floaterm').config
 })
 
 ------------------- mutchar.nvim

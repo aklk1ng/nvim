@@ -47,6 +47,9 @@ map("n", "<leader><leader>k", ":resize+5<CR> ", opt)
 ---------------------------- plugin manager
 map("n", "<leader><leader>i", ":Lazy<CR>", opt)
 
+---------------------------- vim-dadbod-ui
+map("n", "<leader><leader>d", ":DBUI<CR>", opt)
+
 ---------------------------- nvim-tree
 map('n', '<leader>t', ':NvimTreeToggle<CR>', opt)
 map('n', 'tf', ':NvimTreeFocus<CR>', opt)
