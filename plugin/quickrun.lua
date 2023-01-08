@@ -13,11 +13,6 @@ func! CompileRunGcc()
 		:sp
 		:res -5
 		:term ./%<
-	elseif &filetype == 'java'
-		set splitbelow
-		:sp
-		:res -5
-		term javac % && time java %<
 	elseif &filetype == 'sh'
 		:!time bash %
 	elseif &filetype == 'python'
@@ -26,9 +21,6 @@ func! CompileRunGcc()
 		:term python3 %
 	elseif &filetype == 'html'
 		silent! exec "!".g:mkdp_browser." % &"
-	elseif &filetype == 'tex'
-		silent! exec "VimtexStop"
-		silent! exec "VimtexCompile"
 	elseif &filetype == 'javascript'
 		set splitbelow
 		:sp
