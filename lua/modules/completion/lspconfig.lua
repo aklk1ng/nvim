@@ -42,16 +42,13 @@ vim.cmd [[
                 plugins = {
                     pycodestyle = {
                         ignore = {'W391'},
-                        maxLineLength = 100
-                    }
+                        maxLineLength = 150,
+                        indentSize = 4
+                    },
                 }
             }
         }
     }
-    -- require 'lspconfig'.jedi_language_server.setup {
-    --     on_attach = on_attach,
-    --     capabilities = capabilities,
-    -- }
     require 'lspconfig'.bashls.setup {
         on_attach = on_attach,
         capabilities = capabilities,
