@@ -35,7 +35,7 @@
     "description": "Snippet for a struct declaration"
   },
   "package main and main function": {
-    "prefix": "pkgm",
+    "prefix": "sst",
     "body": "package main\n\nfunc main() {\n\t$0\n}",
     "description": "Snippet for main package & function"
   },

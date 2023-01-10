@@ -41,6 +41,12 @@ vim.cmd([[
     let g:bookmark_highlight_lines = 1
 ]])
 
+-- vim-cmake
+vim.cmd([[
+    let g:cmake_link_compile_commands = 1
+]])
+
+-- foldmethod
 vim.cmd([[
     set foldmethod=manual
     set nofoldenable
