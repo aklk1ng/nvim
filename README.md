@@ -24,8 +24,3 @@ cd ~/.config
 git clone https://github.com/aklk1ng/nvim.git
 ```
 3. Start your neovim and if'will start download all plugins automatically
-4. Now waiting to download(**the internet may be the most problem**)
-6. If you find the text can't highlight like before,try to run the next command,it always appear when you update the nvim-treesitter plugin,so you should update the config also
-```plaintext
-:TSUpdateSync
-```

@@ -2,7 +2,6 @@ local map = vim.api.nvim_set_keymap
 local opt = { noremap = true, silent = true }
 
 ---------------------------- map('mode','old keymap','new keymap',opt)
-map("n", "W", ":write<CR>", opt)
 map("n", "Q", ":q<CR>", opt)
 
 
@@ -70,7 +69,7 @@ map('n', ';p', ':Gitsigns prev_hunk<CR>', opt)
 ---------------------------- bufferline
 map("n", "<leader>p", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<leader>n", ":BufferLineCycleNext<CR>", opt)
-map("n", "<leader>s", ":bdelete<CR>", opt)
+map("n", "<leader>d", ":Bdelete<CR>", opt)
 
 map("n", "<leader>m", ":MarkdownPreview<CR>", opt)
 map("n", "<leader>tm", ":TableModeToggle<CR>", opt)

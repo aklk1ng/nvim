@@ -124,7 +124,6 @@ pack({
 pack({
     "lewis6991/gitsigns.nvim",
     event = { 'BufRead', 'BufNewfile' },
-    version = "v0.5",
     config = function()
         require('gitsigns').setup()
     end
@@ -198,11 +197,10 @@ pack({
     "akinsho/bufferline.nvim",
     event = { 'BufRead', 'BufNewfile' },
     config = require('modules.ui.bufferline').config,
-    version = "v2.*",
     dependencies = { "kyazdani42/nvim-web-devicons" }
 })
 
-pack({'famiu/bufdelete.nvim', keys = "<leader>d"})
+pack({'famiu/bufdelete.nvim', cmd = 'Bdelete'})
 
 -------------------- markdown preview and toc
 -- use nodejs and yarn to build this plugin(make sure you have installed them)
@@ -272,6 +270,10 @@ pack({
     "glepnir/mutchar.nvim",
     ft = { 'c', 'cpp', 'go' },
     config = require('modules.tools.mutchar').config
+})
+
+pack({
+    "nvim-lua/plenary.nvim"
 })
 
 ------------------- automatically toggle the fcitx5

@@ -47,10 +47,6 @@
         "path": "./php.json"
       },
       {
-        "language": "ruby",
-        "path": "./ruby.json"
-      },
-      {
         "language": "rails",
         "path": "./frameworks/rails.json"
       },
