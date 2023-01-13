@@ -7,91 +7,64 @@ function M.config()
         return
     end
 
-    saga.init_lsp_saga {
-        -- Options with default value
-        -- "single" | "double" | "rounded" | "bold" | "plus"
-        border_style = "rounded",
-        saga_winblend = 0,
-        move_in_saga = { prev = '<C-p>', next = '<C-n>' },
-        diagnostic_header = { " ", " ", " ", "ﴞ " },
-        -- preview lines of lsp_finder and definition preview
-        max_preview_lines = 10,
-        -- use emoji lightbulb in default
-        code_action_icon = "💡",
-        -- if true can press number to execute the codeaction in codeaction window
-        code_action_num_shortcut = true,
-        -- same as nvim-lightbulb but async
-        code_action_lightbulb = {
-            enable = false,
-            enable_in_insert = true,
-            cache_code_action = true,
-            sign = true,
-            update_time = 150,
-            sign_priority = 20,
-            virtual_text = true,
+    saga.setup({
+        preview = {
+            lines_above = 0,
+            lines_below = 20,
         },
-        -- finder icons
-        finder_icons = {
-            def = '  ',
-            ref = '諭 ',
-            link = '  ',
+        scroll_preview = {
+            scroll_down = '<C-f>',
+            scroll_up = '<C-b>',
         },
-        -- finder do lsp request timeout
-        -- if your project big enough or your server very slow
-        -- you may need to increase this value
-        finder_request_timeout = 1500,
-        finder_action_keys = {
-            open = {'o', '<CR>'},
-            vsplit = "s",
-            split = "i",
-            tabe = "t",
-            quit = "q",
-        },
-        code_action_keys = {
-            quit = "q",
-            exec = "<CR>",
-        },
-        definition_action_keys = {
+        definition = {
             edit = '<C-c>o',
             vsplit = '<C-c>v',
             split = '<C-c>i',
             tabe = '<C-c>t',
             quit = 'q',
+            close = '<Esc>',
         },
-        -- show symbols in winbar must nightly
-        -- in_custom mean use lspsaga api to get symbols
-        -- and set it to your custom winbar or some winbar plugins.
-        -- if in_cusomt = true you must set in_enable to false
-        symbol_in_winbar = {
-            in_custom = false,
-            enable = true,
-            separator = ' ',
-            show_file = true,
-            -- define how to customize filename, eg: %:., %
-            -- if not set, use default value `%:t`
-            -- more information see `vim.fn.expand` or `expand`
-            -- ## only valid after set `show_file = true`
-            file_formatter = "",
-            click_support = false,
+        lightbulb = {
+            enable = false,
+            enable_in_insert = false,
+            sign = true,
+            sign_priority = 40,
+            virtual_text = true,
         },
-        -- show outline
-        show_outline = {
+        outline = {
             win_position = 'right',
-            --set special filetype win that outline window split.like NvimTree neotree
-            -- defx, db_ui
             win_with = '',
-            win_width = 35,
-            auto_enter = true,
-            auto_preview = true,
-            virt_text = '┃',
-            jump_key = 'o',
-            -- auto refresh when change buffer
-            auto_refresh = true,
+            win_width = 30,
+            custom_sort = nil,
+            keys = {
+                jump = 'o',
+                expand_collaspe = 'u',
+                quit = 'q',
+            },
         },
-        -- custom lsp kind
-        -- usage { Field = 'color code'} or {Field = {your icon, your color code}}
-        custom_kind = {},
-    }
+        ui = {
+            theme = 'round',
+            border = 'shadow',
+            winblend = 0,
+            colors = {
+                --float window normal bakcground color
+                normal_bg = '#3F4342',
+                -- normal_bg = '#201e26',
+                --title background color
+                title_bg = '#afd700',
+                red = '#e95678',
+                magenta = '#b33076',
+                orange = '#FF8700',
+                yellow = '#F3E68D',
+                green = '#afd700',
+                cyan = '#36d0e0',
+                blue = '#61afef',
+                purple = '#CBA6F7',
+                white = '#d1d4cf',
+                black = '#1c1c19',
+            },
+        },
+    })
 
     local opts = { noremap = true, silent = true }
 
@@ -106,6 +79,10 @@ function M.config()
 
     -- Hover Doc
     vim.keymap.set('n', ',,', '<Cmd>Lspsaga hover_doc<CR>', opts)
+
+    -- Callhierarchy
+    vim.keymap.set("n", "<Leader>ic", "<cmd>Lspsaga incoming_calls<CR>", opts)
+    vim.keymap.set("n", "<Leader>oc", "<cmd>Lspsaga outgoing_calls<CR>", opts)
 
     -- Lsp finder find the symbol definition implement reference
     -- if there is no implement it will hide

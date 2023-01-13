@@ -9,7 +9,7 @@ func! CompileRunGcc()
 		term gcc % -o %< && time ./%<
 	elseif &filetype == 'cpp'
 		set splitbelow
-		exec "!g++ -std=c++11 % -Wall -o %<"
+		exec "!g++ -std=c++17 % -Wall -o %<"
 		:sp
 		:res -5
 		:term ./%<

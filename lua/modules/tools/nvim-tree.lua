@@ -10,7 +10,7 @@ function M.config()
         },
         update_focused_file = { enable = true },
         view = {
-            width = 25,
+            width = 28,
             mappings = {
                 list = {
                     -------- default mappings

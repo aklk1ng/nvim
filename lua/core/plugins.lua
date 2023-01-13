@@ -200,7 +200,7 @@ pack({
     dependencies = { "kyazdani42/nvim-web-devicons" }
 })
 
-pack({'famiu/bufdelete.nvim', cmd = 'Bdelete'})
+pack({'famiu/bufdelete.nvim', key = '<leader>d'})
 
 -------------------- markdown preview and toc
 -- use nodejs and yarn to build this plugin(make sure you have installed them)
