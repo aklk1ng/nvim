@@ -90,6 +90,9 @@ function M.config()
     -- use <C-t> to jump back
     vim.keymap.set('n', 'gh', '<Cmd>Lspsaga lsp_finder<CR>', opts)
 
+    -- goto_definition
+    vim.keymap.set('n', 'gd', '<Cmd>Lspsaga goto_definition<CR>', opts)
+
     -- Code action
     vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
 
