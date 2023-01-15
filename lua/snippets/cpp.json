@@ -160,7 +160,7 @@
     },
     "struct": {
         "prefix": "struct",
-        "body": ["struct ${1:MyStruct}", "{", "\t$0", "};"],
+        "body": ["struct ${1:MyStruct} {", "\t$0", "};"],
         "description": "Code snippet for struct"
     },
     "typedef struct": {

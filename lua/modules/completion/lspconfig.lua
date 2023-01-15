@@ -39,7 +39,7 @@ vim.cmd [[
             pylsp = {
                 plugins = {
                     pycodestyle = {
-                        ignore = {'W391'},
+                        ignore = {'W391', 'E302', 'E401', 'E402', 'E305'},
                         maxLineLength = 150,
                         indentSize = 4
                     },

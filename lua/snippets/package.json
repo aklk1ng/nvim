@@ -28,13 +28,6 @@
         "path": "./csharp.json"
       },
       {
-        "language": [
-          "gitcommit",
-          "NeogitCommitMessage"
-        ],
-        "path": "./gitcommit.json"
-      },
-      {
         "language": "lua",
         "path": "./lua.json"
       },
@@ -53,10 +46,6 @@
       {
         "language": "rust",
         "path": "./rust.json"
-      },
-      {
-        "language": "haskell",
-        "path": "./haskell.json"
       },
       {
         "language": "sql",
@@ -84,10 +73,6 @@
           "tex"
         ],
         "path": "./latex.json"
-      },
-      {
-        "language": "java",
-        "path": "./java.json"
       },
       {
         "language": [
@@ -206,13 +191,6 @@
           "tex"
         ],
         "path": "./latex/vscode-latex-snippets.json"
-      },
-      {
-        "language": [
-          "r",
-          "rmd"
-        ],
-        "path": "./r.json"
       },
       {
         "language": "yaml",

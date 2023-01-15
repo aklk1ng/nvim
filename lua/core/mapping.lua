@@ -4,7 +4,6 @@ local opt = { noremap = true, silent = true }
 ---------------------------- map('mode','old keymap','new keymap',opt)
 map("n", "Q", ":q<CR>", opt)
 
-
 ---------------------------- change letter case
 map("n", "..", "~", opt)
 ---------------------------- find pair
@@ -30,8 +29,8 @@ map("v", ">", ">>", opt)
 
 ---------------------------- window touch and movement(now have some problems)
 map("n", "te", ":tabedit<CR>", opt)
-map("n", ";s", ":split<CR>", opt)
-map("n", ";v", ":vsplit<CR> ", opt)
+map("n", "<leader>s", ":split<CR>", opt)
+map("n", "<leader>v", ":vsplit<CR> ", opt)
 map("n", ";", "<C-w>w<CR>", opt)
 map("n", "<leader>h", "<C-w>h<CR>", opt)
 map("n", "<leader>j", "<C-w>j<CR>", opt)
@@ -71,6 +70,11 @@ map("n", "<leader>p", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<leader>n", ":BufferLineCycleNext<CR>", opt)
 map("n", "<leader>d", ":bdelete<CR>", opt)
 
+---------------------------- Html
+map("n", ",g", ":! google-chrome-stable % &<CR>", opt)
+map("n", ",s", ":! surf % &<CR>", opt)
+
+---------------------------- Markdown
 map("n", "<leader>m", ":MarkdownPreview<CR>", opt)
 map("n", "<leader>tm", ":TableModeToggle<CR>", opt)
 ---------------------------- markdown-toc
@@ -86,15 +90,16 @@ vim.cmd([[
 ]])
 map("n", "ra", ":Ranger<CR>", opt)
 
----------------------------- vim-bookmarks
-map("n", "mm", ":BookmarkToggle<CR>", opt)
-map("n", "mp", ":BookmarkPrev<CR>", opt)
-map("n", "mn", ":BookmarkNext<CR>", opt)
-map("n", "ma", ":BookmarkShowAll<CR>", opt)
-map("n", "mc", ":BookmarkClear<CR>", opt)
-map("n", "mC", ":BookmarkClearAll<CR>", opt)
-map("n", "<leader>mn", ":BookmarkMoveDown<CR>", opt)
-map("n", "<leader>mp", ":BookmarkMoveUp<CR>", opt)
+---------------------------- neovim-session-manager
+map("n", ";s", ":SessionManager save_current_session<CR>", opt)
+map("n", ";l", ":SessionManager load_session<CR>", opt)
+map("n", ";ll", ":SessionManager load_last_session<CR>", opt)
+
+---------------------------- todo-comments.nvim
+map("n", "tl", ":TodoLocList<CR>", opt)
+
+---------------------------- neogen
+map("n", "gn", ":Neogen<CR>", opt)
 
 ---------------------------- FzfLua
 map("n", "ff", ":FzfLua files<CR>", opt)

@@ -69,7 +69,7 @@ function M.setup()
             'markdown',
             'glimmer','handlebars','hbs'
         }},
-        indent = { enable = true },
+        -- indent = { enable = true },
         query_linter = {
             enable = true,
             use_virtual_text = true,

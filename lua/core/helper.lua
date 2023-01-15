@@ -49,22 +49,6 @@ function helper.error(msg)
     color_print('red')(msg)
 end
 
-function helper.test_internet()
-    helper.cyan('Waiting for internet test ...')
-    local handle = io.popen('ping github.com -c 4')
-    while true do
-        local output = handle:read('*l')
-        if output == nil then
-            break
-        end
-        if output:find('Reqeust timeout') then
-            helper.error('Ping github failed check your internet')
-            os.exit()
-        end
-    end
-    handle:close()
-end
-
 local git_type = {
     clone = 'git clone https://github.com/',
     pull = 'git -C ',

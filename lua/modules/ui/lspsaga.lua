@@ -16,6 +16,14 @@ function M.config()
             scroll_down = '<C-f>',
             scroll_up = '<C-b>',
         },
+        rename = {
+            quit = '<C-c>',
+            exec = '<CR>',
+            mark = 'x',
+            confirm = '<CR>',
+            in_select = true,
+            whole_project = true,
+        },
         definition = {
             edit = '<C-c>o',
             vsplit = '<C-c>v',

@@ -26,20 +26,11 @@ vim.o.signcolumn = "yes"
 -- Better completion
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.autoindent = true
-vim.o.smartindent = true
 vim.o.number = true
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
-
--- vim-bookmarks
-vim.cmd([[
-    highlight BookmarkSign ctermbg=NONE ctermfg=160
-    highlight BookmarkLine ctermbg=194 ctermfg=NONE
-    let g:bookmark_sign = '♥'
-    let g:bookmark_highlight_lines = 1
-]])
 
 -- vim-cmake
 vim.cmd([[
@@ -50,10 +41,6 @@ vim.cmd([[
 vim.cmd([[
     set foldmethod=manual
     set nofoldenable
-]])
-
-vim.cmd([[
-    let g:python3_host_prog = $PYTHON
 ]])
 
 -- Highlight on yank
@@ -124,6 +111,11 @@ vim.cmd([[
     autocmd InsertLeave * :set relativenumber
     augroup END
 ]])
+
+if vim.fn.executable('rg') == 1 then
+  vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+  vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
+end
 
 if vim.loop.os_uname().sysname == 'Darwin' then
     vim.g.clipboard = {

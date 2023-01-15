@@ -22,6 +22,27 @@ function M.config()
     end
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
+    local cmp_window = require "cmp.utils.window"
+
+    cmp_window.info_ = cmp_window.info
+    cmp_window.info = function(self)
+        local info = self:info_()
+        info.scrollable = false
+        return info
+    end
+    local function border(hl_name)
+        return {
+            { "╭", hl_name },
+            { "─", hl_name },
+            { "╮", hl_name },
+            { "│", hl_name },
+            { "╯", hl_name },
+            { "─", hl_name },
+            { "╰", hl_name },
+            { "│", hl_name },
+        }
+    end
+
     cmp.setup({
         snippet = {
             expand = function(args)
@@ -29,15 +50,20 @@ function M.config()
             end,
         },
         window = {
-            completion = cmp.config.window.bordered(),
-            documentation = cmp.config.window.bordered(),
+            completion = {
+                border = border "CmpBorder",
+            },
+            documentation = {
+                border = border "CmpDocBorder",
+            }
         },
         completion = {
             -- make the completion trigged when i type a letter not other invalid characters
             keyword_length = 1,
         },
         mapping = cmp.mapping.preset.insert({
-            ['<C-e>'] = cmp.mapping.abort(),
+            ['<C-h>'] = cmp.mapping.abort(),
+            ['<C-l>'] = cmp.mapping.complete(),
             ['<CR>'] = cmp.mapping.confirm({
                 select = true,
             }),

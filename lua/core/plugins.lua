@@ -46,7 +46,7 @@ pack({
     dependencies = {
         -------------------- Standalone UI for nvim-lsp progress
         { "j-hui/fidget.nvim",
-            config = require('modules.tools.fidget').setup,
+            config = require('modules.ui.fidget').setup,
         },
     },
 })
@@ -151,12 +151,6 @@ pack({
     config = require('modules.tools.fzflua').config,
 })
 
---place the VIM bookmark
-pack({
-    "MattesGroeger/vim-bookmarks",
-    event = 'BufRead'
-})
-
 -------------------- tree-sitter
 pack({
     "nvim-treesitter/nvim-treesitter",
@@ -200,7 +194,8 @@ pack({
     dependencies = { "kyazdani42/nvim-web-devicons" }
 })
 
-pack({'famiu/bufdelete.nvim', key = '<leader>d'})
+-- the cmd name must be capitalized, though is didfferent from my actual mapping command
+pack({'famiu/bufdelete.nvim', cmd = 'Bdelete'})
 
 -------------------- markdown preview and toc
 -- use nodejs and yarn to build this plugin(make sure you have installed them)
@@ -273,7 +268,36 @@ pack({
 })
 
 pack({
-    "nvim-lua/plenary.nvim"
+    "nvim-lua/plenary.nvim",
+    lazy = true
+})
+
+------------------- todo-comments.nvim
+pack({
+    "folke/todo-comments.nvim",
+    event = { "BufRead", "BufNewFile"},
+    config = require('modules.tools.todo-comments').config,
+    dependencies = {
+        "nvim-lua/plenary.nvim"
+    }
+})
+
+------------------- neovim-session-manager(now have a small problem with the symbol winbar)
+pack({
+    "Shatur/neovim-session-manager",
+    cmd = { "SessionManager"},
+    config = require('modules.tools.session-manager').config,
+    dependencies = {
+        "nvim-lua/plenary.nvim"
+    }
+})
+
+------------------- neogen
+pack({
+    "danymat/neogen",
+    cmd = "Neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = require("modules.tools.neogen").config,
 })
 
 ------------------- automatically toggle the fcitx5

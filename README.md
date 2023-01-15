@@ -23,4 +23,4 @@ npm install -g neovim
 cd ~/.config
 git clone https://github.com/aklk1ng/nvim.git
 ```
-3. Start your neovim and if'will start download all plugins automatically
+3. Start your neovim and it'will start download all plugins automatically

@@ -19,8 +19,6 @@ func! CompileRunGcc()
 		set splitbelow
 		:sp
 		:term python %
-	elseif &filetype == 'html'
-		silent! exec "!".g:mkdp_browser." % &"
 	elseif &filetype == 'javascript'
 		set splitbelow
 		:sp
