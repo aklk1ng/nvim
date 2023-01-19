@@ -69,13 +69,6 @@
       },
       {
         "language": [
-          "plaintex",
-          "tex"
-        ],
-        "path": "./latex.json"
-      },
-      {
-        "language": [
           "html",
           "jade",
           "pug",
@@ -177,20 +170,6 @@
       {
         "language": "python",
         "path": "./python/unittest.json"
-      },
-      {
-        "language": [
-          "plaintex",
-          "tex"
-        ],
-        "path": "./latex/latex-snippets.json"
-      },
-      {
-        "language": [
-          "plaintex",
-          "tex"
-        ],
-        "path": "./latex/vscode-latex-snippets.json"
       },
       {
         "language": "yaml",
