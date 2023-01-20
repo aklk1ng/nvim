@@ -253,8 +253,8 @@
   "extern-fn": {
     "prefix": "extern-fn",
     "body": [
-      "extern \"C\" fn ${1:name}(${2:arg}: ${3:Type}) -> ${4:RetType} {",
-      "    ${5:// add code here}",
+      "extern \"C\" fn ${1:name}(${2:}: ${3:}) -> ${4:} {",
+      "    ${5:}",
       "}"
     ],
     "description": "extern \"C\" fn …(…) { … }"
@@ -267,8 +267,8 @@
   "fn": {
     "prefix": "fn",
     "body": [
-      "fn ${1:name}(${2:arg}: ${3:Type}) -> ${4:RetType} {",
-      "    ${5:unimplemented!();}",
+      "fn ${1:name}(${2:}: ${3:}) -> ${4:} {",
+      "    ${5:}",
       "}"
     ],
     "description": "fn …(…) { … }"
@@ -323,7 +323,7 @@
   },
   "loop": {
     "prefix": "loop",
-    "body": ["loop {", "    ${2:unimplemented!();}", "}"],
+    "body": ["loop {", "    ${2:}", "}"],
     "description": "loop { … }"
   },
   "macro_rules": {

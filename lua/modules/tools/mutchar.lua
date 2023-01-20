@@ -24,10 +24,20 @@ function M.config()
                 {";;", ":="},
                 {",,", "<-"},
             },
-            fileter = {
+            filter = {
                 filters.has_space_before,
             }
-        }
+        },
+        ['rust'] = {
+            rules = {
+                {",,", "->"},
+                {";;", "=>"},
+            },
+            filter = {
+                filters.has_space_before,
+            },
+            one_to_one = true,
+        },
     })
 end
 

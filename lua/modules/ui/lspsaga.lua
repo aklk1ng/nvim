@@ -57,6 +57,7 @@ function M.config()
             colors = {
                 --float window normal bakcground color
                 normal_bg = '#3F4342',
+                title = true,
                 -- normal_bg = '#201e26',
                 --title background color
                 title_bg = '#afd700',
@@ -86,7 +87,8 @@ function M.config()
     vim.keymap.set("n", "<leader>sd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 
     -- Hover Doc
-    vim.keymap.set('n', ',,', '<Cmd>Lspsaga hover_doc<CR>', opts)
+    vim.keymap.set('n', '<S-h>', '<Cmd>Lspsaga hover_doc<CR>', opts)
+    vim.keymap.set('n', ',,', '<Cmd>Lspsaga hover_doc ++keep<CR>', opts)
 
     -- Callhierarchy
     vim.keymap.set("n", "<Leader>ic", "<cmd>Lspsaga incoming_calls<CR>", opts)

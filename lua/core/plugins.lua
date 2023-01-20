@@ -263,7 +263,7 @@ pack({
 ------------------- mutchar.nvim
 pack({
     "glepnir/mutchar.nvim",
-    ft = { 'c', 'cpp', 'go' },
+    ft = { 'c', 'cpp', 'go', 'rust' },
     config = require('modules.tools.mutchar').config
 })
 

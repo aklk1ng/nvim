@@ -7,6 +7,7 @@ vim.o.writebackup = false
 vim.o.hidden = true
 vim.o.showmode = false
 vim.o.showcmd = false
+vim.o.cmdheight = 1
 vim.o.ruler = false
 vim.o.termguicolors = true
 vim.o.tabstop = 4
@@ -27,6 +28,29 @@ vim.o.signcolumn = "yes"
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.autoindent = true
 vim.o.number = true
+-- set mouse movement
+vim.o.mouse = "a"
+vim.o.selection= "inclusive"
+-- foldmethod
+vim.o.foldmethod = "manual"
+-- no automatic backup,no newline
+vim.o.nobackup = true
+vim.o.swapfile = false
+vim.o.nowrap = true
+
+vim.o.updatetime = 100
+vim.o.timeoutlen = 400
+
+-- highlight the search and delay
+vim.o.ignorecase = "on"
+vim.o.smartcase = "on"
+vim.o.showmatch = "on"
+vim.o.hlsearch = "on"
+vim.o.incsearch = "on"
+vim.o.inccommand = "split"
+vim.cmd([[
+    noremap \ :nohlsearch<CR>
+]])
 
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
@@ -35,12 +59,6 @@ vim.g.loaded_netrwPlugin = 1
 -- vim-cmake
 vim.cmd([[
     let g:cmake_link_compile_commands = 1
-]])
-
--- foldmethod
-vim.cmd([[
-    set foldmethod=manual
-    set nofoldenable
 ]])
 
 -- Highlight on yank
@@ -67,34 +85,9 @@ vim.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe
 
 -- vim save 1000 files
 vim.cmd([[ set viminfo=!,'10000,<50,s10,h ]])
--- no automatic backup,no newline
-vim.cmd([[
-    set nobackup
-    set noswapfile
-    set nowrap
-]])
-
--- set mouse movement
-vim.cmd([[
-    set mouse=a
-    set selection=exclusive
-]])
-
--- highlight the search and delay
-vim.cmd([[
-    set hlsearch
-    set showmatch
-    noremap \ :nohlsearch<CR>
-    set incsearch
-    set inccommand=
-    set ignorecase
-    set smartcase
-    set timeoutlen=400
-]])
 
 -- share clipboard
 vim.cmd([[
-    set updatetime=100
     set encoding=utf-8
     set fileencodings =utf-8,ucs-bom,gbk,cp936,gb2312,gb18030
     set pumheight=10

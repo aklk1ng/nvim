@@ -256,8 +256,7 @@
             "#include <iostream>",
             "using namespace std;",
             "",
-            "int main (int argc, char *argv[])",
-            "{",
+            "int main (int argc, char *argv[]) {",
             "\t$0",
             "\treturn 0;",
             "}"
@@ -267,8 +266,7 @@
     "Main function template": {
         "prefix": "main",
         "body": [
-            "int main (int argc, char *argv[])",
-            "{",
+            "int main (int argc, char *argv[]) {",
             "\t$1",
             "\treturn 0;",
             "}"
