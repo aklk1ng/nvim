@@ -48,6 +48,9 @@ pack({
         { "j-hui/fidget.nvim",
             config = require('modules.ui.fidget').setup,
         },
+        {
+            "ray-x/lsp_signature.nvim",
+        },
     },
 })
 
@@ -83,23 +86,23 @@ pack({
 -------------------- some useful plugins for coding
 pack({
     "tpope/vim-commentary",
-    event = 'CursorHold'
+    event = { "BufRead", "BufNewFile"},
 })
 
 pack({
     "tpope/vim-surround",
-    event = 'CursorHold'
+    event = { "BufRead", "BufNewFile"},
 })
 
 pack({
     "gcmt/wildfire.vim",
-    event = 'CursorHold'
+    event = { "BufRead", "BufNewFile"},
 })
 
 -------------------- show the contents of the registers
 pack({
     "junegunn/vim-peekaboo",
-    event = "BufRead"
+    event = { "BufRead", "BufNewFile"},
 })
 
 -------------------- cursor movement
@@ -112,7 +115,7 @@ pack({
 -- multi cursor
 pack({
     "mg979/vim-visual-multi",
-    event = 'CursorHold',
+    event = { "BufRead", "BufNewFile"},
     config = require('modules.tools.vim-visual-multi').config()
 })
 

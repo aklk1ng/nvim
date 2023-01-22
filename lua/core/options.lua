@@ -30,7 +30,6 @@ vim.o.autoindent = true
 vim.o.number = true
 -- set mouse movement
 vim.o.mouse = "a"
-vim.o.selection= "inclusive"
 -- foldmethod
 vim.o.foldmethod = "manual"
 -- no automatic backup,no newline
@@ -42,11 +41,9 @@ vim.o.updatetime = 100
 vim.o.timeoutlen = 400
 
 -- highlight the search and delay
-vim.o.ignorecase = "on"
-vim.o.smartcase = "on"
-vim.o.showmatch = "on"
-vim.o.hlsearch = "on"
-vim.o.incsearch = "on"
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.showmatch = true
 vim.o.inccommand = "split"
 vim.cmd([[
     noremap \ :nohlsearch<CR>

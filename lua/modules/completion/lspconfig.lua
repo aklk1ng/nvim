@@ -1,4 +1,5 @@
 local M = {}
+
 function M.setup()
 
 --highlight the signcolumn not use symbol
@@ -14,18 +15,40 @@ vim.cmd [[
   sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
 ]]
 
-    --the lspconfig maps
+---@diagnostic disable-next-line: unused-local
+local function on_attach(client, bufnr)
+    require("lsp_signature").on_attach({
+        debug = true,
+        log_path = vim.fn.expand("$HOME") .. "/tmp/sig.log",
+        bind = true,
+        floating_window = true,
+        floating_window_above_cur_line = true,
+        fix_pos = false,
+        floating_window_off_x = 1,
+        floating_window_off_y = 0,
+        hint_enable = true,
+        hi_parameter = "Search",
+        handler_opts = {
+            border = "shadow",
+        },
+        shadow_blend = 36,
+    })
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
     ---@diagnostic disable-next-line: unused-local
-    local on_attach = function(client, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        local bufopts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-        vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-    end
+    -- local on_attach = function(client, bufnr)
+    --     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    -- vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+    -- vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    -- end
     --Enable (broadcasting) snippet capability for completion
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
     --activate language clients
     require 'lspconfig'.clangd.setup {

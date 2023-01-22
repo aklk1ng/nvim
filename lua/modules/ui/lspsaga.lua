@@ -79,7 +79,14 @@ function M.config()
 
     -- Diagnsotic jump can use `<c-o>` to jump back
     vim.keymap.set('n', '[n', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
-    vim.keymap.set('n', '[p', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
+    vim.keymap.set('n', ']n', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
+    -- Diagnostic jump with filter like Only jump to error
+    vim.keymap.set("n", "[e", function()
+        require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    end, opts)
+    vim.keymap.set("n", "]e", function()
+        require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+    end, opts)
 
     -- Show line diagnostics
     vim.keymap.set("n", "<leader>sd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
