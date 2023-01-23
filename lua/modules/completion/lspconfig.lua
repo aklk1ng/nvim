@@ -15,8 +15,7 @@ vim.cmd [[
   sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
 ]]
 
----@diagnostic disable-next-line: unused-local
-local function on_attach(client, bufnr)
+local function custom_attach(client, bufnr)
     require("lsp_signature").on_attach({
         debug = true,
         log_path = vim.fn.expand("$HOME") .. "/tmp/sig.log",
@@ -39,24 +38,31 @@ local function on_attach(client, bufnr)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
     ---@diagnostic disable-next-line: unused-local
-    -- local on_attach = function(client, bufnr)
-    --     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    -- local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    -- vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-    -- vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-    -- end
+    local on_attach = function(client, bufnr)
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    end
     --Enable (broadcasting) snippet capability for completion
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
     --activate language clients
-    require 'lspconfig'.clangd.setup {
-        on_attach = on_attach,
+    require('lspconfig').clangd.setup {
+        on_attach = custom_attach(),
         capabilities = capabilities,
+        cmd = {
+            'clangd',
+            '--background-index',
+            '--suggest-missing-includes',
+            '--clang-tidy',
+            '--header-insertion=iwyu',
+        },
     }
-    require'lspconfig'.pylsp.setup{
-        on_attach = on_attach,
+    require('lspconfig').pylsp.setup{
+        on_attach = custom_attach,
         capabilities = capabilities,
         settings = {
             pylsp = {
@@ -70,28 +76,28 @@ end
             }
         }
     }
-    require 'lspconfig'.bashls.setup {
-        on_attach = on_attach,
+    require('lspconfig').bashls.setup {
+        on_attach = custom_attach,
         capabilities = capabilities,
     }
-    require 'lspconfig'.cmake.setup {
-        on_attach = on_attach,
+    require('lspconfig').cmake.setup {
+        on_attach = custom_attach,
         capabilities = capabilities,
     }
-    require 'lspconfig'.jsonls.setup {
-        on_attach = on_attach,
+    require('lspconfig').jsonls.setup {
+        on_attach = custom_attach,
         capabilities = capabilities,
     }
     require('lspconfig').cssls.setup {
-        on_attach = on_attach,
+        on_attach = custom_attach,
         capabilities = capabilities,
     }
-    require 'lspconfig'.gopls.setup {
-        on_attach = on_attach,
+    require('lspconfig').gopls.setup {
+        on_attach = custom_attach,
         capabilities = capabilities,
     }
-    require 'lspconfig'.sumneko_lua.setup {
-        on_attach = on_attach,
+    require('lspconfig').sumneko_lua.setup {
+        on_attach = custom_attach,
         settings = {
             Lua = {
                 diagnostics = {
@@ -107,17 +113,17 @@ end
             },
         },
     }
-    require 'lspconfig'.tsserver.setup {
-        on_attach = on_attach,
+    require('lspconfig').tsserver.setup {
+        on_attach = custom_attach,
         filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
         cmd = { "typescript-language-server", "--stdio" },
         capabilities = capabilities,
     }
-    require 'lspconfig'.marksman.setup {
-        on_attach = on_attach,
+    require('lspconfig').marksman.setup {
+        on_attach = custom_attach,
         capabilities = capabilities,
     }
-    require'lspconfig'.rust_analyzer.setup{
+    require('lspconfig').rust_analyzer.setup{
         on_attach = on_attach,
         settings = {
             ["rust-analyzer"] = {
@@ -139,7 +145,7 @@ end
         },
         capabilities = capabilities,
     }
-    require'lspconfig'.dockerls.setup{
+    require('lspconfig').dockerls.setup{
         on_attach = on_attach,
         capabilities = capabilities,
     }

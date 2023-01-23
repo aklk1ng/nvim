@@ -74,56 +74,6 @@ function M.config()
             },
         },
     })
-
-    local opts = { noremap = true, silent = true }
-
-    -- Diagnsotic jump can use `<c-o>` to jump back
-    vim.keymap.set('n', '[n', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
-    vim.keymap.set('n', ']n', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
-    -- Diagnostic jump with filter like Only jump to error
-    vim.keymap.set("n", "[e", function()
-        require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    end, opts)
-    vim.keymap.set("n", "]e", function()
-        require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-    end, opts)
-
-    -- Show line diagnostics
-    vim.keymap.set("n", "<leader>sd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
-    -- Show cursor diagnostic
-    vim.keymap.set("n", "<leader>sd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
-
-    -- Hover Doc
-    vim.keymap.set('n', '<S-h>', '<Cmd>Lspsaga hover_doc<CR>', opts)
-    vim.keymap.set('n', ',,', '<Cmd>Lspsaga hover_doc ++keep<CR>', opts)
-
-    -- Callhierarchy
-    vim.keymap.set("n", "<Leader>ic", "<cmd>Lspsaga incoming_calls<CR>", opts)
-    vim.keymap.set("n", "<Leader>oc", "<cmd>Lspsaga outgoing_calls<CR>", opts)
-
-    -- Lsp finder find the symbol definition implement reference
-    -- if there is no implement it will hide
-    -- when you use action in finder like open vsplit then you can
-    -- use <C-t> to jump back
-    vim.keymap.set('n', 'gh', '<Cmd>Lspsaga lsp_finder<CR>', opts)
-
-    -- goto_definition
-    vim.keymap.set('n', 'gd', '<Cmd>Lspsaga goto_definition<CR>', opts)
-
-    -- Code action
-    vim.keymap.set({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts)
-
-    -- Peek Definition
-    -- you can edit the definition file in this flaotwindow
-    -- also support open/vsplit/etc operation check definition_action_keys
-    -- support tagstack C-t jump back
-    vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
-
-    -- Rename
-    vim.keymap.set('n', '<leader>rn', '<Cmd>Lspsaga rename<CR>', opts)
-
-    -- outline / show symbols in some files when the lsp is supported
-    vim.keymap.set("n","<leader>o", "<cmd>Lspsaga outline<CR>",opts)
 end
 
 return M

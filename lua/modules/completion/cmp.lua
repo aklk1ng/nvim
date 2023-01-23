@@ -8,7 +8,7 @@ function M.lua_snip()
         -- dynamic udpate the snippets when i type
         updateevents = 'TextChanged,TextChangedI',
     })
-    require('luasnip.loaders.from_vscode').lazy_load()
+    -- require('luasnip.loaders.from_vscode').lazy_load()
     require('luasnip.loaders.from_vscode').lazy_load({
         paths = { '~/.config/nvim/lua/snippets/' },
     })
@@ -96,6 +96,7 @@ function M.config()
                     strategy = 0, -- mixed
                 },
             },
+            { name = 'vim-dadbod-completion' },
         }),
         formatting = {
             format = lspkind.cmp_format({

@@ -60,8 +60,7 @@
     "class": {
         "prefix": "class",
         "body": [
-            "class ${1:MyClass}",
-            "{",
+            "class ${1:MyClass} {",
             "public:",
             "\t$1();",
             "\t$1($1 &&) = default;",
@@ -87,8 +86,7 @@
     "eclass": {
         "prefix": "eclass",
         "body": [
-            "class ${1:MyClass}",
-            "{",
+            "class ${1:MyClass} {",
             "public:",
             "\t$2",
             "private:",
@@ -101,8 +99,7 @@
     "qclass": {
         "prefix": "qclass",
         "body": [
-            "class ${1:MyClass} : public QObject",
-            "{",
+            "class ${1:MyClass} : public QObject {",
             "\tQ_OBJECT;",
             "public:",
             "\nexplicit $1(QObject *parent = nullptr);",
@@ -118,8 +115,7 @@
     "classi": {
         "prefix": "classi",
         "body": [
-            "class ${1:MyClass}",
-            "{",
+            "class ${1:MyClass} {",
             "public:",
             "\t$1() = default;",
             "\t$1($1 &&) = default;",
@@ -246,8 +242,8 @@
         "description": "Code snippet for #define \" \""
     },
     "Create a function": {
-        "prefix": "func",
-        "body": ["${2:void} ${1:func}(${3:void})", "{", "\t$4", "}"],
+        "prefix": "fn",
+        "body": ["${2:void} ${1:func}(${3:}) {", "\t$4", "}"],
         "description": "Creates a function"
     },
     "Standard Starter Template": {

@@ -100,8 +100,7 @@
     "Main function template": {
         "prefix": "main",
         "body": [
-            "int main (int argc, char *argv[])",
-            "{",
+            "int main (int argc, char *argv[]) {",
             "\t$0",
             "\treturn 0;",
             "}"
@@ -151,8 +150,8 @@
         "description": "Creates a linked list template"
     },
     "Create a function": {
-        "prefix": "func",
-        "body": ["${2:void} ${1:func}(${3:void})", "{", "\t$4", "}"],
+        "prefix": "fn",
+        "body": ["${2:void} ${1:func}(${3:}) {", "\t$4", "}"],
         "description": "Creates a function"
     },
     "Create int function": {

@@ -24,10 +24,8 @@ pack({
 -------------------- notification manager
 pack({
     "rcarriga/nvim-notify",
-    event = { "BufRead", "BufNewFile"},
-    config = function ()
-        vim.notify = require("notify")
-    end
+    event = { "BufRead", "BufNewFile" },
+    config = require("modules.ui.nvim-notify").config
 })
 
 -------------------- lspsaga
@@ -41,7 +39,7 @@ pack({
 -------------------- lspconfig
 pack({
     "neovim/nvim-lspconfig",
-    event = {"BufReadPre","BufNewFile"},
+    event = { "BufReadPre", "BufNewFile" },
     config = require('modules.completion.lspconfig').setup,
     dependencies = {
         -------------------- Standalone UI for nvim-lsp progress
@@ -73,7 +71,7 @@ pack({
         { "hrsh7th/cmp-buffer" },
         { "hrsh7th/cmp-emoji" },
         { "kdheepak/cmp-latex-symbols" },
-        { "onsails/lspkind.nvim"},
+        { "onsails/lspkind.nvim" },
     },
     config = require('modules.completion.cmp').config
 })
@@ -86,36 +84,36 @@ pack({
 -------------------- some useful plugins for coding
 pack({
     "tpope/vim-commentary",
-    event = { "BufRead", "BufNewFile"},
+    event = { "BufRead", "BufNewFile" },
 })
 
 pack({
     "tpope/vim-surround",
-    event = { "BufRead", "BufNewFile"},
+    event = { "BufRead", "BufNewFile" },
 })
 
 pack({
     "gcmt/wildfire.vim",
-    event = { "BufRead", "BufNewFile"},
+    event = { "BufRead", "BufNewFile" },
 })
 
 -------------------- show the contents of the registers
 pack({
     "junegunn/vim-peekaboo",
-    event = { "BufRead", "BufNewFile"},
+    event = { "BufRead", "BufNewFile" },
 })
 
 -------------------- cursor movement
 pack({
     "ggandor/leap.nvim",
-    event = { "BufRead", "BufNewFile"},
+    event = { "BufRead", "BufNewFile" },
     config = require('modules.tools.leap').setup
 })
 
 -- multi cursor
 pack({
     "mg979/vim-visual-multi",
-    event = { "BufRead", "BufNewFile"},
+    event = { "BufRead", "BufNewFile" },
     config = require('modules.tools.vim-visual-multi').config()
 })
 
@@ -135,19 +133,19 @@ pack({
 pack({
     "mfussenegger/nvim-dap",
     keys = {
-        "<F5>","<F6>","<F7>","<F8>","<leader>db","<leader>dB"
+        "<F5>", "<F6>", "<F7>", "<F8>", "<leader>db", "<leader>dB"
     },
     config = require('modules.tools.dap').config,
     dependencies = {
         { "rcarriga/nvim-dap-ui",
             config = require('modules.tools.dapui').config,
-},
+        },
     }
 })
 
 -------------------- fzflua
 -- if you already have installed fzf you don't need the plugin
--- pack({ 'junegunn/fzf', build = './install --bin' }) 
+-- pack({ 'junegunn/fzf', build = './install --bin' })
 pack({
     "ibhagwan/fzf-lua",
     cmd = 'FzfLua',
@@ -184,11 +182,11 @@ pack({
 -------------------- highlight the current word
 pack({
     "itchyny/vim-cursorword",
-    event = {'BufRead', 'BufNewfile'}
+    event = { 'BufRead', 'BufNewfile' }
 })
 
 -------------------- bufferline
-pack({ "kyazdani42/nvim-web-devicons", lazy = true})
+pack({ "kyazdani42/nvim-web-devicons", lazy = true })
 
 pack({
     "akinsho/bufferline.nvim",
@@ -198,7 +196,7 @@ pack({
 })
 
 -- the cmd name must be capitalized, though is didfferent from my actual mapping command
-pack({'famiu/bufdelete.nvim', cmd = 'Bdelete'})
+pack({ 'famiu/bufdelete.nvim', cmd = 'Bdelete' })
 
 -------------------- markdown preview and toc
 -- use nodejs and yarn to build this plugin(make sure you have installed them)
@@ -224,32 +222,42 @@ pack({
 -------------------- ranger
 pack({
     "francoiscabrol/ranger.vim",
-    cmd = 'Ranger'
+    cmd = 'Ranger',
+    config = function()
+        vim.cmd([[
+        let g:ranger_map_keys = 0
+        ]])
+    end
 })
 
 -------------------- delete a unuse VIM buffer in VIM automatically
 pack({
     "rbgrouleff/bclose.vim",
-    event = {'BufRead','BufNewfile'}
+    event = { "BufRead", "BufNewfile" }
 })
 
 -------------------- indent-line
 pack({
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufRead", "BufNewFile"},
+    event = { "BufRead", "BufNewFile" },
     config = require('modules.ui.indent-blankline').config,
 })
 
 ------------------- vim-cmake
 pack({
     "cdelledonne/vim-cmake",
-    cmd = {'CMakeGenerate', 'CMakeBuild'}
+    cmd = { "CMakeGenerate", "CMakeBuild" },
+    config = function()
+        vim.cmd([[
+        let g:cmake_link_compile_commands = 1
+        ]])
+    end
 })
 
 ------------------- vim-dadbod
 pack({
     "kristijanhusak/vim-dadbod-ui",
-    cmd = 'DBUI',
+    cmd = "DBUI",
     dependencies = {
         "tpope/vim-dadbod",
         "kristijanhusak/vim-dadbod-completion"
@@ -278,7 +286,7 @@ pack({
 ------------------- todo-comments.nvim
 pack({
     "folke/todo-comments.nvim",
-    event = { "BufRead", "BufNewFile"},
+    event = { "BufRead", "BufNewFile" },
     config = require('modules.tools.todo-comments').config,
     dependencies = {
         "nvim-lua/plenary.nvim"
@@ -288,7 +296,7 @@ pack({
 ------------------- neovim-session-manager(now have a small problem with the symbol winbar)
 pack({
     "Shatur/neovim-session-manager",
-    cmd = { "SessionManager"},
+    cmd = { "SessionManager" },
     config = require('modules.tools.session-manager').config,
     dependencies = {
         "nvim-lua/plenary.nvim"

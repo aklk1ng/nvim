@@ -2,7 +2,6 @@ local M = {}
 
 function M.config()
     require("todo-comments").setup({
-        signs = true, -- show icons in the signs column
         sign_priority = 8, -- sign priority
         -- keywords recognized as todo comments
         keywords = {
@@ -40,8 +39,6 @@ function M.config()
             max_line_len = 400, -- ignore lines longer than this
             exclude = {}, -- list of file types to exclude highlighting
         },
-        -- list of named colors where we try to extract the guifg from the
-        -- list of highlight groups or use the hex color if hl not found as a fallback
         colors = {
             error = { "DiagnosticError", "ErrorMsg", "#E95678" },
             warning = { "DiagnosticWarn", "WarningMsg", "#F7BB3B" },
@@ -49,20 +46,6 @@ function M.config()
             hint = { "DiagnosticHint", "#36D0E0" },
             default = { "Identifier", "#7C3AED" },
             test = { "Identifier", "#FF00FF" }
-        },
-        search = {
-            command = "rg",
-            args = {
-                "--color=never",
-                "--no-heading",
-                "--with-filename",
-                "--line-number",
-                "--column",
-            },
-            -- regex that will be used to match keywords.
-            -- don't replace the (KEYWORDS) placeholder
-            pattern = [[\b(KEYWORDS):]], -- ripgrep regex
-            -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
         },
     })
 end

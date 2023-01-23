@@ -3,7 +3,6 @@ local M = {}
 function M.config()
     local actions = require "fzf-lua.actions"
     require 'fzf-lua'.setup {
-        -- fzf_bin         = 'sk',            -- use skim instead of fzf?
         global_resume       = true, -- enable global `resume`?
         global_resume_query = true, -- include typed query in `resume`?
         winopts             = {
@@ -26,7 +25,6 @@ function M.config()
             fullscreen = false, -- start fullscreen?
             preview    = {
                 border       = 'border', -- border|noborder, applies only to
-                -- native fzf previewers (bat/cat/git/etc)
                 wrap         = 'nowrap', -- wrap|nowrap
                 hidden       = 'nohidden', -- hidden|nohidden
                 vertical     = 'down:45%', -- up|down:size
@@ -121,10 +119,6 @@ function M.config()
             }
         },
         fzf_opts = {
-            -- options are sent as `<left>=<right>`
-            -- set to `false` to remove a flag
-            -- set to '' for a non-value flag
-            -- for raw args use `fzf_args` instead
             ['--ansi']   = '',
             ['--info']   = 'inline',
             ['--height'] = '100%',
@@ -145,11 +139,8 @@ function M.config()
             builtin = {
                 syntax          = true, -- preview syntax highlight?
                 syntax_limit_l  = 0, -- syntax limit (lines), 0=nolimit
-                syntax_limit_b  = 1024 * 1024, -- syntax limit (bytes), 0=nolimit
-                limit_b         = 1024 * 1024 * 10, -- preview limit (bytes), 0=nolimit
-                -- preview extensions using a custom shell command:
-                -- for example, use `viu` for image previews
-                -- will do nothing if `viu` isn't executable
+                syntax_limit_b  = 1024 * 1024 * 2, -- syntax limit (bytes), 0=nolimit
+                limit_b         = 1024 * 1024 * 20, -- preview limit (bytes), 0=nolimit
                 extensions      = {
                     -- neovim terminal only supports `viu` block output
                     ["png"] = { "viu", "-b" },
@@ -173,10 +164,6 @@ function M.config()
             git_icons    = true, -- show git icons?
             file_icons   = true, -- show file icons?
             color_icons  = true, -- colorize file|git icons
-            -- path_shorten   = 1,              -- 'true' or number, shorten path?
-            -- executed command priority is 'cmd' (if exists)
-            -- otherwise auto-detect prioritizes `fd`:`rg`:`find`
-            -- default options are controlled by 'fd|rg|find|_opts'
             -- NOTE: 'find -printf' requires GNU find
             -- cmd            = "find . -type f -printf '%P\n'",
             find_opts    = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
@@ -190,90 +177,6 @@ function M.config()
                 ["ctrl-y"]  = function(selected) print(selected[1]) end,
             }
         },
-        grep                = {
-            prompt         = 'Rg❯ ',
-            input_prompt   = 'Grep For❯ ',
-            multiprocess   = true, -- run command in a separate process
-            git_icons      = true, -- show git icons?
-            file_icons     = true, -- show file icons?
-            color_icons    = true, -- colorize file|git icons
-            -- executed command priority is 'cmd' (if exists)
-            -- otherwise auto-detect prioritizes `rg` over `grep`
-            -- default options are controlled by 'rg|grep_opts'
-            -- cmd            = "rg --vimgrep",
-            grep_opts      = "--binary-files=without-match --line-number --recursive --color=auto --perl-regexp",
-            rg_opts        = "--column --line-number --no-heading --color=always --smart-case --max-columns=512",
-            -- set to 'true' to always parse globs in both 'grep' and 'live_grep'
-            -- search strings will be split using the 'glob_separator' and translated
-            -- to '--iglob=' arguments, requires 'rg'
-            -- can still be used when 'false' by calling 'live_grep_glob' directly
-            rg_glob        = false, -- default to glob parsing?
-            glob_flag      = "--iglob", -- for case sensitive globs use '--glob'
-            glob_separator = "%s%-%-", -- query separator pattern (lua): ' --'
-            -- advanced usage: for custom argument parsing define
-            -- 'rg_glob_fn' to return a pair:
-            --   first returned argument is the new search query
-            --   second returned argument are addtional rg flags
-            -- rg_glob_fn = function(query, opts)
-            --   ...
-            --   return new_query, flags
-            -- end,
-            actions        = {
-                -- actions inherit from 'actions.files' and merge
-                -- this action toggles between 'grep' and 'live_grep'
-                ["ctrl-g"] = { actions.grep_lgrep }
-            },
-            no_header      = false, -- hide grep|cwd header?
-            no_header_i    = false, -- hide interactive header?
-        },
-        lsp                 = {
-            prompt_postfix   = '❯ ', -- will be appended to the LSP label
-            -- to override use 'prompt' instead
-            cwd_only         = false, -- LSP/diagnostics for cwd only?
-            async_or_timeout = 1000, -- timeout(ms) or 'true' for async calls
-            file_icons       = true,
-            git_icons        = false,
-            -- settings for 'lsp_{document|workspace|lsp_live_workspace}_symbols'
-            symbols          = {
-                async_or_timeout = true, -- symbols are async by default
-                symbol_style     = 1, -- style for document/workspace symbols
-                -- false: disable,    1: icon+kind
-                --     2: icon only,  3: kind only
-                -- NOTE: icons are extracted from
-                -- vim.lsp.protocol.CompletionItemKind
-                -- colorize using nvim-cmp's CmpItemKindXXX highlights
-                -- can also be set to 'TS' for treesitter highlights ('TSProperty', etc)
-                -- or 'false' to disable highlighting
-                symbol_hl_prefix = "CmpItemKind",
-                -- additional symbol formatting, works with or without style
-                symbol_fmt       = function(s) return "[" .. s .. "]" end,
-            },
-            code_actions     = {
-                prompt           = 'Code Actions> ',
-                ui_select        = true, -- use 'vim.ui.select'?
-                async_or_timeout = 5000,
-                winopts          = {
-                    row    = 0.40,
-                    height = 0.35,
-                    width  = 0.60,
-                },
-            }
-        },
-        diagnostics         = {
-            prompt       = 'Diagnostics❯ ',
-            cwd_only     = false,
-            file_icons   = true,
-            git_icons    = false,
-            diag_icons   = true,
-            icon_padding = '', -- add padding for wide diagnostics signs
-        },
-        file_icon_colors    = {
-            ["sh"] = "green",
-        },
-        file_icon_padding   = '',
-        -- uncomment if your terminal/font does not support unicode character
-        -- 'EN SPACE' (U+2002), the below sets it to 'NBSP' (U+00A0) instead
-        -- nbsp = '\xc2\xa0',
     }
 end
 

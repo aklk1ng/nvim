@@ -374,10 +374,10 @@
   "struct": {
     "prefix": "struct",
     "body": [
-      "#[derive(Debug)]",
-      "struct ${1:Name} {",
-      "    ${2:field}: ${3:Type}",
-      "}"
+        "#[derive(Debug)]",
+        "struct ${1:Name} {",
+            "${2:field}: ${3:Type}",
+            "}"
     ],
     "description": "struct … { … }"
   },

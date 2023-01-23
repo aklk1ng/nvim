@@ -5,16 +5,17 @@ local opt = { noremap = true, silent = true }
 map("n", "Q", ":q<CR>", opt)
 
 ---------------------------- change letter case
-map("n", "..", "~", opt)
+map("n", "<C-,>", "~", opt)
 ---------------------------- find pair
 map("n", ",.", "%", opt)
 map("v", ",.", "%", opt)
+map("n", [[\]], ":nohlsearch<CR>",opt)
 
 ---------------------------- open the nvim plugins file anytime
 map("n", "<leader>e", ":e ~/.config/nvim/lua/core/plugins.lua<CR>", opt)
 ---------------------------- cursor movement
-map("n", "<C-i>", "<Home>", opt)
-map("n", "<C-p>", "<End>", opt)
+map("n", "<C-i>", "0", opt)
+map("n", "<C-p>", "$", opt)
 map("n", "<S-y>", "y$", opt)
 map("n", "<S-c>", "c$", opt)
 map("n", "<S-d>", "d$", opt)
@@ -55,6 +56,7 @@ map('n', 'tf', ':NvimTreeFocus<CR>', opt)
 ---------------------------- vim-cmake
 map('n', '<leader>cg', ':CMakeGenerate<CR>', opt)
 map('n', '<leader>cb', ':CMakeBuild<CR>', opt)
+map('n', '<leader>cc', ':CMakeClose<CR>', opt)
 
 ---------------------------- vim-floaterm
 map('n', 'fn', ':FloatermNew<CR>', opt)
@@ -70,7 +72,7 @@ map("n", "<leader>p", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<leader>n", ":BufferLineCycleNext<CR>", opt)
 map("n", "<leader>d", ":bdelete<CR>", opt)
 
----------------------------- Html
+---------------------------- html preview
 map("n", ",g", ":! google-chrome-stable % &<CR>", opt)
 map("n", ",s", ":! surf % &<CR>", opt)
 
@@ -85,9 +87,6 @@ map("n", "tr", ":GenTocRedcarpet<CR>", opt)
 map("n", ";h", ":TSHighlightCapturesUnderCursor<CR>", opt)
 
 ---------------------------- ranger
-vim.cmd([[
-    let g:ranger_map_keys = 0
-]])
 map("n", "ra", ":Ranger<CR>", opt)
 
 ---------------------------- neovim-session-manager
@@ -100,6 +99,45 @@ map("n", "tl", ":TodoLocList<CR>", opt)
 
 ---------------------------- neogen
 map("n", "gn", ":Neogen<CR>", opt)
+
+
+---------------------------- Lspsaga
+-- Diagnsotic jump can use `<c-o>` to jump back
+map('n', '[n', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opt)
+map('n', ']n', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', opt)
+-- Diagnostic jump with filter like Only jump to error
+map("n", "[e", [[<Cmd>lua require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>]], opt)
+map("n", "]e", [[<Cmd>lua require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>]], opt)
+-- Show line diagnostics
+map("n", "<leader>sd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+-- Show cursor diagnostic
+map("n", "<leader>sd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
+-- Hover Doc
+map('n', '<S-h>', '<Cmd>Lspsaga hover_doc<CR>', opt)
+map('n', ',,', '<Cmd>Lspsaga hover_doc ++keep<CR>', opt)
+-- Callhierarchy
+map("n", "<Leader>ic", "<cmd>Lspsaga incoming_calls<CR>", opt)
+map("n", "<Leader>oc", "<cmd>Lspsaga outgoing_calls<CR>", opt)
+-- Lsp finder find the symbol definition implement reference
+-- if there is no implement it will hide
+-- when you use action in finder like open vsplit then you can
+-- use <C-t> to jump back
+map('n', 'gh', '<Cmd>Lspsaga lsp_finder<CR>', opt)
+-- goto_definition
+map('n', 'gd', '<Cmd>Lspsaga goto_definition<CR>', opt)
+-- Code action
+map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
+map("v", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opt)
+-- Peek Definition
+-- you can edit the definition file in this flaotwindow
+-- also support open/vsplit/etc operation check definition_action_keys
+-- support tagstack C-t jump back
+map('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opt)
+-- Rename
+map('n', '<leader>rn', '<Cmd>Lspsaga rename<CR>', opt)
+-- outline / show symbols in some files when the lsp is supported
+map("n","<leader>o", "<cmd>Lspsaga outline<CR>",opt)
+
 
 ---------------------------- FzfLua
 map("n", "ff", ":FzfLua files<CR>", opt)

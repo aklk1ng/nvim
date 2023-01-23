@@ -140,7 +140,23 @@ function M.setup()
 
     ins_left { 'location' }
 
-    ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+    ins_left {
+        function()
+            local current_line = vim.fn.line(".")
+            local total_lines = vim.fn.line("$")
+            local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+            local line_ratio = current_line / total_lines
+            local index = math.ceil(line_ratio * #chars)
+            if current_line == 1 then
+                return 'Top'
+            elseif current_line == total_lines then
+                return 'Bot'
+            else
+                return chars[index]
+            end
+        end,
+        color = { fg = colors.yellow, gui = 'bold' }
+    }
 
     ins_left {
         'diagnostics',
