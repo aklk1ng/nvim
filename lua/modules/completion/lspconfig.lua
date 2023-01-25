@@ -2,7 +2,7 @@ local M = {}
 
 function M.setup()
 
---highlight the signcolumn not use symbol
+    --highlight the signcolumn not use symbol
 vim.cmd [[
   highlight! DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
   highlight! DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
@@ -15,35 +15,36 @@ vim.cmd [[
   sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
 ]]
 
-local function custom_attach(client, bufnr)
-    require("lsp_signature").on_attach({
-        debug = true,
-        log_path = vim.fn.expand("$HOME") .. "/tmp/sig.log",
-        bind = true,
-        floating_window = true,
-        floating_window_above_cur_line = true,
-        fix_pos = false,
-        floating_window_off_x = 1,
-        floating_window_off_y = 0,
-        hint_enable = true,
-        hi_parameter = "Search",
-        handler_opts = {
-            border = "shadow",
-        },
-        shadow_blend = 36,
-    })
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
+    local function custom_attach(client, bufnr)
+        require("lsp_signature").on_attach({
+            debug = true,
+            log_path = vim.fn.expand("$HOME") .. "/tmp/sig.log",
+            bind = true,
+            floating_window = true,
+            floating_window_above_cur_line = true,
+            fix_pos = false,
+            floating_window_off_x = 1,
+            floating_window_off_y = 0,
+            hint_enable = true,
+            hi_parameter = "Search",
+            handler_opts = {
+                border = "shadow",
+            },
+            shadow_blend = 36,
+        })
+        local bufopts = { noremap = true, silent = true, buffer = bufnr }
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+        vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    end
+
     ---@diagnostic disable-next-line: unused-local
     local on_attach = function(client, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+        local bufopts = { noremap = true, silent = true, buffer = bufnr }
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+        vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
     end
     --Enable (broadcasting) snippet capability for completion
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -61,14 +62,14 @@ end
             '--header-insertion=iwyu',
         },
     }
-    require('lspconfig').pylsp.setup{
+    require('lspconfig').pylsp.setup {
         on_attach = custom_attach,
         capabilities = capabilities,
         settings = {
             pylsp = {
                 plugins = {
                     pycodestyle = {
-                        ignore = {'W391', 'E302', 'E401', 'E402', 'E305'},
+                        ignore = { 'W391', 'E302', 'E401', 'E402', 'E305' },
                         maxLineLength = 150,
                         indentSize = 4
                     },
@@ -123,7 +124,7 @@ end
         on_attach = custom_attach,
         capabilities = capabilities,
     }
-    require('lspconfig').rust_analyzer.setup{
+    require('lspconfig').rust_analyzer.setup {
         on_attach = on_attach,
         settings = {
             ["rust-analyzer"] = {
@@ -145,9 +146,10 @@ end
         },
         capabilities = capabilities,
     }
-    require('lspconfig').dockerls.setup{
+    require('lspconfig').dockerls.setup {
         on_attach = on_attach,
         capabilities = capabilities,
     }
 end
+
 return M

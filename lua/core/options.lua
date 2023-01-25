@@ -62,10 +62,10 @@ vim.cmd([[
 ]])
 
 if vim.fn.has('nvim-0.9') == 1 then
-  vim.opt.stc = '%{v:virtnum ? repeat(" ", float2nr(ceil(log10(v:lnum))))."↳":v:lnum}%=%s%C'
+    vim.opt.stc = '%{v:virtnum ? repeat(" ", float2nr(ceil(log10(v:lnum))))."↳":v:lnum}%=%s%C'
 end
 
 if vim.fn.executable('rg') == 1 then
-  vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-  vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
+    vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+    vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end

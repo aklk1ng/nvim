@@ -8,6 +8,15 @@
         ],
         "description": "Code snippet for 'for' loop"
     },
+    "fori": {
+        "prefix": "fori",
+        "body": [
+            "for (; $1 ${2:<} ${3:0}; $2${4:++} {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Code snippet for reverse 'for' loop"
+    },
     "forr": {
         "prefix": "forr",
         "body": [
@@ -16,6 +25,15 @@
             "}"
         ],
         "description": "Code snippet for reverse 'for' loop"
+    },
+    "fort": {
+        "prefix": "fort",
+        "body": [
+            "for (${1:size_t} ${2:i} = ${3:0}; $2 ${4:<} ${5:length}; $2${6:++}) {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Code snippet for 'for' loop"
     },
     "do": {
         "prefix": "do",
@@ -252,7 +270,7 @@
             "#include <iostream>",
             "using namespace std;",
             "",
-            "int main (int argc, char *argv[]) {",
+            "int main(int argc, char *argv[]) {",
             "\t$0",
             "\treturn 0;",
             "}"
@@ -262,7 +280,7 @@
     "Main function template": {
         "prefix": "main",
         "body": [
-            "int main (int argc, char *argv[]) {",
+            "int main(int argc, char *argv[]) {",
             "\t$1",
             "\treturn 0;",
             "}"

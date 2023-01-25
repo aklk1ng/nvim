@@ -2,11 +2,20 @@
     "for": {
         "prefix": "for",
         "body": [
-            "for (${1:size_t} ${2:i} = ${3:0}; $2 < ${4:length}; $2++) {",
+            "for (${1:size_t} ${2:i} = 0; $2 < ${4:length}; $2++ {",
             "\t$0",
             "}"
         ],
-        "description": "Code snippet for 'for' loop"
+        "description": "Code snippet for reverse 'for' loop"
+    },
+    "fori": {
+        "prefix": "fori",
+        "body": [
+            "for (; $1 ${2:<} ${3:0}; $2${4:++} {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Code snippet for reverse 'for' loop"
     },
     "forr": {
         "prefix": "forr",
@@ -16,6 +25,15 @@
             "}"
         ],
         "description": "Code snippet for reverse 'for' loop"
+    },
+    "fort": {
+        "prefix": "fort",
+        "body": [
+            "for (${1:size_t} ${2:i} = ${3:0}; $2 ${4:<} ${5:length}; $2${6:++}) {",
+            "\t$0",
+            "}"
+        ],
+        "description": "Code snippet for 'for' loop"
     },
     "while": {
         "prefix": "while",
@@ -100,7 +118,7 @@
     "Main function template": {
         "prefix": "main",
         "body": [
-            "int main (int argc, char *argv[]) {",
+            "int main(int argc, char *argv[]) {",
             "\t$0",
             "\treturn 0;",
             "}"
@@ -112,7 +130,7 @@
         "body": [
             "#include <stdio.h>",
             "",
-            "int main (int argc, char *argv[]) {",
+            "int main(int argc, char *argv[]) {",
             "\t$0",
             "\treturn 0;",
             "}"
@@ -125,7 +143,7 @@
             "#include <stdio.h>",
             "#include <stdlib.h>",
             "",
-            "int main (int argc, char *argv[]) {",
+            "int main(int argc, char *argv[]) {",
             "\t$0",
             "\treturn 0;",
             "}"

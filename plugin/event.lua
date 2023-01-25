@@ -16,9 +16,9 @@ vim.api.nvim_create_autocmd({ 'User' }, {
 })
 
 vim.api.nvim_create_autocmd('Filetype', {
-  group = aklk1ng,
-  pattern = '*.c,*.cpp,*.lua,*.go,*.rs,*.py,*.ts,*.tsx,*.html,*json,*.sh,*markdown',
-  callback = function()
-    vim.cmd('syntax off')
-  end,
+    group = aklk1ng,
+    pattern = '*.c,*.cpp,*.lua,*.go,*.rs,*.py,*.ts,*.tsx,*.html,*json,*.sh,*markdown',
+    callback = function()
+        vim.cmd('syntax off')
+    end,
 })

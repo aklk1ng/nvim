@@ -13,14 +13,18 @@ function M:boot_strap()
     local lazy = require("lazy")
     local opts = {
         lockfile = helper.get_data_path() .. '/lazy-lock.json',
+        checker = {
+            enabled = true,
+            notify = true,
+            frequency = 3600,
+        },
     }
     require('core.plugins')
-    lazy.setup(M.plugins,opts)
+    lazy.setup(M.plugins, opts)
 end
 
 function M.add_plugin(repo)
-    table.insert(M.plugins,repo)
+    table.insert(M.plugins, repo)
 end
-
 
 return M

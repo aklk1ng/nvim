@@ -61,7 +61,13 @@ function M.setup()
             lualine_z = {},
             -- These will be filled later
             lualine_c = {},
-            lualine_x = {},
+            lualine_x = {
+                {
+                    require("lazy.status").updates,
+                    cond = require("lazy.status").has_updates,
+                    color = { fg = "#ff9e64" },
+                },
+            },
         },
         inactive_sections = {
             -- these are to remove the defaults

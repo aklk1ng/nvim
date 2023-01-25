@@ -9,7 +9,7 @@ map("n", "<C-,>", "~", opt)
 ---------------------------- find pair
 map("n", ",.", "%", opt)
 map("v", ",.", "%", opt)
-map("n", [[\]], ":nohlsearch<CR>",opt)
+map("n", [[\]], ":nohlsearch<CR>", opt)
 
 ---------------------------- open the nvim plugins file anytime
 map("n", "<leader>e", ":e ~/.config/nvim/lua/core/plugins.lua<CR>", opt)
@@ -71,6 +71,7 @@ map('n', ';p', ':Gitsigns prev_hunk<CR>', opt)
 map("n", "<leader>p", ":BufferLineCyclePrev<CR>", opt)
 map("n", "<leader>n", ":BufferLineCycleNext<CR>", opt)
 map("n", "<leader>d", ":bdelete<CR>", opt)
+map("n", "<leader>s", ":Bdelete<CR>", opt)
 
 ---------------------------- html preview
 map("n", ",g", ":! google-chrome-stable % &<CR>", opt)
@@ -106,8 +107,10 @@ map("n", "gn", ":Neogen<CR>", opt)
 map('n', '[n', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opt)
 map('n', ']n', '<Cmd>Lspsaga diagnostic_jump_prev<CR>', opt)
 -- Diagnostic jump with filter like Only jump to error
-map("n", "[e", [[<Cmd>lua require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>]], opt)
-map("n", "]e", [[<Cmd>lua require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>]], opt)
+map("n", "[e", [[<Cmd>lua require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })<CR>]],
+    opt)
+map("n", "]e", [[<Cmd>lua require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })<CR>]],
+    opt)
 -- Show line diagnostics
 map("n", "<leader>sd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 -- Show cursor diagnostic
@@ -136,7 +139,7 @@ map('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opt)
 -- Rename
 map('n', '<leader>rn', '<Cmd>Lspsaga rename<CR>', opt)
 -- outline / show symbols in some files when the lsp is supported
-map("n","<leader>o", "<cmd>Lspsaga outline<CR>",opt)
+map("n", "<leader>o", "<cmd>Lspsaga outline<CR>", opt)
 
 
 ---------------------------- FzfLua

@@ -5,7 +5,7 @@ function M.config()
     require('mutchar').setup({
         ["c"] = {
             rules = {
-                {",,", "->"},
+                { ",,", "->" },
             },
             filter = {
                 filters.non_space_before,
@@ -13,7 +13,7 @@ function M.config()
         },
         ["cpp"] = {
             rules = {
-                {",,", "->"},
+                { ",,", "->" },
             },
             filter = {
                 filters.non_space_before,
@@ -21,8 +21,8 @@ function M.config()
         },
         ["go"] = {
             rules = {
-                {";;", ":="},
-                {",,", "<-"},
+                { ";;", ":=" },
+                { ",,", "<-" },
             },
             filter = {
                 filters.has_space_before,
@@ -30,8 +30,8 @@ function M.config()
         },
         ['rust'] = {
             rules = {
-                {",,", "->"},
-                {";;", "=>"},
+                { ",,", "->" },
+                { ";;", "=>" },
             },
             filter = {
                 filters.has_space_before,

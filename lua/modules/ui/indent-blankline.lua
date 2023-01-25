@@ -4,10 +4,8 @@ function M.config()
 
     require("indent_blankline").setup {
         char = '│',
-        use_treesitter= true,
+        use_treesitter = true,
         show_current_context = true,
-        show_current_context_start = false,
-        show_trailing_blankline_indent = true,
         context_highlight_list = {
             'rainbowcol1',
             'rainbowcol2',

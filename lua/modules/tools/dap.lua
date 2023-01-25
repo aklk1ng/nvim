@@ -15,12 +15,12 @@ function M.config()
         require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
     end)
 
-     dap.adapters.lldb = {
-         type = 'executable',
-         -- command = '/home/linuxbrew/.linuxbrew/bin/lldb-vscode', -- adjust as needed, must be absolute path
-         command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
-         name = 'lldb'
-     }
+    dap.adapters.lldb = {
+        type = 'executable',
+        -- command = '/home/linuxbrew/.linuxbrew/bin/lldb-vscode', -- adjust as needed, must be absolute path
+        command = '/usr/bin/lldb-vscode', -- adjust as needed, must be absolute path
+        name = 'lldb'
+    }
     dap.configurations.cpp = {
         {
             name = 'Launch',
@@ -82,7 +82,7 @@ function M.config()
         port = '${port}',
         executable = {
             command = 'dlv',
-            args = {'dap', '-l', '127.0.0.1:${port}'},
+            args = { 'dap', '-l', '127.0.0.1:${port}' },
         }
     }
 
@@ -101,7 +101,7 @@ function M.config()
             mode = "test",
             program = "${file}"
         },
-        -- works with go.mod packages and sub packages 
+        -- works with go.mod packages and sub packages
         {
             type = "delve",
             name = "Debug test (go.mod)",
