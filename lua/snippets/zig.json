@@ -1,0 +1,32 @@
+{
+  "imstd": {
+    "prefix": "imstd",
+    "body": [
+      "const std = @import(\"std\");"
+    ]
+  },
+  "print": {
+    "prefix": "print",
+    "body": [
+      "const print = std.debug.print;"
+    ]
+  },
+  "assert": {
+    "prefix": "assert",
+    "body": [
+      "const assert = std.debug.assert;"
+    ]
+  },
+  "expect": {
+    "prefix": "expect",
+    "body": [
+      "const expect = std.testing.expect;"
+    ]
+  },
+  "mem": {
+    "prefix": "mem",
+    "body": [
+      "const mem = std.mem;"
+    ]
+  }
+}

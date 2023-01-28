@@ -1,290 +1,137 @@
 {
-    "for": {
-        "prefix": "for",
-        "body": [
-            "for (${1:size_t} ${2:i} = ${3:0}; $2 < ${4:length}; $2++) {",
-            "\t$0",
-            "}"
-        ],
-        "description": "Code snippet for 'for' loop"
-    },
-    "fori": {
-        "prefix": "fori",
-        "body": [
-            "for (; $1 ${2:<} ${3:0}; $2${4:++} {",
-            "\t$0",
-            "}"
-        ],
-        "description": "Code snippet for reverse 'for' loop"
-    },
-    "forr": {
-        "prefix": "forr",
-        "body": [
-            "for (${1:size_t} ${2:i} = ${3:length} - 1; $2 >= ${4:0}; $2--) {",
-            "\t$0",
-            "}"
-        ],
-        "description": "Code snippet for reverse 'for' loop"
-    },
-    "fort": {
-        "prefix": "fort",
-        "body": [
-            "for (${1:size_t} ${2:i} = ${3:0}; $2 ${4:<} ${5:length}; $2${6:++}) {",
-            "\t$0",
-            "}"
-        ],
-        "description": "Code snippet for 'for' loop"
-    },
-    "do": {
-        "prefix": "do",
-        "body": ["do", "{", "\t$0", "} while($1);"],
-        "description": "Code snippet for do...while loop"
-    },
-    "while": {
-        "prefix": "while",
-        "body": ["while ($1) {", "\t$2", "}"],
-        "description": ""
-    },
-    "foreach": {
-        "prefix": "foreach",
-        "body": ["for(${1:auto} ${2:var} : ${3:collection_to_loop})", "{", "\t$0", "}"],
-        "description": "Code snippet for range-based for loop (c++11) statement"
-    },
-    "if": {
-        "prefix": "if",
-        "body": ["if ($1) {", "\t$0", "}"],
-        "description": "Code snippet for if statement"
-    },
-    "else": {
-        "prefix": "else",
-        "body": ["else {", "\t$0", "}"],
-        "description": "Code snippet for else statement"
-    },
-    "else if": {
-        "prefix": "else if",
-        "body": ["else if ($1) {", "\t$0", "}"],
-        "description": "Code snippet for else-if statement"
-    },
-    "enum": {
-        "prefix": "enum",
-        "body": ["enum ${1:MyEnum} {", "\t$0", "};"],
-        "description": "Code snippet for enum"
-    },
-    "enum class": {
-        "prefix": "enum class",
-        "body": ["enum class ${1:MyClass} {$0};"],
-        "description": "Code snippet for enum class (c++11)"
-    },
-    "class": {
-        "prefix": "class",
-        "body": [
-            "class ${1:MyClass} {",
-            "public:",
-            "\t$1();",
-            "\t$1($1 &&) = default;",
-            "\t$1(const $1 &) = default;",
-            "\t$1 &operator=($1 &&) = default;",
-            "\t$1 &operator=(const $1 &) = default;",
-            "\t~$1();",
-            "",
-            "private:",
-            "\t$2",
-            "};",
-            "",
-            "$1::$1()",
-            "{",
-            "}",
-            "",
-            "$1::~$1()",
-            "{",
-            "}"
-        ],
-        "description": "Code snippet for class"
-    },
-    "eclass": {
-        "prefix": "eclass",
-        "body": [
-            "class ${1:MyClass} {",
-            "public:",
-            "\t$2",
-            "private:",
-            "\t$3",
-            "};",
-            ""
-        ],
-        "description": "Code snippet for empty class"
-    },
-    "qclass": {
-        "prefix": "qclass",
-        "body": [
-            "class ${1:MyClass} : public QObject {",
-            "\tQ_OBJECT;",
-            "public:",
-            "\nexplicit $1(QObject *parent = nullptr);",
-            "\t$2",
-            "signals:",
-            "",
-            "public slots:",
-            "};",
-            ""
-        ],
-        "description": "Code snippet for empty Qt class"
-    },
-    "classi": {
-        "prefix": "classi",
-        "body": [
-            "class ${1:MyClass} {",
-            "public:",
-            "\t$1() = default;",
-            "\t$1($1 &&) = default;",
-            "\t$1(const $1 &) = default;",
-            "\t$1 &operator=($1 &&) = default;",
-            "\t$1 &operator=(const $1 &) = default;",
-            "\t~$1() = default;",
-            "",
-            "private:",
-            "\t$2",
-            "};"
-        ],
-        "description": "Code snippet for class with inline constructor/destructor"
-    },
-    "interface": {
-        "prefix": "interface",
-        "body": ["__interface I${1:Interface}", "{", "\t$0", "};"],
-        "description": "Code snippet for interface (Visual C++)"
-    },
-    "namespace": {
-        "prefix": "namespace",
-        "body": ["namespace ${1:MyNamespace}", "{", "\t$0", "}"]
-    },
-    "#ifdef": {
-        "prefix": "#ifdef",
-        "body": ["#ifdef ${1:DEBUG}", "$0", "#endif // ${DEBUG}"],
-        "description": "Code snippet for #ifdef"
-    },
-    "#ifndef": {
-        "prefix": "#ifndef",
-        "body": ["#ifndef ${1:DEBUG}", "$0", "#endif // !$1"],
-        "description": "Code snippet for #ifndef"
-    },
-    "#if": {
-        "prefix": "#if",
-        "body": ["#if ${1:0}", "$0", "#endif // $1"],
-        "description": "Code snippet for #if"
-    },
-    "struct": {
-        "prefix": "struct",
-        "body": ["struct ${1:MyStruct} {", "\t$0", "};"],
-        "description": "Code snippet for struct"
-    },
-    "typedef struct": {
-        "prefix": "structt",
-        "body": ["typedef struct {", "\t$0", "} ${1:MyStruct};"],
-        "description": "Code snippet to define a type with struct"
-    },
-    "switch": {
-        "prefix": "switch",
-        "body": ["switch (${1:switch_on}) {", "\tdefault:", "\t\t$0", "\t\tbreak;", "}"],
-        "description": "Code snippet for switch statement"
-    },
-    "try": {
-        "prefix": "try",
-        "body": [
-            "try {",
-            "\t",
-            "}",
-            "catch (const std::exception&) {",
-            "\t$1",
-            "}"
-        ],
-        "description": "Code snippet for try catch"
-    },
-    "union": {
-        "prefix": "union",
-        "body": ["union ${1:MyUnion}", "{", "\t$0", "};"],
-        "description": "Code snippet for union"
-    },
-    "cout": {
-        "prefix": "cout",
-        "body": ["std::cout << \"${1:message}\" << std::endl;"],
-        "description": "Code snippet for printing to std::cout, provided the header is set"
-    },
-    "cin": {
-        "prefix": "cin",
-        "body": ["std::cin >> $1;"],
-        "description": "Code snippet for std::cin, provided the header is set"
-    },
-    "printf": {
-        "prefix": "printf",
-        "body": ["printf(\"$1\\n\"$0);"],
-        "description": "Generic printf() snippet"
-    },
-    "sprintf": {
-        "prefix": "sprintf",
-        "body": ["sprintf($1, \"$2\\n\"$0);"],
-        "description": "Generic sprintf() snippet"
-    },
-    "fprintf": {
-        "prefix": "fprintf",
-        "body": ["fprintf(${1:stderr}, \"$2\\n\"$0);"],
-        "description": "Generic fprintf() snippet"
-    },
-    "scanf": {
-        "prefix": "scanf",
-        "body": ["scanf(\"$1\"$0);"],
-        "description": "Generic scanf() snippet"
-    },
-    "sscanf": {
-        "prefix": "sscanf",
-        "body": ["sscanf($1, \"$2\"$0);"],
-        "description": "Generic sscanf() snippet"
-    },
-    "fscanf": {
-        "prefix": "fscanf",
-        "body": ["fscanf($1, \"$2\"$0);"],
-        "description": "Generic fscanf() snippet"
-    },
-    "#inc": {
-        "prefix": "#inc",
-        "body": ["#include \"$0\""],
-        "description": "Code snippet for #include \" \""
-    },
-    "#inc<": {
-        "prefix": "#inc<",
-        "body": ["#include <$0>"],
-        "description": "Code snippet for #include < >"
-    },
-    "#def": {
-        "prefix": "def",
-        "body": ["#define $0"],
-        "description": "Code snippet for #define \" \""
-    },
-    "Create a function": {
-        "prefix": "fn",
-        "body": ["${2:void} ${1:func}(${3:}) {", "\t$4", "}"],
-        "description": "Creates a function"
-    },
-    "Standard Starter Template": {
-        "prefix": "sst",
-        "body": [
-            "#include <iostream>",
-            "using namespace std;",
-            "",
-            "int main(int argc, char *argv[]) {",
-            "\t$0",
-            "\treturn 0;",
-            "}"
-        ],
-        "description": "A standard starter template for a CPP program"
-    },
-    "Main function template": {
-        "prefix": "main",
-        "body": [
-            "int main(int argc, char *argv[]) {",
-            "\t$1",
-            "\treturn 0;",
-            "}"
-        ],
-        "description": "A standard main function for a C++ program"
-    }
+  "do": {
+    "prefix": "do",
+    "body": [
+      "do {",
+      "\t$0",
+      "} while($1);"
+    ],
+    "description": "Code snippet for do...while loop"
+  },
+  "irq": {
+    "prefix": "ire",
+    "body": [
+      "if ($1) {",
+      "\tperror(\"$2\");",
+      "\texit($3);",
+      "}",
+      "$0"
+    ],
+    "description": "Code snippet for error statement"
+  },
+  "irr": {
+    "prefix": "irr",
+    "body": [
+      "if ($1) {",
+      "\tperror(\"$2\");",
+      "\texit(-1);",
+      "}",
+      "$0"
+    ],
+    "description": "Code snippet for error statement"
+  },
+  "interface": {
+    "prefix": "interface",
+    "body": [
+      "__interface I${1:Interface}",
+      "{",
+      "\t$0",
+      "};"
+    ],
+    "description": "Code snippet for interface (Visual C++)"
+  },
+  "try": {
+    "prefix": "try",
+    "body": [
+      "try {",
+      "\t",
+      "}",
+      "catch (const std::exception&) {",
+      "\t$1",
+      "}"
+    ],
+    "description": "Code snippet for try catch"
+  },
+  "#inc": {
+    "prefix": "#inc",
+    "body": [
+      "#include \"$0\""
+    ],
+    "description": "Code snippet for #include \" \""
+  },
+  "#inc<": {
+    "prefix": "#inc<",
+    "body": [
+      "#include <$0>"
+    ],
+    "description": "Code snippet for #include < >"
+  },
+  "Standard Starter Template": {
+    "prefix": "sst",
+    "body": [
+      "#include <iostream>",
+      "using namespace std;",
+      "",
+      "int main(int argc, char *argv[]) {",
+      "\t$0",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "A standard starter template for a CPP program"
+  },
+  "Main function template": {
+    "prefix": "main",
+    "body": [
+      "int main(int argc, char *argv[]) {",
+      "\t$1",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "A standard main function for a C++ program"
+  },
+  "Clock Comment": {
+    "prefix": "comment",
+    "body": [
+      "/*",
+      " * $0",
+      " */"
+    ]
+  },
+  "leetcode header files template": {
+    "prefix": "leetcode",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "",
+      "using namespace std;",
+      "",
+      "class Soluton {",
+      "public:",
+      "\t$0",
+      "};"
+    ],
+    "description": "A template for leetcode header files"
+  },
+  "leetcode_tree header files template": {
+    "prefix": "leetcode_tree",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "",
+      "using namespace std;",
+      "",
+      "struct TreeNode {",
+      "\tint val;",
+      "\tTreeNode *left;",
+      "\tTreeNode *right;",
+      "\tTreeNode() : val(0), left(nullptr), right(nullptr) {}",
+      "\tTreeNode(int x) : val(x), left(nullptr), right(nullptr) {}",
+      "\tTreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}",
+      "};",
+      "",
+      "class Soluton {",
+      "public:",
+      "\t$0",
+      "};"
+    ],
+    "description": "A template for leetcode_tree header files"
+  }
 }

@@ -1,71 +1,72 @@
-vim.g.mapleader = " "
+local o, g = vim.o, vim.g
+local indent = 2
+
+g.mapleader = ' '
+g.python3_host_prog = '/usr/bin/python'
+
 -- Split to the right in vsplit
-vim.o.splitright = true
+o.splitright = true
 -- Split to the bottom in split
-vim.o.splitbelow = true
-vim.o.writebackup = false
-vim.o.hidden = true
-vim.o.showmode = false
-vim.o.showcmd = false
-vim.o.cmdheight = 1
-vim.o.ruler = false
-vim.o.termguicolors = true
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.softtabstop = 4
-vim.o.timeout = 100
-vim.o.smartindent = true
-vim.o.expandtab = true
-vim.o.cursorline = true
--- Display long text in one line
-vim.o.wrap = false
+o.splitbelow = true
+o.splitkeep = 'screen'
+o.writebackup = false
+o.hidden = true
+o.virtualedit = 'block'
+o.showmode = false
+o.showcmd = false
+o.cmdheight = 0
+o.ruler = false
+o.termguicolors = true
+o.tabstop = indent
+o.shiftwidth = indent
+o.expandtab = true
+o.cursorline = true
+-- Display long text on the next line
+o.wrap = true
+o.whichwrap = 'h,l,<,>,[,],~'
+o.breakindentopt = 'shift:2'
+o.breakindent = true
+o.textwidth = 110
+o.colorcolumn = '110'
 -- Add scrolloff for better zt/zb
-vim.o.scrolloff = 5
+o.scrolloff = 5
 -- Show sign column (e.g. lsp Error sign)
-vim.o.signcolumn = "yes"
+o.signcolumn = 'yes'
 -- Better completion
-vim.o.completeopt = "menu,menuone,noselect"
-vim.o.autoindent = true
-vim.o.number = true
+o.completeopt = 'menu,menuone,noselect'
+o.copyindent = true
+o.smartindent = true
+o.cindent = true
+o.number = true
 -- set mouse movement
-vim.o.mouse = "a"
+o.mouse = 'a'
 -- foldmethod
-vim.o.foldlevelshart = 99
-vim.o.foldmethod = "manual"
--- no automatic backup,no newline
-vim.o.nobackup = true
-vim.o.swapfile = false
+o.foldenable = true
+o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+o.foldcolumn = '1'
+o.foldlevel = 99
+o.swapfile = false
 
-vim.o.pumheight = 10
+o.pumblend = 10
+o.pumheight = 10
 
-vim.o.updatetime = 100
-vim.o.timeout = true
-vim.o.timeoutlen = 400
-vim.o.ttimeoutlen = 10
-vim.o.redrawtime = 1500
+o.updatetime = 50
+o.timeout = true
+o.timeoutlen = 400
+o.ttimeoutlen = 10
+o.redrawtime = 1500
 
--- highlight the search and delay
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.showmatch = true
-vim.o.inccommand = "split"
-
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
+o.ignorecase = true
+o.smartcase = true
+o.showmatch = true
+o.inccommand = 'split'
 -- share clipboard
-vim.cmd([[
-    set fileencodings =utf-8,ucs-bom,gbk,cp936,gb2312,gb18030
-    set clipboard=unnamed
-    set clipboard+=unnamedplus
-]])
-
-if vim.fn.has('nvim-0.9') == 1 then
-    vim.opt.stc = '%{v:virtnum ? repeat(" ", float2nr(ceil(log10(v:lnum))))."↳":v:lnum}%=%s%C'
-end
+o.clipboard = 'unnamedplus'
+o.fileencodings = 'utf-8,ucs-bom,gbk,cp936,gb2312,gb18030'
 
 if vim.fn.executable('rg') == 1 then
-    vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-    vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
+  vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+  vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end
+
+g.enable_format = true

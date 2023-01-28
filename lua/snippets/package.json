@@ -2,17 +2,6 @@
   "contributes": {
     "snippets": [
       {
-        "language": [
-          "plaintext",
-          "markdown",
-          "tex",
-          "html",
-          "global",
-          "all"
-        ],
-        "path": "./global.json"
-      },
-      {
         "language": "c",
         "path": "./c.json"
       },
@@ -21,27 +10,12 @@
         "path": "./cpp.json"
       },
       {
-        "language": [
-          "csharp",
-          "cs"
-        ],
-        "path": "./csharp.json"
-      },
-      {
         "language": "lua",
         "path": "./lua.json"
       },
       {
         "language": "go",
         "path": "./go.json"
-      },
-      {
-        "language": "php",
-        "path": "./php.json"
-      },
-      {
-        "language": "rails",
-        "path": "./frameworks/rails.json"
       },
       {
         "language": "rust",
@@ -59,6 +33,10 @@
           "zsh"
         ],
         "path": "./shell.json"
+      },
+      {
+        "language": "zig",
+        "path": "./zig.json"
       },
       {
         "language": [
@@ -80,22 +58,9 @@
       },
       {
         "language": [
-          "css",
-          "scss",
-          "sass",
-          "less",
-          "stylus"
+          "css"
         ],
         "path": "./css.json"
-      },
-      {
-        "language": [
-          "javascript",
-          "javascriptreact",
-          "vue",
-          "svelte"
-        ],
-        "path": "./javascript/javascript.json"
       },
       {
         "language": [
@@ -103,18 +68,6 @@
           "typescriptreact"
         ],
         "path": "./javascript/typescript.json"
-      },
-      {
-        "language": "javascriptreact",
-        "path": "./javascript/react.json"
-      },
-      {
-        "language": "javascriptreact",
-        "path": "./javascript/react-native.json"
-      },
-      {
-        "language": "javascriptreact",
-        "path": "./javascript/next.json"
       },
       {
         "language": "typescriptreact",
@@ -136,56 +89,12 @@
         "path": "./javascript/react-es7.json"
       },
       {
-        "language": "vue",
-        "path": "./frameworks/vue/html.json"
-      },
-      {
-        "language": "vue",
-        "path": "./frameworks/vue/pug.json"
-      },
-      {
-        "language": "vue",
-        "path": "./frameworks/vue/javascript.json"
-      },
-      {
-        "language": "vue",
-        "path": "./frameworks/vue/vue.json"
-      },
-      {
-        "language": "python",
-        "path": "./python/base.json"
-      },
-      {
-        "language": "python",
-        "path": "./python/comprehension.json"
-      },
-      {
-        "language": "python",
-        "path": "./python/debug.json"
-      },
-      {
         "language": "python",
         "path": "./python/python.json"
       },
       {
-        "language": "python",
-        "path": "./python/unittest.json"
-      },
-      {
-        "language": "yaml",
-        "path": "./kubernetes.json"
-      },
-      {
         "language": "yaml",
         "path": "./docker/docker-compose.json"
-      },
-      {
-        "language": "make",
-        "path": "./make.json"
-      },
-      {
-        "language": "dart",
-        "path": "./dart.json"
       },
       {
         "language": "dockerfile",
