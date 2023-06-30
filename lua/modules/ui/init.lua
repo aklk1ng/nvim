@@ -1,21 +1,5 @@
 local M = {}
 
-function M.footer()
-  local stats = require('lazy').stats()
-  return '',
-    '',
-    '   Welcome '
-      .. '  v'
-      .. vim.version().major
-      .. '.'
-      .. vim.version().minor
-      .. '.'
-      .. vim.version().patch
-      .. '   '
-      .. stats.count
-      .. ' plugins'
-end
-
 function M.dashboard()
   local home = os.getenv('HOME')
   require('dashboard').setup({
@@ -50,7 +34,7 @@ function M.dashboard()
           action = 'Telescope find_files',
         },
         {
-          icon = '  ',
+          icon = '  ',
           icon_hi = 'DashboardIcon',
           desc = 'Old Files       ',
           desc_hi = 'DashboardDesc',
@@ -59,9 +43,7 @@ function M.dashboard()
           action = 'Telescope oldfiles',
         },
       },
-      footer = {
-        M.footer(),
-      },
+      footer = {},
     },
     hide = {
       tabline = false,

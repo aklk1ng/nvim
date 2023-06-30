@@ -1,32 +1,4 @@
 {
-  "debug_assert": {
-    "prefix": "debug_assert",
-    "body": [
-      "debug_assert!(${1});"
-    ],
-    "description": "debug_assert!(…)"
-  },
-  "debug_assert_eq": {
-    "prefix": "debug_assert_eq",
-    "body": [
-      "debug_assert_eq!(${1}, ${2});"
-    ],
-    "description": "debug_assert_eq!(…, …)"
-  },
-  "format_args": {
-    "prefix": "format_args",
-    "body": [
-      "format_args!(\"${1}\")"
-    ],
-    "description": "format_args!(…)"
-  },
-  "module_path": {
-    "prefix": "module_path",
-    "body": [
-      "module_path!()"
-    ],
-    "description": "module_path!()"
-  },
   "println": {
     "prefix": "println",
     "body": [
@@ -40,13 +12,6 @@
       "thread_local!(static ${1:STATIC}: ${2:Type} = ${4:init});"
     ],
     "description": "thread_local!(static …: … = …);"
-  },
-  "writeln": {
-    "prefix": "writeln",
-    "body": [
-      "writeln!(${1}, \"${2}\")"
-    ],
-    "description": "writeln!(…, …)"
   },
   "assert_eq": {
     "prefix": "assert_eq",

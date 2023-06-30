@@ -10,4 +10,3 @@ end
 
 vim.keymap.set('n', '<2-LeftMouse>', ToggleTodoStatus, { noremap = true, silent = true })
 vim.keymap.set('n', '<CR>', ToggleTodoStatus, { noremap = true, silent = true })
-require('utils.api.hlcodeblock').setup()

@@ -61,7 +61,7 @@ function M.cmp()
       ['<C-e>'] = cmp.mapping.abort(),
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<CR>'] = cmp.mapping(confirm, { 'i' }),
+      ['<C-Space>'] = cmp.mapping(confirm, { 'i' }),
       ['<C-j>'] = cmp.mapping(function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
@@ -108,7 +108,6 @@ function M.neodev()
   require('neodev').setup({
     library = {
       runtime = '~/neovim/runtime/',
-      library = { plugins = { 'nvim-dap-ui' }, types = true },
     },
   })
 end

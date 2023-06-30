@@ -9,9 +9,8 @@ pack({
 })
 
 pack({
-  'ggandor/leap.nvim',
-  event = { 'BufRead', 'BufNewFile' },
-  config = tools.leap,
+  'folke/flash.nvim',
+  keys = tools.flash,
 })
 
 pack({
@@ -64,6 +63,7 @@ pack({
 
 pack({
   'nvimdev/dyninput.nvim',
+  event = { 'BufRead', 'BufNewFile' },
   ft = { 'go', 'rust' },
   config = tools.dyninput,
 })
@@ -76,7 +76,7 @@ pack({
 
 pack({
   'mhartington/formatter.nvim',
-  cmd = 'FormatWrite',
+  cmd = 'Format',
   config = tools.formatter,
 })
 
@@ -89,13 +89,7 @@ pack({
 pack({
   'nvimdev/indentmini.nvim',
   event = { 'BufRead', 'BufNewFile' },
-  config = tools.indent,
+  config = tools.indentmini,
 })
-
--- pack({
---   'lukas-reineke/indent-blankline.nvim',
---   event = { 'BufRead', 'BufNewFile' },
---   config = tools.indent_blankline,
--- })
 
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

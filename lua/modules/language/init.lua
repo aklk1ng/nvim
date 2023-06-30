@@ -105,6 +105,9 @@ function M.treesitter()
       persist_queries = false, -- Whether the query persists across vim sessions
     },
   })
+
+  local swap_ternary = require('utils.api.swap_ternary')
+  vim.keymap.set('n', 'ts', swap_ternary.swap_ternary, { silent = true, noremap = true })
 end
 
 return M

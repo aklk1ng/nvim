@@ -1,5 +1,4 @@
 local aklk1ng = vim.api.nvim_create_augroup('aklk1ngGroup', {})
-local helper = require('core.helper')
 local api = vim.api
 
 api.nvim_create_autocmd('FileType', {
@@ -38,7 +37,7 @@ api.nvim_create_autocmd('LspAttach', {
   group = aklk1ng,
   pattern = '*.c,*.cpp,*.lua,*.rs,*.go,*.zig,*.ts,*.js',
   callback = function()
-    vim.lsp.buf.inlay_hint(0, true)
+    vim.lsp.inlay_hint(0, true)
   end,
 })
 

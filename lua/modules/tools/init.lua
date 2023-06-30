@@ -108,11 +108,17 @@ function M.surround()
   require('nvim-surround').setup({})
 end
 
-function M.leap()
-  require('leap').setup({
-    highlight_unlabeled_phase_one_targets = true,
-  })
-  require('leap').add_default_mappings()
+function M.flash()
+  return {
+    {
+      's',
+      mode = { 'n', 'x', 'o' },
+      function()
+        require('flash').jump()
+      end,
+      desc = 'Flash',
+    },
+  }
 end
 
 function M.neotree()
@@ -221,8 +227,6 @@ function M.dyninput()
     },
     rust = {
       [';'] = {
-        { '::', rs.double_colon },
-        { ': ', rs.single_colon },
         { '=> ', rs.fat_arrow },
       },
       ['-'] = {
@@ -252,7 +256,7 @@ end
 
 function M.handler(virtText, lnum, endLnum, width, truncate)
   local newVirtText = {}
-  local suffix = ('  %d '):format(endLnum - lnum)
+  local suffix = (' 󱦶 %d '):format(endLnum - lnum)
   local sufWidth = vim.fn.strdisplaywidth(suffix)
   local targetWidth = width - sufWidth
   local curWidth = 0
@@ -386,6 +390,12 @@ function M.formatter()
       sh = {
         require('formatter.filetypes.sh').shfmt,
       },
+      html = {
+        require('formatter.filetypes.html').prettier,
+      },
+      css = {
+        require('formatter.filetypes.css').prettier,
+      },
       toml = {
         require('formatter.filetypes.toml').taplo,
       },
@@ -395,6 +405,9 @@ function M.formatter()
       },
       javascript = {
         require('formatter.filetypes.javascript').prettier,
+      },
+      typescript = {
+        require('formatter.filetypes.typescript').prettier,
       },
       markdown = {
         require('formatter.filetypes.markdown').prettier,
@@ -413,21 +426,13 @@ function M.comment()
   require('Comment').setup()
 end
 
-function M.indent()
+function M.indentmini()
   require('indentmini').setup({
     char = '|',
     exclude = {
       'erlang',
       'markdown',
     },
-  })
-end
-
-function M.indent_blankline()
-  require('indent_blankline').setup({
-    -- for example, context is off by default, use this to turn it on
-    show_current_context = false,
-    show_current_context_start = true,
   })
 end
 

@@ -89,16 +89,4 @@ map({
       require('ufo').peekFoldedLinesUnderCursor()
     end,
   },
-
-  {
-    'n',
-    '<leader>c',
-    function()
-      if vim.g.mkdp_browser == 'google-chrome-stable' then
-        vim.g.mkdp_browser = 'surf'
-      else
-        vim.g.mkdp_browser = 'google-chrome-stable'
-      end
-    end,
-  },
 })

@@ -14,11 +14,6 @@
     "body": "for ${1}{\n\t$0\n}",
     "description": "Snippet for a pure for loop"
   },
-  "map declaration": {
-    "prefix": "map",
-    "body": "map[${1:type}]${2:type}",
-    "description": "Snippet for a map"
-  },
   "if err != nil": {
     "prefix": "ir",
     "body": "if err != nil {\n\t$1\n}",

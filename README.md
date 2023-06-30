@@ -1,7 +1,7 @@
 <p align="center">
   <img src="./screenshot.png"
   height = "450"
-  width = "500"
+  width = "700"
   />
 </p>
 

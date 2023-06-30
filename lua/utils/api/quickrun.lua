@@ -18,6 +18,8 @@ local function Command(filetype)
     return 'term cargo run'
   elseif filetype == 'zig' then
     return 'term zig run %'
+  elseif filetype == 'typescript' then
+    return 'term ts-node %'
   end
 end
 local function Prepare()

@@ -47,6 +47,8 @@ o.foldcolumn = '1'
 o.foldlevel = 99
 o.swapfile = false
 
+o.mousemoveevent = true
+
 o.pumblend = 10
 o.pumheight = 10
 

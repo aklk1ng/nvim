@@ -118,7 +118,7 @@ map({
     end,
     opt,
   },
-  { 'n', 'Q', cmd('q'), opt },
+  { 'n', '<leader>q', cmd('q'), opt },
   { 'n', '<C-q>', cmd('qa!'), opt },
   {
     'n',
