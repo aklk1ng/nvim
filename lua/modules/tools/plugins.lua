@@ -3,7 +3,7 @@ local tools = require('modules.tools')
 
 pack({
   'glepnir/lspsaga.nvim',
-  event = 'LspAttach',
+  ft = _G.lsp_ft,
   branch = 'main',
   config = tools.lspsaga,
 })
@@ -14,8 +14,17 @@ pack({
 })
 
 pack({
+  'folke/noice.nvim',
+  ft = _G.lsp_ft,
+  config = tools.noice,
+  dependencies = {
+    'MunifTanjim/nui.nvim',
+  },
+})
+
+pack({
   'kevinhwang91/nvim-ufo',
-  event = { 'BufRead', 'BufNewFile' },
+  ft = _G.lsp_ft,
   config = tools.ufo,
   dependencies = {
     { 'kevinhwang91/promise-async' },
@@ -44,18 +53,6 @@ pack({
 })
 
 pack({
-  'nvim-neo-tree/neo-tree.nvim',
-  cmd = { 'NeoTreeFocusToggle', 'NeoTreeFloatToggle' },
-  branch = 'v2.x',
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'kyazdani42/nvim-web-devicons',
-    'MunifTanjim/nui.nvim',
-  },
-  config = tools.neotree,
-})
-
-pack({
   'glepnir/dbsession.nvim',
   cmd = { 'SessionSave', 'SessionLoad', 'SessionDelete' },
   config = tools.dbsession,
@@ -76,7 +73,7 @@ pack({
 
 pack({
   'mhartington/formatter.nvim',
-  cmd = 'Format',
+  cmd = { 'Format', 'FormatWrite' },
   config = tools.formatter,
 })
 
@@ -84,12 +81,6 @@ pack({
   'numToStr/Comment.nvim',
   event = { 'BufRead', 'BufNewFile' },
   config = tools.comment,
-})
-
-pack({
-  'nvimdev/indentmini.nvim',
-  event = { 'BufRead', 'BufNewFile' },
-  config = tools.indentmini,
 })
 
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

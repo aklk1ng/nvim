@@ -6,13 +6,6 @@
     ],
     "description": "println!(…);"
   },
-  "thread_local": {
-    "prefix": "thread_local",
-    "body": [
-      "thread_local!(static ${1:STATIC}: ${2:Type} = ${4:init});"
-    ],
-    "description": "thread_local!(static …: … = …);"
-  },
   "assert_eq": {
     "prefix": "assert_eq",
     "body": [

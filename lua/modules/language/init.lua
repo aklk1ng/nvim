@@ -22,8 +22,6 @@ function M.treesitter()
       'html',
       'css',
       'json',
-      'json5',
-      'jsonc',
       'tsx',
       'rust',
       'go',
@@ -45,7 +43,6 @@ function M.treesitter()
       'proto',
       'fish',
       'diff',
-      'gitignore',
       'gitcommit',
       'gitattributes',
       'git_config',
@@ -63,19 +60,6 @@ function M.treesitter()
         return false
       end,
     },
-    rainbow = {
-      enable = true,
-      hlgroups = {
-        'RainBow1',
-        'RainBow2',
-        'RainBow3',
-        'RainBow4',
-        'RainBow5',
-        'RainBow6',
-        'RainBow7',
-      },
-    },
-    autopairs = { enable = true },
     textobjects = {
       select = {
         enable = true,
@@ -89,7 +73,8 @@ function M.treesitter()
             query = '@class.inner',
             desc = 'Select inner part of a class region',
           },
-          ['as'] = { query = '@scope', query_group = 'locals', desc = 'Select language scope' },
+          ['il'] = '@loop.inner',
+          ['al'] = '@loop.outer',
         },
         selection_modes = {
           ['@parameter.outer'] = 'v', -- charwise
@@ -97,6 +82,15 @@ function M.treesitter()
           ['@class.outer'] = '<c-v>', -- blockwise
         },
         include_surrounding_whitespace = true,
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<leader>a'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<leader>A'] = '@parameter.inner',
+        },
       },
     },
     playground = {

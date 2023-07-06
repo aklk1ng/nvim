@@ -1,56 +1,94 @@
 local M = {}
 
 function M.lspsaga()
-  local status, saga = pcall(require, 'lspsaga')
-  if not status then
-    vim.notify('lspsaga not found')
-    return
-  end
+  local saga = require('lspsaga')
 
   saga.setup({
-    preview = {
-      lines_above = 0,
-      lines_below = 20,
-    },
     rename = {
-      quit = '<C-c>',
-      exec = '<CR>',
+      quit = '<Esc>',
       mark = 'x',
-      confirm = '<CR>',
+      exec = '<CR>',
       in_select = true,
-      whole_project = true,
     },
     definition = {
-      edit = '<C-c>o',
-      vsplit = '<C-c>v',
-      split = '<C-c>i',
-      tabe = '<C-c>t',
-      quit = 'q',
-      close = '<Esc>',
+      width = 0.7,
+      height = 0.6,
+      keys = {
+        edit = '<C-c>o',
+        vsplit = '<C-c>v',
+        split = '<C-c>i',
+        tabe = '<C-c>t',
+        quit = 'q',
+        close = '<C-c>k',
+      },
+    },
+    finder = {
+      max_height = 0.6,
+      keys = {
+        vsplit = 'v',
+      },
     },
     lightbulb = {
       enable = false,
-      enable_in_insert = false,
       sign = true,
       sign_priority = 40,
       virtual_text = true,
     },
     outline = {
       win_position = 'right',
-      win_with = '',
       win_width = 30,
-      custom_sort = nil,
+      close_after_jump = false,
+      layout = 'float',
+      max_height = 0.7,
+      left_width = 0.4,
       keys = {
+        toggle_or_jump = 'e',
         jump = 'o',
-        expand_collaspe = 'u',
-        quit = 'q',
       },
+    },
+    symbol_in_winbar = {
+      enable = true,
+      show_file = true,
+      folder_level = 1,
+      dely = 300,
     },
     ui = {
       border = 'rounded',
     },
-    diagnostic = {
-      on_insert = true,
+  })
+end
+
+function M.noice()
+  local status, noice = pcall(require, 'noice')
+  if not status then
+    vim.notify('noice not found')
+    return
+  end
+  noice.setup({
+    cmdline = {
+      enabled = true, -- enables the Noice cmdline UI
+      view = 'cmdline', -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+      opts = {}, -- global options for the cmdline. See section on views
+    },
+    messages = {
+      enabled = false, -- enables the Noice messages UI
+    },
+    lsp = {
+      progress = {
+        enabled = false,
+      },
+      signature = {
+        enabled = true,
+        auto_open = {
+          enabled = true,
+          trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
+          luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+          throttle = 50, -- Debounce lsp signature help request by 50ms
+        },
+        view = nil, -- when nil, use defaults from documentation
+        ---@type NoiceViewOptions
+        opts = {}, -- merged with defaults from documentation
+      },
     },
   })
 end
@@ -101,7 +139,6 @@ function M.telescope()
   })
   require('telescope').load_extension('fzy_native')
   require('telescope').load_extension('emoji')
-  require('telescope').load_extension('workspace')
 end
 
 function M.surround()
@@ -119,100 +156,6 @@ function M.flash()
       desc = 'Flash',
     },
   }
-end
-
-function M.neotree()
-  require('neo-tree').setup({
-    window = { -- see https://github.com/MunifTanjim/nui.nvim/tree/main/lua/nui/popup for
-      position = 'left', -- left, right, top, bottom, float, current
-      width = 30, -- applies to left and right positions
-      height = 10, -- applies to top and bottom positions
-      auto_expand_width = false, -- expand the window when file exceeds the window width. does not work with position = "float"
-      same_level = false, -- Create and paste/move files/directories on the same level as the directory under cursor (as opposed to within the directory under cursor).
-      insert_as = 'child', -- Affects how nodes get inserted into the tree during creation/pasting/moving of files if the node under the cursor is a directory:
-      -- "child":   Insert nodes as children of the directory under cursor.
-      -- "sibling": Insert nodes  as siblings of the directory under cursor.
-      -- Mappings for tree window. See `:h neo-tree-mappings` for a list of built-in commands.
-      -- You can also create your own commands by providing a function instead of a string.
-      mapping_options = {
-        noremap = true,
-        nowait = true,
-      },
-      mappings = {
-        ['<space>'] = {
-          'toggle_node',
-          nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-        },
-        ['<2-LeftMouse>'] = 'open',
-        ['<cr>'] = 'open',
-        ['<esc>'] = 'revert_preview',
-        ['P'] = { 'toggle_preview', config = { use_float = true } },
-        ['l'] = 'focus_preview',
-        ['S'] = 'open_split',
-        -- ["S"] = "split_with_window_picker",
-        ['s'] = 'open_vsplit',
-        -- ["s"] = "vsplit_with_window_picker",
-        ['t'] = 'open_tabnew',
-        -- ["<cr>"] = "open_drop",
-        -- ["t"] = "open_tab_drop",
-        ['C'] = 'close_node',
-        ['z'] = 'close_all_nodes',
-        --["Z"] = "expand_all_nodes",
-        ['R'] = 'refresh',
-        ['a'] = {
-          'add',
-          -- some commands may take optional config options, see `:h neo-tree-mappings` for details
-          config = {
-            show_path = 'none', -- "none", "relative", "absolute"
-          },
-        },
-        ['A'] = 'add_directory', -- also accepts the config.show_path and config.insert_as options.
-        ['d'] = 'delete',
-        ['r'] = 'rename',
-        ['y'] = 'copy_to_clipboard',
-        ['x'] = 'cut_to_clipboard',
-        ['p'] = 'paste_from_clipboard',
-        ['c'] = 'copy', -- takes text input for destination, also accepts the config.show_path and config.insert_as options
-        ['m'] = 'move', -- takes text input for destination, also accepts the config.show_path and config.insert_as options
-        ['e'] = 'toggle_auto_expand_width',
-        ['q'] = 'close_window',
-        ['?'] = 'show_help',
-        ['<'] = 'prev_source',
-        ['>'] = 'next_source',
-      },
-    },
-    filesystem = {
-      window = {
-        mappings = {
-          ['H'] = 'toggle_hidden',
-          ['/'] = 'fuzzy_finder',
-          ['D'] = 'fuzzy_finder_directory',
-          --["/"] = "filter_as_you_type", -- this was the default until v1.28
-          ['#'] = 'fuzzy_sorter', -- fuzzy sorting using the fzy algorithm
-          -- ["D"] = "fuzzy_sorter_directory",
-          ['f'] = 'filter_on_submit',
-          ['<C-x>'] = 'clear_filter',
-          ['<bs>'] = 'navigate_up',
-          ['.'] = 'set_root',
-          ['[g'] = 'prev_git_modified',
-          [']g'] = 'next_git_modified',
-        },
-      },
-    },
-    git_status = {
-      window = {
-        mappings = {
-          ['A'] = 'git_add_all',
-          ['gu'] = 'git_unstage_file',
-          ['ga'] = 'git_add_file',
-          ['gr'] = 'git_revert_file',
-          ['gc'] = 'git_commit',
-          ['gp'] = 'git_push',
-          ['gg'] = 'git_commit_and_push',
-        },
-      },
-    },
-  })
 end
 
 function M.dyninput()
@@ -424,16 +367,6 @@ end
 
 function M.comment()
   require('Comment').setup()
-end
-
-function M.indentmini()
-  require('indentmini').setup({
-    char = '|',
-    exclude = {
-      'erlang',
-      'markdown',
-    },
-  })
 end
 
 return M

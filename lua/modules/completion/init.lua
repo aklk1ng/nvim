@@ -207,10 +207,6 @@ function M.lspconfig()
     on_attach = on_attach,
     capabilities = capabilities,
   })
-  require('lspconfig').jsonls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
   require('lspconfig').cmake.setup({
     on_attach = on_attach,
     capabilities = capabilities,

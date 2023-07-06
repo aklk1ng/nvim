@@ -21,7 +21,7 @@ pack({
 
 pack({
   'neovim/nvim-lspconfig',
-  ft = _G.lsp_ft,
+  -- ft = _G.lsp_ft,
   event = { 'BufRead', 'BufNewfile' },
   config = completion.lspconfig,
   dependencies = {

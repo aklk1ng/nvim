@@ -6,6 +6,7 @@ local toggle_option = keymap.toggle_option
 
 local quickrun = require('utils.api.quickrun')
 local flip_word = require('utils.api.flip-word')
+local minifile = require('utils.api.minifiles')
 
 map({
   ---------------------------- last command
@@ -175,4 +176,5 @@ map({
   -------------------------- some local plugin api keymap
   { 'n', '<leader>r', quickrun.QuickRun, opt },
   { 'n', 'ta', flip_word.toggleAlternate, opt },
+  { 'n', '<leader>t', minifile.open, opt },
 })

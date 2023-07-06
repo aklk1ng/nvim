@@ -8,15 +8,6 @@ pack({
 })
 
 pack({
-  'folke/noice.nvim',
-  event = { 'BufRead', 'BufNewFile' },
-  config = ui.noice,
-  dependencies = {
-    'MunifTanjim/nui.nvim',
-  },
-})
-
-pack({
   'NvChad/nvim-colorizer.lua',
   cmd = 'ColorizerToggle',
   config = ui.colorizer,

@@ -15,7 +15,16 @@ function M:render()
 
   local ok, search = pcall(fn.searchcount)
   local currentline = api.nvim_get_current_line()
-  if currentline:find(fn.getreg('/')) then
+  local characters = fn.getreg('/')
+  -- when use '#' or '*' to search
+  if not characters:match('^%w') then
+    if characters:find('\\<') then
+      characters = characters:sub(3, characters:len() - 3)
+    end
+  end
+
+  -- contains characters that need to be escaped will failed
+  if currentline:find(characters) then
     if ok and search.total then
       local current = search.current
       local count = math.min(search.total, search.maxcount)

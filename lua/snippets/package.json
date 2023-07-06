@@ -58,35 +58,10 @@
       },
       {
         "language": [
-          "css"
-        ],
-        "path": "./css.json"
-      },
-      {
-        "language": [
           "typescript",
           "typescriptreact"
         ],
         "path": "./javascript/typescript.json"
-      },
-      {
-        "language": "typescriptreact",
-        "path": "./javascript/react-ts.json"
-      },
-      {
-        "language": "typescriptreact",
-        "path": "./javascript/next-ts.json"
-      },
-      {
-        "language": "typescriptreact",
-        "path": "./javascript/react-native-ts.json"
-      },
-      {
-        "language": [
-          "javascriptreact",
-          "typescriptreact"
-        ],
-        "path": "./javascript/react-es7.json"
       },
       {
         "language": "python",

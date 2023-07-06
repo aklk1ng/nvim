@@ -3,7 +3,7 @@ local api = vim.api
 
 api.nvim_create_autocmd('FileType', {
   group = aklk1ng,
-  pattern = 'c,cpp,lua,go,rs,py,ts,tsx,js,json,sh,md,zig',
+  pattern = '*',
   callback = function()
     vim.cmd('syntax off')
   end,
@@ -11,7 +11,7 @@ api.nvim_create_autocmd('FileType', {
 
 api.nvim_create_autocmd('FileType', {
   group = aklk1ng,
-  pattern = { 'help', 'man', 'dap-float', 'checkhealth', 'dashboard' },
+  pattern = { 'help', 'man', 'checkhealth', 'dashboard' },
   callback = function(event)
     vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = event.buf, silent = true, nowait = true })
   end,
@@ -25,14 +25,6 @@ api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-api.nvim_create_autocmd('BufRead', {
-  group = aklk1ng,
-  pattern = '*.conf',
-  callback = function()
-    api.nvim_buf_set_option(0, 'filetype', 'conf')
-  end,
-})
-
 api.nvim_create_autocmd('LspAttach', {
   group = aklk1ng,
   pattern = '*.c,*.cpp,*.lua,*.rs,*.go,*.zig,*.ts,*.js',
@@ -43,9 +35,27 @@ api.nvim_create_autocmd('LspAttach', {
 
 api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   group = aklk1ng,
-  pattern = '*.json',
+  pattern = '*',
   callback = function()
-    vim.cmd('set filetype=jsonc')
+    -- Formatter
+    local current_dir = vim.fn.expand('%:p:h')
+    if current_dir:find('neovim', 1, true) or current_dir:find('dwm', 1, true) then
+      vim.w.format = false
+    else
+      vim.w.format = true
+    end
+  end,
+})
+
+api.nvim_create_autocmd('BufWritePost', {
+  group = aklk1ng,
+  pattern = '*',
+  callback = function()
+    if vim.w.format then
+      vim.cmd('FormatWrite')
+    else
+      vim.cmd([[%s/\s\+$//e]])
+    end
   end,
 })
 

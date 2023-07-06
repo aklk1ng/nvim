@@ -34,11 +34,6 @@ local kind_icons = {
   Changed = ' ',
   Deleted = ' ',
   Lock = '',
-  DapBreakpoint = '',
-  DapBreakpointCondition = '',
-  DapBreakpointRejected = '',
-  DapLogPoint = '.>',
-  DapStopped = '󰁕',
 }
 
 function M.get(kind, space)

@@ -6,8 +6,6 @@ local map = keymap.map
 
 map({
   { 'n', '<leader><leader>i', cmd('Lazy'), opt },
-  { 'n', '<leader>t', cmd('NeoTreeFocusToggle'), opt },
-  { 'n', 'tf', cmd('NeoTreeFocus'), opt },
   { 'n', ';r', cmd('LspRestart'), opt },
   { 'n', ';d', cmd('Gitsigns diffthis'), opt },
   { 'n', '<leader><leader>p', cmd('Gitsigns preview_hunk'), opt },
@@ -15,8 +13,6 @@ map({
   { 'n', ';p', cmd('Gitsigns prev_hunk'), opt },
   { 'n', '<leader>m', cmd('MarkdownPreview'), opt },
   { 'n', '<leader>tm', cmd('TableModeToggle'), opt },
-  { 'n', 'tg', cmd('GenTocGFM'), opt },
-  { 'n', 'tr', cmd('GenTocRedcarpet'), opt },
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
   { 'n', '<leader>f', cmd('Format'), opt },
   { 'n', ';s', wait_cmd('SessionSave '), opt },
@@ -41,8 +37,7 @@ map({
   { 'n', ',,', cmd('Lspsaga hover_doc ++keep'), opt },
   { 'n', '<Leader>ic', cmd('Lspsaga incoming_calls'), opt },
   { 'n', '<Leader>oc', cmd('Lspsaga outgoing_calls'), opt },
-  { 'n', 'gh', '<Cmd>Lspsaga lsp_finder<CR>', opt },
-  { 'n', 'gh', cmd('Lspsaga lsp_finder'), opt },
+  { 'n', 'gh', cmd('Lspsaga finder'), opt },
   { 'n', 'gd', cmd('Lspsaga goto_definition'), opt },
   { 'n', 'gt', '<cmd>Lspsaga goto_type_definition<CR>' },
   { { 'n', 'v' }, '<leader>ca', cmd('Lspsaga code_action'), opt },
@@ -55,7 +50,6 @@ map({
   { 'n', '<leader>fb', cmd('Telescope buffers'), opt },
   { 'n', '<leader>fc', cmd('Telescope command_history'), opt },
   { 'n', '<leader>fC', cmd('Telescope commands'), opt },
-  { 'n', '<leader>fp', cmd('Telescope workspace'), opt },
   { 'n', '<leader>fo', cmd('Telescope oldfiles'), opt },
   { 'n', '<leader>fs', cmd('Telescope lsp_document_symbols'), opt },
   { 'n', '<leader>fS', cmd('Telescope lsp_workspace_symbols'), opt },
@@ -64,18 +58,6 @@ map({
   { 'n', '<leader>fk', cmd('Telescope keymaps'), opt },
   { 'n', '<leader>fw', cmd('Telescope live_grep'), opt },
   { 'n', '<leader>fe', cmd('Telescope emoji'), opt },
-
-  -------------------------- toggle the inlay hints
-  { 'n', '<leader>i', cmd("lua require('lsp-inlayhints').toggle()") },
-
-  {
-    'n',
-    '<leader>p',
-    function()
-      return [["*p]]
-    end,
-    { noremap = true, expr = true },
-  },
 
   { 'n', '<leader>co', cmd('ColorizerToggle'), opt },
 

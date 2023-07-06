@@ -7,7 +7,6 @@ pack({
   build = ':TSUpdate',
   config = language.treesitter,
   dependencies = {
-    -- { 'HiPhish/nvim-ts-rainbow2' },
     { 'nvim-treesitter/playground' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
   },
@@ -19,7 +18,4 @@ pack({
   ft = 'markdown',
   cmd = 'MarkdownPreview',
   config = language.markdown_preview,
-  dependencies = {
-    { 'mzlogin/vim-markdown-toc', cmd = 'MarkdownPreview' },
-  },
 })

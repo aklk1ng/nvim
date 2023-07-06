@@ -9,10 +9,22 @@ function M.load_modules()
   if #file_list == 0 then
     return
   end
-  for _, file in pairs(file_list) do
-    local _, pos = file:find(modules_dir)
-    file = file:sub(pos - 6, #file - 4)
-    require(file)
+
+  local disable_modules = {}
+
+  if vim.fn.exists('g:disable_modules') == 1 then
+    disable_modules = vim.split(vim.g.disable_modules, ',', { trimempty = true })
+    disable_modules = vim.tbl_map(function(k)
+      return 'modules/' .. k .. '/plugins'
+    end, disable_modules)
+  end
+
+  for _, f in pairs(file_list) do
+    local _, pos = f:find(modules_dir)
+    f = f:sub(pos - 6, #f - 4)
+    if not vim.tbl_contains(disable_modules, f) then
+      require(f)
+    end
   end
 end
 

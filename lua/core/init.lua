@@ -32,8 +32,25 @@ _G.lsp_ft = {
   'zig',
   'html',
   'css',
+}
+
+_G.format_ft = {
+  'c',
+  'cpp',
+  'cmake',
+  'python',
+  'go',
+  'rust',
+  'lua',
+  'typescript',
+  'markdown',
+  'sh',
+  'zig',
+  'html',
+  'css',
   'json',
-  'jsonc',
+  'javascript',
+  'typescript',
 }
 
 local programs = {
@@ -62,4 +79,5 @@ if found then
   require('core.pack'):boot_strap()
   require('core.event')
   require('keymap.modules')
+  require('utils.api.minifiles').setup()
 end
