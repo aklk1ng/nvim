@@ -49,10 +49,28 @@ api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
 
 api.nvim_create_autocmd('BufWritePost', {
   group = aklk1ng,
-  pattern = '*',
+  pattern = {
+    '*.c',
+    '*.cpp',
+    '*.cmake',
+    '*.python',
+    '*.go',
+    '*.rust',
+    '*.lua',
+    '*.typescript',
+    '*.markdown',
+    '*.sh',
+    '*.zig',
+    '*.html',
+    '*.css',
+    '*.json',
+    '*.javascript',
+    '*.typescript',
+    '*.toml',
+  },
   callback = function()
     if vim.w.format then
-      vim.cmd('FormatWrite')
+      vim.cmd('GuardFmt')
     else
       vim.cmd([[%s/\s\+$//e]])
     end

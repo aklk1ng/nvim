@@ -171,17 +171,15 @@ function M.lspconfig()
       'cuda',
     },
   })
-  require('lspconfig').pylsp.setup({
+  require('lspconfig').pyright.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = {
-            ignore = { 'W391' },
-            maxLineLength = 110,
-            indentSize = 4,
-          },
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          diagnosticMode = 'workspace',
+          useLibraryCodeForTypes = true,
         },
       },
     },
@@ -208,14 +206,6 @@ function M.lspconfig()
     capabilities = capabilities,
   })
   require('lspconfig').cmake.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-  require('lspconfig').html.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-  require('lspconfig').cssls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
   })

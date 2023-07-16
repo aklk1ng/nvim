@@ -14,7 +14,7 @@ map({
   { 'n', '<leader>m', cmd('MarkdownPreview'), opt },
   { 'n', '<leader>tm', cmd('TableModeToggle'), opt },
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
-  { 'n', '<leader>f', cmd('Format'), opt },
+  { 'n', '<leader>f', cmd('GuardFmt'), opt },
   { 'n', ';s', wait_cmd('SessionSave '), opt },
   { 'n', ';l', wait_cmd('SessionLoad '), opt },
   { 'n', ';D', wait_cmd('SessionDelete '), opt },

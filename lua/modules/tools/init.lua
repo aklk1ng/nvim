@@ -238,130 +238,92 @@ function M.gitsigns()
   require('gitsigns').setup()
 end
 
-function M.formatter()
-  local util = require('formatter.util')
-  -- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
-  require('formatter').setup({
-    logging = true,
-    log_level = vim.log.levels.WARN,
-    filetype = {
-      lua = {
-        function()
-          if util.get_current_buffer_file_name() == 'special.lua' then
-            return nil
-          end
-          return {
-            exe = 'stylua',
-            args = {
-              '--column-width 110',
-              '--quote-style ' .. 'AutoPreferSingle',
-              '--indent-type ' .. 'Spaces',
-              '--indent-width ' .. '2',
-              '-',
-            },
-            stdin = true,
-          }
-        end,
-      },
-      c = {
-        function()
-          return {
-            exe = 'clang-format',
-            args = {
-              '-style="{'
-                .. 'IndentWidth: '
-                .. vim.api.nvim_buf_get_option(0, 'tabstop')
-                .. ','
-                .. 'AlwaysBreakTemplateDeclarations: true'
-                .. ','
-                .. 'ColumnLimit: 100'
-                .. ','
-                .. '}"',
-              '-assume-filename',
-              util.escape_path(util.get_current_buffer_file_name()),
-            },
-            stdin = true,
-            try_node_modules = true,
-          }
-        end,
-      },
-      cpp = {
-        function()
-          return {
-            exe = 'clang-format',
-            args = {
-              '-style="{'
-                .. 'IndentWidth: '
-                .. vim.api.nvim_buf_get_option(0, 'tabstop')
-                .. ','
-                .. 'AlwaysBreakTemplateDeclarations: true'
-                .. ','
-                .. 'ColumnLimit: 100'
-                .. ','
-                .. '}"',
-              '-assume-filename',
-              util.escape_path(util.get_current_buffer_file_name()),
-            },
-            stdin = true,
-            try_node_modules = true,
-          }
-        end,
-      },
-      cmake = {
-        require('formatter.filetypes.cmake').cmakeformat,
-      },
-      rust = {
-        require('formatter.filetypes.rust').rustfmt,
-      },
-      go = {
-        function()
-          return {
-            exe = 'golines',
-            args = {
-              '--max-len=110',
-            },
-            stdin = true,
-          }
-        end,
-      },
-      zig = {
-        require('formatter.filetypes.zig').zigfmt,
-      },
-      python = {
-        require('formatter.filetypes.python').black,
-      },
-      sh = {
-        require('formatter.filetypes.sh').shfmt,
-      },
-      html = {
-        require('formatter.filetypes.html').prettier,
-      },
-      css = {
-        require('formatter.filetypes.css').prettier,
-      },
-      toml = {
-        require('formatter.filetypes.toml').taplo,
-      },
-      -- i change the json filetype to jsonc to enable comment
-      jsonc = {
-        require('formatter.filetypes.json').jq,
-      },
-      javascript = {
-        require('formatter.filetypes.javascript').prettier,
-      },
-      typescript = {
-        require('formatter.filetypes.typescript').prettier,
-      },
-      markdown = {
-        require('formatter.filetypes.markdown').prettier,
-      },
-      yaml = {
-        require('formatter.filetypes.yaml').prettier,
-      },
-      ['*'] = {
-        require('formatter.filetypes.any').remove_trailing_whitespace,
-      },
+function M.guard()
+  local ft = require('guard.filetype')
+  local clang_format = {
+    cmd = 'clang-format',
+    args = {
+      '--style={IndentWidth: 2, AlwaysBreakTemplateDeclarations: true, ColumnLimit: 100}',
     },
+    stdin = true,
+  }
+  ft('c'):fmt(clang_format)
+  ft('cpp'):fmt(clang_format)
+  ft('go'):fmt({
+    cmd = 'golines',
+    args = {
+      '--max-len=110',
+    },
+    stdin = true,
+  })
+  ft('lua'):fmt({
+    cmd = 'stylua',
+    args = {
+      '--column-width',
+      '110',
+      '--quote-style',
+      'AutoPreferSingle',
+      '--indent-type',
+      'Spaces',
+      '--indent-width',
+      '2',
+      '-',
+    },
+    stdin = true,
+  })
+  ft('rust'):fmt({
+    cmd = 'rustfmt',
+    args = { '--edition', '2021' },
+    stdin = true,
+  })
+  ft('python'):fmt({
+    cmd = 'black',
+    args = {
+      '-',
+    },
+  })
+  ft('zig'):fmt({
+    cmd = 'zig',
+    args = { 'fmt', '--stdin' },
+    stdin = true,
+  })
+  ft('toml'):fmt({
+    cmd = 'taplo',
+    args = { 'fmt', '-' },
+    stdin = true,
+  })
+  ft('sh'):fmt({
+    cmd = 'shfmt',
+    args = { '-i', 4 },
+    stdin = true,
+  })
+  ft('cmake'):fmt({
+    cmd = 'cmake-format',
+    args = { '-' },
+    stdin = true,
+  })
+  ft('json'):fmt({
+    cmd = 'jq',
+    args = { '.' },
+    stdin = true,
+  })
+
+  for _, item in ipairs({
+    'typescript',
+    'javascript',
+    'typescriptreact',
+    'javascriptreact',
+    'markdown',
+    'yaml',
+    'html',
+    'css',
+  }) do
+    ft(item):fmt('prettier')
+  end
+  -- call setup LAST
+  require('guard').setup({
+    -- the only option for the setup function
+    fmt_on_save = false,
   })
 end
 

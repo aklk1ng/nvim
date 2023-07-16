@@ -4,7 +4,7 @@ function M.markdown_preview()
   local helper = require('core.helper')
   vim.g.mkdp_page_title = '${name}'
   vim.g.mkdp_preview_options = { hide_yaml_meta = 1, disable_filename = 1 }
-  vim.g.mkdp_browser = 'surf'
+  vim.g.mkdp_browser = 'google-chrome-stable'
   vim.g.mkdp_markdown_css = helper.get_config_path() .. '/lua/utils/markdown.css'
 end
 

@@ -30,8 +30,6 @@ _G.lsp_ft = {
   'markdown',
   'sh',
   'zig',
-  'html',
-  'css',
 }
 
 _G.format_ft = {
@@ -51,6 +49,7 @@ _G.format_ft = {
   'json',
   'javascript',
   'typescript',
+  'toml',
 }
 
 local programs = {

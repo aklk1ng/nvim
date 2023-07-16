@@ -72,15 +72,20 @@ pack({
 })
 
 pack({
-  'mhartington/formatter.nvim',
-  cmd = { 'Format', 'FormatWrite' },
-  config = tools.formatter,
-})
-
-pack({
   'numToStr/Comment.nvim',
   event = { 'BufRead', 'BufNewFile' },
   config = tools.comment,
+})
+
+pack({
+  'nvimdev/guard.nvim',
+  ft = _G.format_ft,
+  config = tools.guard,
+})
+
+pack({
+  'yaocccc/nvim-hlchunk',
+  ft = _G.lsp_ft,
 })
 
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

@@ -47,17 +47,6 @@
       },
       {
         "language": [
-          "html",
-          "jade",
-          "pug",
-          "eruby",
-          "javascriptreact",
-          "htmldjango"
-        ],
-        "path": "./html.json"
-      },
-      {
-        "language": [
           "typescript",
           "typescriptreact"
         ],
