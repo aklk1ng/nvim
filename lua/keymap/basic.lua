@@ -151,7 +151,6 @@ map({
 
   -------------------------- file preview
   { 'n', ',g', cmd('! google-chrome-stable % &'), opt },
-  { 'n', ',s', cmd('! surf % &'), opt },
 
   -------------------------- window's map
   { 'n', 'te', cmd('tabnew'), opt },
@@ -168,6 +167,8 @@ map({
   { 'n', '<C-j>', cmd('resize-5'), opt },
   { 'n', '<leader>n', cmd('bnext'), opt },
   { 'n', '<leader>p', cmd('bprevious'), opt },
+  { 'n', '<leader>D', ':Bdelete<CR>', opt },
+  { 'n', '<leader>d', ':bdelete<CR>', opt },
 
   -------------------------- directly move lines in visual mode
   { 'v', '<S-j>', ":m '>+1<CR>gv=gv", opt },

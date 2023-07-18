@@ -22,10 +22,6 @@
         "path": "./rust.json"
       },
       {
-        "language": "sql",
-        "path": "./sql.json"
-      },
-      {
         "language": [
           "shellscript",
           "shell",
@@ -37,20 +33,6 @@
       {
         "language": "zig",
         "path": "./zig.json"
-      },
-      {
-        "language": [
-          "markdown",
-          "rmd"
-        ],
-        "path": "./markdown.json"
-      },
-      {
-        "language": [
-          "typescript",
-          "typescriptreact"
-        ],
-        "path": "./javascript/typescript.json"
       },
       {
         "language": "python",

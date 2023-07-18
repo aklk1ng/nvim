@@ -27,7 +27,7 @@ api.nvim_create_autocmd('TextYankPost', {
 
 api.nvim_create_autocmd('LspAttach', {
   group = aklk1ng,
-  pattern = '*.c,*.cpp,*.lua,*.rs,*.go,*.zig,*.ts,*.js',
+  pattern = '*.c,*.cpp,*.lua,*.rs,*.go,*.zig',
   callback = function()
     vim.lsp.inlay_hint(0, true)
   end,
@@ -55,9 +55,8 @@ api.nvim_create_autocmd('BufWritePost', {
     '*.cmake',
     '*.python',
     '*.go',
-    '*.rust',
+    '*.rs',
     '*.lua',
-    '*.typescript',
     '*.markdown',
     '*.sh',
     '*.zig',

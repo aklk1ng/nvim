@@ -251,7 +251,7 @@ local syntax = {
   FlashLabel = { fg = M.green },
 
   HighlightURL = { bg = '#3f444a', italic = true },
-  IndentLine = { fg = M.bg_visual },
+  HLIndentLine = { fg = M.none },
   LspInlayHint = { link = 'Comment' },
 }
 

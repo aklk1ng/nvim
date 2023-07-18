@@ -11,11 +11,3 @@ pack({
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
   },
 })
-
-pack({
-  'iamcco/markdown-preview.nvim',
-  build = 'cd app && npm install',
-  ft = 'markdown',
-  cmd = 'MarkdownPreview',
-  config = language.markdown_preview,
-})

@@ -11,8 +11,6 @@ map({
   { 'n', '<leader><leader>p', cmd('Gitsigns preview_hunk'), opt },
   { 'n', ';n', cmd('Gitsigns next_hunk'), opt },
   { 'n', ';p', cmd('Gitsigns prev_hunk'), opt },
-  { 'n', '<leader>m', cmd('MarkdownPreview'), opt },
-  { 'n', '<leader>tm', cmd('TableModeToggle'), opt },
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
   { 'n', '<leader>f', cmd('GuardFmt'), opt },
   { 'n', ';s', wait_cmd('SessionSave '), opt },
@@ -60,9 +58,6 @@ map({
   { 'n', '<leader>fe', cmd('Telescope emoji'), opt },
 
   { 'n', '<leader>co', cmd('ColorizerToggle'), opt },
-
-  { 'n', '<leader>D', ':Bdelete<CR>', opt },
-  { 'n', '<leader>d', ':bdelete<CR>', opt },
 
   {
     'n',
