@@ -132,7 +132,7 @@ function M.telescope()
       emoji = {
         action = function(emoji)
           vim.fn.setreg('*', emoji.value)
-          vim.notify([[Press P or "*p to paste this emoji]] .. emoji.value)
+          vim.notify([[Press "*p to paste this emoji]] .. emoji.value)
         end,
       },
     },

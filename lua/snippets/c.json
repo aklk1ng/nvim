@@ -21,20 +21,6 @@
     ],
     "description": "Code snippet for error statement"
   },
-  "#inc": {
-    "prefix": "#inc",
-    "body": [
-      "#include \"$0\""
-    ],
-    "description": "Code snippet for #include \" \""
-  },
-  "#inc<": {
-    "prefix": "#inc<",
-    "body": [
-      "#include <$0>"
-    ],
-    "description": "Code snippet for #include < >"
-  },
   "Main function template": {
     "prefix": "main",
     "body": [
@@ -56,19 +42,6 @@
       "}"
     ],
     "description": "A standard starter template for a C program"
-  },
-  "Stdlib Variant Starter Template": {
-    "prefix": "libsst",
-    "body": [
-      "#include <stdio.h>",
-      "#include <stdlib.h>",
-      "",
-      "int main(int argc, char *argv[]) {",
-      "\t$0",
-      "\treturn 0;",
-      "}"
-    ],
-    "description": "A standard starter template for a C program with stdlib included"
   },
   "Clock Comment": {
     "prefix": "comment",

@@ -1,3 +1,6 @@
+-- Plugin Auther
+-- https://github.com/echasnovski/mini.nvim
+
 local MiniFiles = {}
 local H = {}
 

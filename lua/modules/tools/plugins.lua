@@ -83,9 +83,4 @@ pack({
   config = tools.guard,
 })
 
-pack({
-  'yaocccc/nvim-hlchunk',
-  ft = _G.lsp_ft,
-})
-
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

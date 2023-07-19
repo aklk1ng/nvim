@@ -12,8 +12,8 @@ api.nvim_create_autocmd('FileType', {
 api.nvim_create_autocmd('FileType', {
   group = aklk1ng,
   pattern = { 'help', 'man', 'checkhealth', 'dashboard' },
-  callback = function(event)
-    vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = event.buf, silent = true, nowait = true })
+  callback = function(arg)
+    vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = arg.buf, silent = true, nowait = true })
   end,
 })
 
@@ -22,14 +22,6 @@ api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
   callback = function()
     vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 100 })
-  end,
-})
-
-api.nvim_create_autocmd('LspAttach', {
-  group = aklk1ng,
-  pattern = '*.c,*.cpp,*.lua,*.rs,*.go,*.zig',
-  callback = function()
-    vim.lsp.inlay_hint(0, true)
   end,
 })
 

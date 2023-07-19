@@ -155,6 +155,7 @@ local syntax = {
   ['@method'] = { fg = M.blue, bold = true, italic = true },
   ['@keyword.function'] = { fg = M.red },
   ['@keyword.operator'] = { fg = M.orange },
+  ['@keyword.return'] = { fg = M.red },
   ['@property'] = { fg = M.yellow },
   ['@field'] = { fg = M.yellow },
   ['@type'] = { fg = M.green },
@@ -251,7 +252,6 @@ local syntax = {
   FlashLabel = { fg = M.green },
 
   HighlightURL = { bg = '#3f444a', italic = true },
-  HLIndentLine = { fg = M.none },
   LspInlayHint = { link = 'Comment' },
 }
 

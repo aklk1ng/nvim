@@ -45,7 +45,6 @@ _G.format_ft = {
   'html',
   'css',
   'json',
-  'jsonc',
   'javascript',
   'typescript',
   'toml',

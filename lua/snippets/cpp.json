@@ -52,20 +52,6 @@
     ],
     "description": "Code snippet for try catch"
   },
-  "#inc": {
-    "prefix": "#inc",
-    "body": [
-      "#include \"$0\""
-    ],
-    "description": "Code snippet for #include \" \""
-  },
-  "#inc<": {
-    "prefix": "#inc<",
-    "body": [
-      "#include <$0>"
-    ],
-    "description": "Code snippet for #include < >"
-  },
   "Standard Starter Template": {
     "prefix": "sst",
     "body": [
@@ -119,9 +105,10 @@
       "using namespace std;",
       "",
       "struct ListNode {",
-      "int val;",
-      "ListNode *next;",
-      "ListNode(int x) : val(x), next(NULL) {}",
+      "\tint val;",
+      "\tListNode *next;",
+      "\tListNode(int x) : val(x), next(NULL) {}",
+      "\tListNode(int x, ListNode *next) : val(x), next(next) {}",
       "};",
       "class Soluton {",
       "public:",

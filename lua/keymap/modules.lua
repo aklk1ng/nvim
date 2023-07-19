@@ -31,7 +31,7 @@ map({
     opt,
   },
   { 'n', '<leader>L', cmd('Lspsaga show_line_diagnostics'), opt },
-  { 'n', '<S-t>', cmd('Lspsaga hover_doc'), opt },
+  { 'n', ';t', cmd('Lspsaga hover_doc'), opt },
   { 'n', ',,', cmd('Lspsaga hover_doc ++keep'), opt },
   { 'n', '<Leader>ic', cmd('Lspsaga incoming_calls'), opt },
   { 'n', '<Leader>oc', cmd('Lspsaga outgoing_calls'), opt },
