@@ -1,10 +1,3 @@
-<p align="center">
-  <img src="./screenshot.png"
-  height = "500"
-  width = "800"
-  />
-</p>
-
 ## Version
 
 `prerelease` 😉
@@ -28,8 +21,6 @@ npm install -g neovim
 - Install Nerd font(i use **JetBrainsMono Nerd Font**)
 
   [nerd font](https://www.nerdfonts.com/font-downloads)
-
-- Install `yarn`
 
 2. Clone the repository:
 

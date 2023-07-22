@@ -68,22 +68,6 @@ api.nvim_create_autocmd('BufWritePost', {
   end,
 })
 
-api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  group = aklk1ng,
-  pattern = '*',
-  callback = function()
-    local url_match =
-      '\\v\\c%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)%([&:#*@~%_\\-=?!+;/0-9a-z]+%(%([.;/?]|[.][.]+)[&:#*@~%_\\-=?!+/0-9a-z]+|:\\d+|,%(%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)@![0-9a-z]+))*|\\([&:#*@~%_\\-=?!+;/.0-9a-z]*\\)|\\[[&:#*@~%_\\-=?!+;/.0-9a-z]*\\]|\\{%([&:#*@~%_\\-=?!+;/.0-9a-z]*|\\{[&:#*@~%_\\-=?!+;/.0-9a-z]*})\\})+'
-
-    for _, match in ipairs(vim.fn.getmatches()) do
-      if match.group == 'HighlightURL' then
-        vim.fn.matchdelete(match.id)
-      end
-    end
-    vim.fn.matchadd('HighlightURL', url_match, 15)
-  end,
-})
-
 if vim.fn.executable('fcitx5-remote') == 1 then
   api.nvim_create_autocmd('InsertLeavePre', {
     group = aklk1ng,

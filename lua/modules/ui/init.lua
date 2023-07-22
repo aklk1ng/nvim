@@ -43,14 +43,13 @@ function M.dashboard()
           action = 'Telescope oldfiles',
         },
       },
-      footer = {},
     },
     hide = {
       tabline = false,
     },
     preview = {
       command = 'cat | lolcat -F 0.3', -- preview command
-      file_path = home .. '/.config/nvim/static/neovim.cat', -- preview file path
+      file_path = home .. '/.config/nvim/static/girl.cat', -- preview file path
       file_height = 20, -- prefview file height
       file_width = 65, -- preview file width
     },

@@ -10,39 +10,10 @@ local minifile = require('utils.api.minifiles')
 
 map({
   ---------------------------- last command
-  {
-    'n',
-    ';c',
-    function()
-      return [[@:]]
-    end,
-    { noremap = true, expr = true },
-  },
-  {
-    'n',
-    '<S-j>',
-    function()
-      return "mzJ'z"
-    end,
-    { noremap = true, expr = true },
-  },
+  { 'n', ';c', '@:', opt },
   -------------------------- friendly scroll
-  {
-    'n',
-    '<C-d>',
-    function()
-      return '<C-d>zz'
-    end,
-    { noremap = true, expr = true },
-  },
-  {
-    'n',
-    '<C-u>',
-    function()
-      return '<C-u>zz'
-    end,
-    { noremap = true, expr = true },
-  },
+  { 'n', '<C-d>', '<C-d>zz', opt },
+  { 'n', '<C-u>', '<C-u>zz', opt },
 
   {
     'i',
@@ -54,44 +25,8 @@ map({
     end,
     { expr = true },
   },
-  {
-    'i',
-    '<C-c>',
-    '<Esc>',
-    opt,
-  },
-  {
-    'i',
-    '<S-CR>',
-    function()
-      return '<CR><Esc>O'
-    end,
-    { noremap = true, expr = true },
-  },
-  {
-    'i',
-    '<C-/>',
-    function()
-      return '~'
-    end,
-    { noremap = true, expr = true },
-  },
-  -------------------------- add undo break-points
-  {
-    'i',
-    ',',
-    ',<C-g>u',
-  },
-  {
-    'i',
-    '.',
-    '.<C-g>u',
-  },
-  {
-    'i',
-    ';',
-    ';<C-g>u',
-  },
+  { 'i', '<C-c>', '<Esc>', opt },
+  { 'i', '<S-CR>', '<CR><Esc>O', opt },
   -------------------------- toggle the spell option with the global variable
   {
     'n',
@@ -127,6 +62,10 @@ map({
     cmd('!chmod +x %'),
     opt,
   },
+  -------------------------- add undo break-points
+  { 'i', ',', ',<C-g>u', opt },
+  { 'i', '.', '.<C-g>u', opt },
+  { 'i', ';', ';<C-g>u', opt },
   ---------------------------- for brackets
   { { 'n', 'v' }, ',.', '%', opt },
   --------------------------- change letter case
@@ -144,6 +83,8 @@ map({
 
   { { 'i', 'c' }, '<C-h>', '<Left>', opt },
   { { 'i', 'c' }, '<C-l>', '<Right>', opt },
+  { 'i', '<C-a>', '<esc>^i', opt },
+  { 'i', '<C-t>', '<C-o>d$', opt },
   { 'i', '<C-f>', '<BS>', opt },
 
   { { 'n', 'v' }, '<', '<<<esc>', opt },
@@ -178,4 +119,7 @@ map({
   { 'n', '<leader>r', quickrun.QuickRun, opt },
   { 'n', 'ta', flip_word.toggleAlternate, opt },
   { 'n', '<leader>t', minifile.open, opt },
+
+  { 'n', '<leader>i', cmd('lua vim.lsp.inlay_hint(0, true)'), opt },
+  { 'n', '<leader>u', cmd('lua vim.lsp.inlay_hint(0, false)'), opt },
 })

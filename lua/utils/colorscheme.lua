@@ -84,7 +84,6 @@ local syntax = {
   FoldColumn = { fg = M.base5, bg = M.bg },
   CursorLine = { bg = M.bg_highlight },
   LineNr = { fg = M.base5 },
-  qfLineNr = { fg = M.cyan },
   CursorLineNr = { fg = M.redwine, bold = true },
   DiffAdd = { fg = M.dark_green, bg = M.base4 },
   DiffChange = { fg = M.blue, bg = M.base4 },
@@ -108,8 +107,9 @@ local syntax = {
   StatusLineNC = { fg = M.grey, bg = M.base2 },
   Question = { fg = M.yellow },
   NormalFloat = { fg = M.base8, bg = M.bg_highlight },
-  Tabline = { fg = M.base6, bg = M.base2 },
+  Tabline = { fg = M.fg, bg = M.bg },
   TabLineSel = { fg = M.fg, bg = M.blue },
+  TabLineFill = { fg = M.fg, bg = M.bg },
   Visual = { bg = M.grey },
   VisualNOS = { fg = M.none, bg = M.bg_visual },
   QuickFixLine = { fg = M.purple, bold = true },
@@ -191,9 +191,6 @@ local syntax = {
   GitSignsAddLn = { bg = M.bg_popup },
   GitSignsChangeLn = { bg = M.bg_highlight },
   GitSignsDeleteLn = { bg = M.bg1 },
-  SignifySignAdd = { fg = M.dark_green },
-  SignifySignChange = { fg = M.blue },
-  SignifySignDelete = { fg = M.red },
   -- nvim v0.6.0+
   DiagnosticSignError = { fg = M.red },
   DiagnosticSignWarn = { fg = M.yellow },
@@ -251,7 +248,6 @@ local syntax = {
   FlashMatch = { fg = M.orange },
   FlashLabel = { fg = M.green },
 
-  HighlightURL = { bg = '#3f444a', italic = true },
   LspInlayHint = { link = 'Comment' },
 }
 

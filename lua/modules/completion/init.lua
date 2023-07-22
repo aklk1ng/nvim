@@ -9,7 +9,6 @@ function M.lua_snip()
     -- dynamic udpate the snippets when i type
     updateevents = 'TextChanged,TextChangedI',
   })
-  -- require('luasnip.loaders.from_vscode').lazy_load()
   require('luasnip.loaders.from_vscode').lazy_load({
     paths = { helper.get_config_path() .. '/lua/snippets/' },
   })

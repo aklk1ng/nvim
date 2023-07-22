@@ -59,13 +59,6 @@ pack({
 })
 
 pack({
-  'nvimdev/dyninput.nvim',
-  event = { 'BufRead', 'BufNewFile' },
-  ft = { 'go', 'rust' },
-  config = tools.dyninput,
-})
-
-pack({
   'kylechui/nvim-surround',
   event = { 'BufRead', 'BufNewFile' },
   config = tools.surround,

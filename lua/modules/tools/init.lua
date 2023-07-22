@@ -158,27 +158,6 @@ function M.flash()
   }
 end
 
-function M.dyninput()
-  local ms = require('dyninput.lang.misc')
-  local rs = require('dyninput.lang.rust')
-  require('dyninput').setup({
-    go = {
-      [';'] = {
-        { ' := ', ms.go_variable_define },
-        { ': ', ms.go_struct_field },
-      },
-    },
-    rust = {
-      [';'] = {
-        { '=> ', rs.fat_arrow },
-      },
-      ['-'] = {
-        { ' -> ', rs.thin_arrow },
-      },
-    },
-  })
-end
-
 function M.dbsession()
   require('dbsession').setup({
     auto_save_on_exit = false,

@@ -64,7 +64,7 @@ for _, program in ipairs(programs) do
     found = false
   end
   if not found then
-    print('Check the environment!')
+    print(program .. ' not found')
     break
   end
 end

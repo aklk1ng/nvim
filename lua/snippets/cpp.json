@@ -83,6 +83,19 @@
       " */"
     ]
   },
+  "cf header files template": {
+    "prefix": "cf",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "",
+      "using namespace std;",
+      "",
+      "int main() {",
+      "\t$0",
+      "};"
+    ],
+    "description": "A template for leetcode"
+  },
   "leetcode header files template": {
     "prefix": "leetcode",
     "body": [

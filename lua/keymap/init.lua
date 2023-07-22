@@ -1,5 +1,4 @@
 local M = {}
-local map = vim.keymap.set
 
 M.default_opt = {
   noremap = true,
@@ -16,7 +15,7 @@ end
 
 function M.map(maps)
   for _, value in pairs(maps) do
-    map(value[1], value[2], value[3], value[4])
+    vim.keymap.set(value[1], value[2], value[3], value[4])
   end
 end
 
