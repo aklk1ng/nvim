@@ -72,6 +72,7 @@ pack({
 
 pack({
   'nvimdev/guard.nvim',
+  event = { 'BufRead', 'BufNewFile' },
   ft = _G.format_ft,
   config = tools.guard,
 })

@@ -30,9 +30,6 @@ function M.lspsaga()
     },
     lightbulb = {
       enable = false,
-      sign = true,
-      sign_priority = 40,
-      virtual_text = true,
     },
     outline = {
       win_position = 'right',
@@ -142,7 +139,7 @@ function M.telescope()
 end
 
 function M.surround()
-  require('nvim-surround').setup({})
+  require('nvim-surround').setup()
 end
 
 function M.flash()
@@ -302,7 +299,7 @@ function M.guard()
   -- call setup LAST
   require('guard').setup({
     -- the only option for the setup function
-    fmt_on_save = false,
+    fmt_on_save = true,
   })
 end
 

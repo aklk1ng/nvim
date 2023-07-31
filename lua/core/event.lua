@@ -25,49 +25,6 @@ api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  group = aklk1ng,
-  pattern = '*',
-  callback = function()
-    -- Formatter
-    local current_dir = vim.fn.expand('%:p:h')
-    if current_dir:find('neovim', 1, true) or current_dir:find('dwm', 1, true) then
-      vim.w.format = false
-    else
-      vim.w.format = true
-    end
-  end,
-})
-
-api.nvim_create_autocmd('BufWritePost', {
-  group = aklk1ng,
-  pattern = {
-    '*.c',
-    '*.cpp',
-    '*.cmake',
-    '*.python',
-    '*.go',
-    '*.rs',
-    '*.lua',
-    '*.markdown',
-    '*.sh',
-    '*.zig',
-    '*.html',
-    '*.css',
-    '*.json',
-    '*.javascript',
-    '*.typescript',
-    '*.toml',
-  },
-  callback = function()
-    if vim.w.format then
-      vim.cmd('GuardFmt')
-    else
-      vim.cmd([[%s/\s\+$//e]])
-    end
-  end,
-})
-
 if vim.fn.executable('fcitx5-remote') == 1 then
   api.nvim_create_autocmd('InsertLeavePre', {
     group = aklk1ng,

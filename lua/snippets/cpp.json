@@ -86,15 +86,21 @@
   "cf header files template": {
     "prefix": "cf",
     "body": [
+      "\/\/ #pragma GCC optimize(2)",
       "#include <bits/stdc++.h>",
-      "",
-      "using namespace std;",
+      "#define all(a) a.begin(), a.end()",
+      "#define rall(a) a.rbegin(), a.rend()",
+      "#define ll long long",
+      "#define Debug(x) cout << #x << ':' << x << endl",
       "",
       "int main() {",
-      "\t$0",
-      "};"
+      "\tios::sync_with_stdio(false);",
+      "\tcin.tie(1);",
+      "",
+      " return 0;",
+      "}"
     ],
-    "description": "A template for leetcode"
+    "description": "A template for codeforces"
   },
   "leetcode header files template": {
     "prefix": "leetcode",
@@ -103,7 +109,7 @@
       "",
       "using namespace std;",
       "",
-      "class Soluton {",
+      "class Solution {",
       "public:",
       "\t$0",
       "};"
@@ -123,7 +129,7 @@
       "\tListNode(int x) : val(x), next(NULL) {}",
       "\tListNode(int x, ListNode *next) : val(x), next(next) {}",
       "};",
-      "class Soluton {",
+      "class Solution {",
       "public:",
       "\t$0",
       "};"
@@ -146,7 +152,7 @@
       "\tTreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}",
       "};",
       "",
-      "class Soluton {",
+      "class Solution {",
       "public:",
       "\t$0",
       "};"

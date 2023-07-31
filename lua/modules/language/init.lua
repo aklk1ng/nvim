@@ -15,7 +15,6 @@ function M.treesitter()
       'css',
       'json',
       'jsonc',
-      'tsx',
       'rust',
       'go',
       'gomod',

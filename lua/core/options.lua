@@ -70,3 +70,31 @@ if vim.fn.executable('rg') == 1 then
   vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
   vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end
+
+if vim.uv.os_uname().sysname == 'Linux' then
+  vim.g.clipboard = {
+    name = 'Linux-clipboard',
+    copy = {
+      ['+'] = 'wl-copy',
+      ['*'] = 'wl-copy',
+    },
+    paste = {
+      ['+'] = 'wl-paste',
+      ['*'] = 'wl-paste',
+    },
+    cache_enabled = 0,
+  }
+elseif vim.uv.os_uname().sysname == 'Darwin' then
+  vim.g.clipboard = {
+    name = 'macOS-clipboard',
+    copy = {
+      ['+'] = 'pbcopy',
+      ['*'] = 'pbcopy',
+    },
+    paste = {
+      ['+'] = 'pbpaste',
+      ['*'] = 'pbpaste',
+    },
+    cache_enabled = 0,
+  }
+end

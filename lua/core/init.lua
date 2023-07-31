@@ -29,6 +29,7 @@ _G.lsp_ft = {
   'markdown',
   'sh',
   'zig',
+  'json',
 }
 
 _G.format_ft = {

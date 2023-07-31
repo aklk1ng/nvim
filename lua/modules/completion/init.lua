@@ -208,6 +208,11 @@ function M.lspconfig()
     on_attach = on_attach,
     capabilities = capabilities,
   })
+  require('lspconfig').jsonls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
   require('lspconfig').gopls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -232,6 +237,7 @@ function M.lspconfig()
   require('lspconfig').lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+    single_file_support = true,
     settings = {
       Lua = {
         diagnostics = {
