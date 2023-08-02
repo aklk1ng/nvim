@@ -86,17 +86,18 @@
   "cf header files template": {
     "prefix": "cf",
     "body": [
-      "\/\/ #pragma GCC optimize(2)",
+      "// #pragma GCC optimize(2)",
       "#include <bits/stdc++.h>",
       "#define all(a) a.begin(), a.end()",
       "#define rall(a) a.rbegin(), a.rend()",
       "#define ll long long",
       "#define Debug(x) cout << #x << ':' << x << endl",
       "",
-      "int main() {",
-      "\tios::sync_with_stdio(false);",
-      "\tcin.tie(1);",
-      "",
+      "signed main() {",
+      "\tstd::ios::sync_with_stdio(false);",
+      "\tstd::cin.tie(nullptr);",
+      "\tstd::cout.tie(nullptr);",
+      "\t$0",
       " return 0;",
       "}"
     ],

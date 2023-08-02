@@ -307,4 +307,8 @@ function M.comment()
   require('Comment').setup()
 end
 
+function M.competitest()
+  require('competitest').setup()
+end
+
 return M

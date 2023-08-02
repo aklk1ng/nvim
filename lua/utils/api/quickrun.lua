@@ -24,8 +24,7 @@ local function Prepare()
   local cmds = {
     'silent w',
     'set splitbelow',
-    ':sp',
-    ':res - 5',
+    'sp',
   }
   for _, cmd in pairs(cmds) do
     api.nvim_command(cmd)

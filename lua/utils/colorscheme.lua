@@ -16,8 +16,8 @@ local M = {
   fg = '#bbc2cf',
   fg_alt = '#839496',
   red = '#ea6962',
-  -- 初荷红
-  redwine = '#e16c96',
+  redwine = '#CF6A8F',
+
   orange = '#e78a4e',
   yellow = '#d8a657',
   green = '#a9b665',

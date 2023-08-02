@@ -13,6 +13,11 @@ map({
   { 'n', ';p', cmd('Gitsigns prev_hunk'), opt },
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
   { 'n', '<leader>f', cmd('GuardFmt'), opt },
+  { 'n', '<leader>ci', cmd('CompetiTest receive testcases'), opt },
+  { 'n', '<leader>cr', cmd('CompetiTest run'), opt },
+  { 'n', '<leader>cd', cmd('CompetiTest delete_testcase'), opt },
+  { 'n', '<leader>cc', cmd('!rm ./%<'), opt },
+
   { 'n', ';s', wait_cmd('SessionSave '), opt },
   { 'n', ';l', wait_cmd('SessionLoad '), opt },
   { 'n', ';D', wait_cmd('SessionDelete '), opt },

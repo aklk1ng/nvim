@@ -36,6 +36,13 @@ pack({
 })
 
 pack({
+  'xeluxee/competitest.nvim',
+  ft = 'cpp',
+  dependencies = 'MunifTanjim/nui.nvim',
+  config = tools.competitest,
+})
+
+pack({
   'lewis6991/gitsigns.nvim',
   event = { 'BufRead', 'BufNewfile' },
   config = tools.gitsigns,
