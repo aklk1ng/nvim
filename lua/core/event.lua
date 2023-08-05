@@ -3,14 +3,6 @@ local api = vim.api
 
 api.nvim_create_autocmd('FileType', {
   group = aklk1ng,
-  pattern = '*',
-  callback = function()
-    vim.cmd('syntax off')
-  end,
-})
-
-api.nvim_create_autocmd('FileType', {
-  group = aklk1ng,
   pattern = { 'help', 'man', 'checkhealth', 'dashboard' },
   callback = function(arg)
     vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = arg.buf, silent = true, nowait = true })

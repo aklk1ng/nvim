@@ -23,19 +23,6 @@ pack({
 })
 
 pack({
-  'kevinhwang91/nvim-ufo',
-  ft = _G.lsp_ft,
-  config = tools.ufo,
-  dependencies = {
-    { 'kevinhwang91/promise-async' },
-    {
-      'luukvbaal/statuscol.nvim',
-      config = tools.statuscol,
-    },
-  },
-})
-
-pack({
   'xeluxee/competitest.nvim',
   ft = 'cpp',
   dependencies = 'MunifTanjim/nui.nvim',

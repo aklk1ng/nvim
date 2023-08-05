@@ -139,10 +139,9 @@ function M.lspconfig()
   --Enable (broadcasting) snippet capability for completion
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
+
+  local no_snippets_capabilites = require('cmp_nvim_lsp').default_capabilities(capabilities)
+  no_snippets_capabilites.textDocument.completion.completionItem.snippetSupport = false
 
   vim.lsp.handlers['workspace/diagnostic/refresh'] = function(_, _, ctx)
     local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
@@ -154,7 +153,7 @@ function M.lspconfig()
   --activate language clients
   require('lspconfig').clangd.setup({
     on_attach = on_attach,
-    capabilities = capabilities,
+    capabilities = no_snippets_capabilites,
     cmd = {
       'clangd',
       '--background-index',
@@ -235,6 +234,24 @@ function M.lspconfig()
     capabilities = capabilities,
   })
   require('lspconfig').lua_ls.setup({
+    on_init = function(client)
+      local path = client.workspace_folders[1].name
+      if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+        local settings = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT',
+          },
+          -- neodev.nvim
+          completion = {
+            callSnippet = 'Replace',
+          },
+        })
+
+        client.notify('workspace/didChangeConfiguration', { settings = settings })
+      end
+      return true
+    end,
     on_attach = on_attach,
     capabilities = capabilities,
     single_file_support = true,
@@ -244,17 +261,10 @@ function M.lspconfig()
           -- Get the language server to recognize the `vim` global
           globals = { 'vim' },
         },
-        runtime = { version = 'LuaJIT' },
+        -- Make the server aware of Neovim runtime files
         workspace = {
-          -- Make the server aware of Neovim runtime files
-          -- disable the next line to make neodev works normal
-
-          -- library = vim.api.nvim_get_runtime_file("", true),
+          library = { vim.env.VIMRUNTIME },
           checkThirdParty = false,
-        },
-        -- neodev.nvim
-        completion = {
-          callSnippet = 'Replace',
         },
         hint = {
           enable = true,

@@ -42,8 +42,8 @@ o.number = true
 o.mouse = 'a'
 -- foldmethod
 o.foldenable = true
+o.foldmethod = 'manual'
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-o.foldcolumn = '1'
 o.foldlevel = 99
 o.swapfile = false
 

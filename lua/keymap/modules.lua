@@ -11,6 +11,8 @@ map({
   { 'n', '<leader><leader>p', cmd('Gitsigns preview_hunk'), opt },
   { 'n', ';n', cmd('Gitsigns next_hunk'), opt },
   { 'n', ';p', cmd('Gitsigns prev_hunk'), opt },
+  { 'n', ';b', cmd('Gitsigns toggle_current_line_blame'), opt },
+
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
   { 'n', '<leader>f', cmd('GuardFmt'), opt },
   { 'n', '<leader>ci', cmd('CompetiTest receive testcases'), opt },
@@ -63,12 +65,4 @@ map({
   { 'n', '<leader>fe', cmd('Telescope emoji'), opt },
 
   { 'n', '<leader>co', cmd('ColorizerToggle'), opt },
-
-  {
-    'n',
-    'zp',
-    function()
-      require('ufo').peekFoldedLinesUnderCursor()
-    end,
-  },
 })

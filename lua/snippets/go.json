@@ -1,18 +1,8 @@
 {
-  "single import": {
-    "prefix": "im",
-    "body": "import \"${1:package}\"",
-    "description": "Snippet for import statement"
-  },
   "package main and main function": {
     "prefix": "sst",
     "body": "package main\n\nfunc main() {\n\t$0\n}",
     "description": "Snippet for main package & function"
-  },
-  "for statement": {
-    "prefix": "for",
-    "body": "for ${1}{\n\t$0\n}",
-    "description": "Snippet for a pure for loop"
   },
   "if err != nil": {
     "prefix": "ir",

@@ -51,25 +51,26 @@ _G.format_ft = {
   'toml',
 }
 
-local programs = {
-  'git',
-  'node',
-  'yarn',
-  'npm',
-  'python',
-  'python3',
-}
-local found = true
-for _, program in ipairs(programs) do
-  if vim.fn.executable(program) ~= 1 then
-    found = false
-  end
-  if not found then
-    print(program .. ' not found')
-    break
+local function check()
+  local cmds = {
+    'git',
+    'node',
+    'yarn',
+    'npm',
+    'python',
+    'python3',
+  }
+  for _, cmd in ipairs(cmds) do
+    if vim.fn.executable(cmd) ~= 1 then
+      print(cmd .. ' not found')
+      return false
+    else
+      return true
+    end
   end
 end
-if found then
+
+if check() then
   require('utils.colorscheme').colorscheme()
   require('core.options')
   require('keymap.basic')

@@ -14,6 +14,8 @@ map({
   -------------------------- friendly scroll
   { 'n', '<C-d>', '<C-d>zz', opt },
   { 'n', '<C-u>', '<C-u>zz', opt },
+  -------------------------- select all
+  { 'n', ';a', 'ggVG', opt },
 
   {
     'i',
@@ -108,8 +110,8 @@ map({
   { 'n', '<C-j>', cmd('resize-5'), opt },
   { 'n', '<leader>n', cmd('bnext'), opt },
   { 'n', '<leader>p', cmd('bprevious'), opt },
-  { 'n', '<leader>D', ':Bdelete<CR>', opt },
-  { 'n', '<leader>d', ':bdelete<CR>', opt },
+  { 'n', '<leader>D', cmd('Bdelete'), opt },
+  { 'n', '<leader>d', cmd('bdelete'), opt },
 
   -------------------------- directly move lines in visual mode
   { 'v', '<S-j>', ":m '>+1<CR>gv=gv", opt },
