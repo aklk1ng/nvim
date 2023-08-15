@@ -99,7 +99,6 @@ map({
   { 'n', 'te', cmd('tabnew'), opt },
   { 'n', '<leader>s', cmd('split'), opt },
   { 'n', '<leader>v', cmd('vsplit'), opt },
-  { 'n', ';', '<C-w>w<CR>', opt },
   { 'n', '<leader>h', '<C-w>h<CR>', opt },
   { 'n', '<leader>j', '<C-w>j<CR>', opt },
   { 'n', '<leader>k', '<C-w>k<CR>', opt },
@@ -114,8 +113,8 @@ map({
   { 'n', '<leader>d', cmd('bdelete'), opt },
 
   -------------------------- directly move lines in visual mode
-  { 'v', '<S-j>', ":m '>+1<CR>gv=gv", opt },
-  { 'v', '<S-k>', ":m '<-2<CR>gv=gv", opt },
+  { 'v', '<C-j>', ":m '>+1<CR>gv=gv", opt },
+  { 'v', '<C-k>', ":m '<-2<CR>gv=gv", opt },
 
   -------------------------- some local plugin api keymap
   { 'n', '<leader>r', quickrun.QuickRun, opt },

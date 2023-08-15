@@ -43,12 +43,6 @@ function M.lspsaga()
         jump = 'o',
       },
     },
-    symbol_in_winbar = {
-      enable = true,
-      show_file = true,
-      folder_level = 1,
-      dely = 300,
-    },
     ui = {
       border = 'rounded',
     },
@@ -73,18 +67,6 @@ function M.noice()
     lsp = {
       progress = {
         enabled = false,
-      },
-      signature = {
-        enabled = true,
-        auto_open = {
-          enabled = true,
-          trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
-          luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
-          throttle = 50, -- Debounce lsp signature help request by 50ms
-        },
-        view = nil, -- when nil, use defaults from documentation
-        ---@type NoiceViewOptions
-        opts = {}, -- merged with defaults from documentation
       },
     },
   })
@@ -142,17 +124,8 @@ function M.surround()
   require('nvim-surround').setup()
 end
 
-function M.flash()
-  return {
-    {
-      's',
-      mode = { 'n', 'x', 'o' },
-      function()
-        require('flash').jump()
-      end,
-      desc = 'Flash',
-    },
-  }
+function M.hop()
+  require('hop').setup()
 end
 
 function M.dbsession()
@@ -162,7 +135,7 @@ function M.dbsession()
 end
 
 function M.gitsigns()
-  require('gitsigns').setup()
+  require('gitsigns').setup({})
 end
 
 function M.guard()

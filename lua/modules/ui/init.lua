@@ -44,9 +44,6 @@ function M.dashboard()
         },
       },
     },
-    hide = {
-      tabline = false,
-    },
     preview = {
       command = 'cat | lolcat -F 0.3', -- preview command
       file_path = home .. '/.config/nvim/static/girl.cat', -- preview file path

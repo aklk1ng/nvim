@@ -9,8 +9,10 @@ pack({
 })
 
 pack({
-  'folke/flash.nvim',
-  keys = tools.flash,
+  'phaazon/hop.nvim',
+  branch = 'v2',
+  cmd = 'HopChar1MW',
+  config = tools.hop,
 })
 
 pack({

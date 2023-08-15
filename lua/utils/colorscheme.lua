@@ -217,7 +217,7 @@ local syntax = {
   TelescopePromptTitle = { fg = M.base0, bg = M.blue },
   TelescopePromptBorder = { fg = M.base0, bg = M.base0 },
   TelescopeResultsBorder = { fg = M.base0, bg = M.base0 },
-  TelescopeResultsTitle = { fg = M.base0, bg = M.redwine },
+  TelescopeResultsTitle = { fg = M.base0, bg = M.pink },
   TelescopePreviewBorder = { fg = M.base0, bg = M.base0 },
   TelescopePreviewTitle = { fg = M.base0, bg = M.green },
   -- nvim-cmp
@@ -242,10 +242,8 @@ local syntax = {
   DashboardKey = { fg = M.orange },
   DashboardFooter = { fg = M.yellow, bold = true },
 
-  -- Falsh
-  FlashCurrent = { fg = M.redwine },
-  FlashMatch = { fg = M.orange },
-  FlashLabel = { fg = M.green },
+  HopNextKey = { fg = M.orange },
+  HopNextKey1 = { fg = M.green },
 
   LspInlayHint = { link = 'Comment' },
 }

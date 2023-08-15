@@ -13,6 +13,8 @@ map({
   { 'n', ';p', cmd('Gitsigns prev_hunk'), opt },
   { 'n', ';b', cmd('Gitsigns toggle_current_line_blame'), opt },
 
+  { 'n', ';w', cmd('HopChar1MW'), opt },
+
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
   { 'n', '<leader>f', cmd('GuardFmt'), opt },
   { 'n', '<leader>ci', cmd('CompetiTest receive testcases'), opt },
@@ -45,7 +47,7 @@ map({
   { 'n', 'gh', cmd('Lspsaga finder'), opt },
   { 'n', 'gd', cmd('Lspsaga goto_definition'), opt },
   { 'n', 'gt', '<cmd>Lspsaga goto_type_definition<CR>' },
-  { { 'n', 'v' }, '<leader>ca', cmd('Lspsaga code_action'), opt },
+  { 'n', '<leader>ca', cmd('Lspsaga code_action'), opt },
   { 'n', 'gp', cmd('Lspsaga peek_definition'), opt },
   { 'n', '<leader>rn', cmd('Lspsaga rename'), opt },
   { 'n', 'gr', cmd('Lspsaga rename ++project'), opt },
