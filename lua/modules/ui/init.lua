@@ -1,4 +1,5 @@
 local M = {}
+local helper = require('core.helper')
 
 function M.dashboard()
   local home = os.getenv('HOME')
@@ -45,8 +46,8 @@ function M.dashboard()
       },
     },
     preview = {
-      command = 'cat | lolcat -F 0.3', -- preview command
-      file_path = home .. '/.config/nvim/static/girl.cat', -- preview file path
+      command = 'cat | lolcat -F 0.2', -- preview command
+      file_path = helper.get_config_path() .. '/static/yoru.cat',
       file_height = 20, -- prefview file height
       file_width = 65, -- preview file width
     },

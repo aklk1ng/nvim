@@ -6,7 +6,7 @@ local M = {
   base4 = '#3f444a',
   base5 = '#5B6268',
   base6 = '#777d86',
-  base7 = '#9ca0a4',
+  base7 = '#9ca098',
   base8 = '#b1b1b1',
   bg = '#1e222a',
   bg1 = '#504945',
@@ -16,22 +16,19 @@ local M = {
   fg = '#bbc2cf',
   fg_alt = '#839496',
   red = '#ea6962',
-  redwine = '#CF6A8F',
-
   orange = '#e78a4e',
-  yellow = '#d8a657',
+  yellow = '#cca352',
   green = '#a9b665',
   -- 芽绿
   dark_green = '#96c24e',
   aqua = '#89b482',
   xxoo = '#85BFC7',
   blue = '#7daea3',
-  purple = '#d3869b',
-  purple_2 = '#A995D1',
+  pink = '#d3869b',
+  purple = '#A995D1',
   hairy_green = '#74AD8B',
-  brown = '#c77111',
+  brown = '#cc7a29',
   black = '#000000',
-  pink = '#DF75A5',
   -- 大理石灰
   marble_gray = '#c2bd9f',
   -- 月影白
@@ -39,6 +36,7 @@ local M = {
   -- 穹灰
   dome_gray = '#c4d7d6',
   grey = '#535459',
+  grey_1 = '#999999',
   white_1 = '#afb2bb',
   none = 'NONE',
 }
@@ -49,7 +47,7 @@ function M.terminal_color()
   vim.g.terminal_color_2 = M.green
   vim.g.terminal_color_3 = M.yellow
   vim.g.terminal_color_4 = M.blue
-  vim.g.terminal_color_5 = M.purple
+  vim.g.terminal_color_5 = M.pink
   vim.g.terminal_color_6 = M.cyan
   vim.g.terminal_color_7 = M.bg1
   vim.g.terminal_color_8 = M.brown
@@ -57,7 +55,7 @@ function M.terminal_color()
   vim.g.terminal_color_10 = M.green
   vim.g.terminal_color_11 = M.yellow
   vim.g.terminal_color_12 = M.blue
-  vim.g.terminal_color_13 = M.purple
+  vim.g.terminal_color_13 = M.pink
   vim.g.terminal_color_14 = M.cyan
   vim.g.terminal_color_15 = M.fg
 end
@@ -66,7 +64,7 @@ local syntax = {
   Normal = { fg = M.fg, bg = M.bg },
   Terminal = { fg = M.fg, bg = M.bg },
   SignColumn = { fg = M.fg, bg = M.bg },
-  WinSeparator = { fg = M.black, bg = M.bg },
+  WinSeparator = { fg = M.grey, bg = M.bg },
   Folded = { fg = M.fg, bg = M.base4 },
   EndOfBuffer = { fg = M.bg, bg = M.none },
   IncSearch = { fg = M.bg1, bg = M.orange },
@@ -82,7 +80,7 @@ local syntax = {
   FoldColumn = { fg = M.base5, bg = M.bg },
   CursorLine = { bg = M.bg_highlight },
   LineNr = { fg = M.base5 },
-  CursorLineNr = { fg = M.redwine, bold = true },
+  CursorLineNr = { fg = M.grey_1, bold = true },
   DiffAdd = { fg = M.dark_green, bg = M.base4 },
   DiffChange = { fg = M.blue, bg = M.base4 },
   DiffDelete = { fg = M.red, bg = M.base4 },
@@ -99,7 +97,7 @@ local syntax = {
   PmenuSel = { fg = M.base0, bg = M.blue },
   PmenuSelBold = { fg = M.base0, bg = M.blue },
   PmenuSbar = { bg = M.base4 },
-  PmenuThumb = { fg = M.purple, bg = M.light_green },
+  PmenuThumb = { fg = M.pink, bg = M.light_green },
   WildMenu = { fg = M.bg1, bg = M.green },
   StatusLine = { fg = M.base8, bg = M.base2 },
   StatusLineNC = { fg = M.grey, bg = M.base2 },
@@ -110,21 +108,21 @@ local syntax = {
   TabLineFill = { fg = M.fg, bg = M.bg },
   Visual = { bg = M.grey },
   VisualNOS = { fg = M.none, bg = M.bg_visual },
-  QuickFixLine = { fg = M.purple, bold = true },
+  QuickFixLine = { fg = M.pink, bold = true },
   Debug = { fg = M.orange },
   DebugBreakpoint = { fg = M.bg, bg = M.red },
   Boolean = { fg = M.orange, italic = true },
   Number = { fg = M.brown },
   Float = { fg = M.brown },
-  PreProc = { fg = M.purple, italic = true },
-  PreCondit = { fg = M.purple },
-  Include = { fg = M.purple, italic = true },
-  Define = { fg = M.purple, italic = true },
-  Conditional = { fg = M.purple },
-  Repeat = { fg = M.purple_2 },
+  PreProc = { fg = M.pink },
+  PreCondit = { fg = M.pink },
+  Include = { fg = M.pink },
+  Define = { fg = M.pink },
+  Conditional = { fg = M.pink },
+  Repeat = { fg = M.purple },
 
-  Keyword = { fg = M.purple },
-  Typedef = { fg = M.red },
+  Keyword = { fg = M.pink },
+  Typedef = { fg = M.orange },
   Exception = { fg = M.red },
   Statement = { fg = M.red },
   Error = { fg = M.red },
@@ -132,7 +130,7 @@ local syntax = {
   Tag = { fg = M.orange },
   Label = { fg = M.pink },
   Structure = { fg = M.orange },
-  Operator = { fg = M.pink },
+  Operator = { fg = M.white_1 },
   Title = { fg = M.orange, bold = true },
   Special = { fg = M.yellow },
   SpecialChar = { fg = M.yellow },
@@ -141,9 +139,9 @@ local syntax = {
   Character = { fg = M.green },
   Type = { fg = M.green },
   Identifier = { fg = M.blue },
-  Comment = { fg = M.base6, italic = true },
+  Comment = { fg = M.base7, italic = true },
   SpecialComment = { fg = M.white_1 },
-  Todo = { fg = M.purple },
+  Todo = { fg = M.pink },
   Delimiter = { fg = M.grey },
   Ignore = { fg = M.grey },
   Underlined = { underline = true },
@@ -151,23 +149,23 @@ local syntax = {
   ['@function.builtin'] = { fg = M.blue, italic = true },
   ['@function.macro'] = { fg = M.xxoo, italic = true },
   ['@parameter'] = { fg = M.marble_gray, italic = true },
-  ['@method'] = { fg = M.blue, bold = true, italic = true },
+  ['@method'] = { fg = M.blue },
   ['@keyword.function'] = { fg = M.red },
   ['@keyword.operator'] = { fg = M.orange },
-  ['@keyword.return'] = { fg = M.purple_2 },
+  ['@keyword.return'] = { fg = M.purple },
   ['@property'] = { fg = M.yellow },
   ['@field'] = { fg = M.yellow },
   ['@type'] = { fg = M.green },
   ['@type.qualifier'] = { fg = M.orange },
   ['@variable'] = { fg = M.marble_gray },
   ['@variable.builtin'] = { fg = M.marble_gray, italic = true },
-  ['@punctuation.bracket'] = { bg = M.none },
-  ['@punctuation.delimiter'] = { bg = M.none },
-  ['@punctuation.special'] = { fg = M.none },
+  ['@punctuation.bracket'] = { fg = M.white_1 },
+  ['@punctuation.delimiter'] = { fg = M.white_1 },
+  ['@punctuation.special'] = { fg = M.white_1 },
   ['@text.literal'] = { fg = M.green },
   ['@text.strong'] = { fg = M.red },
   ['@constant'] = { fg = M.pink },
-  ['@constructor'] = { fg = M.orange },
+  ['@constructor'] = { link = 'Function' },
   ['@namespace'] = { fg = M.orange },
   ['@attribute'] = { fg = M.yellow },
 
@@ -178,7 +176,7 @@ local syntax = {
   diffNewFile = { fg = M.orange },
   diffFile = { fg = M.aqua },
   diffLine = { fg = M.grey },
-  diffIndexLine = { fg = M.purple },
+  diffIndexLine = { fg = M.pink },
 
   GitSignsAdd = { fg = M.dark_green },
   GitSignsChange = { fg = M.blue },
@@ -223,7 +221,7 @@ local syntax = {
   -- nvim-cmp
   CmpItemAbbr = { fg = M.fg },
   CmpItemAbbrMatch = { fg = '#A6E22E' },
-  CmpItemMenu = { fg = M.purple },
+  CmpItemMenu = { fg = M.pink },
   CmpDoc = { link = 'Pmenu' },
   CmpItemKindKeyword = { fg = M.red },
   CmpItemKindFunction = { fg = M.blue },
@@ -234,7 +232,7 @@ local syntax = {
 
   FloatBorder = { fg = M.none },
   -- Dashboard
-  DashboardShortCut = { fg = M.purple },
+  DashboardShortCut = { fg = M.pink },
   DashboardHeader = { fg = M.orange },
   DashboardCenter = { fg = M.green },
   DashboardIcon = { fg = M.aqua },

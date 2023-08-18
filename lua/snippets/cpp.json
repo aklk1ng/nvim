@@ -133,6 +133,7 @@
       "struct ListNode {",
       "\tint val;",
       "\tListNode *next;",
+      "\tListNode() : val(-1), next(NULL) {}",
       "\tListNode(int x) : val(x), next(NULL) {}",
       "\tListNode(int x, ListNode *next) : val(x), next(next) {}",
       "};",
