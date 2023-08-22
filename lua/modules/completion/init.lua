@@ -124,7 +124,7 @@ function M.lspconfig()
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
   vim.diagnostic.config({
-    signs = true,
+    signs = false,
     severity_sort = true,
     underline = true,
     update_in_insert = false,

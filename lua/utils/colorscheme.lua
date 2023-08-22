@@ -139,7 +139,7 @@ local syntax = {
   Character = { fg = M.green },
   Type = { fg = M.green },
   Identifier = { fg = M.blue },
-  Comment = { fg = M.base7, italic = true },
+  Comment = { fg = M.base6, italic = true },
   SpecialComment = { fg = M.white_1 },
   Todo = { fg = M.pink },
   Delimiter = { fg = M.grey },

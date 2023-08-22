@@ -100,7 +100,7 @@ function _G.show_stc()
     end
   end
 
-  return (gitsign and gitsign or fill_space(2)) .. '%=' .. show_break()
+  return (gitsign and gitsign or fill_space(0)) .. '%=' .. show_break()
 end
 
 vim.opt_local.stc = [[%!v:lua.show_stc()]]
