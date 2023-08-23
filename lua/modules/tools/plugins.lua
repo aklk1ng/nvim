@@ -2,17 +2,23 @@ local pack = require('core.pack').add_plugin
 local tools = require('modules.tools')
 
 pack({
-  'glepnir/lspsaga.nvim',
+  'nvimdev/lspsaga.nvim',
   ft = _G.lsp_ft,
   branch = 'main',
   config = tools.lspsaga,
 })
 
 pack({
-  'phaazon/hop.nvim',
-  branch = 'v2',
-  cmd = 'HopChar1MW',
-  config = tools.hop,
+  'folke/flash.nvim',
+  keys = {
+    {
+      ';w',
+      mode = { 'n', 'o', 'x' },
+      function()
+        require('flash').jump()
+      end,
+    },
+  },
 })
 
 pack({
@@ -26,7 +32,7 @@ pack({
 
 pack({
   'xeluxee/competitest.nvim',
-  ft = 'cpp',
+  cmd = 'CompetiTest',
   dependencies = 'MunifTanjim/nui.nvim',
   config = tools.competitest,
 })
@@ -43,13 +49,12 @@ pack({
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-telescope/telescope-fzy-native.nvim' },
-    { 'xiyaowong/telescope-emoji.nvim' },
   },
   config = tools.telescope,
 })
 
 pack({
-  'glepnir/dbsession.nvim',
+  'nvimdev/dbsession.nvim',
   cmd = { 'SessionSave', 'SessionLoad', 'SessionDelete' },
   config = tools.dbsession,
 })
@@ -71,6 +76,9 @@ pack({
   event = { 'BufRead', 'BufNewFile' },
   ft = _G.format_ft,
   config = tools.guard,
+  dependencies = {
+    'nvimdev/guard-collection',
+  },
 })
 
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

@@ -33,9 +33,9 @@ function M.lspsaga()
     },
     outline = {
       win_position = 'right',
-      win_width = 30,
+      win_width = 40,
       close_after_jump = false,
-      layout = 'float',
+      layout = 'normal',
       max_height = 0.7,
       left_width = 0.4,
       keys = {
@@ -57,17 +57,18 @@ function M.noice()
   end
   noice.setup({
     cmdline = {
-      enabled = true, -- enables the Noice cmdline UI
-      view = 'cmdline', -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-      opts = {}, -- global options for the cmdline. See section on views
+      enabled = false,
     },
     messages = {
-      enabled = false, -- enables the Noice messages UI
+      enabled = false,
     },
     lsp = {
       progress = {
         enabled = false,
       },
+    },
+    popupmenu = {
+      enabled = false,
     },
   })
 end
@@ -108,16 +109,9 @@ function M.telescope()
         override_generic_sorter = false,
         override_file_sorter = true,
       },
-      emoji = {
-        action = function(emoji)
-          vim.fn.setreg('*', emoji.value)
-          vim.notify([[Press "*p to paste this emoji]] .. emoji.value)
-        end,
-      },
     },
   })
   require('telescope').load_extension('fzy_native')
-  require('telescope').load_extension('emoji')
 end
 
 function M.surround()

@@ -13,8 +13,6 @@ map({
   { 'n', ';p', cmd('Gitsigns prev_hunk'), opt },
   { 'n', ';b', cmd('Gitsigns toggle_current_line_blame'), opt },
 
-  { 'n', ';w', cmd('HopChar1MW'), opt },
-
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
   { 'n', '<leader>f', cmd('GuardFmt'), opt },
   { 'n', '<leader>ci', cmd('CompetiTest receive testcases'), opt },
@@ -64,7 +62,6 @@ map({
   { 'n', '<leader>fd', cmd('Telescope diagnostics'), opt },
   { 'n', '<leader>fk', cmd('Telescope keymaps'), opt },
   { 'n', '<leader>fw', cmd('Telescope live_grep'), opt },
-  { 'n', '<leader>fe', cmd('Telescope emoji'), opt },
 
   { 'n', '<leader>co', cmd('ColorizerToggle'), opt },
 })

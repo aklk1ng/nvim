@@ -1,13 +1,4 @@
 {
-  "do": {
-    "prefix": "do",
-    "body": [
-      "do {",
-      "\t$0",
-      "} while($1);"
-    ],
-    "description": "Code snippet for do...while loop"
-  },
   "irq": {
     "prefix": "ire",
     "body": [
@@ -86,21 +77,23 @@
   "cf header files template": {
     "prefix": "cf",
     "body": [
-      "// #pragma GCC optimize(2)",
       "#include <bits/stdc++.h>",
+      "using namespace std;",
+      "const long long inf = 4e18;",
       "#define ll long long",
+      "const int N = 1e5 + 5;",
       "",
       "void solve() {",
       "\t$0",
       "}",
       "",
       "int main() {",
-      "\tstd::ios::sync_with_stdio(false);",
-      "\tstd::cin.tie(nullptr);",
-      "\tstd::cout.tie(nullptr);",
-      "\tint t;",
-      "\tstd::cin >> t;",
-      "\twhile (t--) {",
+      "\tios::sync_with_stdio(false);",
+      "\tcin.tie(nullptr);",
+      "\tcout.tie(nullptr);",
+      "\tint tt;",
+      "\tcin >> tt;",
+      "\twhile (tt--) {",
       "\t\tsolve();",
       "\t}",
       "",
@@ -137,6 +130,7 @@
       "\tListNode(int x) : val(x), next(NULL) {}",
       "\tListNode(int x, ListNode *next) : val(x), next(next) {}",
       "};",
+      "",
       "class Solution {",
       "public:",
       "\t$0",

@@ -13,7 +13,7 @@ api.nvim_create_autocmd('TextYankPost', {
   group = aklk1ng,
   pattern = '*',
   callback = function()
-    vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 100 })
+    vim.highlight.on_yank({ higroup = 'Search', timeout = 100 })
   end,
 })
 

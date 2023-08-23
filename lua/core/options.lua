@@ -29,7 +29,7 @@ o.breakindent = true
 o.textwidth = 110
 o.colorcolumn = '110'
 -- Add scrolloff for better zt/zb
-o.scrolloff = 5
+o.scrolloff = 8
 -- Show sign column (e.g. lsp Error sign)
 o.signcolumn = 'yes'
 -- Better completion
@@ -92,7 +92,7 @@ function _G.show_stc()
 
   local function show_break()
     if vim.v.virtnum > 0 then
-      return (' '):rep(math.floor(math.ceil(math.log10(vim.v.lnum))) - 1) .. '↳'
+      return (' '):rep(math.floor(math.ceil(math.log10(vim.v.lnum))) - 1) .. ' '
     elseif vim.v.virtnum < 0 then
       return ''
     else
@@ -105,20 +105,15 @@ end
 
 vim.opt_local.stc = [[%!v:lua.show_stc()]]
 
-if vim.uv.os_uname().sysname == 'Linux' then
-  vim.g.clipboard = {
-    name = 'Linux-clipboard',
-    copy = {
-      ['+'] = 'wl-copy',
-      ['*'] = 'wl-copy',
-    },
-    paste = {
-      ['+'] = 'wl-paste',
-      ['*'] = 'wl-paste',
-    },
-    cache_enabled = 0,
-  }
-elseif vim.uv.os_uname().sysname == 'Darwin' then
+local os_name
+if vim.version().prerelease then
+  os_name = vim.uv.os_uname().sysname
+else
+  os_name = vim.loop.os_uname().sysname
+end
+
+if os_name == 'Darwin' then
+elseif os_name == 'Darwin' then
   vim.g.clipboard = {
     name = 'macOS-clipboard',
     copy = {

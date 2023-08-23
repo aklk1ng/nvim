@@ -7,7 +7,7 @@ pack({
   dependencies = {
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'saadparwaiz1/cmp_luasnip' },
-    { 'hrsh7th/cmp-path' },
+    { 'FelipeLema/cmp-async-path' },
     { 'hrsh7th/cmp-buffer' },
   },
   config = completion.cmp,
@@ -32,7 +32,7 @@ pack({
 })
 
 pack({
-  'windwp/nvim-autopairs',
+  'ZhiyuanLck/smart-pairs',
   event = 'InsertEnter',
-  config = completion.autopairs,
+  config = completion.smarkpairs,
 })

@@ -1,5 +1,5 @@
-local helper = require('core.helper')
 local M = {}
+local helper = require('core.helper')
 
 function M.lua_snip()
   local ls = require('luasnip')
@@ -58,8 +58,6 @@ function M.cmp()
     preselect = cmp.PreselectMode.None,
     mapping = cmp.mapping.preset.insert({
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping(confirm, { 'i' }),
       ['<C-j>'] = cmp.mapping(function(fallback)
         if luasnip.expand_or_jumpable() then
@@ -79,7 +77,7 @@ function M.cmp()
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
-      { name = 'path' },
+      { name = 'async_path' },
       { name = 'buffer' },
     }),
     formatting = {
@@ -93,14 +91,8 @@ function M.cmp()
   })
 end
 
-function M.autopairs()
-  require('nvim-autopairs').setup()
-  local status, cmp = pcall(require, 'cmp')
-  if not status then
-    return
-  end
-  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-  cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+function M.smarkpairs()
+  require('pairs'):setup()
 end
 
 function M.neodev()
@@ -140,9 +132,6 @@ function M.lspconfig()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-  local no_snippets_capabilites = require('cmp_nvim_lsp').default_capabilities(capabilities)
-  no_snippets_capabilites.textDocument.completion.completionItem.snippetSupport = false
-
   vim.lsp.handlers['workspace/diagnostic/refresh'] = function(_, _, ctx)
     local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
     local bufnr = vim.api.nvim_get_current_buf()
@@ -153,7 +142,7 @@ function M.lspconfig()
   --activate language clients
   require('lspconfig').clangd.setup({
     on_attach = on_attach,
-    capabilities = no_snippets_capabilites,
+    capabilities = capabilities,
     cmd = {
       'clangd',
       '--background-index',
@@ -234,32 +223,17 @@ function M.lspconfig()
     capabilities = capabilities,
   })
   require('lspconfig').lua_ls.setup({
-    on_init = function(client)
-      local path = client.workspace_folders[1].name
-      if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-        local settings = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-          runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-          },
-          -- neodev.nvim
-          completion = {
-            callSnippet = 'Replace',
-          },
-        })
-
-        client.notify('workspace/didChangeConfiguration', { settings = settings })
-      end
-      return true
-    end,
     on_attach = on_attach,
     capabilities = capabilities,
-    single_file_support = true,
     settings = {
       Lua = {
         diagnostics = {
           -- Get the language server to recognize the `vim` global
           globals = { 'vim' },
+          disable = {
+            'missing-fields',
+            'no-unknown',
+          },
         },
         -- Make the server aware of Neovim runtime files
         workspace = {

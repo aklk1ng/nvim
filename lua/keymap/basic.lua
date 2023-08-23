@@ -38,15 +38,6 @@ map({
     end,
     opt,
   },
-  -------------------------- toggle the cursor highlight option with the global variable
-  {
-    'n',
-    '<leader>c',
-    function()
-      toggle_option('g', 'cursor_moved_enabled')
-    end,
-    opt,
-  },
   -------------------------- toggle the wrap
   {
     'n',
@@ -87,7 +78,6 @@ map({
   { { 'i', 'c' }, '<C-l>', '<Right>', opt },
   { 'i', '<C-a>', '<esc>^i', opt },
   { 'i', '<C-t>', '<C-o>d$', opt },
-  { 'i', '<C-f>', '<BS>', opt },
 
   { { 'n', 'v' }, '<', '<<<esc>', opt },
   { { 'n', 'v' }, '>', '>><esc>', opt },
@@ -123,4 +113,6 @@ map({
 
   { 'n', '<leader>i', cmd('lua vim.lsp.inlay_hint(0, true)'), opt },
   { 'n', '<leader>u', cmd('lua vim.lsp.inlay_hint(0, false)'), opt },
+  { 'n', ';u', cmd('lua vim.diagnostic.hide()'), opt },
+  { 'n', ';i', cmd('lua vim.diagnostic.show()'), opt },
 })

@@ -2,7 +2,7 @@ local pack = require('core.pack').add_plugin
 local ui = require('modules.ui')
 
 pack({
-  'glepnir/dashboard-nvim',
+  'nvimdev/dashboard-nvim',
   event = 'VimEnter',
   config = ui.dashboard,
 })

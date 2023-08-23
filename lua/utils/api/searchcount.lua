@@ -17,7 +17,7 @@ function M:render()
   local currentline = api.nvim_get_current_line()
   local characters = fn.getreg('/')
   -- when use '#' or '*' to search
-  if not characters:match('^%w') then
+  if characters and not characters:match('^%w') then
     if characters:find('\\<') then
       characters = characters:sub(3, characters:len() - 3)
     end
