@@ -63,8 +63,8 @@ map({
   { { 'n', 'v' }, ',.', '%', opt },
   --------------------------- change letter case
   { 'n', '<leader>,', '~', opt },
-  { 'n', '\\', cmd('nohlsearch'), opt },
-  --------------------------- remap
+
+  --------------------------- useful remap
   { 'n', 'j', 'gj', opt },
   { 'n', 'k', 'gk', opt },
 
@@ -82,6 +82,7 @@ map({
   { { 'n', 'v' }, '<', '<<<esc>', opt },
   { { 'n', 'v' }, '>', '>><esc>', opt },
 
+  { 'n', '\\', cmd('nohlsearch'), opt },
   -------------------------- file preview
   { 'n', ',g', cmd('! google-chrome-stable % &'), opt },
 
@@ -99,7 +100,6 @@ map({
   { 'n', '<C-j>', cmd('resize-5'), opt },
   { 'n', '<leader>n', cmd('bnext'), opt },
   { 'n', '<leader>p', cmd('bprevious'), opt },
-  { 'n', '<leader>D', cmd('Bdelete'), opt },
   { 'n', '<leader>d', cmd('bdelete'), opt },
 
   -------------------------- directly move lines in visual mode

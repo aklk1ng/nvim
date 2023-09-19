@@ -1,5 +1,5 @@
 {
-  "irq": {
+  "ie": {
     "prefix": "ire",
     "body": [
       "if ($1) {",
@@ -10,26 +10,17 @@
     ],
     "description": "Code snippet for error statement"
   },
-  "irr": {
-    "prefix": "irr",
+  "it": {
+    "prefix": "it",
     "body": [
-      "if ($1) {",
-      "\tperror(\"$2\");",
-      "\texit(-1);",
-      "}",
-      "$0"
-    ],
-    "description": "Code snippet for error statement"
+      "$1.begin(), $1.end()"
+    ]
   },
-  "interface": {
-    "prefix": "interface",
+  "rit": {
+    "prefix": "rit",
     "body": [
-      "__interface I${1:Interface}",
-      "{",
-      "\t$0",
-      "};"
-    ],
-    "description": "Code snippet for interface (Visual C++)"
+      "$1.rbegin(), $1.rend()"
+    ]
   },
   "try": {
     "prefix": "try",
@@ -79,8 +70,8 @@
     "body": [
       "#include <bits/stdc++.h>",
       "using namespace std;",
-      "const long long inf = 4e18;",
       "#define ll long long",
+      "const int INF = 1e9 + 7;",
       "const int N = 1e5 + 5;",
       "",
       "void solve() {",

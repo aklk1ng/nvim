@@ -32,25 +32,6 @@ _G.lsp_ft = {
   'json',
 }
 
-_G.format_ft = {
-  'c',
-  'cpp',
-  'cmake',
-  'python',
-  'go',
-  'rust',
-  'lua',
-  'markdown',
-  'sh',
-  'zig',
-  'html',
-  'css',
-  'json',
-  'javascript',
-  'typescript',
-  'toml',
-}
-
 local function check()
   local cmds = {
     'git',

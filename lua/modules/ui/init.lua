@@ -45,10 +45,10 @@ function M.dashboard()
       },
     },
     preview = {
-      command = 'cat | cat', -- preview command
-      file_path = helper.get_config_path() .. '/static/yoru.cat',
+      command = 'cat | cat ', -- preview command
+      file_path = helper.get_config_path() .. '/static/neovim.cat',
       file_height = 20, -- prefview file height
-      file_width = 65, -- preview file width
+      file_width = 70, -- preview file width
     },
   })
 end

@@ -31,10 +31,16 @@ pack({
 })
 
 pack({
-  'xeluxee/competitest.nvim',
-  cmd = 'CompetiTest',
-  dependencies = 'MunifTanjim/nui.nvim',
-  config = tools.competitest,
+  'kevinhwang91/nvim-ufo',
+  event = { 'BufRead', 'BufNewFile' },
+  config = tools.ufo,
+  dependencies = {
+    'kevinhwang91/promise-async',
+    {
+      'luukvbaal/statuscol.nvim',
+      config = tools.statuscol,
+    },
+  },
 })
 
 pack({
@@ -74,7 +80,6 @@ pack({
 pack({
   'nvimdev/guard.nvim',
   event = { 'BufRead', 'BufNewFile' },
-  ft = _G.format_ft,
   config = tools.guard,
   dependencies = {
     'nvimdev/guard-collection',

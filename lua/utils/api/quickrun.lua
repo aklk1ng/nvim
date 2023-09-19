@@ -20,6 +20,7 @@ local function Command(filetype)
     return 'term zig run %'
   end
 end
+
 local function Prepare()
   local cmds = {
     'silent w',
@@ -33,6 +34,19 @@ end
 
 function M.QuickRun()
   local default_command = Command(vim.bo.filetype)
+
+  if
+    vim.bo.filetype == 'c'
+    or vim.bo.filetype == 'cpp'
+    or vim.bo.filetype == 'python'
+    or vim.bo.filetype == 'sh'
+    or vim.bo.filetype == 'lua'
+  then
+    Prepare()
+    api.nvim_command(default_command)
+    return
+  end
+
   ui.input({
     prompt = 'QuickRun: ',
     default = default_command,

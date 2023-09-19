@@ -41,10 +41,10 @@ o.number = true
 -- set mouse movement
 o.mouse = 'a'
 -- foldmethod
+o.foldcolumn = '1'
 o.foldenable = true
-o.foldmethod = 'manual'
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-o.foldlevel = 99
+o.foldlevelstart = 99
 o.swapfile = false
 
 o.mousemoveevent = true
@@ -70,40 +70,6 @@ if vim.fn.executable('rg') == 1 then
   vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
   vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end
-
-local function get_signs()
-  local buf = vim.api.nvim_get_current_buf()
-  return vim.tbl_map(function(sign)
-    return vim.fn.sign_getdefined(sign.name)[1]
-  end, vim.fn.sign_getplaced(buf, { group = '*', lnum = vim.v.lnum })[1].signs)
-end
-
-local function fill_space(count)
-  return '%#StcFill#' .. (' '):rep(count) .. '%*'
-end
-
-function _G.show_stc()
-  local gitsign
-  for _, s in ipairs(get_signs()) do
-    if s.name:find('GitSign') then
-      gitsign = '%#' .. s.texthl .. '#' .. s.text .. '%*'
-    end
-  end
-
-  local function show_break()
-    if vim.v.virtnum > 0 then
-      return (' '):rep(math.floor(math.ceil(math.log10(vim.v.lnum))) - 1) .. ' '
-    elseif vim.v.virtnum < 0 then
-      return ''
-    else
-      return vim.v.lnum .. ' '
-    end
-  end
-
-  return (gitsign and gitsign or fill_space(0)) .. '%=' .. show_break()
-end
-
-vim.opt_local.stc = [[%!v:lua.show_stc()]]
 
 local os_name
 if vim.version().prerelease then
