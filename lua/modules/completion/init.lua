@@ -163,15 +163,16 @@ function M.lspconfig()
       'cuda',
     },
   })
-  require('lspconfig').pyright.setup({
+  require('lspconfig').pylsp.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          diagnosticMode = 'workspace',
-          useLibraryCodeForTypes = true,
+      pylsp = {
+        plugins = {
+          pycodestyle = {
+            ignore = { 'W391' },
+            maxLineLength = 110,
+          },
         },
       },
     },

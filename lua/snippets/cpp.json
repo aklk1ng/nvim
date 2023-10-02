@@ -93,6 +93,30 @@
     ],
     "description": "A template for codeforces"
   },
+  "atcoder header files template": {
+    "prefix": "atcoder",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "using namespace std;",
+      "#define ll long long",
+      "const int INF = 1e9 + 7;",
+      "const int N = 1e5 + 5;",
+      "",
+      "void solve() {",
+      "\t$0",
+      "}",
+      "",
+      "int main() {",
+      "\tios::sync_with_stdio(false);",
+      "\tcin.tie(nullptr);",
+      "\tcout.tie(nullptr);",
+      "\tsolve();",
+      "",
+      "\treturn 0;",
+      "}"
+    ],
+    "description": "A template for atcoder"
+  },
   "leetcode header files template": {
     "prefix": "leetcode",
     "body": [
