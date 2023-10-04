@@ -168,10 +168,6 @@ function M.surround()
   require('nvim-surround').setup()
 end
 
-function M.hop()
-  require('hop').setup()
-end
-
 function M.dbsession()
   require('dbsession').setup({
     auto_save_on_exit = false,

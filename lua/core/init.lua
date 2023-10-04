@@ -27,7 +27,6 @@ _G.lsp_ft = {
   'rust',
   'lua',
   'markdown',
-  'sh',
   'zig',
   'json',
 }

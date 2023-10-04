@@ -194,10 +194,6 @@ function M.lspconfig()
       },
     },
   })
-  require('lspconfig').bashls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
   require('lspconfig').cmake.setup({
     on_attach = on_attach,
     capabilities = capabilities,
