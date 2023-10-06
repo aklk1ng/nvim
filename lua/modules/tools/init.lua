@@ -211,27 +211,14 @@ function M.guard()
     },
     stdin = true,
   })
-  ft('rust'):fmt({
-    cmd = 'rustfmt',
-    args = { '--edition', '2021' },
-    stdin = true,
-  })
-  ft('python'):fmt({
-    cmd = 'black',
-    args = {
-      '-',
-    },
-  })
+  ft('rust'):fmt('rustfmt')
+  ft('python'):fmt('black')
   ft('zig'):fmt({
     cmd = 'zig',
     args = { 'fmt', '--stdin' },
     stdin = true,
   })
-  ft('toml'):fmt({
-    cmd = 'taplo',
-    args = { 'fmt', '-' },
-    stdin = true,
-  })
+  ft('toml'):fmt('taplo')
   ft('sh'):fmt({
     cmd = 'shfmt',
     args = { '-i', 4 },
@@ -245,6 +232,10 @@ function M.guard()
   ft('json'):fmt({
     cmd = 'jq',
     args = { '.' },
+    stdin = true,
+  })
+  ft('fish'):fmt({
+    cmd = 'fish_indent',
     stdin = true,
   })
 

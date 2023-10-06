@@ -148,20 +148,6 @@ function M.lspconfig()
   require('lspconfig').clangd.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    cmd = {
-      'clangd',
-      '--background-index',
-      '--suggest-missing-includes',
-      '--clang-tidy',
-      '--header-insertion=iwyu',
-    },
-    filetypes = {
-      'c',
-      'cpp',
-      'objc',
-      'objcpp',
-      'cuda',
-    },
   })
   require('lspconfig').pylsp.setup({
     on_attach = on_attach,

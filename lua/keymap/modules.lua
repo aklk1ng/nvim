@@ -15,7 +15,6 @@ map({
 
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
   { 'n', '<leader>f', cmd('GuardFmt'), opt },
-  { 'n', '<leader>cc', cmd('!rm ./%<'), opt },
 
   { 'n', ';s', wait_cmd('SessionSave '), opt },
   { 'n', ';l', wait_cmd('SessionLoad '), opt },

@@ -9,19 +9,6 @@ pack({
 })
 
 pack({
-  'folke/flash.nvim',
-  keys = {
-    {
-      ';w',
-      mode = { 'n', 'o', 'x' },
-      function()
-        require('flash').jump()
-      end,
-    },
-  },
-})
-
-pack({
   'folke/noice.nvim',
   ft = _G.lsp_ft,
   config = tools.noice,

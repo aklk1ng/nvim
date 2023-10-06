@@ -14,18 +14,17 @@ local M = {
   bg_highlight = '#2E323C',
   bg_visual = '#3e4452',
   fg = '#bbc2cf',
-  fg_alt = '#839496',
+  fg_alt = '#B3B3AB',
   red = '#DE7E7E',
   orange = '#D48B5C',
   yellow = '#cca352',
   green = '#a9b665',
   dark_green = '#96c24e',
   aqua = '#89b482',
-  xxoo = '#85BFC7',
+  xxoo = '#79A9BB',
   blue = '#7daea3',
   pink = '#d3869b',
   purple = '#A995D1',
-  hairy_green = '#74AD8B',
   brown = '#cc7a29',
   black = '#000000',
   marble_gray = '#c2bd9f',
@@ -105,7 +104,7 @@ local syntax = {
   Debug = { fg = M.orange },
   DebugBreakpoint = { fg = M.bg, bg = M.red },
   Boolean = { fg = M.orange },
-  Number = { fg = M.grey_1 },
+  Number = { fg = M.fg_alt },
   Float = { fg = M.brown },
   PreProc = { fg = M.pink },
   PreCondit = { fg = M.pink },
@@ -146,13 +145,14 @@ local syntax = {
   ['@field'] = { fg = M.yellow },
   ['@type'] = { fg = M.green },
   ['@type.qualifier'] = { fg = M.orange },
-  ['@variable'] = { fg = M.marble_gray },
+  ['@variable'] = { fg = M.fg_alt },
   ['@variable.builtin'] = { fg = M.marble_gray },
   ['@punctuation.bracket'] = { fg = M.white_1 },
   ['@punctuation.delimiter'] = { fg = M.white_1 },
   ['@punctuation.special'] = { fg = M.white_1 },
   ['@text.literal'] = { fg = M.green },
   ['@text.strong'] = { fg = M.red },
+  ['@text.todo'] = { bg = M.xxoo },
   ['@constant'] = { fg = M.pink },
   ['@constructor'] = { link = 'Function' },
   ['@namespace'] = { fg = M.orange },
@@ -229,10 +229,6 @@ local syntax = {
   DashboardKey = { fg = M.orange },
   DashboardFooter = { fg = M.yellow },
 
-  FlashCurrent = { fg = M.purple },
-  FlashMatch = { fg = M.blue },
-  FlashLabel = { fg = M.pink },
-
   IndentLine = { fg = M.grey },
 
   LspInlayHint = { link = 'Comment' },
@@ -249,7 +245,7 @@ function M.colorscheme()
 
   vim.o.background = 'dark'
   vim.o.termguicolors = true
-  vim.g.colors_name = 'aklk1ngass'
+  vim.g.colors_name = 'aklk1ng'
   set_hl(syntax)
   M.terminal_color()
 end

@@ -58,13 +58,10 @@ function M.treesitter()
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
         keymaps = {
-          ['af'] = '@function.outer',
           ['if'] = '@function.inner',
+          ['af'] = '@function.outer',
+          ['ic'] = '@class.inner',
           ['ac'] = '@class.outer',
-          ['ic'] = {
-            query = '@class.inner',
-            desc = 'Select inner part of a class region',
-          },
           ['il'] = '@loop.inner',
           ['al'] = '@loop.outer',
         },

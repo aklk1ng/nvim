@@ -29,15 +29,6 @@ map({
   },
   { 'i', '<C-c>', '<Esc>', opt },
   { 'i', '<S-CR>', '<CR><Esc>O', opt },
-  -------------------------- toggle the spell option with the global variable
-  {
-    'n',
-    '<leader>us',
-    function()
-      toggle_option('o', 'spell')
-    end,
-    opt,
-  },
   -------------------------- toggle the wrap
   {
     'n',
@@ -55,6 +46,7 @@ map({
     cmd('!chmod +x %'),
     opt,
   },
+  { 'n', '<leader>cc', cmd('!rm ./%<'), opt },
   -------------------------- add undo break-points
   { 'i', ',', ',<C-g>u', opt },
   { 'i', '.', '.<C-g>u', opt },
@@ -111,6 +103,7 @@ map({
   { 'n', 'ta', flip_word.toggleAlternate, opt },
   { 'n', '<leader>t', minifile.open, opt },
 
+  -------------------------- built-in lua function
   { 'n', '<leader>i', cmd('lua vim.lsp.inlay_hint(0, true)'), opt },
   { 'n', '<leader>u', cmd('lua vim.lsp.inlay_hint(0, false)'), opt },
   { 'n', ';u', cmd('lua vim.diagnostic.hide()'), opt },
