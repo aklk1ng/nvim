@@ -28,6 +28,7 @@ o.breakindentopt = 'shift:2'
 o.breakindent = true
 o.textwidth = 110
 o.colorcolumn = '110'
+o.laststatus = 3
 -- Add scrolloff for better zt/zb
 o.scrolloff = 8
 -- Show sign column (e.g. lsp Error sign)

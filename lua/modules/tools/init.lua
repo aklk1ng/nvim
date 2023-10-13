@@ -187,7 +187,7 @@ function M.guard()
     },
     stdin = true,
   }
-  ft('c'):fmt(clang_format)
+  ft('c'):fmt(clang_format):lint('clang-tidy')
   ft('cpp'):fmt(clang_format)
   ft('go'):fmt({
     cmd = 'golines',
@@ -254,7 +254,7 @@ function M.guard()
   -- call setup LAST
   require('guard').setup({
     -- the only option for the setup function
-    fmt_on_save = true,
+    fmt_on_save = false,
   })
 end
 

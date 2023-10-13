@@ -3,9 +3,9 @@ local api, ui = vim.api, vim.ui
 
 local function Command(filetype)
   if filetype == 'c' then
-    return 'term gcc % -o %< && time ./%< && rm ./%<'
+    return 'term gcc -Wall -Wno-unused % -o %< && time ./%< && rm ./%<'
   elseif filetype == 'cpp' then
-    return 'term g++ -std=c++17 % -Wall -o %< && time ./%< && rm ./%<'
+    return 'term g++ -Wall -Wno-unused -std=c++20 % -o %< && time ./%< && rm ./%<'
   elseif filetype == 'sh' then
     return 'term time bash %'
   elseif filetype == 'python' then
