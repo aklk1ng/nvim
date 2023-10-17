@@ -30,7 +30,7 @@ o.textwidth = 110
 o.colorcolumn = '110'
 o.laststatus = 3
 -- Add scrolloff for better zt/zb
-o.scrolloff = 8
+o.scrolloff = 5
 -- Show sign column (e.g. lsp Error sign)
 o.signcolumn = 'yes'
 -- Better completion

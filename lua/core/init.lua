@@ -18,19 +18,6 @@ g.loaded_netrwPlugin = 1
 g.loaded_netrwSettings = 1
 g.loaded_netrwFileHandlers = 1
 
-_G.lsp_ft = {
-  'c',
-  'cpp',
-  'cmake',
-  'python',
-  'go',
-  'rust',
-  'lua',
-  'markdown',
-  'zig',
-  'json',
-}
-
 local function check()
   local cmds = {
     'git',

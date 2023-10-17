@@ -31,6 +31,10 @@ function M.lspsaga()
     lightbulb = {
       enable = false,
     },
+    implement = {
+      enable = true,
+      sign = false,
+    },
     outline = {
       win_position = 'right',
       win_width = 40,
@@ -42,9 +46,6 @@ function M.lspsaga()
         toggle_or_jump = 'e',
         jump = 'o',
       },
-    },
-    ui = {
-      border = 'rounded',
     },
   })
 end
@@ -168,12 +169,6 @@ function M.surround()
   require('nvim-surround').setup()
 end
 
-function M.dbsession()
-  require('dbsession').setup({
-    auto_save_on_exit = false,
-  })
-end
-
 function M.gitsigns()
   require('gitsigns').setup({})
 end
@@ -187,7 +182,7 @@ function M.guard()
     },
     stdin = true,
   }
-  ft('c'):fmt(clang_format):lint('clang-tidy')
+  ft('c'):fmt(clang_format)
   ft('cpp'):fmt(clang_format)
   ft('go'):fmt({
     cmd = 'golines',

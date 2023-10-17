@@ -1,13 +1,4 @@
 {
-  "def(static class method)": {
-    "prefix": "def static class method",
-    "body": [
-      "@staticmethod",
-      "def ${1:funcname}(${2:parameter_list}):",
-      "\t${3:pass}"
-    ],
-    "description": "Code snippet for a static class method"
-  },
   "if(main)": {
     "prefix": "__main__",
     "body": [
@@ -15,11 +6,6 @@
       "    ${1:pass}"
     ],
     "description": "Code snippet for a `if __name__ == \"__main__\": ...` block"
-  },
-  "# coding=utf-8": {
-    "prefix": "enco",
-    "body": "encoding=\"utf-8\"",
-    "description": "Set default python3 encoding specification to utf-8, by default this is the encoding for python3.x as it is mentioned in pep-3120."
   },
   "New property": {
     "prefix": "property",

@@ -3,24 +3,28 @@ local tools = require('modules.tools')
 
 pack({
   'nvimdev/lspsaga.nvim',
-  ft = _G.lsp_ft,
+  event = 'LspAttach',
   branch = 'main',
   config = tools.lspsaga,
 })
 
 pack({
   'folke/noice.nvim',
-  ft = _G.lsp_ft,
-  config = tools.noice,
+  event = 'LspAttach',
   dependencies = {
     'MunifTanjim/nui.nvim',
   },
+  config = tools.noice,
+})
+
+pack({
+  'skywind3000/asyncrun.vim',
+  cmd = 'AsyncRun',
 })
 
 pack({
   'kevinhwang91/nvim-ufo',
   event = { 'BufRead', 'BufNewFile' },
-  config = tools.ufo,
   dependencies = {
     'kevinhwang91/promise-async',
     {
@@ -28,6 +32,7 @@ pack({
       config = tools.statuscol,
     },
   },
+  config = tools.ufo,
 })
 
 pack({
@@ -47,12 +52,6 @@ pack({
 })
 
 pack({
-  'nvimdev/dbsession.nvim',
-  cmd = { 'SessionSave', 'SessionLoad', 'SessionDelete' },
-  config = tools.dbsession,
-})
-
-pack({
   'kylechui/nvim-surround',
   event = { 'BufRead', 'BufNewFile' },
   config = tools.surround,
@@ -67,10 +66,10 @@ pack({
 pack({
   'nvimdev/guard.nvim',
   event = { 'BufRead', 'BufNewFile' },
-  config = tools.guard,
   dependencies = {
     'nvimdev/guard-collection',
   },
+  config = tools.guard,
 })
 
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

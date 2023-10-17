@@ -3,7 +3,7 @@ local api = vim.api
 
 api.nvim_create_autocmd('FileType', {
   group = aklk1ng,
-  pattern = { 'help', 'man', 'checkhealth', 'dashboard', 'qf' },
+  pattern = { 'help', 'checkhealth', 'dashboard', 'qf' },
   callback = function(arg)
     vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = arg.buf, silent = true, nowait = true })
   end,

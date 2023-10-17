@@ -22,13 +22,13 @@ pack({
 pack({
   'neovim/nvim-lspconfig',
   event = { 'BufRead', 'BufNewfile' },
-  config = completion.lspconfig,
   dependencies = {
     {
       'folke/neodev.nvim',
       config = completion.neodev,
     },
   },
+  config = completion.lspconfig,
 })
 
 pack({

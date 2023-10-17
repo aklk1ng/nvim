@@ -81,9 +81,8 @@ function M.cmp()
       { name = 'buffer' },
     }),
     formatting = {
-      fields = { 'kind', 'abbr', 'menu' },
+      fields = { 'kind', 'abbr' },
       format = function(_, vim_item)
-        vim_item.menu = vim_item.kind
         vim_item.kind = kind_icons.get(vim_item.kind, false)
         return vim_item
       end,

@@ -1,12 +1,10 @@
 local keymap = require('keymap')
 local opt = keymap.default_opt
 local cmd = keymap.cmd
-local wait_cmd = keymap.wait_cmd
 local map = keymap.map
 
 map({
   { 'n', '<leader><leader>i', cmd('Lazy'), opt },
-  { 'n', ';r', cmd('LspRestart'), opt },
   { 'n', ';d', cmd('Gitsigns diffthis'), opt },
   { 'n', '<leader><leader>p', cmd('Gitsigns preview_hunk'), opt },
   { 'n', ';n', cmd('Gitsigns next_hunk'), opt },
@@ -16,9 +14,6 @@ map({
   { 'n', ';h', cmd('TSHighlightCapturesUnderCursor'), opt },
   { 'n', '<leader>f', cmd('GuardFmt'), opt },
 
-  { 'n', ';s', wait_cmd('SessionSave '), opt },
-  { 'n', ';l', wait_cmd('SessionLoad '), opt },
-  { 'n', ';D', wait_cmd('SessionDelete '), opt },
   { 'n', '[n', cmd('Lspsaga diagnostic_jump_next'), opt },
   { 'n', ']n', cmd('Lspsaga diagnostic_jump_prev'), opt },
   {
@@ -62,9 +57,16 @@ map({
   { 'n', '<leader>co', cmd('ColorizerToggle'), opt },
   {
     'n',
+    '<leader>R',
+    require('utils.api.quickrun').asyncrun,
+    opt,
+  },
+  {
+    'n',
     'zp',
     function()
       require('ufo').peekFoldedLinesUnderCursor()
     end,
+    opt,
   },
 })

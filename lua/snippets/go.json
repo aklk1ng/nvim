@@ -19,54 +19,9 @@
     "body": "fmt.Printf(\"$1\", ${2:var})",
     "description": "Snippet for fmt.Printf()"
   },
-  "http ResponseWriter *Request": {
-    "prefix": "wr",
-    "body": "${1:w} http.ResponseWriter, ${2:r} *http.Request",
-    "description": "Snippet for http Response"
-  },
-  "http.HandleFunc": {
-    "prefix": "hf",
-    "body": "${1:http}.HandleFunc(\"${2:/}\", ${3:handler})",
-    "description": "Snippet for http.HandleFunc()"
-  },
-  "http handler declaration": {
-    "prefix": "hand",
-    "body": "func $1(${2:w} http.ResponseWriter, ${3:r} *http.Request) {\n\t$0\n}",
-    "description": "Snippet for http handler declaration"
-  },
-  "http.Redirect": {
-    "prefix": "rd",
-    "body": "http.Redirect(${1:w}, ${2:r}, \"${3:/}\", ${4:http.StatusFound})",
-    "description": "Snippet for http.Redirect()"
-  },
-  "http.Error": {
-    "prefix": "herr",
-    "body": "http.Error(${1:w}, ${2:err}.Error(), ${3:http.StatusInternalServerError})",
-    "description": "Snippet for http.Error()"
-  },
-  "http.ListenAndServe": {
-    "prefix": "las",
-    "body": "http.ListenAndServe(\"${1::8080}\", ${2:nil})",
-    "description": "Snippet for http.ListenAndServe"
-  },
-  "http.Serve": {
-    "prefix": "sv",
-    "body": "http.Serve(\"${1::8080}\", ${2:nil})",
-    "description": "Snippet for http.Serve"
-  },
   "goroutine anonymous function": {
     "prefix": "go",
     "body": "go func($1) {\n\t$0\n}($2)",
     "description": "Snippet for anonymous goroutine declaration"
-  },
-  "hello world web app": {
-    "prefix": "helloweb",
-    "body": "package main\n\nimport (\n\t\"fmt\"\n\t\"net/http\"\n\t\"time\"\n)\n\nfunc greet(w http.ResponseWriter, r *http.Request) {\n\tfmt.Fprintf(w, \"Hello World! %s\", time.Now())\n}\n\nfunc main() {\n\thttp.HandleFunc(\"/\", greet)\n\thttp.ListenAndServe(\":8080\", nil)\n}",
-    "description": "Snippet for sample hello world webapp"
-  },
-  "sort implementation": {
-    "prefix": "sort",
-    "body": "type ${1:SortBy} []${2:Type}\n\nfunc (a $1) Len() int           { return len(a) }\nfunc (a $1) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }\nfunc (a $1) Less(i, j int) bool { ${3:return a[i] < a[j]} }",
-    "description": "Snippet for a custom sort.Sort interface implementation, for a given slice type."
   }
 }

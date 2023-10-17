@@ -10,16 +10,6 @@
     ],
     "description": "Code snippet for error statement"
   },
-  "Main function template": {
-    "prefix": "main",
-    "body": [
-      "int main(int argc, char *argv[]) {",
-      "\t$0",
-      "\treturn 0;",
-      "}"
-    ],
-    "description": "A standard main function for a C program"
-  },
   "Standard Starter Template": {
     "prefix": "sst",
     "body": [
@@ -39,14 +29,5 @@
       " * $0",
       " */"
     ]
-  },
-  "Do...while loop": {
-    "prefix": "do",
-    "body": [
-      "do {",
-      "\t$1",
-      "} while($2);"
-    ],
-    "description": "Creates a do...while loop"
   }
 }

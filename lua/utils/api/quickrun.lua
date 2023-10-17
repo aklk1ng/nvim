@@ -3,9 +3,9 @@ local api, ui = vim.api, vim.ui
 
 local function Command(filetype)
   if filetype == 'c' then
-    return 'term gcc -Wall -Wno-unused % -o %< && time ./%< && rm ./%<'
+    return 'term gcc -Wall -Wextra -Wshadow -Wno-unused % -o %< && ./%< && rm ./%<'
   elseif filetype == 'cpp' then
-    return 'term g++ -Wall -Wno-unused -std=c++20 % -o %< && time ./%< && rm ./%<'
+    return 'term g++ -Wall -Wextra -Wshadow -Wno-unused -std=c++20 % -o %< && ./%< && rm ./%<'
   elseif filetype == 'sh' then
     return 'term time bash %'
   elseif filetype == 'python' then
@@ -56,6 +56,12 @@ function M.QuickRun()
       api.nvim_command(input)
     end
   end)
+end
+
+function M.asyncrun()
+  vim.cmd('AsyncRun g++ -Wall -Wextra -Wshadow -Wno-unused -std=c++20 % -o %< && ./%< < in.txt && rm ./%<')
+  vim.cmd('copen')
+  vim.cmd(':wincmd k')
 end
 
 return M
