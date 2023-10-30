@@ -29,18 +29,6 @@
       {
         "language": "zig",
         "path": "./zig.json"
-      },
-      {
-        "language": "python",
-        "path": "./python/python.json"
-      },
-      {
-        "language": "yaml",
-        "path": "./docker/docker-compose.json"
-      },
-      {
-        "language": "dockerfile",
-        "path": "./docker/docker_file.json"
       }
     ]
   }

@@ -2,13 +2,7 @@ local pack = require('core.pack').add_plugin
 local ui = require('modules.ui')
 
 pack({
-  'nvimdev/dashboard-nvim',
-  event = 'VimEnter',
-  config = ui.dashboard,
-})
-
-pack({
-  'NvChad/nvim-colorizer.lua',
+  'Nvchad/nvim-colorizer.lua',
   cmd = 'ColorizerToggle',
   config = ui.colorizer,
 })

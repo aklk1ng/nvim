@@ -1,13 +1,6 @@
 -- https://github.com/glepnir
 
 local api, fn = vim.api, vim.fn
-vim.g.cursor_moved_enabled = true
-
-local function highlight_cursorword()
-  if vim.g.cursorword_highlight ~= false then
-    api.nvim_set_hl(0, 'CursorWord', { bg = '#3f444a' })
-  end
-end
 
 local function matchadd()
   local bufname = api.nvim_buf_get_name(0)
@@ -25,7 +18,7 @@ local function matchadd()
   end
   vim.w.cursorword = cursorword
   if vim.w.cursorword_match == 1 then
-    vim.fn.matchdelete(vim.w.cursorword_id)
+    fn.matchdelete(vim.w.cursorword_id)
   end
   vim.w.cursorword_match = 0
   if
@@ -42,23 +35,15 @@ local function matchadd()
 end
 
 local function cursor_moved()
-  if
-    vim.g.cursor_moved_enabled
-    and vim.bo.filetype ~= 'help'
-    and vim.bo.filetype ~= 'prompt'
-    and vim.bo.filetype ~= 'dashboard'
-    and vim.fn.expand('%:e') ~= ''
-  then
+  if vim.bo.filetype ~= 'help' and vim.bo.filetype ~= 'dashboard' and fn.expand('%:e') ~= '' then
     matchadd()
   else
     if vim.w.cursorword_match == 1 then
-      vim.fn.matchdelete(vim.w.cursorword_id)
+      fn.matchdelete(vim.w.cursorword_id)
     end
     vim.w.cursorword_match = 0
   end
 end
-
-highlight_cursorword()
 
 api.nvim_create_autocmd({ 'CursorHold' }, {
   pattern = '*',

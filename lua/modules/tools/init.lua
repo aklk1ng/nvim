@@ -1,5 +1,92 @@
 local M = {}
 
+function M.treesitter()
+  require('nvim-treesitter.configs').setup({
+    ensure_installed = {
+      'c',
+      'cpp',
+      'dockerfile',
+      'python',
+      'lua',
+      'bash',
+      'zig',
+      'html',
+      'css',
+      'json',
+      'jsonc',
+      'rust',
+      'go',
+      'gomod',
+      'gosum',
+      'gowork',
+      'markdown',
+      'markdown_inline',
+      'javascript',
+      'typescript',
+      'cmake',
+      'make',
+      'sql',
+      'vim',
+      'vimdoc',
+      'proto',
+      'fish',
+      'diff',
+    },
+    sync_install = true,
+    highlight = {
+      enable = true,
+      disable = function(_, buf)
+        local max_filesize = 500 * 1024
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+          return true
+        end
+        return false
+      end,
+    },
+    textobjects = {
+      select = {
+        enable = true,
+        -- Automatically jump forward to textobj, similar to targets.vim
+        lookahead = true,
+        keymaps = {
+          ['if'] = '@function.inner',
+          ['af'] = '@function.outer',
+          ['ic'] = '@class.inner',
+          ['ac'] = '@class.outer',
+          ['il'] = '@loop.inner',
+          ['al'] = '@loop.outer',
+        },
+        selection_modes = {
+          ['@parameter.outer'] = 'v', -- charwise
+          ['@function.outer'] = 'V', -- linewise
+          ['@class.outer'] = '<c-v>', -- blockwise
+        },
+        include_surrounding_whitespace = true,
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<leader>a'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<leader>A'] = '@parameter.inner',
+        },
+      },
+    },
+  })
+
+  --set indent for jsx tsx
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'javascriptreact', 'typescriptreact' },
+    callback = function(opt)
+      vim.bo[opt.buf].indentexpr = 'nvim_treesitter#indent()'
+    end,
+  })
+  local swap_ternary = require('utils.api.swap_ternary')
+  vim.keymap.set('n', 'ts', swap_ternary.swap_ternary, { silent = true, noremap = true })
+end
+
 function M.lspsaga()
   local saga = require('lspsaga')
 
@@ -16,16 +103,10 @@ function M.lspsaga()
       keys = {
         edit = '<C-c>o',
         vsplit = '<C-c>v',
-        split = '<C-c>i',
+        split = '<C-c>s',
         tabe = '<C-c>t',
         quit = 'q',
-        close = '<C-c>k',
-      },
-    },
-    finder = {
-      max_height = 0.6,
-      keys = {
-        vsplit = 'v',
+        close = '<C-c>c',
       },
     },
     lightbulb = {
@@ -51,12 +132,7 @@ function M.lspsaga()
 end
 
 function M.noice()
-  local status, noice = pcall(require, 'noice')
-  if not status then
-    vim.notify('noice not found')
-    return
-  end
-  noice.setup({
+  require('noice').setup({
     cmdline = {
       enabled = false,
     },
@@ -77,16 +153,6 @@ end
 function M.telescope()
   require('telescope').setup({
     defaults = {
-      vimgrep_arguments = {
-        'rg',
-        '-L',
-        '--color=never',
-        '--no-heading',
-        '--with-filename',
-        '--line-number',
-        '--column',
-        '--smart-case',
-      },
       layout_config = {
         horizontal = {
           prompt_position = 'top',
@@ -101,9 +167,6 @@ function M.telescope()
         width = 0.95,
       },
       sorting_strategy = 'ascending',
-      file_previewer = require('telescope.previewers').vim_buffer_cat.new,
-      grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
-      qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
     },
     extensions = {
       fzy_native = {
@@ -113,56 +176,6 @@ function M.telescope()
     },
   })
   require('telescope').load_extension('fzy_native')
-end
-
-function M.statuscol()
-  local builtin = require('statuscol.builtin')
-  require('statuscol').setup({
-    segments = {
-      {
-        text = { '%s' },
-        sign = { name = { '.*' }, maxwidth = 1, colwidth = 1, auto = true, wrap = true },
-      },
-      { text = { builtin.lnumfunc, ' ' } },
-      { text = { builtin.foldfunc, ' ' }, click = 'v:lua.ScFa' },
-    },
-  })
-end
-
-function M.ufo()
-  local handler = function(virtText, lnum, endLnum, width, truncate)
-    local newVirtText = {}
-    local suffix = (' 󰁂 %d '):format(endLnum - lnum)
-    local sufWidth = vim.fn.strdisplaywidth(suffix)
-    local targetWidth = width - sufWidth
-    local curWidth = 0
-    for _, chunk in ipairs(virtText) do
-      local chunkText = chunk[1]
-      local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-      if targetWidth > curWidth + chunkWidth then
-        table.insert(newVirtText, chunk)
-      else
-        chunkText = truncate(chunkText, targetWidth - curWidth)
-        local hlGroup = chunk[2]
-        table.insert(newVirtText, { chunkText, hlGroup })
-        chunkWidth = vim.fn.strdisplaywidth(chunkText)
-        -- str width returned from truncate() may less than 2nd argument, need padding
-        if curWidth + chunkWidth < targetWidth then
-          suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
-        end
-        break
-      end
-      curWidth = curWidth + chunkWidth
-    end
-    table.insert(newVirtText, { suffix, 'MoreMsg' })
-    return newVirtText
-  end
-  require('ufo').setup({
-    fold_virt_text_handler = handler,
-    provider_selector = function(bufnr, filetype, buftype)
-      return { 'treesitter', 'indent' }
-    end,
-  })
 end
 
 function M.surround()
@@ -178,7 +191,14 @@ function M.guard()
   local clang_format = {
     cmd = 'clang-format',
     args = {
-      '--style={IndentWidth: 2, AlwaysBreakTemplateDeclarations: true, AllowShortEnumsOnASingleLine: false, ColumnLimit: 100}',
+      '--style={'
+        .. 'IndentWidth: 2,'
+        .. 'AlwaysBreakTemplateDeclarations: true,'
+        .. 'AllowShortEnumsOnASingleLine: false,'
+        .. 'AllowShortFunctionsOnASingleLine: true,'
+        .. 'BreakAfterAttributes: Always,'
+        .. 'ColumnLimit: 100'
+        .. '}',
     },
     stdin = true,
   }
@@ -253,8 +273,30 @@ function M.guard()
   })
 end
 
-function M.comment()
-  require('Comment').setup()
+function M.oil()
+  require('oil').setup({
+    keymaps = {
+      ['g?'] = 'actions.show_help',
+      ['<CR>'] = 'actions.select',
+      ['<C-s>'] = 'actions.select_vsplit',
+      ['<C-h>'] = 'actions.select_split',
+      ['<C-t>'] = 'actions.select_tab',
+      ['<C-p>'] = 'actions.preview',
+      ['<C-c>'] = 'actions.close',
+      ['<C-l>'] = 'actions.refresh',
+      ['-'] = 'actions.parent',
+      ['_'] = 'actions.open_cwd',
+      ['`'] = 'actions.cd',
+      ['~'] = 'actions.tcd',
+      ['gs'] = 'actions.change_sort',
+      ['gx'] = 'actions.open_external',
+      ['g.'] = 'actions.toggle_hidden',
+      ['g\\'] = 'actions.toggle_trash',
+    },
+    view_options = {
+      show_hidden = true,
+    },
+  })
 end
 
 return M

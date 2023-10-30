@@ -2,19 +2,14 @@
   "bench": {
     "prefix": "bench",
     "body": [
-      "#[bench]",
-      "fn ${1:name}(b: &mut test::Bencher) {",
-      "    ${2:b.iter(|| ${3:/* benchmark code */})}",
-      "}"
+      "#[bench]\nfn ${1:name}(b: &mut test::Bencher) {\n    ${2:b.iter(|| ${3:/* benchmark code */})}\n}"
     ],
     "description": "#[bench]"
   },
   "macro_rules": {
     "prefix": "macro_rules",
     "body": [
-      "macro_rules! ${1:name} {",
-      "    (${2}) => (${3})",
-      "}"
+      "macro_rules! ${1:name} {\n    (${2}) => (${3})\n}"
     ],
     "description": "macro_rules! … { … }"
   }

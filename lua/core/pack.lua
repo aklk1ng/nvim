@@ -10,22 +10,11 @@ function M.load_modules()
     return
   end
 
-  local disable_modules = {}
-
-  if vim.fn.exists('g:disable_modules') == 1 then
-    disable_modules = vim.split(vim.g.disable_modules, ',', { trimempty = true })
-    disable_modules = vim.tbl_map(function(k)
-      return 'modules/' .. k .. '/plugins'
-    end, disable_modules)
-  end
-
-  for _, f in pairs(file_list) do
+  vim.iter(file_list):map(function(f)
     local _, pos = f:find(modules_dir)
     f = f:sub(pos - 6, #f - 4)
-    if not vim.tbl_contains(disable_modules, f) then
-      require(f)
-    end
-  end
+    require(f)
+  end)
 end
 
 function M:boot_strap()

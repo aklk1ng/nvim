@@ -15,11 +15,7 @@ function M.lua_snip()
 end
 
 function M.cmp()
-  local status, cmp = pcall(require, 'cmp')
-  if not status then
-    vim.notify('cmp not found')
-    return
-  end
+  local cmp = require('cmp')
   local luasnip = require('luasnip')
   local kind_icons = require('utils.icons')
 
@@ -47,7 +43,6 @@ function M.cmp()
     },
     window = {
       completion = {
-        cmp.config.window.bordered(),
         scrollbar = false,
       },
     },
@@ -77,7 +72,6 @@ function M.cmp()
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
-      { name = 'async_path' },
       { name = 'buffer' },
     }),
     formatting = {
@@ -90,30 +84,7 @@ function M.cmp()
   })
 end
 
-function M.smarkpairs()
-  require('pairs'):setup()
-end
-
-function M.neodev()
-  require('neodev').setup({
-    library = {
-      runtime = '~/neovim/runtime/',
-    },
-  })
-end
-
 function M.lspconfig()
-  local kind_icons = require('utils.icons')
-  local signs = {
-    Error = kind_icons.get('Error', false),
-    Warn = kind_icons.get('Warn', false),
-    Info = kind_icons.get('Info', false),
-    Hint = kind_icons.get('Hint', false),
-  }
-  for type, icon in pairs(signs) do
-    local hl = 'DiagnosticSign' .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
   vim.diagnostic.config({
     signs = false,
     severity_sort = true,
@@ -130,11 +101,7 @@ function M.lspconfig()
   --Enable (broadcasting) snippet capability for completion
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
+  -- capabilities = vim.tbl_deep_extend('force', capabilities, require('epo').register_cap())
 
   vim.lsp.handlers['workspace/diagnostic/refresh'] = function(_, _, ctx)
     local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
@@ -148,16 +115,15 @@ function M.lspconfig()
     on_attach = on_attach,
     capabilities = capabilities,
   })
-  require('lspconfig').pylsp.setup({
+  require('lspconfig').pyright.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = {
-            ignore = { 'W391' },
-            maxLineLength = 110,
-          },
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          diagnosticMode = 'openFilesOnly',
+          useLibraryCodeForTypes = true,
         },
       },
     },
@@ -171,11 +137,6 @@ function M.lspconfig()
         enable_ast_check_diagnostics = true,
         enable_autofix = true,
         operator_completions = true,
-        enable_inlay_hints = true,
-        inlay_hints_show_builtin = true,
-        inlay_hints_exclude_single_argument = true,
-        inlay_hints_hide_redundant_param_names = true,
-        inlay_hints_hide_redundant_param_names_last_token = true,
       },
     },
   })
@@ -187,7 +148,6 @@ function M.lspconfig()
     on_attach = on_attach,
     capabilities = capabilities,
   })
-
   require('lspconfig').gopls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -205,33 +165,38 @@ function M.lspconfig()
       },
     },
   })
-  require('lspconfig').marksman.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
   require('lspconfig').lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    settings = {
-      Lua = {
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { 'vim' },
-          disable = {
-            'missing-fields',
-            'no-unknown',
+    on_init = function(client)
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' },
+            disable = {
+              'missing-fields',
+              'no-unknown',
+            },
+          },
+          runtime = {
+            version = 'LuaJIT',
+          },
+          -- Make the server aware of Neovim runtime files
+          workspace = {
+            checkThirdParty = false,
+            library = { vim.env.VIMRUNTIME },
+          },
+          completion = {
+            callSnippet = 'Replace',
+          },
+          hint = {
+            enable = true,
           },
         },
-        -- Make the server aware of Neovim runtime files
-        workspace = {
-          library = { vim.env.VIMRUNTIME },
-          checkThirdParty = false,
-        },
-        hint = {
-          enable = true,
-        },
-      },
-    },
+      })
+      client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+      return true
+    end,
   })
   require('lspconfig').rust_analyzer.setup({
     on_attach = on_attach,

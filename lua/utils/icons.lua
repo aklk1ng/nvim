@@ -26,14 +26,6 @@ local kind_icons = {
   Event = ' ',
   Operator = ' ',
   TypeParameter = ' ',
-  Error = ' ',
-  Warn = ' ',
-  Info = ' ',
-  Hint = ' ',
-  Added = ' ',
-  Changed = ' ',
-  Deleted = ' ',
-  Lock = '',
 }
 
 function M.get(kind, space)

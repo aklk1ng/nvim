@@ -9,30 +9,22 @@ pack({
 })
 
 pack({
+  'nvim-treesitter/nvim-treesitter',
+  event = { 'BufRead', 'BufNewfile' },
+  build = ':TSUpdate',
+  dependencies = {
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  },
+  config = tools.treesitter,
+})
+
+pack({
   'folke/noice.nvim',
   event = 'LspAttach',
   dependencies = {
     'MunifTanjim/nui.nvim',
   },
   config = tools.noice,
-})
-
-pack({
-  'skywind3000/asyncrun.vim',
-  cmd = 'AsyncRun',
-})
-
-pack({
-  'kevinhwang91/nvim-ufo',
-  event = { 'BufRead', 'BufNewFile' },
-  dependencies = {
-    'kevinhwang91/promise-async',
-    {
-      'luukvbaal/statuscol.nvim',
-      config = tools.statuscol,
-    },
-  },
-  config = tools.ufo,
 })
 
 pack({
@@ -53,23 +45,22 @@ pack({
 
 pack({
   'kylechui/nvim-surround',
-  event = { 'BufRead', 'BufNewFile' },
+  keys = { 'cs', 'ds', 'ys' },
   config = tools.surround,
 })
 
 pack({
-  'numToStr/Comment.nvim',
-  event = { 'BufRead', 'BufNewFile' },
-  config = tools.comment,
-})
-
-pack({
   'nvimdev/guard.nvim',
-  event = { 'BufRead', 'BufNewFile' },
+  cmd = 'GuardFmt',
   dependencies = {
     'nvimdev/guard-collection',
   },
   config = tools.guard,
+})
+
+pack({
+  'mbbill/undotree',
+  cmd = 'UndotreeToggle',
 })
 
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

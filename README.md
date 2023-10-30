@@ -1,12 +1,5 @@
-## Version
+![xxx](https://raw.githubusercontent.com/aklk1ng/nvim/main/screenshot.png)
 
-`prerelease` 😉
-
-## Usage
-
-```text
-git clone https://github.com/aklk1ng/nvim.git
-```
 
 ## Thanks
 

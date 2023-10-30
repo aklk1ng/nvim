@@ -15,16 +15,24 @@ g.loaded_logiPat = 1
 g.loaded_rrhelper = 1
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
-g.loaded_netrwSettings = 1
-g.loaded_netrwFileHandlers = 1
+
+vim.g.lsp_ft = {
+  'go',
+  'lua',
+  'rust',
+  'c',
+  'cpp',
+  'zig',
+  'python',
+  'json',
+  'cmake',
+}
 
 local function check()
   local cmds = {
     'git',
     'node',
-    'yarn',
     'npm',
-    'python',
     'python3',
   }
   for _, cmd in ipairs(cmds) do
@@ -38,12 +46,17 @@ local function check()
 end
 
 if check() then
-  require('utils.colorscheme').colorscheme()
+  vim.api.nvim_create_autocmd('UIEnter', {
+    once = true,
+    callback = function()
+      vim.cmd.colorscheme('aklk1ng')
+      require('utils.api.stc').setup()
+      require('utils.api.fold')
+      require('keymap.basic')
+      require('core.event')
+    end,
+  })
   require('core.options')
-  require('keymap.basic')
-  require('utils.api.searchcount')
   require('core.pack'):boot_strap()
-  require('core.event')
   require('keymap.modules')
-  require('utils.api.minifiles').setup()
 end

@@ -2,32 +2,25 @@
   "ie": {
     "prefix": "ire",
     "body": [
-      "if ($1) {",
-      "\tperror(\"$2\");",
-      "\texit($3);",
-      "}",
-      "$0"
+      "if ($1) {\n\tperror(\"$2\");\n\texit($3);\n}\n$0"
     ],
     "description": "Code snippet for error statement"
   },
-  "Standard Starter Template": {
+  "Starter for c": {
     "prefix": "sst",
     "body": [
-      "#include <stdio.h>",
-      "",
+      "#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n\t$0\n\treturn 0;\n}"
+    ],
+    "description": "starter for c"
+  },
+  "Main function": {
+    "prefix": "main",
+    "body": [
       "int main(int argc, char *argv[]) {",
       "\t$0",
       "\treturn 0;",
       "}"
     ],
-    "description": "A standard starter template for a C program"
-  },
-  "Clock Comment": {
-    "prefix": "comment",
-    "body": [
-      "/*",
-      " * $0",
-      " */"
-    ]
+    "description": "main functoin"
   }
 }
