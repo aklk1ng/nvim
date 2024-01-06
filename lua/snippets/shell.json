@@ -5,18 +5,5 @@
     "description": [
       "#!/bin/bash"
     ]
-  },
-  "for_i": {
-    "prefix": "for_i",
-    "body": "for ((${1:i} = 0; ${1:i} < ${2:10}; ${1:i}++)); do\n\t${3:true}\ndone\n",
-    "description": "An index-based iteration for loop."
-  },
-  "case": {
-    "prefix": "case",
-    "body": "case \"\\$${1:VAR}\" in\n\t${2:1}) echo 1\n\t;;\n\t${3:2|3}) echo 2 or 3\n\t;;\n\t*) echo default\n\t;;\nesac\n",
-    "description": [
-      "case word in [ [(] pattern [ | pattern ] ... ) list ;; ] ... esac\n",
-      "A case command first expands word, and tries to match it against each pattern in turn."
-    ]
   }
 }

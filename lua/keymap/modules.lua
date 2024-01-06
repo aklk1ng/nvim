@@ -2,8 +2,6 @@ local map = require('keymap')
 local cmd = map.cmd
 
 map.n({
-  ['<leader><leader>i'] = cmd('Lazy'),
-
   [';g'] = cmd('Gitsigns diffthis'),
   ['<leader><leader>p'] = cmd('Gitsigns preview_hunk'),
   [';n'] = cmd('Gitsigns next_hunk<CR>'),
@@ -40,6 +38,7 @@ map.n({
   [';s'] = cmd('Telescope lsp_document_symbols'),
   [';S'] = cmd('Telescope lsp_workspace_symbols'),
   [';d'] = cmd('Telescope diagnostics'),
+  [';;'] = cmd('Telescope help_tags'),
   [';k'] = cmd('Telescope keymaps'),
   [';w'] = cmd('Telescope live_grep'),
   [';r'] = cmd('lua require("telescope.builtin").lsp_references()'),

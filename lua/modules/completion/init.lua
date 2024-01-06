@@ -23,7 +23,10 @@ function M.cmp()
   local feedkeys = require('cmp.utils.feedkeys')
 
   local keymap_cinkeys = function(expr)
-    return string.format(keymap.t('<Cmd>set cinkeys=%s<CR>'), expr and vim.fn.escape(expr, '| \t\\') or '')
+    return string.format(
+      keymap.t('<Cmd>set cinkeys=%s<CR>'),
+      expr and vim.fn.escape(expr, '| \t\\') or ''
+    )
   end
   local confirm = function(fallback)
     if cmp.visible() then
@@ -38,12 +41,15 @@ function M.cmp()
   cmp.setup({
     snippet = {
       expand = function(args)
-        require('luasnip').lsp_expand(args.body)
+        luasnip.lsp_expand(args.body)
       end,
     },
     window = {
       completion = {
         scrollbar = false,
+      },
+      documentation = {
+        winhighlight = 'Normal:Pmenu',
       },
     },
     completion = {
@@ -54,14 +60,14 @@ function M.cmp()
     mapping = cmp.mapping.preset.insert({
       ['<C-e>'] = cmp.mapping.abort(),
       ['<C-Space>'] = cmp.mapping(confirm, { 'i' }),
-      ['<C-j>'] = cmp.mapping(function(fallback)
+      ['<Tab>'] = cmp.mapping(function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         else
           fallback()
         end
       end, { 'i', 's' }),
-      ['<C-k>'] = cmp.mapping(function(fallback)
+      ['<S-Tab>'] = cmp.mapping(function(fallback)
         if luasnip.jumpable(-1) then
           luasnip.jump(-1)
         else
@@ -92,11 +98,33 @@ function M.lspconfig()
     update_in_insert = false,
     virtual_text = true,
   })
+  -- auto kill server when no buffer attach after a while
+  local debounce
+  vim.api.nvim_create_autocmd('LspDetach', {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if not client or #client.attached_buffers > 0 then
+        return
+      end
+
+      if debounce and debounce:is_active() then
+        debounce:stop()
+        debounce:close()
+        debounce = nil
+      end
+
+      debounce:start(5000, 0, function()
+        vim.schedule(function()
+          pcall(vim.lsp.stop_client, args.data.client_id, true)
+        end)
+      end)
+    end,
+  })
   ---@diagnostic disable-next-line: unused-local
   local on_attach = function(client, bufnr)
     vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
     -- disable semantic token provided by lsp
-    client.server_capabilities.semanticTokensProvider = nil
+    -- client.server_capabilities.semanticTokensProvider = nil
   end
   --Enable (broadcasting) snippet capability for completion
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -115,15 +143,14 @@ function M.lspconfig()
     on_attach = on_attach,
     capabilities = capabilities,
   })
-  require('lspconfig').pyright.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
+  require('lspconfig').pylsp.setup({
     settings = {
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          diagnosticMode = 'openFilesOnly',
-          useLibraryCodeForTypes = true,
+      pylsp = {
+        plugins = {
+          flake8 = {
+            enabled = true,
+            maxLineLength = 88,
+          },
         },
       },
     },

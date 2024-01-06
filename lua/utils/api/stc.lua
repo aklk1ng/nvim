@@ -63,7 +63,6 @@ local function stc()
   end
 
   function _G.show_stc()
-    local stc_diagnostic = get_signs('Diagnostic')
     local stc_gitsign = get_signs('GitSign')
 
     local function show_break()

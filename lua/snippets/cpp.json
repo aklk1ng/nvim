@@ -14,50 +14,41 @@
   "Starter for cpp": {
     "prefix": "sst",
     "body": [
-      "#include <iostream>\nusing namespace std;\n\nint main(int argc, char *argv[]) {\n\t$0\n\treturn 0;\n}"
+      "#include <iostream>",
+      "",
+      "int main(int argc, char *argv[]) {",
+      "\t$0",
+      "\treturn 0;",
+      "}"
     ],
     "description": "starter for cpp"
-  },
-  "Main function": {
-    "prefix": "main",
-    "body": [
-      "int main(int argc, char *argv[]) {\n\t$0\n\treturn 0;\n}"
-    ],
-    "description": "main function"
   },
   "codeforces": {
     "prefix": "cf",
     "body": [
-      "#include <bits/stdc++.h>\nusing namespace std;\n#define ll long long\n\nvoid solve() {\n\t$0\n}\n\nint main() {\n\tios::sync_with_stdio(false);\n\tcin.tie(nullptr);\n\tint tt;\n\tcin >> tt;\n\twhile (tt--) {\n\t\tsolve();\n\t}\n\n\treturn 0;\n}"
+      "#include <bits/stdc++.h>",
+      "typedef long long ll;",
+      "const int INF = 1e9 + 7;",
+      "",
+      "void solve() {",
+      "\t$0",
+      "}",
+      "",
+      "int main() {",
+      "\tstd::ios::sync_with_stdio(false);",
+      "\tstd::cin.tie(nullptr);",
+      "\tstd::cout.tie(nullptr);",
+      "\tint T = 1;",
+      "\tif ($1) {",
+      "\t\tstd::cin >> T;",
+      "\t}",
+      "\twhile (T--) {",
+      "\t\tsolve();",
+      "\t}",
+      "",
+      "\treturn 0;",
+      "}"
     ],
     "description": "codeforces"
-  },
-  "atcoder": {
-    "prefix": "atc",
-    "body": [
-      "#include <bits/stdc++.h>\nusing namespace std;\n#define ll long long\n\nvoid solve() {\n\t$0\n}\n\nint main() {\n\tios::sync_with_stdio(false);\n\tcin.tie(nullptr);\n\tsolve();\n\n\treturn 0;\n}"
-    ],
-    "description": "atcoder"
-  },
-  "leetcode": {
-    "prefix": "leetcode",
-    "body": [
-      "#include <bits/stdc++.h>\n\nusing namespace std;\n\nclass Solution {\npublic:\n\t$0\n};"
-    ],
-    "description": "leetcode"
-  },
-  "leetcode_list": {
-    "prefix": "leetcode_list",
-    "body": [
-      "#include <bits/stdc++.h>\n\nusing namespace std;\n\nstruct ListNode {\n\tint val;\n\tListNode *next;\n\tListNode() : val(-1), next(NULL) {}\n\tListNode(int x) : val(x), next(NULL) {}\n\tListNode(int x, ListNode *next) : val(x), next(next) {}\n};\n\nclass Solution {\npublic:\n\t$0\n};"
-    ],
-    "description": "leetcode_list"
-  },
-  "leetcode_tree": {
-    "prefix": "leetcode_tree",
-    "body": [
-      "#include <bits/stdc++.h>\n\nusing namespace std;\n\nstruct TreeNode {\n\tint val;\n\tTreeNode *left;\n\tTreeNode *right;\n\tTreeNode() : val(0), left(nullptr), right(nullptr) {}\n\tTreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n\tTreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n};\n\nclass Solution {\npublic:\n\t$0\n};"
-    ],
-    "description": "leetcode_tree"
   }
 }

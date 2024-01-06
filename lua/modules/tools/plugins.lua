@@ -12,15 +12,12 @@ pack({
   'nvim-treesitter/nvim-treesitter',
   event = { 'BufRead', 'BufNewfile' },
   build = ':TSUpdate',
-  dependencies = {
-    { 'nvim-treesitter/nvim-treesitter-textobjects' },
-  },
   config = tools.treesitter,
 })
 
 pack({
   'folke/noice.nvim',
-  event = 'LspAttach',
+  event = { 'BufRead', 'BufNewfile' },
   dependencies = {
     'MunifTanjim/nui.nvim',
   },
@@ -61,6 +58,12 @@ pack({
 pack({
   'mbbill/undotree',
   cmd = 'UndotreeToggle',
+})
+
+pack({
+  'nvimdev/indentmini.nvim',
+  event = { 'BufRead', 'BufNewfile' },
+  config = tools.indentmini,
 })
 
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

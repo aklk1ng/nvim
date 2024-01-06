@@ -1,10 +1,6 @@
 local map = require('keymap')
 local cmd = map.cmd
 
-local quickrun = require('utils.api.quickrun')
-local flip_word = require('utils.api.flip-word')
-local mini_files = require('utils.api.mini-files')
-
 map.i({
   ['<C-c>'] = '<Esc>',
   ['<S-CR>'] = '<CR>',
@@ -20,8 +16,12 @@ map.i({
 })
 
 map.n({
-  ---------------------------- last command
-  [';@'] = '@:',
+  ['x'] = '"_x',
+  ['X'] = '"_X',
+  ['c'] = '"_c',
+  ['C'] = '"_C',
+  ['s'] = '"_s',
+  ['S'] = '"_S',
   -------------------------- friendly scroll
   ['<C-d>'] = '<C-d>zz',
   ['<C-u>'] = '<C-u>zz',
@@ -35,7 +35,6 @@ map.n({
 
   ['j'] = 'gj',
   ['k'] = 'gk',
-  ['<Tab>'] = 'za',
   ['<C-s>'] = cmd('write'),
   ['<'] = '<<<esc>',
   ['>'] = '>><esc>',
@@ -46,32 +45,21 @@ map.n({
   --------------------------- window
   ['<leader>s'] = cmd('split'),
   ['<leader>v'] = cmd('vsplit'),
-  ['<C->h'] = '<C-w>h<CR>',
-  ['<C->j'] = '<C-w>j<CR>',
-  ['<C->k'] = '<C-w>k<CR>',
-  ['<C->l'] = '<C-w>l<CR>',
+  ['<C-h>'] = '<C-w>h<CR>',
+  ['<C-j>'] = '<C-w>j<CR>',
+  ['<C-k>'] = '<C-w>k<CR>',
+  ['<C-l>'] = '<C-w>l<CR>',
   ['<A-[>'] = cmd('vertical resize-5'),
   ['<A-]>'] = cmd('vertical resize+5'),
   ['<A-C-]>'] = cmd('resize+5'),
   ['<A-C-[>'] = cmd('resize-5'),
   ['<leader>n'] = cmd('bnext'),
   ['<leader>p'] = cmd('bprevious'),
-  ['<leader>d'] = cmd('bdelete'),
-
-  -------------------------- local plugin api
-  ['<leader>r'] = quickrun.run,
-  ['<leader>R'] = quickrun.run_file,
-  ['ta'] = flip_word.toggle,
-  ['<leader>t'] = function()
-    if not _G.MiniFiles then
-      require('utils.api.mini-files').setup()
-    end
-    mini_files.open()
-  end,
+  ['<leader>d'] = cmd(vim.bo.buftype == 'terminal' and 'q!' or 'bdelete!'),
 
   -------------------------- built-in lua function
-  ['<leader>i'] = cmd('lua vim.lsp.inlay_hint.enable(0, true)'),
-  ['<leader>u'] = cmd('lua vim.lsp.inlay_hint.enable(0, false)'),
+  ['<leader><leader>i'] = cmd('lua vim.lsp.inlay_hint.enable(0, true)'),
+  ['<leader><leader>u'] = cmd('lua vim.lsp.inlay_hint.enable(0, false)'),
   [';u'] = cmd('lua vim.diagnostic.hide()'),
   [';i'] = cmd('lua vim.diagnostic.show()'),
 })
@@ -81,14 +69,21 @@ map.x({
   ['<'] = '<<<esc>',
   ['>'] = '>><esc>',
 
+  ['x'] = '"_x',
+  ['X'] = '"_X',
+  ['c'] = '"_c',
+  ['C'] = '"_C',
+  ['s'] = '"_s',
+  ['S'] = '"_S',
+
   --------------------------- move line up or down
   ['<A-j>'] = ":m '>+1<CR>gv=gv",
   ['<A-k>'] = ":m '<-2<CR>gv=gv",
 })
 
 map.c({
-  ['<C-b>'] = '<Left>',
-  ['<C-f>'] = '<Right>',
+  ['<C-j>'] = '<Left>',
+  ['<C-k>'] = '<Right>',
   ['<C-a>'] = '<Home>',
   ['<C-e>'] = '<End>',
   ['<C-h>'] = '<BS>',

@@ -10,27 +10,17 @@ function M.treesitter()
       'lua',
       'bash',
       'zig',
-      'html',
-      'css',
       'json',
       'jsonc',
       'rust',
       'go',
       'gomod',
-      'gosum',
-      'gowork',
       'markdown',
       'markdown_inline',
-      'javascript',
-      'typescript',
       'cmake',
       'make',
-      'sql',
-      'vim',
       'vimdoc',
-      'proto',
       'fish',
-      'diff',
     },
     sync_install = true,
     highlight = {
@@ -44,36 +34,6 @@ function M.treesitter()
         return false
       end,
     },
-    textobjects = {
-      select = {
-        enable = true,
-        -- Automatically jump forward to textobj, similar to targets.vim
-        lookahead = true,
-        keymaps = {
-          ['if'] = '@function.inner',
-          ['af'] = '@function.outer',
-          ['ic'] = '@class.inner',
-          ['ac'] = '@class.outer',
-          ['il'] = '@loop.inner',
-          ['al'] = '@loop.outer',
-        },
-        selection_modes = {
-          ['@parameter.outer'] = 'v', -- charwise
-          ['@function.outer'] = 'V', -- linewise
-          ['@class.outer'] = '<c-v>', -- blockwise
-        },
-        include_surrounding_whitespace = true,
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ['<leader>a'] = '@parameter.inner',
-        },
-        swap_previous = {
-          ['<leader>A'] = '@parameter.inner',
-        },
-      },
-    },
   })
 
   --set indent for jsx tsx
@@ -83,20 +43,16 @@ function M.treesitter()
       vim.bo[opt.buf].indentexpr = 'nvim_treesitter#indent()'
     end,
   })
+
   local swap_ternary = require('utils.api.swap_ternary')
-  vim.keymap.set('n', 'ts', swap_ternary.swap_ternary, { silent = true, noremap = true })
+  local map = require('keymap')
+  map.n({ ['ts'] = swap_ternary.swap_ternary })
 end
 
 function M.lspsaga()
   local saga = require('lspsaga')
 
   saga.setup({
-    rename = {
-      quit = '<Esc>',
-      mark = 'x',
-      exec = '<CR>',
-      in_select = true,
-    },
     definition = {
       width = 0.7,
       height = 0.6,
@@ -166,6 +122,9 @@ function M.telescope()
         height = 0.95,
         width = 0.95,
       },
+      preview = {
+        timeout = 500,
+      },
       sorting_strategy = 'ascending',
     },
     extensions = {
@@ -197,7 +156,7 @@ function M.guard()
         .. 'AllowShortEnumsOnASingleLine: false,'
         .. 'AllowShortFunctionsOnASingleLine: true,'
         .. 'BreakAfterAttributes: Always,'
-        .. 'ColumnLimit: 100'
+        .. 'ColumnLimit: 80'
         .. '}',
     },
     stdin = true,
@@ -207,7 +166,7 @@ function M.guard()
   ft('go'):fmt({
     cmd = 'golines',
     args = {
-      '--max-len=110',
+      '--max-len=100',
     },
     stdin = true,
   })
@@ -215,7 +174,7 @@ function M.guard()
     cmd = 'stylua',
     args = {
       '--column-width',
-      '110',
+      '100',
       '--quote-style',
       'AutoPreferSingle',
       '--indent-type',
@@ -227,7 +186,7 @@ function M.guard()
     stdin = true,
   })
   ft('rust'):fmt('rustfmt')
-  ft('python'):fmt('black')
+  ft('python'):fmt('ruff'):lint('ruff')
   ft('zig'):fmt({
     cmd = 'zig',
     args = { 'fmt', '--stdin' },
@@ -273,28 +232,13 @@ function M.guard()
   })
 end
 
-function M.oil()
-  require('oil').setup({
-    keymaps = {
-      ['g?'] = 'actions.show_help',
-      ['<CR>'] = 'actions.select',
-      ['<C-s>'] = 'actions.select_vsplit',
-      ['<C-h>'] = 'actions.select_split',
-      ['<C-t>'] = 'actions.select_tab',
-      ['<C-p>'] = 'actions.preview',
-      ['<C-c>'] = 'actions.close',
-      ['<C-l>'] = 'actions.refresh',
-      ['-'] = 'actions.parent',
-      ['_'] = 'actions.open_cwd',
-      ['`'] = 'actions.cd',
-      ['~'] = 'actions.tcd',
-      ['gs'] = 'actions.change_sort',
-      ['gx'] = 'actions.open_external',
-      ['g.'] = 'actions.toggle_hidden',
-      ['g\\'] = 'actions.toggle_trash',
-    },
-    view_options = {
-      show_hidden = true,
+function M.indentmini()
+  require('indentmini').setup({
+    char = '▏',
+    exclude = {
+      'erlang',
+      'markdown',
+      'help',
     },
   })
 end

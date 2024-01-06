@@ -2,25 +2,24 @@
   "ie": {
     "prefix": "ire",
     "body": [
-      "if ($1) {\n\tperror(\"$2\");\n\texit($3);\n}\n$0"
+      "if ($1) {",
+      "\tperror(\"$2\");",
+      "\texit($3);",
+      "}",
+      "$0"
     ],
     "description": "Code snippet for error statement"
   },
   "Starter for c": {
     "prefix": "sst",
     "body": [
-      "#include <stdio.h>\n\nint main(int argc, char *argv[]) {\n\t$0\n\treturn 0;\n}"
-    ],
-    "description": "starter for c"
-  },
-  "Main function": {
-    "prefix": "main",
-    "body": [
+      "#include <stdio.h>",
+      "",
       "int main(int argc, char *argv[]) {",
       "\t$0",
       "\treturn 0;",
       "}"
     ],
-    "description": "main functoin"
+    "description": "starter for c"
   }
 }

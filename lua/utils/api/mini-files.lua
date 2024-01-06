@@ -1064,7 +1064,13 @@ H.explorer_compute_fs_actions = function(explorer)
     end
   end
 
-  return { create = create, delete = vim.tbl_keys(delete_map), copy = copy, rename = rename, move = move }
+  return {
+    create = create,
+    delete = vim.tbl_keys(delete_map),
+    copy = copy,
+    rename = rename,
+    move = move,
+  }
 end
 
 H.explorer_update_cursors = function(explorer)
@@ -1145,8 +1151,10 @@ H.explorer_confirm_modified = function(explorer, action_name)
     return true
   end
 
-  local msg =
-    string.format('There is at least one modified buffer\n\nConfirm %s without synchronization?', action_name)
+  local msg = string.format(
+    'There is at least one modified buffer\n\nConfirm %s without synchronization?',
+    action_name
+  )
   local confirm_res = vim.fn.confirm(msg, '&Yes\n&No', 1, 'Question')
   return confirm_res == 1
 end
@@ -1301,7 +1309,8 @@ H.compute_visible_depth_range = function(explorer, opts)
     max_number = max_number + 1
   end
   if (width_focus + width_preview + width_nofocus) <= vim.o.columns then
-    max_number = max_number + math.floor((vim.o.columns - width_focus - width_preview) / width_nofocus)
+    max_number = max_number
+      + math.floor((vim.o.columns - width_focus - width_preview) / width_nofocus)
   end
 
   -- - Account for dedicated option
@@ -1474,7 +1483,11 @@ H.buffer_create = function(path, mappings)
   end
 
   au({ 'CursorMoved', 'CursorMovedI' }, 'Tweak cursor position', H.view_track_cursor)
-  au({ 'TextChanged', 'TextChangedI', 'TextChangedP' }, 'Track buffer modification', H.view_track_text_change)
+  au(
+    { 'TextChanged', 'TextChangedI', 'TextChangedP' },
+    'Track buffer modification',
+    H.view_track_text_change
+  )
 
   -- Tweak buffer to be used nicely with other 'mini.nvim' modules
   vim.b[buf_id].minicursorword_disable = true
@@ -1559,11 +1572,15 @@ H.buffer_update = function(buf_id, path, opts)
   end
 
   -- Perform entry type specific updates
-  local update_fun = H.fs_get_type(path) == 'directory' and H.buffer_update_directory or H.buffer_update_file
+  local update_fun = H.fs_get_type(path) == 'directory' and H.buffer_update_directory
+    or H.buffer_update_file
   local fs_entries = update_fun(buf_id, path, opts)
 
   -- Trigger dedicated event
-  H.trigger_event('MiniFilesBufferUpdate', { buf_id = buf_id, win_id = H.opened_buffers[buf_id].win_id })
+  H.trigger_event(
+    'MiniFilesBufferUpdate',
+    { buf_id = buf_id, win_id = H.opened_buffers[buf_id].win_id }
+  )
 
   -- Reset buffer as not modified
   H.opened_buffers[buf_id].n_modified = -1
@@ -1795,7 +1812,8 @@ end
 
 H.window_update = function(win_id, config)
   -- Compute helper data
-  local has_tabline = vim.o.showtabline == 2 or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
+  local has_tabline = vim.o.showtabline == 2
+    or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
   local max_height = H.window_get_max_height()
 
   -- Ensure proper fit
@@ -1831,7 +1849,10 @@ H.window_update = function(win_id, config)
   vim.wo[win_id].conceallevel = 3
 
   -- Trigger dedicated event
-  H.trigger_event('MiniFilesWindowUpdate', { buf_id = vim.api.nvim_win_get_buf(win_id), win_id = win_id })
+  H.trigger_event(
+    'MiniFilesWindowUpdate',
+    { buf_id = vim.api.nvim_win_get_buf(win_id), win_id = win_id }
+  )
 end
 
 H.window_update_highlight = function(win_id, new_from, new_to)
@@ -1920,7 +1941,8 @@ H.window_update_border_hl = function(win_id)
 end
 
 H.window_get_max_height = function()
-  local has_tabline = vim.o.showtabline == 2 or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
+  local has_tabline = vim.o.showtabline == 2
+    or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
   local has_statusline = vim.o.laststatus > 0
   -- Remove 2 from maximum height to account for top and bottom borders
   return vim.o.lines - vim.o.cmdheight - (has_tabline and 1 or 0) - (has_statusline and 1 or 0) - 2
@@ -2071,8 +2093,11 @@ H.fs_actions_to_lines = function(fs_actions)
 
   for _, diff in ipairs(fs_actions.copy) do
     local dir_actions = get_dir_actions(diff.from)
-    local l =
-      string.format("    COPY: %s to '%s'", get_quoted_basename(diff.from), H.fs_shorten_path(diff.to))
+    local l = string.format(
+      "    COPY: %s to '%s'",
+      get_quoted_basename(diff.from),
+      H.fs_shorten_path(diff.to)
+    )
     table.insert(dir_actions, l)
   end
 
@@ -2091,15 +2116,21 @@ H.fs_actions_to_lines = function(fs_actions)
 
   for _, diff in ipairs(fs_actions.move) do
     local dir_actions = get_dir_actions(diff.from)
-    local l =
-      string.format("    MOVE: %s to '%s'", get_quoted_basename(diff.from), H.fs_shorten_path(diff.to))
+    local l = string.format(
+      "    MOVE: %s to '%s'",
+      get_quoted_basename(diff.from),
+      H.fs_shorten_path(diff.to)
+    )
     table.insert(dir_actions, l)
   end
 
   for _, diff in ipairs(fs_actions.rename) do
     local dir_actions = get_dir_actions(diff.from)
-    local l =
-      string.format('  RENAME: %s to %s', get_quoted_basename(diff.from), get_quoted_basename(diff.to))
+    local l = string.format(
+      '  RENAME: %s to %s',
+      get_quoted_basename(diff.from),
+      get_quoted_basename(diff.to)
+    )
     table.insert(dir_actions, l)
   end
 

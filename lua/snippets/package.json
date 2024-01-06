@@ -14,10 +14,6 @@
         "path": "./go.json"
       },
       {
-        "language": "rust",
-        "path": "./rust.json"
-      },
-      {
         "language": [
           "shellscript",
           "shell",
@@ -25,10 +21,6 @@
           "zsh"
         ],
         "path": "./shell.json"
-      },
-      {
-        "language": "zig",
-        "path": "./zig.json"
       }
     ]
   }

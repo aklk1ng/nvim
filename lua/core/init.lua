@@ -1,3 +1,6 @@
+-- enable lua byte code caching
+vim.loader.enable()
+
 local g = vim.g
 -- disable_distribution_plugins
 g.loaded_gzip = 1
@@ -15,18 +18,6 @@ g.loaded_logiPat = 1
 g.loaded_rrhelper = 1
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
-
-vim.g.lsp_ft = {
-  'go',
-  'lua',
-  'rust',
-  'c',
-  'cpp',
-  'zig',
-  'python',
-  'json',
-  'cmake',
-}
 
 local function check()
   local cmds = {
@@ -49,14 +40,13 @@ if check() then
   vim.api.nvim_create_autocmd('UIEnter', {
     once = true,
     callback = function()
-      vim.cmd.colorscheme('aklk1ng')
-      require('utils.api.stc').setup()
-      require('utils.api.fold')
+      require('utils.api')
       require('keymap.basic')
-      require('core.event')
     end,
   })
+  vim.cmd.colorscheme('aklk1ng')
   require('core.options')
+  require('core.event')
   require('core.pack'):boot_strap()
   require('keymap.modules')
 end

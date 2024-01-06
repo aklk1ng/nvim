@@ -13,7 +13,7 @@ api.nvim_create_autocmd('TextYankPost', {
   group = aklk1ng,
   pattern = '*',
   callback = function()
-    vim.highlight.on_yank({ higroup = 'Search', timeout = 50 })
+    vim.highlight.on_yank({ higroup = 'Search', timeout = 75 })
   end,
 })
 
@@ -30,8 +30,19 @@ api.nvim_create_autocmd('BufReadPost', {
   group = aklk1ng,
   pattern = '*',
   callback = function()
-    -- return to the last edited line
-    vim.cmd([[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif]])
+    -- return to the last edited position
+    local pos = vim.fn.getpos('\'"')
+    if pos[2] > 0 and pos[2] <= vim.fn.line('$') then
+      vim.api.nvim_win_set_cursor(0, { pos[2], pos[3] - 1 })
+    end
+  end,
+})
+
+api.nvim_create_autocmd('TermOpen', {
+  group = aklk1ng,
+  callback = function()
+    vim.opt_local.stc = ''
+    vim.wo.number = false
   end,
 })
 

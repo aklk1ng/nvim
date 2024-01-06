@@ -2,9 +2,9 @@ local M = {}
 local api = vim.api
 
 local run_commands = {
-  c = 'gcc -Wall -Wextra -Wshadow -Wno-unused % -o %< && ./%< && rm ./%<',
-  cpp = 'g++ -Wall -Wextra -Wshadow -Wno-unused -std=c++20 % -o %< && ./%< && rm ./%<',
-  async_run = 'g++ -Wall -Wextra -Wshadow -Wno-unused -std=c++20 % -o %< && ./%< < in > sample && rm ./%<',
+  c = 'gcc -g -Wall -Wextra -Wshadow -Wno-unused % -o %< && ./%< && rm ./%<',
+  cpp = 'g++ -g -Wall -Wextra -Wshadow -Wno-unused -std=c++20 % -o %< && ./%< && rm ./%<',
+  async_run = 'g++ -g -Wall -Wextra -Wshadow -Wno-unused -std=c++20 % -o %< && ./%< < in > sample && rm ./%<',
   sh = 'bash %',
   python = 'python3 %',
   go = 'go run %',

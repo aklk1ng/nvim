@@ -2,7 +2,7 @@ local pack = require('core.pack').add_plugin
 local ui = require('modules.ui')
 
 pack({
-  'Nvchad/nvim-colorizer.lua',
+  'norcalli/nvim-colorizer.lua',
   cmd = 'ColorizerToggle',
   config = ui.colorizer,
 })

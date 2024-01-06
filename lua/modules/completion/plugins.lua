@@ -69,6 +69,6 @@ pack({
 
 pack({
   'neovim/nvim-lspconfig',
-  ft = vim.g.lsp_ft,
+  event = { 'BufRead', 'BufNewfile' },
   config = completion.lspconfig,
 })
