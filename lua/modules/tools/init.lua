@@ -36,7 +36,7 @@ function M.treesitter()
     },
   })
 
-  --set indent for jsx tsx
+  -- set indent for jsx tsx
   vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'javascriptreact', 'typescriptreact' },
     callback = function(opt)
@@ -44,9 +44,25 @@ function M.treesitter()
     end,
   })
 
-  local swap_ternary = require('utils.api.swap_ternary')
+  local swap = require('utils.api.swap')
+  local select = require('utils.api.select')
   local map = require('keymap')
-  map.n({ ['ts'] = swap_ternary.swap_ternary })
+  map.n('ts', swap.swap)
+
+  map.v({
+    ['if'] = function()
+      select.select(false, 'function')
+    end,
+    ['af'] = function()
+      select.select(true, 'function')
+    end,
+    ['ic'] = function()
+      select.select(false, 'class')
+    end,
+    ['ac'] = function()
+      select.select(true, 'class')
+    end,
+  })
 end
 
 function M.lspsaga()

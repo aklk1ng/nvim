@@ -44,9 +44,9 @@ if check() then
       require('keymap.basic')
     end,
   })
-  vim.cmd.colorscheme('aklk1ng')
   require('core.options')
   require('core.event')
   require('core.pack'):boot_strap()
   require('keymap.modules')
+  vim.cmd.colorscheme('aklk1ng')
 end

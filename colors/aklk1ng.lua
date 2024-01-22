@@ -5,11 +5,11 @@ vim.g.colors_name = 'aklk1ng'
 
 local p = {
   bg = '#151521',
-  base1 = '#34383c',
+  base1 = '#303336',
   base2 = '#454b50',
   bg_alt = '#222831',
   bg_highlight = '#1c212a',
-  fg = '#909096',
+  fg = '#878787',
   fg_alt = '#6b6a6b',
   red = '#a35858',
   pink = '#886f6f',
@@ -129,7 +129,7 @@ local syntax = {
   ['@punctuation.special'] = { fg = p.fg_alt },
   ['@constructor'] = { link = 'Function' },
   ['@namespace'] = { fg = p.orange },
-  ['@module'] = { fg = p.green },
+  ['@module'] = { fg = p.orange },
   ['@attribute'] = { link = '@field' },
   ['@comment.documentation'] = { fg = p.fancy },
   ['@markup.raw.block.markdown'] = { fg = p.grey },
@@ -148,30 +148,21 @@ local syntax = {
   -- LSP Semantic Token
   ['@lsp.type.builtinType'] = { link = 'Type' },
   ['@lsp.type.interface'] = { link = 'Type' },
-  ['@lsp.type.comment'] = {},
   ['@lsp.type.decorator'] = { link = '@attribute' },
   ['@lsp.type.deriveHelper'] = { link = '@attribute' },
   ['@lsp.type.escapeSequence'] = { link = '@string.escape' },
   ['@lsp.type.formatSpecifier'] = { link = '@punctuation.special' },
   ['@lsp.type.generic'] = { link = '@variable' },
-  ['@lsp.type.lifetime'] = { link = 'StorageClass' },
   ['@lsp.type.namespace'] = { link = '@namespace' },
   ['@lsp.type.parameter'] = { link = '@parameter' },
   ['@lsp.type.property'] = { link = '@property' },
   ['@lsp.type.struct'] = { link = 'Type' },
   ['@lsp.type.typeAlias'] = { link = 'Typedef' },
   ['@lsp.type.unresolvedReference'] = { undercurl = true },
-  ['@lsp.type.variable'] = { link = '@variable' },
-  ['@lsp.typemod.class.defaultLibrary'] = { link = '@type.builtin' },
-  ['@lsp.typemod.enum.defaultLibrary'] = { link = '@type.builtin' },
   ['@lsp.typemod.enumMember.defaultLibrary'] = { link = '@constant.builtin' },
-  ['@lsp.typemod.keyword.injected'] = { link = 'Keyword' },
   ['@lsp.typemod.macro.defaultLibrary'] = { link = '@function.builtin' },
-  ['@lsp.typemod.operator.injected'] = { link = 'Operator' },
   ['@lsp.typemod.struct.defaultLibrary'] = { link = 'Type' },
   ['@lsp.typemod.variable.callable'] = { link = 'Function' },
-  ['@lsp.typemod.variable.defaultLibrary'] = { link = '@variable.builtin' },
-  ['@lsp.typemod.variable.injected'] = { link = '@variable' },
   ['@lsp.typemod.variable.static'] = { link = 'Constant' },
 
   -- gitsigns.nvim
@@ -181,8 +172,9 @@ local syntax = {
 
   -- Telescope
   TelescopeSelection = { fg = p.purple, bg = p.bg_highlight, bold = true },
+  TelescopePromptNormal = { fg = p.grey, bg = p.bg_highlight },
   TelescopePromptTitle = { fg = p.bg, bg = p.blue },
-  TelescopePromptBorder = { fg = p.bg, bg = p.bg },
+  TelescopePromptBorder = { fg = p.bg_highlight, bg = p.bg_highlight },
   TelescopeResultsBorder = { fg = p.bg, bg = p.bg },
   TelescopeResultsTitle = { fg = p.bg, bg = p.pink },
   TelescopePreviewBorder = { fg = p.bg, bg = p.bg },
@@ -199,8 +191,6 @@ local syntax = {
   CmpItemKindField = { link = '@field' },
 
   IndentLine = { fg = p.bg_alt },
-  IblIndent = { fg = p.bg_highlight },
-  IblScope = { fg = p.base2 },
 }
 
 for group, conf in pairs(syntax) do

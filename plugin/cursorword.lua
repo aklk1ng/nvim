@@ -34,18 +34,28 @@ local function matchadd()
   vim.w.cursorword_match = 1
 end
 
-local function cursor_moved()
-  if vim.bo.filetype ~= 'help' and vim.bo.filetype ~= 'dashboard' and fn.expand('%:e') ~= '' then
-    matchadd()
-  else
-    if vim.w.cursorword_match == 1 then
-      fn.matchdelete(vim.w.cursorword_id)
-    end
-    vim.w.cursorword_match = 0
+local function matchdelete()
+  if vim.w.cursorword_id ~= 0 and vim.w.cursorword_id and vim.w.cursorword_match ~= 0 then
+    fn.matchdelete(vim.w.cursorword_id)
+    vim.w.cursorword_id = nil
+    vim.w.cursorword_match = nil
+    vim.w.cursorword = nil
   end
 end
 
-api.nvim_create_autocmd({ 'CursorHold' }, {
+local function cursor_moved()
+  if
+    vim.bo.filetype ~= 'help'
+    and #vim.bo.filetype ~= 0
+    and api.nvim_get_mode().mode == 'n'
+  then
+    matchadd()
+  else
+    matchdelete()
+  end
+end
+
+api.nvim_create_autocmd({ 'CursorHold', 'ModeChanged' }, {
   pattern = '*',
   callback = cursor_moved,
 })
