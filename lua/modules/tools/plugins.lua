@@ -41,6 +41,18 @@ pack({
 })
 
 pack({
+  'echasnovski/mini.files',
+  lazy = true,
+  version = '*',
+})
+
+pack({
+  'echasnovski/mini.hipatterns',
+  lazy = true,
+  version = '*',
+})
+
+pack({
   'kylechui/nvim-surround',
   keys = { 'cs', 'ds', 'ys' },
   config = tools.surround,
@@ -58,12 +70,6 @@ pack({
 pack({
   'mbbill/undotree',
   cmd = 'UndotreeToggle',
-})
-
-pack({
-  'nvimdev/indentmini.nvim',
-  event = { 'BufRead', 'BufNewfile' },
-  config = tools.indentmini,
 })
 
 pack({ 'nvim-lua/plenary.nvim', lazy = true })

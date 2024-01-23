@@ -7,9 +7,12 @@ function M.run()
     return
   end
   local json = vim.fn.json_decode(file:read('*a'))
-  local chunk = json.codeforces.body
+  local chunk = json.cf.body
   for k, v in pairs(chunk) do
+    -- remove ${number}
     local t = string.gsub(v, '%$%w+', '')
+    -- convert tab to spaces
+    t = string.gsub(t, '\t', string.rep(' ', 2))
     chunk[k] = t
   end
   local start = vim.fn.line('.')

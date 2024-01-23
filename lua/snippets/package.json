@@ -12,15 +12,6 @@
       {
         "language": "go",
         "path": "./go.json"
-      },
-      {
-        "language": [
-          "shellscript",
-          "shell",
-          "sh",
-          "zsh"
-        ],
-        "path": "./shell.json"
       }
     ]
   }

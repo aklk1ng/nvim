@@ -1,9 +1,0 @@
-{
-  "bash": {
-    "prefix": "bash",
-    "body": "#! /bin/bash\n\n$0",
-    "description": [
-      "#!/bin/bash"
-    ]
-  }
-}

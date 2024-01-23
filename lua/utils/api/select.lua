@@ -1,29 +1,34 @@
-local ts_utils = require('nvim-treesitter.ts_utils')
-local parsers = require('nvim-treesitter.parsers')
-
 local M = {}
 local tbl = {
   ['function'] = {
     'function_definition',
     'function_declaration',
+    'function_item',
   },
   ['class'] = {
     'class_specifier',
+    'class_definition',
+  },
+  ['loop'] = {
+    'for_statement',
+    'while_statement',
+    'do_statement',
+    'for_expression',
   },
 }
 
-local function find_node(node, predicates)
+local function find_node(node, predicate)
   if not node then
     return
   end
 
-  for _, v in pairs(predicates) do
+  for _, v in pairs(predicate) do
     if node:type() == v then
       return node
     end
   end
   node = node:parent()
-  return find_node(node, predicates)
+  return find_node(node, predicate)
 end
 
 local function execute(node, space)
@@ -34,32 +39,49 @@ local function execute(node, space)
   end
 
   local sr, sc, er, ec = node:range()
-  -- remove comment if exists
-  local prev = node:prev_sibling()
-  if space and prev:type() == 'comment' then
-    sr, sc, _, _ = prev:range()
-  end
   if space then
+    -- remove comment if exists
+    local prev = node:prev_sibling()
+    if prev and prev:type() == 'comment' then
+      sr, sc, _, _ = prev:range()
+    end
     vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
     vim.cmd('normal! o')
     vim.api.nvim_win_set_cursor(0, { er + 1, ec })
   else
-    vim.api.nvim_win_set_cursor(0, { sr + 2, sc })
-    vim.cmd('normal! o')
-    vim.api.nvim_win_set_cursor(0, { er, ec })
+    for k, v in node:iter_children() do
+      if v == 'body' then
+        sr, sc, er, ec = k:range()
+        break
+      end
+    end
+    if vim.bo.filetype == 'python' then
+      if sr ~= er then
+        vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+        vim.cmd('normal! o')
+        vim.api.nvim_win_set_cursor(0, { er + 1, ec })
+      else
+        vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+      end
+    else
+      if sr ~= er then
+        vim.api.nvim_win_set_cursor(0, { sr + 2, sc })
+        vim.cmd('normal! o')
+        vim.api.nvim_win_set_cursor(0, { er, ec })
+      else
+        vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+      end
+    end
   end
 end
 
 function M.select(space, predicate)
   local bufnr = vim.api.nvim_get_current_buf()
-  local lang = parsers.get_buf_lang(bufnr)
-
-  if not parsers.has_parser(lang) then
+  if not vim.treesitter.language.get_lang(vim.bo[bufnr].filetype) then
     vim.notify('No treesitter parser for current language')
     return
   end
-
-  local node = ts_utils.get_node_at_cursor(0)
+  local node = vim.treesitter.get_node({ bufnr })
   node = find_node(node, tbl[predicate])
 
   if not node then

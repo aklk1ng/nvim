@@ -10,7 +10,7 @@
     ],
     "description": "Code snippet for error statement"
   },
-  "Starter for c": {
+  "sst": {
     "prefix": "sst",
     "body": [
       "#include <stdio.h>",

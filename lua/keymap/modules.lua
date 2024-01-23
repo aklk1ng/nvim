@@ -12,11 +12,27 @@ map.n({
 
   [';t'] = cmd('UndotreeToggle'),
 
+  ['<leader>t'] = function()
+    if not _G.MiniFiles then
+      require('mini.files').setup()
+    end
+    _G.MiniFiles.open()
+  end,
+  ['<leader>co'] = function()
+    if not _G.MiniHipatterns then
+      require('modules.tools').hipatterns()
+    end
+    _G.MiniHipatterns.toggle()
+  end,
+
   ['[n'] = cmd('Lspsaga diagnostic_jump_next'),
   [']n'] = cmd('Lspsaga diagnostic_jump_prev'),
-  ['[e'] = cmd('lua require("lspsaga.diagnostic"):goto_prev({severity = vim.diagnostic.severity.ERROR})'),
-  [']e'] = cmd('lua require("lspsaga.diagnostic"):goto_next({severity = vim.diagnostic.severity.ERROR})'),
-  ['<leader>L'] = cmd('Lspsaga show_line_diagnostics'),
+  ['[e'] = cmd(
+    'lua require("lspsaga.diagnostic"):goto_prev({severity = vim.diagnostic.severity.ERROR})'
+  ),
+  [']e'] = cmd(
+    'lua require("lspsaga.diagnostic"):goto_next({severity = vim.diagnostic.severity.ERROR})'
+  ),
   [';h'] = cmd('Lspsaga hover_doc'),
   [',,'] = cmd('Lspsaga hover_doc ++keep'),
   ['<Leader>ic'] = cmd('Lspsaga incoming_calls'),
@@ -24,10 +40,10 @@ map.n({
   ['gh'] = cmd('Lspsaga finder'),
   ['gd'] = cmd('Lspsaga goto_definition'),
   ['gt'] = cmd('Lspsaga goto_type_definition'),
-  ['<leader>ca'] = cmd('Lspsaga code_action'),
+  ['ga'] = cmd('Lspsaga code_action'),
   ['gp'] = cmd('Lspsaga peek_definition'),
-  ['<leader>rn'] = cmd('Lspsaga rename'),
-  ['gr'] = cmd('Lspsaga rename ++project'),
+  ['gr'] = cmd('Lspsaga rename'),
+  ['<leader>rn'] = cmd('Lspsaga rename ++project'),
   ['<leader>o'] = cmd('Lspsaga outline'),
 
   [';f'] = cmd('Telescope find_files'),
@@ -37,7 +53,8 @@ map.n({
   [';o'] = cmd('Telescope oldfiles'),
   [';s'] = cmd('Telescope lsp_document_symbols'),
   [';S'] = cmd('Telescope lsp_workspace_symbols'),
-  [';d'] = cmd('Telescope diagnostics'),
+  [';d'] = cmd('Telescope diagnostics bufnr=0'),
+  [';D'] = cmd('Telescope diagnostics'),
   [';;'] = cmd('Telescope help_tags'),
   [';k'] = cmd('Telescope keymaps'),
   [';w'] = cmd('Telescope live_grep'),
@@ -48,6 +65,4 @@ map.n({
     local builtin = require('telescope.builtin')
     builtin.grep_string({ search = word })
   end,
-
-  ['<leader>co'] = cmd('ColorizerToggle'),
 })

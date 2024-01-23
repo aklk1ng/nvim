@@ -77,7 +77,7 @@ function M.cmp()
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'luasnip' },
+      { name = 'luasnip', priority = 100 },
       { name = 'buffer' },
     }),
     formatting = {
@@ -123,7 +123,6 @@ function M.lspconfig()
   ---@diagnostic disable-next-line: unused-local
   local on_attach = function(client, bufnr)
     vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
-    -- disable semantic token provided by lsp
     -- client.server_capabilities.semanticTokensProvider = nil
   end
   --Enable (broadcasting) snippet capability for completion
@@ -138,7 +137,6 @@ function M.lspconfig()
     return true
   end
 
-  --activate language clients
   require('lspconfig').clangd.setup({
     on_attach = on_attach,
     capabilities = capabilities,
@@ -147,8 +145,7 @@ function M.lspconfig()
     settings = {
       pylsp = {
         plugins = {
-          flake8 = {
-            enabled = true,
+          pycodestyle = {
             maxLineLength = 88,
           },
         },
@@ -168,10 +165,6 @@ function M.lspconfig()
     },
   })
   require('lspconfig').cmake.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-  require('lspconfig').jsonls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
   })

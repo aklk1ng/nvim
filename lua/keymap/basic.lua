@@ -30,8 +30,7 @@ map.n({
   ['<C-q>'] = cmd('qa!'),
   ['<leader>x'] = cmd('!chmod +x %'),
   ['<leader>cc'] = cmd('!rm ./%<'),
-  ['?'] = cmd('Inspect'),
-  [',.'] = '%',
+  ['|'] = cmd('Inspect'),
 
   ['j'] = 'gj',
   ['k'] = 'gk',
@@ -56,10 +55,21 @@ map.n({
   ['<leader>n'] = cmd('bnext'),
   ['<leader>p'] = cmd('bprevious'),
   ['<leader>d'] = cmd(vim.bo.buftype == 'terminal' and 'q!' or 'bdelete!'),
+  ['[t'] = cmd('vs new | vertical resize -5 | terminal'),
+  [']t'] = cmd('set splitbelow | sp new | set nosplitbelow | resize -5 | terminal'),
 
-  -------------------------- built-in lua function
-  ['<leader><leader>i'] = cmd('lua vim.lsp.inlay_hint.enable(0, true)'),
-  ['<leader><leader>u'] = cmd('lua vim.lsp.inlay_hint.enable(0, false)'),
+  ['<leader><leader>i'] = function()
+    local client = vim.lsp.get_clients({ bufnr = 0 })[1]
+    if client and client.supports_method('textDocument/inlayHint', { bunr = 0 }) then
+      vim.lsp.inlay_hint.enable(0, true)
+    end
+  end,
+  ['<leader><leader>u'] = function()
+    local client = vim.lsp.get_clients({ bufnr = 0 })[1]
+    if client and client.supports_method('textDocument/inlayHint', { bunr = 0 }) then
+      vim.lsp.inlay_hint.enable(0, false)
+    end
+  end,
   [';u'] = cmd('lua vim.diagnostic.hide()'),
   [';i'] = cmd('lua vim.diagnostic.show()'),
 })

@@ -50,7 +50,7 @@ o.pumheight = 10
 
 o.updatetime = 50
 o.timeout = true
-o.timeoutlen = 400
+o.timeoutlen = 300
 o.ttimeoutlen = 10
 o.redrawtime = 1500
 

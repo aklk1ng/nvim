@@ -1,6 +1,4 @@
-local get_node_text = require('vim.treesitter').get_node_text
-local ts_utils = require('nvim-treesitter.ts_utils')
-local parsers = require('nvim-treesitter.parsers')
+local get_node_text = vim.treesitter.get_node_text
 
 local M = {}
 local tbl = {
@@ -57,14 +55,13 @@ end
 
 function M.swap()
   local bufnr = vim.api.nvim_get_current_buf()
-  local lang = parsers.get_buf_lang(bufnr)
-
-  if not parsers.has_parser(lang) then
+  if not vim.treesitter.language.get_lang(vim.bo[bufnr].filetype) then
     vim.notify('No treesitter parser for current language')
     return
   end
 
-  local node = find_node(ts_utils.get_node_at_cursor(0))
+  local node = vim.treesitter.get_node({ bufnr })
+  node = find_node(node)
 
   if not node then
     vim.notify('No expression found')

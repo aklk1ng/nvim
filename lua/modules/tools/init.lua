@@ -5,13 +5,10 @@ function M.treesitter()
     ensure_installed = {
       'c',
       'cpp',
-      'dockerfile',
       'python',
       'lua',
       'bash',
       'zig',
-      'json',
-      'jsonc',
       'rust',
       'go',
       'gomod',
@@ -61,6 +58,12 @@ function M.treesitter()
     end,
     ['ac'] = function()
       select.select(true, 'class')
+    end,
+    ['il'] = function()
+      select.select(false, 'loop')
+    end,
+    ['al'] = function()
+      select.select(true, 'loop')
     end,
   })
 end
@@ -158,7 +161,9 @@ function M.surround()
 end
 
 function M.gitsigns()
-  require('gitsigns').setup({})
+  require('gitsigns').setup({
+    attach_to_untracked = true,
+  })
 end
 
 function M.guard()
@@ -248,15 +253,19 @@ function M.guard()
   })
 end
 
-function M.indentmini()
-  require('indentmini').setup({
-    char = '▏',
-    exclude = {
-      'erlang',
-      'markdown',
-      'help',
+function M.hipatterns()
+  local hipatterns = require('mini.hipatterns')
+  hipatterns.setup({
+    highlighters = {
+      -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+      fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+      hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+      todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+      note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+
+      -- Highlight hex color strings (`#rrggbb`) using that color
+      hex_color = hipatterns.gen_highlighter.hex_color(),
     },
   })
 end
-
 return M

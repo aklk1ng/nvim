@@ -1,17 +1,17 @@
 {
-  "it": {
-    "prefix": "it",
+  "all": {
+    "prefix": "all",
     "body": [
       "$1.begin(), $1.end()"
     ]
   },
-  "rit": {
-    "prefix": "rit",
+  "rall": {
+    "prefix": "rall",
     "body": [
       "$1.rbegin(), $1.rend()"
     ]
   },
-  "Starter for cpp": {
+  "sst": {
     "prefix": "sst",
     "body": [
       "#include <iostream>",
@@ -23,12 +23,11 @@
     ],
     "description": "starter for cpp"
   },
-  "codeforces": {
+  "cf": {
     "prefix": "cf",
     "body": [
       "#include <bits/stdc++.h>",
       "typedef long long ll;",
-      "const int INF = 1e9 + 7;",
       "",
       "void solve() {",
       "\t$0",
