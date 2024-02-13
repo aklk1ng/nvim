@@ -127,7 +127,7 @@ local function branch()
       local res = gitsigns_data(args.buf, 'head')
       return res and icon .. res or ''
     end,
-    event = { 'BufEnter', 'BufNewFile', 'User GitSignsUpdate' },
+    event = { 'User GitSignsUpdate' },
     attr = 'Include',
   }
   return result
@@ -228,11 +228,11 @@ local function default()
 
     lnumcol(),
     sep(),
+    branch(),
+    sep(),
     gitadd(),
     gitchange(),
     gitdelete(),
-    sep(),
-    branch(),
   }
   local e, pieces = {}, {}
   vim
@@ -264,7 +264,7 @@ local function render(comps, events, pieces)
 
       -- because setup use a timer to defer parse and render this will cause missing
       -- `BufEnter` event so add a safe check
-        pieces[3] = stl_format(comps[3].attr, comps[3].stl(args))
+      pieces[3] = stl_format(comps[3].attr, comps[3].stl(args))
 
       vim.opt.stl = table.concat(pieces)
       args = co.yield()

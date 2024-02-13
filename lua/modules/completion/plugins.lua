@@ -1,7 +1,6 @@
-local pack = require('core.pack').add_plugin
 local completion = require('modules.completion')
 
-pack({
+packadd({
   'hrsh7th/nvim-cmp',
   event = 'InsertEnter',
   dependencies = {
@@ -12,13 +11,13 @@ pack({
   config = completion.cmp,
 })
 
-pack({
+packadd({
   'L3MON4D3/LuaSnip',
   event = 'InsertEnter',
   config = completion.lua_snip,
 })
 
--- pack({
+-- packadd({
 --   'nvimdev/epo.nvim',
 --   event = 'LspAttach',
 --   config = function()
@@ -43,8 +42,12 @@ pack({
 --   end, { expr = true, noremap = true }),
 -- })
 
-pack({
+packadd({
   'neovim/nvim-lspconfig',
   event = { 'BufRead', 'BufNewfile' },
   config = completion.lspconfig,
+  dependencies = {
+    'folke/neodev.nvim',
+    config = completion.neodev,
+  },
 })

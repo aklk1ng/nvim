@@ -1,6 +1,4 @@
-require('utils.api.stc').setup()
 require('utils.api.stl').setup()
-require('utils.api.indentline')
 require('utils.api.fold')
 
 local map = require('keymap')
