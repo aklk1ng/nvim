@@ -268,4 +268,15 @@ function M.hipatterns()
     },
   })
 end
+
+function M.indentmini()
+  require('indentmini').setup({
+    char = '▏',
+    exclude = {
+      'erlang',
+      'markdown',
+    },
+  })
+end
+
 return M

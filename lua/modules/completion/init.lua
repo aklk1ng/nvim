@@ -90,6 +90,10 @@ function M.cmp()
   })
 end
 
+function M.neodev()
+  require('neodev').setup({})
+end
+
 function M.lspconfig()
   vim.diagnostic.config({
     signs = false,
@@ -192,6 +196,7 @@ function M.lspconfig()
       client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
           diagnostics = {
+            unusedLocalExclude = { '_*' },
             globals = { 'vim' },
             disable = {
               'missing-fields',
@@ -204,7 +209,11 @@ function M.lspconfig()
           -- Make the server aware of Neovim runtime files
           workspace = {
             checkThirdParty = false,
-            library = { vim.env.VIMRUNTIME },
+            library = {
+              vim.env.VIMRUNTIME,
+              '${3rd}/busted/library',
+              '${3rd}/luv/library',
+            },
           },
           completion = {
             callSnippet = 'Replace',

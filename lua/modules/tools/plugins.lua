@@ -1,21 +1,20 @@
-local pack = require('core.pack').add_plugin
 local tools = require('modules.tools')
 
-pack({
+packadd({
   'nvimdev/lspsaga.nvim',
   event = 'LspAttach',
   branch = 'main',
   config = tools.lspsaga,
 })
 
-pack({
+packadd({
   'nvim-treesitter/nvim-treesitter',
   event = { 'BufRead', 'BufNewfile' },
   build = ':TSUpdate',
   config = tools.treesitter,
 })
 
-pack({
+packadd({
   'folke/noice.nvim',
   event = { 'BufRead', 'BufNewfile' },
   dependencies = {
@@ -24,13 +23,13 @@ pack({
   config = tools.noice,
 })
 
-pack({
+packadd({
   'lewis6991/gitsigns.nvim',
   event = { 'BufRead', 'BufNewfile' },
   config = tools.gitsigns,
 })
 
-pack({
+packadd({
   'nvim-telescope/telescope.nvim',
   cmd = 'Telescope',
   dependencies = {
@@ -40,25 +39,13 @@ pack({
   config = tools.telescope,
 })
 
-pack({
-  'echasnovski/mini.files',
-  lazy = true,
-  version = '*',
-})
-
-pack({
-  'echasnovski/mini.hipatterns',
-  lazy = true,
-  version = '*',
-})
-
-pack({
+packadd({
   'kylechui/nvim-surround',
-  keys = { 'cs', 'ds', 'ys' },
+  event = { 'BufRead', 'BufNewfile' },
   config = tools.surround,
 })
 
-pack({
+packadd({
   'nvimdev/guard.nvim',
   cmd = 'GuardFmt',
   dependencies = {
@@ -67,9 +54,22 @@ pack({
   config = tools.guard,
 })
 
-pack({
-  'mbbill/undotree',
-  cmd = 'UndotreeToggle',
+packadd({
+  'nvimdev/indentmini.nvim',
+  event = { 'BufRead', 'BufNewfile' },
+  config = tools.indentmini,
 })
 
-pack({ 'nvim-lua/plenary.nvim', lazy = true })
+packadd({
+  'echasnovski/mini.files',
+  lazy = true,
+  version = '*',
+})
+
+packadd({
+  'echasnovski/mini.hipatterns',
+  lazy = true,
+  version = '*',
+})
+
+packadd({ 'nvim-lua/plenary.nvim', lazy = true })

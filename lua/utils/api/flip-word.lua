@@ -28,6 +28,7 @@ local tbl = {
   ['&&'] = '||',
   ['&'] = '|',
   ['&='] = '|=',
+  ['/='] = '%=',
 }
 
 vim.tbl_add_reverse_lookup(tbl)
