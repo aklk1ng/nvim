@@ -10,6 +10,8 @@ map.n({
 
   ['<leader>f'] = cmd('GuardFmt'),
 
+  [';t'] = cmd('UndotreeToggle'),
+
   ['<leader>t'] = function()
     if not _G.MiniFiles then
       require('mini.files').setup()

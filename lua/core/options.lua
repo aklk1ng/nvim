@@ -31,7 +31,6 @@ o.copyindent = true
 o.smartindent = true
 o.cindent = true
 o.number = true
-o.numberwidth = 3
 o.mouse = 'a'
 o.autochdir = true
 o.exrc = true
@@ -59,10 +58,9 @@ o.ignorecase = true
 o.smartcase = true
 o.showmatch = true
 o.inccommand = 'split'
+-- share clipboard
 o.clipboard = 'unnamedplus'
 o.fileencodings = 'utf-8,ucs-bom,gbk,cp936,gb2312,gb18030'
-
-o.stc = '%C%=%l%s'
 
 if vim.fn.executable('rg') == 1 then
   vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'

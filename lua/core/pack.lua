@@ -34,7 +34,6 @@ function M:boot_strap()
     dev = {
       path = '~/workspace',
     },
-    install = { colorscheme = { 'habamax' } },
     performance = {
       rtp = {
         disabled_plugins = {
@@ -59,7 +58,7 @@ function M:boot_strap()
   lazy.setup(M.plugins, opts)
 end
 
-_G.packadd = function(repo)
+function M.add_plugin(repo)
   table.insert(M.plugins, repo)
 end
 
