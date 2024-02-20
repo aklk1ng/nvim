@@ -11,6 +11,7 @@ local tbl = {
   },
   ['loop'] = {
     'for_statement',
+    'for_range_loop',
     'while_statement',
     'do_statement',
     'for_expression',

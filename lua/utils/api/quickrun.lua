@@ -2,15 +2,15 @@ local M = {}
 local api = vim.api
 
 local run_commands = {
-  c = 'gcc -g -Wall -Wextra -Wshadow -Wno-unused % -o %< && ./%< && rm ./%<',
-  cpp = 'g++ -g -Wall -Wextra -Wshadow -Wno-unused -std=c++20 % -o %< && ./%< && rm ./%<',
-  async_run = 'g++ -g -Wall -Wextra -Wshadow -Wno-unused -std=c++20 % -o %< && ./%< < in > sample && rm ./%<',
+  c = 'gcc -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare % -o %< && ./%< && rm ./%<',
+  cpp = 'g++ -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare -std=c++20 % -o %< && ./%< && rm ./%<',
+  async_run = 'g++ -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare -std=c++20 % -o %< && ./%< < in > sample && rm ./%<',
   sh = 'bash %',
   python = 'python3 %',
   go = 'go run %',
   lua = 'lua %',
   rust = 'rustc % && ./%< && rm ./%<',
-  zig = 'zig run',
+  zig = 'zig run %',
 }
 
 local function Prepare()

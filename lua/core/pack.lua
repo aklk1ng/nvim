@@ -1,10 +1,9 @@
 local M = {}
-local helper = require('core.helper')
 
 M.plugins = {}
 
 function M.load_modules()
-  local modules_dir = helper.get_config_path() .. '/lua/modules'
+  local modules_dir = vim.fn.stdpath('config') .. '/lua/modules'
   local file_list = vim.fs.find('plugins.lua', { path = modules_dir, type = 'file', limit = 10 })
   if #file_list == 0 then
     return
@@ -18,7 +17,7 @@ function M.load_modules()
 end
 
 function M:boot_strap()
-  local lazypath = string.format('%s/lazy/lazy.nvim', helper.get_data_path())
+  local lazypath = string.format('%s/lazy/lazy.nvim', vim.fn.stdpath('data'))
   if not vim.loop.fs_stat(lazypath) then
     local cmd = '!git clone https://github.com/folke/lazy.nvim ' .. lazypath
     vim.api.nvim_command(cmd)
@@ -26,7 +25,7 @@ function M:boot_strap()
   vim.opt.runtimepath:prepend(lazypath)
   local lazy = require('lazy')
   local opts = {
-    lockfile = helper.get_data_path() .. '/lazy-lock.json',
+    lockfile = vim.fn.stdpath('data') .. '/lazy-lock.json',
     git = {
       log = { '-10' }, -- show the last 10 commits
       timeout = 60, -- kill processes that take more than 1 minutes

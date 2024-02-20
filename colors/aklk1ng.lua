@@ -5,13 +5,14 @@ vim.g.colors_name = 'aklk1ng'
 
 local p = {
   bg = '#151521',
-  base1 = '#303336',
-  base2 = '#454b50',
-  bg_alt = '#232931',
-  bg_highlight = '#1a1f27',
+  bg_dim = '#191926',
+  bg_alt = '#292d36',
+  fg_moon = '#353a3e',
+  fg_dim = '#454b50',
   fg = '#808080',
   fg_alt = '#6a6a6a',
   red = '#a35858',
+  wine = '#323031',
   pink = '#796174',
   orange = '#7d5e4c',
   yellow = '#736a53',
@@ -20,25 +21,25 @@ local p = {
   purple = '#646882',
   grey = '#707070',
   fancy = '#4f585e',
-  galaxy = '#506561',
-  none = 'none',
+  galaxy = '#4e6568',
+  none = 'NONE',
 }
 
 local syntax = {
   Normal = { fg = p.fg, bg = p.bg },
   Terminal = { fg = p.fg, bg = p.bg },
   SignColumn = { fg = p.fg, bg = p.bg },
-  WinSeparator = { fg = p.base1, bg = p.bg },
-  Folded = { fg = p.green, bg = p.bg_highlight },
+  WinSeparator = { fg = p.bg_alt },
+  Folded = { fg = p.grey, bg = p.bg_dim },
   EndOfBuffer = { fg = p.bg, bg = p.none },
   Search = { fg = p.bg, bg = p.yellow },
   CurSearch = { link = 'Search' },
-  ColorColumn = { bg = p.bg_highlight },
+  ColorColumn = { link = 'CursorLine' },
   Conceal = { fg = p.grey, bg = p.none },
   CursorColumn = { link = 'CursorLine' },
-  FoldColumn = { fg = p.galaxy },
-  CursorLine = { bg = p.bg_highlight },
-  LineNr = { fg = p.bg_alt },
+  FoldColumn = { fg = p.fancy },
+  CursorLine = { bg = p.bg_dim },
+  LineNr = { fg = p.fg_moon },
   CursorLineNr = { fg = p.fg_alt },
   Added = { fg = p.green },
   Removed = { fg = p.red },
@@ -49,24 +50,27 @@ local syntax = {
   Directory = { fg = p.blue, bg = p.none },
   ErrorMsg = { fg = p.red, bg = p.none, bold = true },
   MoreMsg = { fg = p.blue },
+  QuickFixLine = { fg = p.none },
+  qfLineNr = { fg = p.fg_alt },
   WarningMsg = { fg = p.yellow, bg = p.none, bold = true },
-  MatchParen = { fg = p.pink, bg = p.base2, bold = true },
+  MatchParen = { fg = p.pink, bg = p.fg_dim, bold = true },
   NonText = { link = 'Comment' },
-  Whitespace = { fg = p.base1 },
+  Whitespace = { fg = p.bg_alt },
   SpecialKey = { fg = p.grey },
-  Pmenu = { fg = p.fg_alt, bg = p.bg_highlight },
-  PmenuKind = { fg = p.yellow, bg = p.bg_highlight },
+  Pmenu = { fg = p.fg_alt, bg = p.bg_dim },
+  PmenuKind = { fg = p.yellow, bg = p.bg_dim },
   PmenuSel = { fg = p.fg_alt, bg = p.bg_alt },
-  PmenuSbar = { bg = p.bg_highlight },
+  PmenuSbar = { bg = p.bg_dim },
   PmenuThumb = { link = 'PmenuSbar' },
   WildMenu = { link = 'Pmenu' },
   WinBar = { link = 'StatusLine' },
   WinBarNC = { link = 'StatusLineNC' },
+  TabLine = { fg = p.grey },
   StatusLine = { bg = p.bg },
   StatusLineNC = { bg = p.bg },
-  NormalFloat = { fg = p.fg_alt },
+  NormalFloat = { fg = p.fg_alt, bg = p.bg_dim },
   FloatBorder = { fg = p.fg_alt },
-  Visual = { bg = p.base1 },
+  Visual = { bg = p.bg_alt },
   Boolean = { fg = p.orange },
   Number = { fg = p.purple },
   Float = { link = 'Number' },
@@ -95,7 +99,6 @@ local syntax = {
   Type = { fg = p.galaxy },
   Identifier = { fg = p.yellow },
   Comment = { fg = p.fancy },
-  Todo = { fg = p.pink },
   Delimiter = { fg = p.fg_alt },
   Noise = { fg = p.fg_alt },
 
@@ -112,11 +115,10 @@ local syntax = {
   DiagnosticUnderlineInfo = { undercurl = true },
   DiagnosticUnderlineHint = { undercurl = true },
 
-  CursorWord = { bg = p.base1 },
-  LspInlayHint = { fg = p.base2 },
+  CursorWord = { bg = p.wine },
+  LspInlayHint = { fg = p.fg_dim },
 
-  -- noice
-  LspSignatureActiveParameter = { bg = p.bg_alt },
+  LspSignatureActiveParameter = { bold = true },
 
   -- nvim-treesitter
   ['@function.builtin'] = { link = 'Function' },
@@ -174,6 +176,7 @@ local syntax = {
   ['@lsp.type.unresolvedReference'] = { undercurl = true },
   ['@lsp.typemod.enumMember.defaultLibrary'] = { link = '@constant.builtin' },
   ['@lsp.typemod.struct.defaultLibrary'] = { link = 'Type' },
+  ['@lsp.typemod.variable.declaration'] = { link = '@variable' },
   ['@lsp.typemod.variable.callable'] = { link = 'Function' },
   ['@lsp.typemod.variable.static'] = { link = 'Constant' },
 
@@ -183,14 +186,15 @@ local syntax = {
   GitSignsDelete = { fg = p.red },
 
   -- Telescope
-  TelescopeSelection = { bg = p.bg_highlight },
-  TelescopePromptNormal = { fg = p.grey, bg = p.bg_highlight },
+  TelescopeSelection = { bg = p.bg_dim },
+  TelescopePromptNormal = { fg = p.grey, bg = p.bg_dim },
   TelescopePromptTitle = { fg = p.bg, bg = p.blue },
-  TelescopePromptBorder = { fg = p.bg_highlight, bg = p.bg_highlight },
+  TelescopePromptBorder = { fg = p.bg_dim, bg = p.bg_dim },
   TelescopeResultsBorder = { fg = p.bg, bg = p.bg },
   TelescopeResultsTitle = { fg = p.bg, bg = p.pink },
   TelescopePreviewBorder = { fg = p.bg, bg = p.bg },
   TelescopePreviewTitle = { fg = p.bg, bg = p.purple },
+
   -- nvim-cmp
   CmpItemAbbrMatch = { fg = p.green },
   CmpDoc = { link = 'Pmenu' },
@@ -200,9 +204,6 @@ local syntax = {
   CmpItemKindModule = { link = '@module' },
   CmpItemKindVariable = { link = '@variable' },
   CmpItemKindField = { link = '@field' },
-
-  -- indentmini
-  IndentLine = { fg = p.bg_alt },
 }
 
 for group, conf in pairs(syntax) do

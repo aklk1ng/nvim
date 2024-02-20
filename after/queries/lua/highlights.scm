@@ -6,3 +6,5 @@
   "}"
 ] @punctuation.bracket)
 
+((identifier) @namespace.builtin
+  (#eq? @namespace.builtin "vim"))

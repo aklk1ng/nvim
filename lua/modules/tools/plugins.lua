@@ -15,15 +15,6 @@ packadd({
 })
 
 packadd({
-  'folke/noice.nvim',
-  event = { 'BufRead', 'BufNewfile' },
-  dependencies = {
-    'MunifTanjim/nui.nvim',
-  },
-  config = tools.noice,
-})
-
-packadd({
   'lewis6991/gitsigns.nvim',
   event = { 'BufRead', 'BufNewfile' },
   config = tools.gitsigns,
@@ -35,6 +26,10 @@ packadd({
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-telescope/telescope-fzy-native.nvim' },
+    {
+      'LukasPietzschmann/telescope-tabs',
+      config = tools.tabs,
+    },
   },
   config = tools.telescope,
 })
@@ -55,21 +50,16 @@ packadd({
 })
 
 packadd({
-  'nvimdev/indentmini.nvim',
-  event = { 'BufRead', 'BufNewfile' },
-  config = tools.indentmini,
-})
-
-packadd({
   'echasnovski/mini.files',
-  lazy = true,
   version = '*',
+  event = { 'BufRead', 'BufNewfile' },
+  config = tools.files,
 })
 
 packadd({
-  'echasnovski/mini.hipatterns',
-  lazy = true,
-  version = '*',
+  'NvChad/nvim-colorizer.lua',
+  cmd = 'ColorizerToggle',
+  config = tools.colorizer,
 })
 
 packadd({ 'nvim-lua/plenary.nvim', lazy = true })

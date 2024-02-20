@@ -27,16 +27,17 @@ local function check()
     if vim.fn.executable(cmd) ~= 1 then
       print(cmd .. ' not found')
       return false
-    else
-      return true
     end
   end
+  return true
 end
 
 if check() then
   vim.api.nvim_create_autocmd('UIEnter', {
     once = true,
     callback = function()
+      require('core.builtin')
+      require('core.globals')
       require('utils.api')
       require('keymap.basic')
     end,

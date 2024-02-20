@@ -1,5 +1,4 @@
 local M = {}
-local helper = require('core.helper')
 
 function M.lua_snip()
   local ls = require('luasnip')
@@ -10,7 +9,7 @@ function M.lua_snip()
     updateevents = 'TextChanged,TextChangedI',
   })
   require('luasnip.loaders.from_vscode').lazy_load({
-    paths = { helper.get_config_path() .. '/lua/snippets/' },
+    paths = { vim.fn.stdpath('config') .. '/lua/snippets/' },
   })
 end
 
@@ -52,6 +51,11 @@ function M.cmp()
         winhighlight = 'Normal:Pmenu',
       },
     },
+    view = {
+      entries = {
+        follow_cursor = true,
+      },
+    },
     completion = {
       -- make the completion trigged when i type a letter not other invalid characters
       keyword_length = 1,
@@ -78,7 +82,7 @@ function M.cmp()
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'luasnip', priority = 100 },
-      { name = 'buffer' },
+      { name = 'buffer', keyword_length = 3 },
     }),
     formatting = {
       fields = { 'kind', 'abbr' },
@@ -88,10 +92,28 @@ function M.cmp()
       end,
     },
   })
-end
 
-function M.neodev()
-  require('neodev').setup({})
+  -- Override the documentation handler to remove the redundant detail section.
+  ---@diagnostic disable-next-line: duplicate-set-field
+  require('cmp.entry').get_documentation = function(self)
+    local item = self:get_completion_item()
+
+    if item.documentation then
+      return vim.lsp.util.convert_input_to_markdown_lines(item.documentation)
+    end
+
+    -- Use the item's detail as a fallback if there's no documentation.
+    if item.detail then
+      local ft = self.context.filetype
+      local dot_index = string.find(ft, '%.')
+      if dot_index ~= nil then
+        ft = string.sub(ft, 0, dot_index - 1)
+      end
+      return (vim.split(('```%s\n%s```'):format(ft, vim.trim(item.detail)), '\n'))
+    end
+
+    return {}
+  end
 end
 
 function M.lspconfig()
@@ -132,31 +154,18 @@ function M.lspconfig()
   --Enable (broadcasting) snippet capability for completion
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-  -- capabilities = vim.tbl_deep_extend('force', capabilities, require('epo').register_cap())
 
-  vim.lsp.handlers['workspace/diagnostic/refresh'] = function(_, _, ctx)
-    local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
-    local bufnr = vim.api.nvim_get_current_buf()
-    vim.diagnostic.reset(ns, bufnr)
-    return true
-  end
-
-  require('lspconfig').clangd.setup({
+  local lspconfig = require('lspconfig')
+  lspconfig.clangd.setup({
+    cmd = { 'clangd', '--background-index' },
     on_attach = on_attach,
     capabilities = capabilities,
   })
-  require('lspconfig').pylsp.setup({
-    settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = {
-            maxLineLength = 88,
-          },
-        },
-      },
-    },
+  lspconfig.pyright.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
   })
-  require('lspconfig').zls.setup({
+  lspconfig.zls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -168,11 +177,7 @@ function M.lspconfig()
       },
     },
   })
-  require('lspconfig').cmake.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-  require('lspconfig').gopls.setup({
+  lspconfig.gopls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
@@ -189,45 +194,31 @@ function M.lspconfig()
       },
     },
   })
-  require('lspconfig').lua_ls.setup({
+  lspconfig.lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    on_init = function(client)
-      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-        Lua = {
-          diagnostics = {
-            unusedLocalExclude = { '_*' },
-            globals = { 'vim' },
-            disable = {
-              'missing-fields',
-              'no-unknown',
-            },
-          },
-          runtime = {
-            version = 'LuaJIT',
-          },
-          -- Make the server aware of Neovim runtime files
-          workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME,
-              '${3rd}/busted/library',
-              '${3rd}/luv/library',
-            },
-          },
-          completion = {
-            callSnippet = 'Replace',
-          },
-          hint = {
-            enable = true,
+    settings = {
+      Lua = {
+        runtime = { version = 'LuaJIT' },
+        diagnostics = {
+          unusedLocalExclude = { '_*' },
+          globals = { 'vim' },
+          disable = {
+            'missing-fields',
+            'no-unknown',
           },
         },
-      })
-      client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
-      return true
-    end,
+        workspace = {
+          checkThirdParty = false,
+          library = { vim.env.VIMRUNTIME },
+        },
+        completion = {
+          callSnippet = 'Replace',
+        },
+      },
+    },
   })
-  require('lspconfig').rust_analyzer.setup({
+  lspconfig.rust_analyzer.setup({
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {

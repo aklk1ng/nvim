@@ -1,8 +1,7 @@
-local helper = require('core.helper')
 local M = {}
 
 function M.run()
-  local file = io.open(helper.get_config_path() .. '/lua/snippets/cpp.json', 'r')
+  local file = io.open(vim.fn.stdpath('config') .. '/lua/snippets/cpp.json', 'r')
   if not file then
     return
   end

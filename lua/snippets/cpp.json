@@ -27,7 +27,8 @@
     "prefix": "cf",
     "body": [
       "#include <bits/stdc++.h>",
-      "typedef long long ll;",
+      "using ll = long long;",
+      "const int mod = 998244353;",
       "",
       "void solve() {",
       "\t$0",

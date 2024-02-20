@@ -13,7 +13,7 @@ local function fileinfo()
   local result = {
     stl = '%t%r%m',
     event = { 'BufEnter' },
-    attr = 'CursorLineNr',
+    attr = 'Operator',
   }
 
   return result
@@ -80,44 +80,6 @@ local function gitsigns_data(bufnr, type)
   end
 
   return dict[type]
-end
-
-local function gitadd()
-  local result = {
-    stl = function(args)
-      local res = gitsigns_data(args.buf, 'added')
-      return res > 0 and '+' .. res or ''
-    end,
-    event = { 'User GitSignsUpdate' },
-    attr = 'DiffAdd',
-  }
-  return result
-end
-
-local function gitchange()
-  local result = {
-    stl = function(args)
-      local res = gitsigns_data(args.buf, 'changed')
-      return res > 0 and '~' .. res or ''
-    end,
-    event = { 'User GitSignsUpdate' },
-    attr = 'DiffChange',
-  }
-
-  return result
-end
-
-local function gitdelete()
-  local result = {
-    stl = function(args)
-      local res = gitsigns_data(args.buf, 'removed')
-      return res > 0 and '-' .. res or ''
-    end,
-    event = { 'User GitSignsUpdate' },
-    attr = 'DiffDelete',
-  }
-
-  return result
 end
 
 local function branch()
@@ -229,10 +191,6 @@ local function default()
     lnumcol(),
     sep(),
     branch(),
-    sep(),
-    gitadd(),
-    gitchange(),
-    gitdelete(),
   }
   local e, pieces = {}, {}
   vim

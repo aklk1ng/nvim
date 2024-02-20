@@ -14,10 +14,9 @@ function M.treesitter()
       'gomod',
       'markdown',
       'markdown_inline',
-      'cmake',
       'make',
       'vimdoc',
-      'fish',
+      'query',
     },
     sync_install = true,
     highlight = {
@@ -106,25 +105,6 @@ function M.lspsaga()
   })
 end
 
-function M.noice()
-  require('noice').setup({
-    cmdline = {
-      enabled = false,
-    },
-    messages = {
-      enabled = false,
-    },
-    lsp = {
-      progress = {
-        enabled = false,
-      },
-    },
-    popupmenu = {
-      enabled = false,
-    },
-  })
-end
-
 function M.telescope()
   require('telescope').setup({
     defaults = {
@@ -156,8 +136,54 @@ function M.telescope()
   require('telescope').load_extension('fzy_native')
 end
 
+function M.tabs()
+  require('telescope').load_extension('telescope-tabs')
+  require('telescope-tabs').setup({
+    entry_formatter = function(tab_id, _, _, file_paths, is_current)
+      local entry_string = table.concat(
+        vim.tbl_map(function(v)
+          return v:gsub(vim.fn.getcwd() .. '/', './')
+        end, file_paths),
+        ', '
+      )
+      return string.format('%d: %s%s', tab_id, entry_string, is_current and ' <' or '')
+    end,
+  })
+end
+
 function M.surround()
   require('nvim-surround').setup()
+end
+
+function M.files()
+  require('mini.files').setup()
+
+  local map_split = function(buf_id, lhs, direction)
+    local rhs = function()
+      -- Make new window and set it as target
+      local new_target_window
+      vim.api.nvim_win_call(MiniFiles.get_target_window(), function()
+        vim.cmd(direction .. ' split')
+        new_target_window = vim.api.nvim_get_current_win()
+      end)
+
+      MiniFiles.set_target_window(new_target_window)
+    end
+
+    -- Adding `desc` will result into `show_help` entries
+    local desc = 'Split ' .. direction
+    vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
+  end
+
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'MiniFilesBufferCreate',
+    callback = function(args)
+      local buf_id = args.data.buf_id
+      -- Tweak keys to your liking
+      map_split(buf_id, '<C-s>', 'belowright horizontal')
+      map_split(buf_id, '<C-v>', 'belowright vertical')
+    end,
+  })
 end
 
 function M.gitsigns()
@@ -177,6 +203,8 @@ function M.guard()
         .. 'AllowShortEnumsOnASingleLine: false,'
         .. 'AllowShortFunctionsOnASingleLine: true,'
         .. 'BreakAfterAttributes: Always,'
+        .. 'SortIncludes: Never,'
+        .. 'SeparateDefinitionBlocks: Always,'
         .. 'ColumnLimit: 80'
         .. '}',
     },
@@ -184,13 +212,7 @@ function M.guard()
   }
   ft('c'):fmt(clang_format)
   ft('cpp'):fmt(clang_format)
-  ft('go'):fmt({
-    cmd = 'golines',
-    args = {
-      '--max-len=100',
-    },
-    stdin = true,
-  })
+  ft('go'):fmt('lsp'):append('golines')
   ft('lua'):fmt({
     cmd = 'stylua',
     args = {
@@ -208,11 +230,6 @@ function M.guard()
   })
   ft('rust'):fmt('rustfmt')
   ft('python'):fmt('ruff'):lint('ruff')
-  ft('zig'):fmt({
-    cmd = 'zig',
-    args = { 'fmt', '--stdin' },
-    stdin = true,
-  })
   ft('toml'):fmt('taplo')
   ft('sh'):fmt({
     cmd = 'shfmt',
@@ -253,30 +270,8 @@ function M.guard()
   })
 end
 
-function M.hipatterns()
-  local hipatterns = require('mini.hipatterns')
-  hipatterns.setup({
-    highlighters = {
-      -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-      fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-      hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-      todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-      note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-
-      -- Highlight hex color strings (`#rrggbb`) using that color
-      hex_color = hipatterns.gen_highlighter.hex_color(),
-    },
-  })
-end
-
-function M.indentmini()
-  require('indentmini').setup({
-    char = '▏',
-    exclude = {
-      'erlang',
-      'markdown',
-    },
-  })
+function M.colorizer()
+  require('colorizer').setup()
 end
 
 return M
