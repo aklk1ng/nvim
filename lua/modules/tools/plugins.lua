@@ -61,15 +61,24 @@ packadd({
 })
 
 packadd({
-  'echasnovski/mini.files',
-  lazy = true,
-  version = '*',
+  'stevearc/oil.nvim',
+  cmd = 'Oil',
+  config = tools.oil,
 })
 
 packadd({
   'echasnovski/mini.hipatterns',
-  lazy = true,
+  event = { 'BufRead', 'BufNewfile' },
   version = '*',
+  config = function()
+    require('modules.tools').hipatterns()
+  end,
+})
+
+packadd({
+  'tpope/vim-scriptease',
+  event = { 'BufRead', 'BufNewfile' },
+  config = tools.scriptease,
 })
 
 packadd({ 'nvim-lua/plenary.nvim', lazy = true })

@@ -14,10 +14,9 @@ function M.treesitter()
       'gomod',
       'markdown',
       'markdown_inline',
-      'cmake',
       'make',
       'vimdoc',
-      'fish',
+      'query',
     },
     sync_install = true,
     highlight = {
@@ -118,6 +117,14 @@ function M.noice()
       progress = {
         enabled = false,
       },
+      override = {
+        -- override the default lsp markdown formatter with Noice
+        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+        -- override the lsp markdown formatter with Noice
+        ['vim.lsp.util.stylize_markdown'] = true,
+        -- override cmp documentation with Noice (needs the other options to work)
+        ['cmp.entry.get_documentation'] = true,
+      },
     },
     popupmenu = {
       enabled = false,
@@ -160,6 +167,36 @@ function M.surround()
   require('nvim-surround').setup()
 end
 
+function M.oil()
+  require('oil').setup({
+    -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
+    delete_to_trash = false,
+    -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
+    skip_confirm_for_simple_edits = false,
+    -- Set to true to watch the filesystem for changes and reload oil
+    experimental_watch_for_changes = true,
+    keymaps = {
+      ['g?'] = 'actions.show_help',
+      ['<CR>'] = 'actions.select',
+      ['<C-s>'] = 'actions.select_vsplit',
+      ['<C-h>'] = 'actions.select_split',
+      ['<C-t>'] = 'actions.select_tab',
+      ['<C-p>'] = 'actions.preview',
+      ['<C-c>'] = 'actions.close',
+      ['<C-u>'] = 'actions.refresh',
+      ['-'] = 'actions.parent',
+      ['_'] = 'actions.open_cwd',
+      ['`'] = 'actions.cd',
+      ['~'] = 'actions.tcd',
+      ['gs'] = 'actions.change_sort',
+      ['gx'] = 'actions.open_external',
+      ['g.'] = 'actions.toggle_hidden',
+      ['g\\'] = 'actions.toggle_trash',
+    },
+    use_default_keymaps = false,
+  })
+end
+
 function M.gitsigns()
   require('gitsigns').setup({
     attach_to_untracked = true,
@@ -177,6 +214,8 @@ function M.guard()
         .. 'AllowShortEnumsOnASingleLine: false,'
         .. 'AllowShortFunctionsOnASingleLine: true,'
         .. 'BreakAfterAttributes: Always,'
+        .. 'SortIncludes: Never,'
+        .. 'SeparateDefinitionBlocks: Always,'
         .. 'ColumnLimit: 80'
         .. '}',
     },
@@ -257,12 +296,6 @@ function M.hipatterns()
   local hipatterns = require('mini.hipatterns')
   hipatterns.setup({
     highlighters = {
-      -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-      fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-      hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-      todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-      note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-
       -- Highlight hex color strings (`#rrggbb`) using that color
       hex_color = hipatterns.gen_highlighter.hex_color(),
     },
@@ -275,8 +308,15 @@ function M.indentmini()
     exclude = {
       'erlang',
       'markdown',
+      'help',
     },
   })
+end
+
+function M.scriptease()
+  vim.api.nvim_create_user_command('Mes', function()
+    vim.api.nvim_command('Message')
+  end, {})
 end
 
 return M

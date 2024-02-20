@@ -13,7 +13,7 @@ api.nvim_create_autocmd('TextYankPost', {
   group = aklk1ng,
   pattern = '*',
   callback = function()
-    vim.highlight.on_yank({ higroup = 'Search', timeout = 75 })
+    vim.highlight.on_yank({ higroup = 'Search', timeout = 80 })
   end,
 })
 
@@ -43,7 +43,6 @@ api.nvim_create_autocmd('TermOpen', {
   callback = function()
     vim.opt_local.stc = ''
     vim.wo.number = false
-    vim.cmd.startinsert()
   end,
 })
 

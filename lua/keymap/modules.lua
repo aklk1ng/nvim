@@ -2,7 +2,7 @@ local map = require('keymap')
 local cmd = map.cmd
 
 map.n({
-  [';g'] = cmd('Gitsigns diffthis'),
+  ['<leader>g'] = cmd('Gitsigns diffthis'),
   ['<leader><leader>p'] = cmd('Gitsigns preview_hunk'),
   [';n'] = cmd('Gitsigns next_hunk<CR>'),
   [';p'] = cmd('Gitsigns prev_hunk<CR>'),
@@ -10,12 +10,7 @@ map.n({
 
   ['<leader>f'] = cmd('GuardFmt'),
 
-  ['<leader>t'] = function()
-    if not _G.MiniFiles then
-      require('mini.files').setup()
-    end
-    _G.MiniFiles.open()
-  end,
+  ['<leader>e'] = cmd('Oil'),
   ['<leader>co'] = function()
     if not _G.MiniHipatterns then
       require('modules.tools').hipatterns()
@@ -42,21 +37,21 @@ map.n({
   ['gp'] = cmd('Lspsaga peek_definition'),
   ['gr'] = cmd('Lspsaga rename'),
   ['<leader>rn'] = cmd('Lspsaga rename ++project'),
-  ['<leader>o'] = cmd('Lspsaga outline'),
 
-  [';f'] = cmd('Telescope find_files'),
+  [';f'] = cmd('Telescope find_files find_command=rg,--ignore,--hidden,--files'),
   [';b'] = cmd('Telescope buffers'),
   [';c'] = cmd('Telescope command_history'),
-  [';C'] = cmd('Telescope commands'),
   [';o'] = cmd('Telescope oldfiles'),
   [';s'] = cmd('Telescope lsp_document_symbols'),
+  ['<leader>o'] = cmd('Telescope lsp_document_symbols symbols=function'),
   [';S'] = cmd('Telescope lsp_workspace_symbols'),
   [';d'] = cmd('Telescope diagnostics bufnr=0'),
   [';D'] = cmd('Telescope diagnostics'),
   [';;'] = cmd('Telescope help_tags'),
   [';k'] = cmd('Telescope keymaps'),
   [';w'] = cmd('Telescope live_grep'),
-  [';r'] = cmd('lua require("telescope.builtin").lsp_references()'),
+  [';g'] = cmd('Telescope git_status'),
+  [';r'] = cmd("Telescope lsp_references"),
   [';W'] = function()
     -- word under cursor
     local word = vim.fn.expand('<cword>')

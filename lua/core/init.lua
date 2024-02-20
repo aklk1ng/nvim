@@ -37,6 +37,8 @@ if check() then
   vim.api.nvim_create_autocmd('UIEnter', {
     once = true,
     callback = function()
+      require('core.builtin')
+      require('core.globals')
       require('utils.api')
       require('keymap.basic')
     end,

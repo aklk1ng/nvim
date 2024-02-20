@@ -90,10 +90,6 @@ function M.cmp()
   })
 end
 
-function M.neodev()
-  require('neodev').setup({})
-end
-
 function M.lspconfig()
   vim.diagnostic.config({
     signs = false,
@@ -145,16 +141,9 @@ function M.lspconfig()
     on_attach = on_attach,
     capabilities = capabilities,
   })
-  require('lspconfig').pylsp.setup({
-    settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = {
-            maxLineLength = 88,
-          },
-        },
-      },
-    },
+  require('lspconfig').pyright.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
   })
   require('lspconfig').zls.setup({
     on_attach = on_attach,
@@ -167,10 +156,6 @@ function M.lspconfig()
         operator_completions = true,
       },
     },
-  })
-  require('lspconfig').cmake.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
   })
   require('lspconfig').gopls.setup({
     on_attach = on_attach,
@@ -192,40 +177,26 @@ function M.lspconfig()
   require('lspconfig').lua_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    on_init = function(client)
-      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-        Lua = {
-          diagnostics = {
-            unusedLocalExclude = { '_*' },
-            globals = { 'vim' },
-            disable = {
-              'missing-fields',
-              'no-unknown',
-            },
-          },
-          runtime = {
-            version = 'LuaJIT',
-          },
-          -- Make the server aware of Neovim runtime files
-          workspace = {
-            checkThirdParty = false,
-            library = {
-              vim.env.VIMRUNTIME,
-              '${3rd}/busted/library',
-              '${3rd}/luv/library',
-            },
-          },
-          completion = {
-            callSnippet = 'Replace',
-          },
-          hint = {
-            enable = true,
+    settings = {
+      Lua = {
+        runtime = { version = 'LuaJIT' },
+        diagnostics = {
+          unusedLocalExclude = { '_*' },
+          globals = { 'vim' },
+          disable = {
+            'missing-fields',
+            'no-unknown',
           },
         },
-      })
-      client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
-      return true
-    end,
+        workspace = {
+          checkThirdParty = false,
+          library = { vim.env.VIMRUNTIME },
+        },
+        completion = {
+          callSnippet = 'Replace',
+        },
+      },
+    },
   })
   require('lspconfig').rust_analyzer.setup({
     on_attach = on_attach,

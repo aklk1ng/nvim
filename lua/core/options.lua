@@ -16,6 +16,7 @@ o.ruler = false
 o.termguicolors = true
 o.tabstop = indent
 o.shiftwidth = indent
+o.shiftround = true
 o.expandtab = true
 o.cursorline = true
 o.wrap = true
@@ -31,10 +32,12 @@ o.copyindent = true
 o.smartindent = true
 o.cindent = true
 o.number = true
-o.numberwidth = 3
+-- actually there is no symbol to the left of number in my neovim
+o.numberwidth = 2
 o.mouse = 'a'
 o.autochdir = true
 o.exrc = true
+o.smoothscroll = true
 
 o.foldcolumn = '1'
 o.foldmethod = 'manual'
@@ -47,22 +50,24 @@ o.swapfile = false
 o.mousemoveevent = true
 
 o.pumblend = 10
-o.pumheight = 10
+o.pumheight = 15
 
-o.updatetime = 50
+o.updatetime = 200
 o.timeout = true
-o.timeoutlen = 300
+o.timeoutlen = 400
 o.ttimeoutlen = 10
 o.redrawtime = 1500
 
+o.wildignorecase = true
 o.ignorecase = true
+o.infercase = true
 o.smartcase = true
 o.showmatch = true
 o.inccommand = 'split'
 o.clipboard = 'unnamedplus'
 o.fileencodings = 'utf-8,ucs-bom,gbk,cp936,gb2312,gb18030'
 
-o.stc = '%C%=%l%s'
+o.stc = '%=%l%s'
 
 if vim.fn.executable('rg') == 1 then
   vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
