@@ -1,5 +1,7 @@
 -- enable lua byte code caching
-vim.loader.enable()
+if vim.loader then
+  vim.loader.enable()
+end
 
 local g = vim.g
 -- disable_distribution_plugins
@@ -17,34 +19,13 @@ g.loaded_logiPat = 1
 g.loaded_rrhelper = 1
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
-
-local function check()
-  local cmds = {
-    'git',
-    'python3',
-  }
-  for _, cmd in ipairs(cmds) do
-    if vim.fn.executable(cmd) ~= 1 then
-      print(cmd .. ' not found')
-      return false
-    end
-  end
-  return true
+-- disable default providers
+for _, provider in ipairs({ 'python3', 'ruby', 'node', 'perl' }) do
+  g['loaded_' .. provider .. '_provider'] = 0
 end
 
-if check() then
-  vim.api.nvim_create_autocmd('UIEnter', {
-    once = true,
-    callback = function()
-      require('core.builtin')
-      require('core.globals')
-      require('utils.api')
-      require('keymap.basic')
-    end,
-  })
-  vim.cmd.colorscheme('aklk1ng')
-  require('core.options')
-  require('core.event')
-  require('core.pack'):boot_strap()
-  require('keymap.modules')
-end
+g.mapleader = ' '
+
+vim.cmd.colorscheme('aklk1ng')
+require('core.builtin')
+require('core.pack'):boot_strap()

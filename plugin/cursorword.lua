@@ -39,7 +39,7 @@ local function matchadd()
 end
 
 local function cursor_moved(buf)
-  local ignored = { 'terminal', 'prompt', 'help', 'nofile' }
+  local ignored = { 'terminal', 'prompt', 'help', 'nofile', 'qf' }
   if
     vim.tbl_contains(ignored, vim.bo[buf].buftype)
     or vim.tbl_contains(ignored, vim.bo.filetype)

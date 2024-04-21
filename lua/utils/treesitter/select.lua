@@ -76,7 +76,7 @@ local function execute(node, space)
   end
 end
 
-function M.select(space, predicate)
+function M.select(predicate, space)
   local bufnr = vim.api.nvim_get_current_buf()
   if not vim.treesitter.language.get_lang(vim.bo[bufnr].filetype) then
     vim.notify('No treesitter parser for current language')

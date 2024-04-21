@@ -29,9 +29,39 @@ local tbl = {
   ['&'] = '|',
   ['&='] = '|=',
   ['/='] = '%=',
+  ['/'] = '%',
 }
 
-vim.tbl_add_reverse_lookup(tbl)
+-- just stolen from the `vim` module
+local function tbl_keys(t)
+  local keys = {}
+  for k in pairs(t) do
+    if type(k) == 'string' then
+      table.insert(keys, k)
+    end
+  end
+  return keys
+end
+
+local function reverse(t)
+  local keys = tbl_keys(t)
+  if not keys then
+    return nil
+  end
+  for _, k in ipairs(keys) do
+    local v = t[k]
+    if t[v] then
+      vim.notify('The table found an existing value')
+    end
+    t[v] = k
+  end
+  return t
+end
+
+tbl = reverse(tbl)
+if not tbl then
+  return
+end
 
 function M.toggle()
   local cur = api.nvim_win_get_cursor(0)

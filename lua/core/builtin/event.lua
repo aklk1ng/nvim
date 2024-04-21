@@ -5,7 +5,15 @@ api.nvim_create_autocmd('FileType', {
   group = aklk1ng,
   pattern = { 'help', 'checkhealth', 'dashboard', 'qf', 'netrw', 'query' },
   callback = function(arg)
-    vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = arg.buf, silent = true, nowait = true })
+    _G.map('n', 'q', _G.cmd('quit'), { buffer = arg.buf, silent = true, nowait = true })
+  end,
+})
+
+api.nvim_create_autocmd('FileType', {
+  group = aklk1ng,
+  pattern = 'qf',
+  callback = function()
+    vim.opt_local.buflisted = false
   end,
 })
 
@@ -33,7 +41,8 @@ api.nvim_create_autocmd('BufReadPost', {
     -- return to the last edited position
     local pos = vim.fn.getpos('\'"')
     if pos[2] > 0 and pos[2] <= vim.fn.line('$') then
-      vim.api.nvim_win_set_cursor(0, { pos[2], pos[3] - 1 })
+      api.nvim_win_set_cursor(0, { pos[2], pos[3] - 1 })
+      api.nvim_input('zz')
     end
   end,
 })
@@ -41,7 +50,6 @@ api.nvim_create_autocmd('BufReadPost', {
 api.nvim_create_autocmd('TermOpen', {
   group = aklk1ng,
   callback = function()
-    vim.opt_local.stc = ''
     vim.wo.number = false
     vim.wo.signcolumn = 'no'
   end,

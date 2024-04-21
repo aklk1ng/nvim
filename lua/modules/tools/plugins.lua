@@ -16,7 +16,7 @@ packadd({
 
 packadd({
   'lewis6991/gitsigns.nvim',
-  event = { 'BufRead', 'BufNewfile' },
+  event = { 'BufEnter */*' },
   config = tools.gitsigns,
 })
 
@@ -26,10 +26,6 @@ packadd({
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-telescope/telescope-fzy-native.nvim' },
-    {
-      'LukasPietzschmann/telescope-tabs',
-      config = tools.tabs,
-    },
   },
   config = tools.telescope,
 })
@@ -50,9 +46,16 @@ packadd({
 })
 
 packadd({
+  'MeanderingProgrammer/markdown.nvim',
+  cmd = 'RenderMarkdownToggle',
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  config = tools.markdown,
+})
+
+packadd({
   'echasnovski/mini.files',
   version = '*',
-  event = { 'BufRead', 'BufNewfile' },
+  event = { 'BufEnter */*' },
   config = tools.files,
 })
 

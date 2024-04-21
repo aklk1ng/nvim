@@ -4,7 +4,7 @@ function M.lua_snip()
   local ls = require('luasnip')
   ls.config.set_config({
     -- disable the jump when i move outside the selection
-    history = false,
+    history = true,
     -- dynamic udpate the snippets when i type
     updateevents = 'TextChanged,TextChangedI',
   })
@@ -16,26 +16,6 @@ end
 function M.cmp()
   local cmp = require('cmp')
   local luasnip = require('luasnip')
-  local kind_icons = require('utils.icons')
-
-  local keymap = require('cmp.utils.keymap')
-  local feedkeys = require('cmp.utils.feedkeys')
-
-  local keymap_cinkeys = function(expr)
-    return string.format(
-      keymap.t('<Cmd>set cinkeys=%s<CR>'),
-      expr and vim.fn.escape(expr, '| \t\\') or ''
-    )
-  end
-  local confirm = function(fallback)
-    if cmp.visible() then
-      feedkeys.call(keymap_cinkeys(), 'n')
-      cmp.confirm({ select = true })
-      feedkeys.call(keymap_cinkeys(vim.bo.cinkeys), 'n')
-    else
-      fallback()
-    end
-  end
 
   cmp.setup({
     snippet = {
@@ -63,7 +43,8 @@ function M.cmp()
     preselect = cmp.PreselectMode.None,
     mapping = cmp.mapping.preset.insert({
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<C-Space>'] = cmp.mapping(confirm, { 'i' }),
+      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+      ['<C-Space>'] = cmp.mapping.complete(),
       ['<Tab>'] = cmp.mapping(function(fallback)
         if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
@@ -85,11 +66,7 @@ function M.cmp()
       { name = 'buffer', keyword_length = 3 },
     }),
     formatting = {
-      fields = { 'kind', 'abbr' },
-      format = function(_, vim_item)
-        vim_item.kind = kind_icons.get(vim_item.kind, false)
-        return vim_item
-      end,
+      fields = { 'abbr', 'kind' },
     },
   })
 
@@ -147,27 +124,23 @@ function M.lspconfig()
     end,
   })
   ---@diagnostic disable-next-line: unused-local
-  local on_attach = function(client, bufnr)
+  M._attach = function(client, bufnr)
     vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
     -- client.server_capabilities.semanticTokensProvider = nil
   end
   --Enable (broadcasting) snippet capability for completion
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+  M.capabilities = vim.lsp.protocol.make_client_capabilities()
+  M.capabilities = require('cmp_nvim_lsp').default_capabilities(M.capabilities)
 
   local lspconfig = require('lspconfig')
   lspconfig.clangd.setup({
     cmd = { 'clangd', '--background-index' },
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-  lspconfig.pyright.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
+    on_attach = M._attach,
+    capabilities = M.capabilities,
   })
   lspconfig.zls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
+    on_attach = M._attach,
+    capabilities = M.capabilities,
     settings = {
       zls = {
         enable_snippets = true,
@@ -178,8 +151,8 @@ function M.lspconfig()
     },
   })
   lspconfig.gopls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
+    on_attach = M._attach,
+    capabilities = M.capabilities,
     settings = {
       gopls = {
         hints = {
@@ -195,8 +168,8 @@ function M.lspconfig()
     },
   })
   lspconfig.lua_ls.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
+    on_attach = M._attach,
+    capabilities = M.capabilities,
     settings = {
       Lua = {
         runtime = { version = 'LuaJIT' },
@@ -215,12 +188,15 @@ function M.lspconfig()
         completion = {
           callSnippet = 'Replace',
         },
+        hint = {
+          enable = true,
+        },
       },
     },
   })
   lspconfig.rust_analyzer.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
+    on_attach = M._attach,
+    capabilities = M.capabilities,
     settings = {
       ['rust-analyzer'] = {
         imports = {
@@ -240,6 +216,18 @@ function M.lspconfig()
       },
     },
   })
+
+  local servers = {
+    'pyright',
+    'bashls',
+    'zls',
+  }
+  for _, server in ipairs(servers) do
+    lspconfig[server].setup({
+      on_attach = M._attach,
+      capabilities = M.capabilities,
+    })
+  end
 end
 
 return M

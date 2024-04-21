@@ -10,13 +10,13 @@ function M.treesitter()
       'bash',
       'zig',
       'rust',
+      'diff',
       'go',
       'gomod',
       'markdown',
       'markdown_inline',
       'make',
       'vimdoc',
-      'query',
     },
     sync_install = true,
     highlight = {
@@ -37,32 +37,6 @@ function M.treesitter()
     pattern = { 'javascriptreact', 'typescriptreact' },
     callback = function(opt)
       vim.bo[opt.buf].indentexpr = 'nvim_treesitter#indent()'
-    end,
-  })
-
-  local swap = require('utils.api.swap')
-  local select = require('utils.api.select')
-  local map = require('keymap')
-  map.n('ts', swap.swap)
-
-  map.v({
-    ['if'] = function()
-      select.select(false, 'function')
-    end,
-    ['af'] = function()
-      select.select(true, 'function')
-    end,
-    ['ic'] = function()
-      select.select(false, 'class')
-    end,
-    ['ac'] = function()
-      select.select(true, 'class')
-    end,
-    ['il'] = function()
-      select.select(false, 'loop')
-    end,
-    ['al'] = function()
-      select.select(true, 'loop')
     end,
   })
 end
@@ -108,16 +82,13 @@ end
 function M.telescope()
   require('telescope').setup({
     defaults = {
+      selection_caret = ' ',
       layout_config = {
         horizontal = {
           prompt_position = 'top',
           preview_width = 0.55,
           results_width = 0.8,
         },
-        vertical = {
-          mirror = false,
-        },
-        preview_cutoff = 120,
         height = 0.95,
         width = 0.95,
       },
@@ -136,27 +107,17 @@ function M.telescope()
   require('telescope').load_extension('fzy_native')
 end
 
-function M.tabs()
-  require('telescope').load_extension('telescope-tabs')
-  require('telescope-tabs').setup({
-    entry_formatter = function(tab_id, _, _, file_paths, is_current)
-      local entry_string = table.concat(
-        vim.tbl_map(function(v)
-          return v:gsub(vim.fn.getcwd() .. '/', './')
-        end, file_paths),
-        ', '
-      )
-      return string.format('%d: %s%s', tab_id, entry_string, is_current and ' <' or '')
-    end,
-  })
-end
-
 function M.surround()
   require('nvim-surround').setup()
 end
 
 function M.files()
-  require('mini.files').setup()
+  require('mini.files').setup({
+    mappings = {
+      go_in = '<CR>',
+      go_out = '-',
+    },
+  })
 
   local map_split = function(buf_id, lhs, direction)
     local rhs = function()
@@ -198,7 +159,9 @@ function M.guard()
     cmd = 'clang-format',
     args = {
       '--style={'
-        .. 'IndentWidth: 2,'
+        .. 'IndentWidth: '
+        .. vim.opt_local.shiftwidth:get()
+        .. ','
         .. 'AlwaysBreakTemplateDeclarations: true,'
         .. 'AllowShortEnumsOnASingleLine: false,'
         .. 'AllowShortFunctionsOnASingleLine: true,'
@@ -210,8 +173,7 @@ function M.guard()
     },
     stdin = true,
   }
-  ft('c'):fmt(clang_format)
-  ft('cpp'):fmt(clang_format)
+  ft('c,cpp'):fmt(clang_format)
   ft('go'):fmt('lsp'):append('golines')
   ft('lua'):fmt({
     cmd = 'stylua',
@@ -228,17 +190,13 @@ function M.guard()
     },
     stdin = true,
   })
+  ft('zig'):fmt('zigfmt')
   ft('rust'):fmt('rustfmt')
   ft('python'):fmt('ruff'):lint('ruff')
   ft('toml'):fmt('taplo')
   ft('sh'):fmt({
     cmd = 'shfmt',
     args = { '-i', 4 },
-    stdin = true,
-  })
-  ft('cmake'):fmt({
-    cmd = 'cmake-format',
-    args = { '-' },
     stdin = true,
   })
   ft('json'):fmt({
@@ -267,6 +225,12 @@ function M.guard()
   require('guard').setup({
     -- the only option for the setup function
     fmt_on_save = false,
+  })
+end
+
+function M.markdown()
+  require('render-markdown').setup({
+    start_enabled = false,
   })
 end
 
