@@ -1,4 +1,5 @@
 local opt = vim.opt
+local indent = 2
 
 opt.fileencoding = 'utf-8'
 opt.splitright = true
@@ -7,6 +8,8 @@ opt.splitkeep = 'screen'
 opt.writebackup = false
 opt.virtualedit = 'block'
 opt.showmode = false
+opt.tabstop = indent
+opt.shiftwidth = indent
 opt.showcmd = false
 opt.cmdheight = 0
 opt.ruler = false

@@ -45,7 +45,7 @@ _G.map('n', '<A-[>', '<C-w><')
 _G.map('n', '<A-]>', '<C-w>>')
 _G.map('n', '<A-,>', '<C-w>-')
 _G.map('n', '<A-.>', '<C-w>+')
-_G.map('n', '<A-->', _G.cmd('resize |vertical resize'))
+_G.map('n', '<A-->', _G.cmd('resize | vertical resize'))
 _G.map('n', '<A-=>', '<C-w>=')
 _G.map('n', '<leader>t', _G.cmd('tabnew'))
 _G.map('n', '<leader>c', _G.cmd('tabclose'))
@@ -53,7 +53,7 @@ _G.map('n', '<leader>n', _G.cmd('bnext'))
 _G.map('n', '<leader>p', _G.cmd('bprevious'))
 _G.map('n', '<leader>d', _G.cmd(vim.bo.buftype == 'terminal' and 'q!' or 'bdelete!'))
 _G.map('n', '[t', _G.cmd('vs new | vertical resize -5 | terminal'))
-_G.map('n', ']t', _G.cmd('set splitbelow | sp new | set nosplitbelow | resize -5 | terminal'))
+_G.map('n', ']t', _G.cmd('new | resize -5 | terminal'))
 
 -- Toggle the quickfix window.
 -- When toggling these, ignore error messages and restore the cursor to the original window when opening the list.

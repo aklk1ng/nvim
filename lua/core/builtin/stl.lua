@@ -21,10 +21,10 @@ end
 local function search()
   return {
     stl = function()
-      if vim.v.hlsearch == 0 then
+      local s = vim.fn.searchcount()
+      if vim.v.hlsearch == 0 or s.total == 0 then
         return ''
       end
-      local s = vim.fn.searchcount()
       local current = s.current
       local cnt = math.min(s.total, s.maxcount)
       return string.format('[%d/%d]', current, cnt)
@@ -82,7 +82,7 @@ local function branch()
       handle:close()
       return #res > 0 and icon .. vim.trim(res) or ''
     end,
-    event = { 'User GitSignsUpdate', 'BufEnter' },
+    event = { 'BufEnter' },
     attr = 'Include',
     name = 'branch',
   }
@@ -200,9 +200,11 @@ local function default()
           e[event][#e[event] + 1] = key
         end
       end
-      api.nvim_set_hl(0, ('StatusLine%s'):format(item.name), {
-        link = item.attr,
-      })
+      if item.attr then
+        api.nvim_set_hl(0, ('StatusLine%s'):format(item.name), {
+          link = item.attr,
+        })
+      end
     end)
     :totable()
   return comps, e, pieces
@@ -211,12 +213,11 @@ end
 local function render(comps, events, pieces)
   return co.create(function(args)
     while true do
-      local event = args.event == 'User' and args.event .. ' ' .. args.match or args.event
+      local event = args.event
       for _, idx in ipairs(events[event]) do
         pieces[idx] = stl_format(comps[idx].name, comps[idx].stl(args))
       end
 
-      pieces[3] = stl_format(comps[3].name, comps[3].stl(args))
       vim.opt.stl = table.concat(pieces)
       args = co.yield()
     end
@@ -225,31 +226,21 @@ end
 
 return {
   setup = function()
-    -- move to next event loop
-    -- that mean must lazyload this plugin
-    vim.defer_fn(function()
-      local comps, events, pieces = default()
-      local stl_render = render(comps, events, pieces)
-      for _, e in ipairs(vim.tbl_keys(events)) do
-        local tmp = e
-        local pattern
-        if e:find('User') then
-          pattern = vim.split(e, '%s')[2]
-          tmp = 'User'
-        end
+    local comps, events, pieces = default()
+    local stl_render = render(comps, events, pieces)
+    for _, e in ipairs(vim.tbl_keys(events)) do
+      local tmp = e
 
-        api.nvim_create_autocmd(tmp, {
-          pattern = pattern,
-          callback = function(args)
-            vim.schedule(function()
-              local ok, res = co.resume(stl_render, args)
-              if not ok then
-                vim.notify('[Whisky] render failed ' .. res, vim.log.levels.ERROR)
-              end
-            end)
-          end,
-        })
-      end
-    end, 0)
+      api.nvim_create_autocmd(tmp, {
+        callback = function(args)
+          vim.schedule(function()
+            local ok, res = co.resume(stl_render, args)
+            if not ok then
+              vim.notify('[Whisky] render failed ' .. res, vim.log.levels.ERROR)
+            end
+          end)
+        end,
+      })
+    end
   end,
 }
