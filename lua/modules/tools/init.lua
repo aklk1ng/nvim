@@ -107,6 +107,62 @@ function M.telescope()
   require('telescope').load_extension('fzy_native')
 end
 
+function M.ufo()
+  local handler = function(virtText, lnum, endLnum, width, truncate)
+    local newVirtText = {}
+    local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+    local sufWidth = vim.fn.strdisplaywidth(suffix)
+    local targetWidth = width - sufWidth
+    local curWidth = 0
+    for _, chunk in ipairs(virtText) do
+      local chunkText = chunk[1]
+      local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+      if targetWidth > curWidth + chunkWidth then
+        table.insert(newVirtText, chunk)
+      else
+        chunkText = truncate(chunkText, targetWidth - curWidth)
+        local hlGroup = chunk[2]
+        table.insert(newVirtText, { chunkText, hlGroup })
+        chunkWidth = vim.fn.strdisplaywidth(chunkText)
+        -- str width returned from truncate() may less than 2nd argument, need padding
+        if curWidth + chunkWidth < targetWidth then
+          suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+        end
+        break
+      end
+      curWidth = curWidth + chunkWidth
+    end
+    table.insert(newVirtText, { suffix, 'Function' })
+    return newVirtText
+  end
+  require('ufo').setup({
+    fold_virt_text_handler = handler,
+    provider_selector = function(bufnr, filetype, buftype)
+      return { 'treesitter', 'indent' }
+    end,
+  })
+end
+
+function M.statuscol()
+  local builtin = require('statuscol.builtin')
+  require('statuscol').setup({
+    bt_ignore = { 'terminal', 'nofile' },
+    relculright = true,
+    segments = {
+      { text = { builtin.lnumfunc } },
+      {
+        sign = {
+          name = { '.*' },
+          namespace = { '.*' },
+          maxwidth = 1,
+          colwidth = 1,
+        },
+      },
+      { text = { builtin.foldfunc, ' ' }, click = 'v:lua.ScFa' },
+    },
+  })
+end
+
 function M.surround()
   require('nvim-surround').setup()
 end

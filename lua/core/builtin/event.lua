@@ -50,8 +50,8 @@ api.nvim_create_autocmd('BufReadPost', {
 api.nvim_create_autocmd('TermOpen', {
   group = aklk1ng,
   callback = function()
-    vim.wo.number = false
-    vim.wo.signcolumn = 'no'
+    vim.o.number = false
+    vim.o.signcolumn = 'no'
   end,
 })
 

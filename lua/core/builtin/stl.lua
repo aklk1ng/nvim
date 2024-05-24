@@ -11,7 +11,7 @@ end
 
 local function fileinfo()
   return {
-    stl = '%t%r%m',
+    stl = '%f%r%m',
     event = { 'BufEnter' },
     attr = 'Operator',
     name = 'fileinfo',
@@ -97,7 +97,7 @@ end
 
 local function lnumcol()
   return {
-    stl = '%-4.(%l:%c%)',
+    stl = '%l:%c %P',
     event = { 'CursorHold' },
     attr = 'Number',
     name = 'lnumcol',

@@ -15,6 +15,19 @@ packadd({
 })
 
 packadd({
+  'kevinhwang91/nvim-ufo',
+  event = { 'BufRead', 'BufNewfile' },
+  dependencies = {
+    'kevinhwang91/promise-async',
+    {
+      'luukvbaal/statuscol.nvim',
+      config = tools.statuscol,
+    },
+  },
+  config = tools.ufo,
+})
+
+packadd({
   'lewis6991/gitsigns.nvim',
   event = { 'BufEnter */*' },
   config = tools.gitsigns,

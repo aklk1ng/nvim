@@ -25,6 +25,7 @@ function M.cmp()
     },
     window = {
       completion = {
+        side_padding = 0,
         scrollbar = false,
       },
       documentation = {
@@ -110,6 +111,10 @@ function M.lspconfig()
   --Enable (broadcasting) snippet capability for completion
   M.capabilities = vim.lsp.protocol.make_client_capabilities()
   M.capabilities = require('cmp_nvim_lsp').default_capabilities(M.capabilities)
+  M.capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
 
   local lspconfig = require('lspconfig')
   lspconfig.clangd.setup({
@@ -162,7 +167,7 @@ function M.lspconfig()
         },
         workspace = {
           checkThirdParty = false,
-          library = { vim.env.VIMRUNTIME },
+          library = { vim.env.VIMRUNTIME, '${3rd}/luv/library' },
         },
         completion = {
           callSnippet = 'Replace',
