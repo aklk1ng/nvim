@@ -1,7 +1,8 @@
 local M = {}
+
 local api = vim.api
 
-local function Prepare()
+local function prepare()
   local cmds = {
     'silent w',
     'vnew',
@@ -52,8 +53,9 @@ function M.run()
     return
   end
 
-  Prepare()
+  prepare()
   api.nvim_command('term ' .. cmd)
+  -- _G.Terms.runner({ pos = 'vsp', id = 'quickrunTerm', cmd = cmd})
 end
 
 return M

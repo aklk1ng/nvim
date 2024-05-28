@@ -3,7 +3,9 @@ local flip_word = require('utils.flip-word')
 local swap = require('utils.treesitter.swap')
 local select = require('utils.treesitter.select')
 local func_jump = require('utils.treesitter.func_jump')
+require('utils.cursorword')
 require('utils.root')
+require('utils.terminal')
 
 _G.map('n', 'ts', swap.swap)
 _G.map('x', 'if', function()
@@ -39,3 +41,16 @@ end)
 
 _G.map('n', '<leader>r', quickrun.run)
 _G.map('n', 'ta', flip_word.toggle)
+
+-- toggleable
+_G.map({ 'n', 't' }, '[t', function()
+  _G.Terms.toggle({ pos = 'vsp', id = 'vtoggleTerm' })
+end, { desc = 'terminal toggleable vertical term' })
+
+_G.map({ 'n', 't' }, ']t', function()
+  _G.Terms.toggle({ pos = 'sp', id = 'htoggleTerm' })
+end, { desc = 'terminal new horizontal term' })
+
+_G.map({ 'n', 't' }, ';t', function()
+  _G.Terms.toggle({ pos = 'float', id = 'floatTerm' })
+end, { desc = 'terminal toggle floating term' })

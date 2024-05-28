@@ -11,7 +11,7 @@ end
 _G.map('i', '<C-c>', '<Esc>')
 _G.map('i', ',', ',<C-g>u')
 _G.map('i', '.', '.<C-g>u')
-_G.map('i', '<C-s>', '<Esc>:silent! write<CR>')
+_G.map('i', ';', ';<C-g>u')
 _G.map('i', '<C-a>', '<Esc>^i')
 _G.map('i', '<C-e>', '<End>')
 
@@ -29,7 +29,7 @@ _G.map('n', '<leader>x', _G.cmd('silent !chmod +x %'))
 _G.map('n', '|', _G.cmd('Inspect'))
 _G.map('n', 'j', 'gj')
 _G.map('n', 'k', 'gk')
-_G.map('n', '<C-s>', _G.cmd('silent! write'))
+_G.map({ 'i', 'n', 'x', 's' }, '<C-s>', _G.cmd('silent! write') .. '<ESC>')
 _G.map('n', '<', '<<')
 _G.map('n', '>', '>>')
 _G.map('n', '<ESC>', _G.cmd('nohlsearch'))
@@ -52,8 +52,6 @@ _G.map('n', '<leader>c', _G.cmd('tabclose'))
 _G.map('n', '<leader>n', _G.cmd('bnext'))
 _G.map('n', '<leader>p', _G.cmd('bprevious'))
 _G.map('n', '<leader>d', _G.cmd(vim.bo.buftype == 'terminal' and 'q!' or 'bdelete!'))
-_G.map('n', '[t', _G.cmd('vs new | vertical resize -5 | terminal'))
-_G.map('n', ']t', _G.cmd('new | resize -5 | terminal'))
 
 -- Toggle the quickfix window.
 -- When toggling these, ignore error messages and restore the cursor to the original window when opening the list.
