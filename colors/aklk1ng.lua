@@ -4,9 +4,9 @@ vim.o.termguicolors = true
 vim.g.colors_name = 'aklk1ng'
 
 local p = {
-  bg = '#181920',
-  bg_dim = '#1D1F26',
-  bg_alt = '#303643',
+  bg = '#191a20',
+  bg_dim = '#1d1f26',
+  bg_alt = '#2a2f3b',
   fg_dim = '#454b50',
   fg = '#888888',
   fg_alt = '#6d6d6d',

@@ -1,8 +1,10 @@
 -- https://github.com/glepnir/nvim
 
-local api, fn = vim.api, vim.fn
+local api, fn, uv = vim.api, vim.fn, vim.uv
 
-local function disable_cursorword()
+local timer = uv.new_timer()
+
+local function unhighlight()
   if vim.w.cursorword_id ~= 0 and vim.w.cursorword_id and vim.w.cursorword_match ~= 0 then
     fn.matchdelete(vim.w.cursorword_id)
     vim.w.cursorword_id = nil
@@ -11,7 +13,7 @@ local function disable_cursorword()
   end
 end
 
-local function matchadd()
+local function highlight()
   local column = api.nvim_win_get_cursor(0)[2]
   local line = api.nvim_get_current_line()
   local cursorword = fn.matchstr(line:sub(1, column + 1), [[\k*$]])
@@ -46,10 +48,20 @@ local function cursor_moved(buf)
     or #vim.bo.filetype == 0
     or api.nvim_get_mode().mode == 'i'
   then
-    disable_cursorword()
+    unhighlight()
     return
   end
-  matchadd()
+
+  if timer then
+    timer:stop()
+    timer:start(
+      30,
+      0,
+      vim.schedule_wrap(function()
+        highlight()
+      end)
+    )
+  end
 end
 
 vim.api.nvim_create_autocmd('CursorMoved', {
@@ -59,5 +71,5 @@ vim.api.nvim_create_autocmd('CursorMoved', {
 })
 
 vim.api.nvim_create_autocmd('InsertEnter', {
-  callback = disable_cursorword,
+  callback = unhighlight,
 })

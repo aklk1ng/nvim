@@ -17,6 +17,43 @@ function M.cmp()
   local cmp = require('cmp')
   local luasnip = require('luasnip')
 
+  local function snippet_replace(snippet, fn)
+    return snippet:gsub('%$%b{}', function(m)
+      local n, name = m:match('^%${(%d+):(.+)}$')
+      return n and fn({ n = n, text = name }) or m
+    end) or snippet
+  end
+
+  local function snippet_preview(snippet)
+    local ok, parsed = pcall(function()
+      return vim.lsp._snippet_grammar.parse(snippet)
+    end)
+    return ok and tostring(parsed)
+      or snippet_replace(snippet, function(placeholder)
+        return snippet_preview(placeholder.text)
+      end):gsub('%$0', '')
+  end
+
+  local function add_missing_snippet_docs(window)
+    local Kind = cmp.lsp.CompletionItemKind
+    local entries = window:get_entries()
+    for _, entry in ipairs(entries) do
+      if entry:get_kind() == Kind.Snippet then
+        local item = entry:get_completion_item()
+        if not item.documentation and item.insertText then
+          item.documentation = {
+            kind = cmp.lsp.MarkupKind.Markdown,
+            value = string.format(
+              '```%s\n%s\n```',
+              vim.bo.filetype,
+              snippet_preview(item.insertText)
+            ),
+          }
+        end
+      end
+    end
+  end
+
   cmp.setup({
     snippet = {
       expand = function(args)
@@ -70,6 +107,10 @@ function M.cmp()
       fields = { 'abbr', 'kind' },
     },
   })
+
+  cmp.event:on('menu_opened', function(event)
+    add_missing_snippet_docs(event.window)
+  end)
 
   -- Override the documentation handler to remove the redundant detail section.
   ---@diagnostic disable-next-line: duplicate-set-field

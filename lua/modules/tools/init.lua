@@ -49,10 +49,6 @@ function M.lspsaga()
       width = 0.7,
       height = 0.6,
       keys = {
-        edit = '<C-c>o',
-        vsplit = '<C-c>v',
-        split = '<C-c>s',
-        tabe = '<C-c>t',
         quit = 'q',
         close = '<C-c>c',
       },
