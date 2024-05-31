@@ -33,7 +33,7 @@ _G.map({ 'i', 'n', 'x', 's' }, '<C-s>', _G.cmd('silent! write') .. '<ESC>')
 _G.map('n', '<', '<<')
 _G.map('n', '>', '>>')
 _G.map('n', '<ESC>', _G.cmd('nohlsearch'))
-_G.map('n', ',g', _G.cmd('silent! google-chrome-stable % &'))
+_G.map('n', '<leader><leader>g', _G.cmd('silent! google-chrome-stable % &'))
 
 _G.map('n', '<leader>s', _G.cmd('split'))
 _G.map('n', '<leader>v', _G.cmd('vsplit'))
@@ -48,7 +48,7 @@ _G.map('n', '<A-.>', '<C-w>+')
 _G.map('n', '<A-->', _G.cmd('resize | vertical resize'))
 _G.map('n', '<A-=>', '<C-w>=')
 _G.map('n', '<leader>t', _G.cmd('tabnew'))
-_G.map('n', '<leader>c', _G.cmd('tabclose'))
+_G.map('n', '<leader>cc', _G.cmd('tabclose'))
 _G.map('n', '<leader>n', _G.cmd('bnext'))
 _G.map('n', '<leader>p', _G.cmd('bprevious'))
 _G.map('n', '<leader>d', _G.cmd(vim.bo.buftype == 'terminal' and 'q!' or 'bdelete!'))
@@ -56,7 +56,7 @@ _G.map('n', '<leader>d', _G.cmd(vim.bo.buftype == 'terminal' and 'q!' or 'bdelet
 -- Toggle the quickfix window.
 -- When toggling these, ignore error messages and restore the cursor to the original window when opening the list.
 local silent_mods = { mods = { silent = true, emsg_silent = true } }
-_G.map('n', ';C', function()
+_G.map('n', '<leader>C', function()
   if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
     vim.cmd.cclose(silent_mods)
   elseif #vim.fn.getqflist() > 0 then
@@ -82,8 +82,8 @@ _G.map('n', '<leader><leader>u', function()
     vim.lsp.inlay_hint.enable(false)
   end
 end)
-_G.map('n', ';u', vim.diagnostic.hide)
-_G.map('n', ';i', vim.diagnostic.show)
+_G.map('n', '<leader>u', vim.diagnostic.hide)
+_G.map('n', '<leader>i', vim.diagnostic.show)
 
 -------------------------- better indenting
 _G.map('x', '<', '<gv')

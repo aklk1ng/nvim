@@ -39,6 +39,7 @@ function M:boot_strap()
         disabled_plugins = {
           'gzip',
           'man',
+          'matchit',
           'netrwPlugin',
           'rplugin',
           'tarPlugin',

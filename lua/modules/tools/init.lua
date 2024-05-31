@@ -224,6 +224,7 @@ function M.guard()
         .. '}',
     },
     stdin = true,
+    ignore_patterns = { 'neovim', 'vim' },
   }
   ft('c,cpp'):fmt(clang_format)
   ft('go'):fmt('lsp'):append('golines')
@@ -241,6 +242,7 @@ function M.guard()
       '-',
     },
     stdin = true,
+    ignore_patterns = '%w_spec%.lua',
   })
   ft('zig'):fmt('zigfmt')
   ft('rust'):fmt('rustfmt')

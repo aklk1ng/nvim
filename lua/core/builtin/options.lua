@@ -50,7 +50,7 @@ opt.pumblend = 10
 opt.pumheight = 15
 
 opt.updatetime = 400
-opt.timeoutlen = 400
+opt.timeoutlen = 500
 opt.ttimeoutlen = 10
 opt.redrawtime = 1500
 

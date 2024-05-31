@@ -208,7 +208,7 @@ function M.lspconfig()
         },
         workspace = {
           checkThirdParty = false,
-          library = { vim.env.VIMRUNTIME, '${3rd}/luv/library' },
+          library = { vim.env.VIMRUNTIME, '${3rd}/busted/library', '${3rd}/luv/library' },
         },
         completion = {
           callSnippet = 'Replace',

@@ -43,9 +43,15 @@ local function execute(node, space)
   if space then
     -- remove comment if exists
     local prev = node:prev_sibling()
-    if prev and prev:type() == 'comment' then
-      sr, sc, _, _ = prev:range()
+    while true do
+      if prev and prev:type() == 'comment' then
+        sr, sc, _, _ = prev:range()
+        prev = prev:prev_sibling()
+      else
+        break
+      end
     end
+
     vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
     vim.cmd('normal! o')
     vim.api.nvim_win_set_cursor(0, { er + 1, ec })

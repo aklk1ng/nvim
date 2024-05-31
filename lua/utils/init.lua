@@ -51,6 +51,6 @@ _G.map({ 'n', 't' }, ']t', function()
   _G.Terms.toggle({ pos = 'sp', id = 'htoggleTerm' })
 end, { desc = 'terminal new horizontal term' })
 
-_G.map({ 'n', 't' }, ';t', function()
+_G.map({ 'n', 't' }, '<A-i>', function()
   _G.Terms.toggle({ pos = 'float', id = 'floatTerm' })
 end, { desc = 'terminal toggle floating term' })
