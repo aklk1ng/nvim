@@ -55,6 +55,27 @@ api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
+-- just load lazily when not opening a file
+api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  once = true,
+  group = aklk1ng,
+  pattern = '*',
+  callback = function()
+    require('core.builtin.stl').setup()
+    require('core.builtin.lsp')
+    require('utils')
+  end,
+})
+
+api.nvim_create_autocmd('BufEnter', {
+  once = true,
+  group = aklk1ng,
+  pattern = '*',
+  callback = function()
+    require('keymap')
+  end,
+})
+
 if vim.fn.executable('fcitx5-remote') == 1 then
   api.nvim_create_autocmd('InsertLeavePre', {
     group = aklk1ng,

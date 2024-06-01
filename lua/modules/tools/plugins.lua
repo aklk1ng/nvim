@@ -50,6 +50,15 @@ packadd({
 })
 
 packadd({
+  'folke/noice.nvim',
+  event = { 'BufRead', 'BufNewfile' },
+  dependencies = {
+    'MunifTanjim/nui.nvim',
+  },
+  config = tools.noice,
+})
+
+packadd({
   'nvimdev/guard.nvim',
   cmd = 'GuardFmt',
   dependencies = {

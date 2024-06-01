@@ -1,11 +1,11 @@
 -- most of the code comes from MariaSolOs
 
-local api = vim.api
+local api, lsp = vim.api, vim.lsp
 local methods = vim.lsp.protocol.Methods
 local ns_id = api.nvim_create_namespace('Aklk1ngLsp')
 
-vim.lsp.handlers['workspace/diagnostic/refresh'] = function(_, _, ctx)
-  local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
+lsp.handlers['workspace/diagnostic/refresh'] = function(_, _, ctx)
+  local ns = lsp.diagnostic.get_namespace(ctx.client_id)
   local bufnr = api.nvim_get_current_buf()
   vim.diagnostic.reset(ns, bufnr)
   return true
@@ -23,8 +23,22 @@ local function on_attach(client, bufnr)
         cmp.close()
       end
 
-      vim.lsp.buf.signature_help()
+      lsp.buf.signature_help()
     end)
+  end
+
+  if client.supports_method(methods.textDocument_documentHighlight) then
+    local document_highlight = api.nvim_create_augroup('cursor_highlights', { clear = false })
+    api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave', 'BufEnter' }, {
+      group = document_highlight,
+      buffer = bufnr,
+      callback = lsp.buf.document_highlight,
+    })
+    api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter', 'BufLeave' }, {
+      group = document_highlight,
+      buffer = bufnr,
+      callback = lsp.buf.clear_references,
+    })
   end
 
   -- _G.map('n', '[d', vim.diagnostic.goto_next, { buffer = bufnr })
@@ -111,35 +125,11 @@ local function enhanced_float_handler(handler, focusable)
 
     -- Extra highlights.
     add_inline_highlights(bufnr)
-
-    -- Add keymaps for opening links.
-    if focusable and not vim.b[bufnr].markdown_keys then
-      vim.keymap.set('n', 'K', function()
-        -- Vim help links.
-        local url = (vim.fn.expand('<cWORD>') --[[@as string]]):match('|(%S-)|')
-        if url then
-          return vim.cmd.help(url)
-        end
-
-        -- Markdown links.
-        local col = api.nvim_win_get_cursor(0)[2] + 1
-        local from, to
-        from, to, url = api.nvim_get_current_line():find('%[.-%]%((%S-)%)')
-        if from and col >= from and col <= to then
-          vim.system({ 'xdg-open', url }, nil, function(res)
-            if res.code ~= 0 then
-              vim.notify('Failed to open URL' .. url, vim.log.levels.ERROR)
-            end
-          end)
-        end
-      end, { buffer = bufnr, silent = true })
-      vim.b[bufnr].markdown_keys = true
-    end
   end
 end
-vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover, true)
-vim.lsp.handlers[methods.textDocument_signatureHelp] =
-  enhanced_float_handler(vim.lsp.handlers.signature_help, true)
+lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(lsp.handlers.hover, true)
+lsp.handlers[methods.textDocument_signatureHelp] =
+  enhanced_float_handler(lsp.handlers.signature_help, true)
 
 --- HACK: Override `vim.lsp.util.stylize_markdown` to use Treesitter.
 ---@param bufnr integer
@@ -147,7 +137,7 @@ vim.lsp.handlers[methods.textDocument_signatureHelp] =
 ---@param opts table
 ---@return string[]
 ---@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.util.stylize_markdown = function(bufnr, contents, opts)
+lsp.util.stylize_markdown = function(bufnr, contents, opts)
   contents = vim.lsp.util._normalize_markdown(contents, {
     width = vim.lsp.util._make_floating_popup_size(contents, opts),
   })
@@ -161,13 +151,26 @@ vim.lsp.util.stylize_markdown = function(bufnr, contents, opts)
 end
 
 -- actually i like the border for hover
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'rounded',
 })
 
+-- Update mappings when registering dynamic capabilities.
+local register_capability = lsp.handlers[methods.client_registerCapability]
+lsp.handlers[methods.client_registerCapability] = function(err, res, ctx)
+  local client = lsp.get_client_by_id(ctx.client_id)
+  if not client then
+    return
+  end
+
+  on_attach(client, api.nvim_get_current_buf())
+
+  return register_capability(err, res, ctx)
+end
+
 api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local client = lsp.get_client_by_id(args.data.client_id)
 
     -- I don't think this can happen but it's a wild world out there.
     if not client then

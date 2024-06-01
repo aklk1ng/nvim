@@ -14,9 +14,8 @@ end
 
 function M.run()
   local ft = vim.bo.filetype
-  local name = vim.fn.expand('%:p')
-  local file = vim.fn.expand('%:t')
-  local bin = file:sub(0, #file - #vim.fn.expand('%:e') - 1)
+  local name = vim.fn.expand('%')
+  local bin = vim.fn.expand('%<')
   local cmd
   if ft == 'c' then
     cmd = 'gcc -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare '

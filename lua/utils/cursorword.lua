@@ -64,12 +64,12 @@ local function cursor_moved(buf)
   end
 end
 
-vim.api.nvim_create_autocmd('CursorMoved', {
+api.nvim_create_autocmd('CursorMoved', {
   callback = function(args)
     cursor_moved(args.buf)
   end,
 })
 
-vim.api.nvim_create_autocmd('InsertEnter', {
+api.nvim_create_autocmd('InsertEnter', {
   callback = unhighlight,
 })

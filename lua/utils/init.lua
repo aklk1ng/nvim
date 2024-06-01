@@ -3,7 +3,7 @@ local flip_word = require('utils.flip-word')
 local swap = require('utils.treesitter.swap')
 local select = require('utils.treesitter.select')
 local func_jump = require('utils.treesitter.func_jump')
-require('utils.cursorword')
+-- require('utils.cursorword')
 require('utils.root')
 require('utils.terminal')
 

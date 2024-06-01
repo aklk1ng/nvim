@@ -17,6 +17,7 @@ opt.termguicolors = true
 opt.shiftround = true
 opt.expandtab = true
 opt.cursorline = true
+opt.inccommand = 'split'
 opt.whichwrap = 'h,l,<,>,[,],~'
 opt.breakindentopt = 'shift:4'
 opt.breakindent = true

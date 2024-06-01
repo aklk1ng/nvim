@@ -4,22 +4,22 @@ vim.o.termguicolors = true
 vim.g.colors_name = 'aklk1ng'
 
 local p = {
-  bg = '#191a20',
-  bg_dim = '#1d1f26',
+  bg = '#1a1b21',
+  bg_dim = '#1e2027',
   bg_alt = '#2a2f3b',
   fg_dim = '#454b50',
-  fg = '#888888',
-  fg_alt = '#6d6d6d',
+  fg = '#8a8a8b',
+  fg_alt = '#6c6c6c',
   red = '#a35858',
-  pink = '#80657b',
+  pink = '#7f627b',
   orange = '#81624f',
   yellow = '#7c7053',
   green = '#607546',
   blue = '#506887',
-  purple = '#60658c',
-  grey = '#797777',
+  purple = '#5d628a',
+  grey = '#797979',
   fancy = '#4f585e',
-  galaxy = '#636449',
+  galaxy = '#66674b',
   none = 'NONE',
 }
 
@@ -117,7 +117,7 @@ local syntax = {
   CursorWord = { bg = p.bg_alt },
   LspInlayHint = { fg = p.fg_dim },
 
-  LspSignatureActiveParameter = { underline = true },
+  LspSignatureActiveParameter = { bg = p.bg_alt },
 
   -- nvim-treesitter
   ['@function.builtin'] = { link = 'Function' },
