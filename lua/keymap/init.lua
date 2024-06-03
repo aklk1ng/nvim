@@ -15,8 +15,8 @@ _G.map('n', 'zp', function()
   require('ufo').peekFoldedLinesUnderCursor()
 end)
 
-_G.map('n', '[d', _G.cmd('Lspsaga diagnostic_jump_next'))
-_G.map('n', ']d', _G.cmd('Lspsaga diagnostic_jump_prev'))
+_G.map('n', ']d', _G.cmd('Lspsaga diagnostic_jump_next'))
+_G.map('n', '[d', _G.cmd('Lspsaga diagnostic_jump_prev'))
 _G.map(
   'n',
   '[e',
@@ -33,6 +33,7 @@ _G.map('n', 'gd', _G.cmd('Lspsaga goto_definition'))
 _G.map('n', 'ga', _G.cmd('Lspsaga code_action'))
 _G.map('n', 'gp', _G.cmd('Lspsaga peek_definition'))
 _G.map('n', 'gr', _G.cmd('Lspsaga rename'))
+_G.map('n', '<leader>o', _G.cmd('Lspsaga outline'))
 _G.map('n', '<leader>rn', _G.cmd('Lspsaga rename ++project'))
 
 _G.map('n', '<leader>ff', _G.cmd('Telescope find_files find_command=rg,--ignore,--hidden,--files'))
@@ -40,7 +41,6 @@ _G.map('n', '<leader>fb', _G.cmd('Telescope buffers'))
 _G.map('n', '<leader>fc', _G.cmd('Telescope command_history'))
 _G.map('n', '<leader>fo', _G.cmd('Telescope oldfiles'))
 _G.map('n', '<leader>fs', _G.cmd('Telescope lsp_document_symbols'))
-_G.map('n', '<leader>o', _G.cmd('Telescope lsp_document_symbols'))
 _G.map('n', '<leader>fS', _G.cmd('Telescope lsp_workspace_symbols'))
 _G.map('n', '<leader>fd', _G.cmd('Telescope diagnostics bufnr=0'))
 _G.map('n', '<leader>fD', _G.cmd('Telescope diagnostics'))

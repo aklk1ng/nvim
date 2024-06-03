@@ -1,5 +1,5 @@
-local aklk1ng = vim.api.nvim_create_augroup('aklk1ngGroup', {})
 local api = vim.api
+local aklk1ng = api.nvim_create_augroup('aklk1ngGroup', {})
 
 api.nvim_create_autocmd('FileType', {
   group = aklk1ng,
@@ -43,6 +43,16 @@ api.nvim_create_autocmd('BufReadPost', {
     if pos[2] > 0 and pos[2] <= vim.fn.line('$') then
       api.nvim_win_set_cursor(0, { pos[2], pos[3] - 1 })
       api.nvim_input('zz')
+    end
+  end,
+})
+
+-- Check if we need to reload the file when it changed
+api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+  group = aklk1ng,
+  callback = function()
+    if vim.o.buftype ~= 'nofile' then
+      vim.cmd('checktime')
     end
   end,
 })

@@ -19,10 +19,10 @@ local config = {
   sizes = { sp = 0.4, vsp = 0.45 },
   float = {
     relative = 'editor',
-    row = 0.1,
-    col = 0.1,
-    width = 0.8,
-    height = 0.8,
+    row = 0.03,
+    col = 0.04,
+    width = 0.9,
+    height = 0.9,
     border = 'single',
   },
 }

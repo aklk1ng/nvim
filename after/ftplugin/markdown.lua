@@ -9,10 +9,14 @@ function ToggleTodoStatus()
   vim.cmd('silent! write')
 end
 
-vim.keymap.set(
-  'n',
-  '<2-LeftMouse>',
-  ToggleTodoStatus,
-  { noremap = true, silent = true, buffer = true }
-)
-vim.keymap.set('n', '<CR>', ToggleTodoStatus, { noremap = true, silent = true, buffer = true })
+_G.map('n', '<2-LeftMouse>', ToggleTodoStatus, { buffer = true })
+_G.map('n', '<CR>', ToggleTodoStatus, { buffer = true })
+
+_G.map('n', 'gk', function()
+  vim.cmd('silent! ?^##\\+\\s.*$')
+  vim.cmd('nohlsearch')
+end, { buffer = true })
+_G.map('n', 'gj', function()
+  vim.cmd('silent! /^##\\+\\s.*$')
+  vim.cmd('nohlsearch')
+end, { buffer = true })

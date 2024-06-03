@@ -1,11 +1,10 @@
---@see https://github.com/nvimdev/whiskyline.nvim
+--@see https://github.com/nvimdev
 
-local co, api, lsp, iter = coroutine, vim.api, vim.lsp, vim.iter
+local co, fn, api, lsp, iter = coroutine, vim.fn, vim.api, vim.lsp, vim.iter
 
 local function sep()
   return {
     stl = ' ',
-    name = 'sep',
   }
 end
 
@@ -14,14 +13,13 @@ local function fileinfo()
     stl = '%f%r%m',
     event = { 'BufEnter' },
     attr = 'Operator',
-    name = 'fileinfo',
   }
 end
 
 local function search()
   return {
     stl = function()
-      local s = vim.fn.searchcount()
+      local s = fn.searchcount()
       if vim.v.hlsearch == 0 or s.total == 0 then
         return ''
       end
@@ -31,7 +29,6 @@ local function search()
     end,
     event = { 'CursorHold' },
     attr = 'Repeat',
-    name = 'search',
   }
 end
 
@@ -46,15 +43,22 @@ local function lspinfo()
       local msg = client and client.name or ''
       if args.data and args.data.params then
         local val = args.data.params.value
-        msg = val.title
-          .. ' '
-          .. (val.message and val.message .. ' ' or '')
-          .. (val.percentage and val.percentage .. '%' or '')
         if not val.message or val.kind == 'end' then
-          msg = client.name
+          msg = ('%s:%s'):format(
+            client.name,
+            client.root_dir and fn.fnamemodify(client.root_dir, ':t') or 'single'
+          )
+        else
+          msg = val.title
+            .. ' '
+            .. (val.message and val.message .. ' ' or '')
+            .. (val.percentage and val.percentage .. '%' or '')
         end
       elseif args.event == 'BufEnter' then
-        msg = client.name
+        msg = ('%s:%s'):format(
+          client.name,
+          client.root_dir and fn.fnamemodify(client.root_dir, ':t') or 'single'
+        )
       elseif args.event == 'LspDetach' then
         msg = ''
       end
@@ -62,7 +66,6 @@ local function lspinfo()
     end,
     event = { 'LspProgress', 'LspAttach', 'LspDetach', 'BufEnter' },
     attr = 'Function',
-    name = 'lspinfo',
   }
 end
 
@@ -71,7 +74,7 @@ local function branch()
     stl = function()
       local icon = ' '
       local cmd = 'cd '
-        .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':h')
+        .. fn.fnamemodify(api.nvim_buf_get_name(0), ':h')
         .. ' 2>/dev/null'
         .. ' && git branch --show-current 2>/dev/null'
       local handle = io.popen(cmd, 'r')
@@ -84,14 +87,12 @@ local function branch()
     end,
     event = { 'BufEnter' },
     attr = 'Include',
-    name = 'branch',
   }
 end
 
 local function pad()
   return {
     stl = '%=',
-    name = 'pad',
   }
 end
 
@@ -100,7 +101,6 @@ local function lnumcol()
     stl = '%l:%c %P',
     event = { 'CursorHold' },
     attr = 'Number',
-    name = 'lnumcol',
   }
 end
 
@@ -126,7 +126,6 @@ local function diagError()
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
     attr = 'DiagnosticError',
-    name = 'diagError',
   }
 end
 
@@ -137,7 +136,6 @@ local function diagWarn()
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
     attr = 'DiagnosticWarn',
-    name = 'diagWarn',
   }
 end
 
@@ -148,7 +146,6 @@ local function diagInfo()
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
     attr = 'DiagnosticInfo',
-    name = 'diagInfo',
   }
 end
 
@@ -159,12 +156,13 @@ local function diagHint()
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
     attr = 'DiagnosticHint',
-    name = 'diagHint',
   }
 end
 
+-- just use the attr as the name
+-- so i don't need to set the highlight group
 local function stl_format(name, val)
-  return '%#' .. 'StatusLine' .. name .. '#' .. val .. '%*'
+  return '%#' .. (name or 'StatusLine') .. '#' .. val .. '%*'
 end
 
 local function default()
@@ -190,7 +188,7 @@ local function default()
   iter(ipairs(comps))
     :map(function(key, item)
       if type(item.stl) == 'string' then
-        pieces[#pieces + 1] = stl_format(item.name, item.stl)
+        pieces[#pieces + 1] = stl_format(item.attr, item.stl)
       else
         pieces[#pieces + 1] = ''
         for _, event in ipairs({ unpack(item.event or {}) }) do
@@ -199,11 +197,6 @@ local function default()
           end
           e[event][#e[event] + 1] = key
         end
-      end
-      if item.attr then
-        api.nvim_set_hl(0, ('StatusLine%s'):format(item.name), {
-          link = item.attr,
-        })
       end
     end)
     :totable()
@@ -215,7 +208,7 @@ local function render(comps, events, pieces)
     while true do
       local event = args.event
       for _, idx in ipairs(events[event]) do
-        pieces[idx] = stl_format(comps[idx].name, comps[idx].stl(args))
+        pieces[idx] = stl_format(comps[idx].attr, comps[idx].stl(args))
       end
 
       vim.opt.stl = table.concat(pieces)

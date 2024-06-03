@@ -33,7 +33,7 @@ function M:boot_strap()
     dev = {
       path = '~/workspace',
     },
-    install = { colorscheme = { 'habamax' } },
+    install = { colorscheme = { 'aklk1ng' } },
     performance = {
       rtp = {
         disabled_plugins = {
