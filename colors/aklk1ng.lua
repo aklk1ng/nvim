@@ -19,7 +19,7 @@ local p = {
   purple = '#5d628a',
   grey = '#797979',
   fancy = '#4f585e',
-  galaxy = '#66674b',
+  galaxy = '#527370',
   none = 'NONE',
 }
 
