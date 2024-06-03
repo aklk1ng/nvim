@@ -16,6 +16,38 @@ end
 function M.cmp()
   local cmp = require('cmp')
   local luasnip = require('luasnip')
+  local cmp_kinds = {
+    Class = '󰠱',
+    Color = '󰏘',
+    Constant = '',
+    Constructor = '',
+    Enum = '',
+    EnumMember = '',
+    Event = '',
+    Field = '',
+    File = '󰈙',
+    Folder = '󰉋',
+    Function = '󰊕',
+    Interface = '',
+    Implementation = '',
+    Keyword = '󰌋',
+    Method = '󰆧',
+    Module = '',
+    Namespace = '󰌗',
+    Number = '',
+    Operator = '',
+    Package = '',
+    Property = '󰜢',
+    Reference = '',
+    Snippet = '',
+    Struct = '',
+    Text = '',
+    TypeParameter = '',
+    Undefined = '',
+    Unit = '',
+    Value = '',
+    Variable = '',
+  }
 
   local function snippet_replace(snippet, fn)
     return snippet:gsub('%$%b{}', function(m)
@@ -104,7 +136,11 @@ function M.cmp()
       { name = 'buffer', keyword_length = 3 },
     }),
     formatting = {
-      fields = { 'abbr', 'kind' },
+      fields = { 'kind', 'abbr' },
+      format = function(_, vim_item)
+        vim_item.kind = cmp_kinds[vim_item.kind] or ''
+        return vim_item
+      end,
     },
   })
 
