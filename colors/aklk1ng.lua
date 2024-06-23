@@ -199,6 +199,7 @@ local syntax = {
   CmpItemKindModule = { link = '@module' },
   CmpItemKindVariable = { link = '@variable' },
   CmpItemKindField = { link = '@field' },
+  CmpItemKindConstant = { link = 'Constant' },
 }
 
 for group, conf in pairs(syntax) do

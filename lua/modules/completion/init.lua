@@ -103,9 +103,6 @@ function M.cmp()
       { name = 'luasnip', priority = 100 },
       { name = 'buffer' },
     }),
-    formatting = {
-      fields = { 'abbr', 'kind' },
-    },
   })
 
   cmp.event:on('menu_opened', function(event)

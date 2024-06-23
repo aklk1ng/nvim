@@ -68,13 +68,6 @@ packadd({
 })
 
 packadd({
-  'MeanderingProgrammer/markdown.nvim',
-  cmd = 'RenderMarkdownToggle',
-  dependencies = { 'nvim-treesitter/nvim-treesitter' },
-  config = tools.markdown,
-})
-
-packadd({
   'echasnovski/mini.files',
   version = '*',
   event = { 'BufEnter */*' },

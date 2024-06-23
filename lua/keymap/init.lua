@@ -9,8 +9,6 @@ _G.map('n', '<leader>cf', _G.cmd('GuardFmt'))
 
 _G.map('n', '<leader>a', _G.cmd('ColorizerToggle'))
 
-_G.map('n', '<leader>m', _G.cmd('RenderMarkdownToggle'))
-
 _G.map('n', 'zp', function()
   require('ufo').peekFoldedLinesUnderCursor()
 end)

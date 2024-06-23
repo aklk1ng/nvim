@@ -315,12 +315,6 @@ function M.guard()
   })
 end
 
-function M.markdown()
-  require('render-markdown').setup({
-    start_enabled = false,
-  })
-end
-
 function M.colorizer()
   require('colorizer').setup()
 end
