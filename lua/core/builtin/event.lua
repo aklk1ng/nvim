@@ -71,7 +71,6 @@ api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
   group = aklk1ng,
   pattern = '*',
   callback = function()
-    require('core.builtin.stl').setup()
     require('core.builtin.lsp')
     require('utils')
   end,

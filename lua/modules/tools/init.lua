@@ -199,39 +199,6 @@ function M.files()
   })
 end
 
-function M.noice()
-  require('noice').setup({
-    cmdline = {
-      enabled = false,
-    },
-    messages = {
-      enabled = false,
-    },
-    popupmenu = {
-      enabled = false,
-    },
-    lsp = {
-      progress = {
-        enabled = false,
-      },
-      override = {
-        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-        ['vim.lsp.util.stylize_markdown'] = true,
-        ['cmp.entry.get_documentation'] = false, -- requires hrsh7th/nvim-cmp
-      },
-      message = {
-        enabled = false,
-      },
-    },
-    -- you can enable a preset for easier configuration
-    presets = {
-      bottom_search = true, -- use a classic bottom cmdline for search
-      command_palette = true, -- position the cmdline and popupmenu together
-      long_message_to_split = true, -- long messages will be sent to a split
-    },
-  })
-end
-
 function M.gitsigns()
   require('gitsigns').setup({
     attach_to_untracked = true,

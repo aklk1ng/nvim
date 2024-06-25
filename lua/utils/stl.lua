@@ -35,7 +35,7 @@ end
 local function lspinfo()
   return {
     stl = function(args)
-      local client = lsp.get_clients({ bufnr = args.buf })[1]
+      local client = lsp.get_clients({ bufnr = 0 })[1]
       if not client then
         return ''
       end
@@ -221,7 +221,7 @@ return {
   setup = function()
     local comps, events, pieces = default()
     local stl_render = render(comps, events, pieces)
-    for _, e in ipairs(vim.tbl_keys(events)) do
+    iter(vim.tbl_keys(events)):map(function(e)
       local tmp = e
 
       api.nvim_create_autocmd(tmp, {
@@ -229,11 +229,11 @@ return {
           vim.schedule(function()
             local ok, res = co.resume(stl_render, args)
             if not ok then
-              vim.notify('[Whisky] render failed ' .. res, vim.log.levels.ERROR)
+              vim.notify('StatusLine render failed ' .. res, vim.log.levels.ERROR)
             end
           end)
         end,
       })
-    end
+    end)
   end,
 }

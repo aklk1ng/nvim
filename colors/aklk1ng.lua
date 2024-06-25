@@ -23,6 +23,8 @@ local p = {
   none = 'NONE',
 }
 
+_G.palette = p
+
 local syntax = {
   Normal = { fg = p.fg, bg = p.bg },
   Terminal = { fg = p.fg, bg = p.bg },
