@@ -66,6 +66,13 @@ packadd({
 })
 
 packadd({
+  'echasnovski/mini.move',
+  version = '*',
+  event = { 'BufEnter */*' },
+  config = tools.move,
+})
+
+packadd({
   'NvChad/nvim-colorizer.lua',
   cmd = 'ColorizerToggle',
   config = tools.colorizer,

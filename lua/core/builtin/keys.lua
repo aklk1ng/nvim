@@ -96,9 +96,6 @@ _G.map('x', 'X', '"_X')
 _G.map('x', 'c', '"_c')
 _G.map('x', 'C', '"_C')
 _G.map('x', 's', '"_s')
---------------------------- move line up or dow
-_G.map('x', '<A-j>', ":m '>+1<CR>gv=gv")
-_G.map('x', '<A-k>', ":m '<-2<CR>gv=gv")
 
 _G.map('c', '<C-b>', '<Left>')
 _G.map('c', '<C-f>', '<Right>')

@@ -199,6 +199,24 @@ function M.files()
   })
 end
 
+function M.move()
+  require('mini.move').setup({
+    mappings = {
+      -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+      left = '<M-h>',
+      right = '<M-l>',
+      down = '<M-j>',
+      up = '<M-k>',
+
+      -- Move current line in Normal mode
+      line_left = '',
+      line_right = '',
+      line_down = '',
+      line_up = '',
+    },
+  })
+end
+
 function M.gitsigns()
   require('gitsigns').setup({
     attach_to_untracked = true,
