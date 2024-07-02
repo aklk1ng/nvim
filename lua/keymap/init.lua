@@ -17,12 +17,12 @@ _G.map('n', ']d', _G.cmd('Lspsaga diagnostic_jump_next'))
 _G.map('n', '[d', _G.cmd('Lspsaga diagnostic_jump_prev'))
 _G.map(
   'n',
-  '[e',
+  ']e',
   _G.cmd("lua require('lspsaga.diagnostic'):goto_next({severity = vim.diagnostic.severity.ERROR})")
 )
 _G.map(
   'n',
-  ']e',
+  '[e',
   _G.cmd("lua require('lspsaga.diagnostic'):goto_prev({severity = vim.diagnostic.severity.ERROR})")
 )
 _G.map('n', 'K', _G.cmd('Lspsaga hover_doc'))

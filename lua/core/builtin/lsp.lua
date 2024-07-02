@@ -41,8 +41,8 @@ local function on_attach(client, bufnr)
     })
   end
 
-  -- _G.map('n', '[d', vim.diagnostic.goto_next, { buffer = bufnr })
-  -- _G.map('n', ']d', vim.diagnostic.goto_prev, { buffer = bufnr })
+  -- _G.map('n', ']d', vim.diagnostic.jump({ count = 1, float = true }), { buffer = bufnr })
+  -- _G.map('n', '[d', vim.diagnostic.jump({ count = -1, float = true }), { buffer = bufnr })
   -- _G.map('n', '[e', function()
   --   vim.diagnostic.goto_next({ severity = 'ERROR' })
   -- end, { buffer = bufnr })

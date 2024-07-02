@@ -71,7 +71,7 @@ local function register_callback(this, buf)
         )
       end
     end
-  end, 3000)
+  end, 5000)
 end
 
 ---@class NotifyOpts
@@ -203,9 +203,9 @@ local platte = {
   NotifyDebug = { fg = _G.palette.purple },
   NotifyError = { fg = _G.palette.red },
   NotifyInfo = { fg = _G.palette.blue },
-  NotifyTrace = { fg = _G.palette.galaxy },
+  NotifyTrace = { fg = _G.palette.cyan },
   NotifyWarn = { fg = _G.palette.yellow },
-  NotifyOff = { fg = _G.palette.fancy },
+  NotifyOff = { fg = _G.palette.grey },
 }
 
 for group, conf in pairs(platte) do

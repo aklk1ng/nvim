@@ -40,7 +40,9 @@ opt.list = true
 opt.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'
 
 opt.foldcolumn = '1'
-opt.foldmethod = 'manual'
+opt.foldmethod = 'expr'
+opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+opt.foldtext = ''
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 opt.foldlevel = 99
 opt.foldlevelstart = 99
@@ -60,6 +62,8 @@ opt.ignorecase = true
 opt.infercase = true
 opt.smartcase = true
 opt.clipboard = 'unnamedplus'
+
+opt.stc = '%=%l%s'
 
 if vim.fn.executable('rg') == 1 then
   vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'

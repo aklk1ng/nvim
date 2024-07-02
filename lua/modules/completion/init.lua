@@ -133,14 +133,6 @@ function M.cmp()
 end
 
 function M.lspconfig()
-  vim.diagnostic.config({
-    signs = false,
-    severity_sort = true,
-    underline = true,
-    update_in_insert = false,
-    virtual_text = true,
-  })
-
   ---@diagnostic disable-next-line: unused-local
   M._attach = function(client, bufnr)
     vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -149,10 +141,6 @@ function M.lspconfig()
   --Enable (broadcasting) snippet capability for completion
   M.capabilities = vim.lsp.protocol.make_client_capabilities()
   M.capabilities = require('cmp_nvim_lsp').default_capabilities(M.capabilities)
-  M.capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
 
   local lspconfig = require('lspconfig')
   lspconfig.clangd.setup({
