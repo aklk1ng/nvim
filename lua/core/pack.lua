@@ -3,17 +3,7 @@ local M = {}
 M.plugins = {}
 
 function M.load_modules()
-  local modules_dir = vim.fn.stdpath('config') .. '/lua/modules'
-  local file_list = vim.fs.find('plugins.lua', { path = modules_dir, type = 'file', limit = 10 })
-  if #file_list == 0 then
-    return
-  end
-
-  vim.iter(file_list):map(function(f)
-    local _, pos = f:find(modules_dir)
-    f = f:sub(pos - 6, #f - 4)
-    require(f)
-  end)
+  require('modules.plugins')
 end
 
 function M:boot_strap()

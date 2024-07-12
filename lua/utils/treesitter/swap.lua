@@ -1,4 +1,4 @@
-local get_node_text = vim.treesitter.get_node_text
+local api, get_node_text = vim.api, vim.treesitter.get_node_text
 
 local M = {}
 local tbl = {
@@ -50,11 +50,11 @@ local function execute(l, concat, r, node, bufnr)
   -- replace the ternary with the swapped text
   local sr, sc = left[1]:start()
   local er, ec = right[#right]:end_()
-  vim.api.nvim_buf_set_text(bufnr, sr, sc, er, ec, t)
+  api.nvim_buf_set_text(bufnr, sr, sc, er, ec, t)
 end
 
 function M.swap()
-  local bufnr = vim.api.nvim_get_current_buf()
+  local bufnr = api.nvim_get_current_buf()
   if not vim.treesitter.language.get_lang(vim.bo[bufnr].filetype) then
     vim.notify('No treesitter parser for current language')
     return

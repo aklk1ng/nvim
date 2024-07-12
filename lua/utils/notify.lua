@@ -125,7 +125,7 @@ vim.notify = function(msg, level, opts)
     for i = 0, #formatted - 1, 1 do
       api.nvim_buf_add_highlight(buf, ns, hls[level], i, 0, -1)
     end
-    api.nvim_set_option_value('winhl', 'Normal:Normal', { win = existing.win })
+    api.nvim_set_option_value('winhl', 'NormalFloat:NormalFloat', { win = existing.win })
 
     local old_height = existing.height
     local width = math.min(msg_max_len, line_max_len)
@@ -191,23 +191,10 @@ vim.notify = function(msg, level, opts)
   for i = 0, #formatted - 1, 1 do
     api.nvim_buf_add_highlight(buf, ns, hls[level] or 'NotifyInfo', i, 0, -1)
   end
-  api.nvim_set_option_value('winhl', 'Normal:Normal', { win = win })
+  api.nvim_set_option_value('winhl', 'NormalFloat:Normal', { win = win })
 
   -- register callback
   displayed[buf] = this
   register_callback(this, buf)
   return buf
-end
-
-local platte = {
-  NotifyDebug = { fg = _G.palette.purple },
-  NotifyError = { fg = _G.palette.red },
-  NotifyInfo = { fg = _G.palette.blue },
-  NotifyTrace = { fg = _G.palette.cyan },
-  NotifyWarn = { fg = _G.palette.yellow },
-  NotifyOff = { fg = _G.palette.grey },
-}
-
-for group, conf in pairs(platte) do
-  api.nvim_set_hl(0, group, conf)
 end

@@ -1,4 +1,6 @@
 local M = {}
+local api = vim.api
+
 local tbl = {
   ['function'] = {
     'function_definition',
@@ -33,10 +35,10 @@ local function find_node(node, predicate)
 end
 
 local function execute(node, space)
-  local mode = vim.api.nvim_get_mode()
+  local mode = api.nvim_get_mode()
   if mode.mode ~= 'V' then
-    vim.api.nvim_replace_termcodes('V', true, true, true)
-    vim.api.nvim_cmd({ cmd = 'normal', bang = true, args = { 'V' } }, {})
+    api.nvim_replace_termcodes('V', true, true, true)
+    api.nvim_cmd({ cmd = 'normal', bang = true, args = { 'V' } }, {})
   end
 
   local sr, sc, er, ec = node:range()
@@ -52,9 +54,9 @@ local function execute(node, space)
       end
     end
 
-    vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+    api.nvim_win_set_cursor(0, { sr + 1, sc })
     vim.cmd('normal! o')
-    vim.api.nvim_win_set_cursor(0, { er + 1, ec })
+    api.nvim_win_set_cursor(0, { er + 1, ec })
   else
     for k, v in node:iter_children() do
       if v == 'body' then
@@ -64,26 +66,26 @@ local function execute(node, space)
     end
     if vim.bo.filetype == 'python' then
       if sr ~= er then
-        vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+        api.nvim_win_set_cursor(0, { sr + 1, sc })
         vim.cmd('normal! o')
-        vim.api.nvim_win_set_cursor(0, { er + 1, ec })
+        api.nvim_win_set_cursor(0, { er + 1, ec })
       else
-        vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+        api.nvim_win_set_cursor(0, { sr + 1, sc })
       end
     else
       if sr ~= er then
-        vim.api.nvim_win_set_cursor(0, { sr + 2, sc })
+        api.nvim_win_set_cursor(0, { sr + 2, sc })
         vim.cmd('normal! o')
-        vim.api.nvim_win_set_cursor(0, { er, ec })
+        api.nvim_win_set_cursor(0, { er, ec })
       else
-        vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+        api.nvim_win_set_cursor(0, { sr + 1, sc })
       end
     end
   end
 end
 
 function M.select(predicate, space)
-  local bufnr = vim.api.nvim_get_current_buf()
+  local bufnr = api.nvim_get_current_buf()
   if not vim.treesitter.language.get_lang(vim.bo[bufnr].filetype) then
     vim.notify('No treesitter parser for current language')
     return

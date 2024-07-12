@@ -1,5 +1,3 @@
-![xxx](https://raw.githubusercontent.com/aklk1ng/nvim/main/screenshot.png)
-
 ## Version
 
 **nightly**

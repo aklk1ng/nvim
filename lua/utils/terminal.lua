@@ -15,14 +15,13 @@ local pos_data = {
 }
 
 local config = {
-  hl = 'Normal:term,WinSeparator:WinSeparator',
   sizes = { sp = 0.4, vsp = 0.45 },
   float = {
     relative = 'editor',
-    row = 0.03,
-    col = 0.04,
-    width = 0.9,
-    height = 0.9,
+    row = 0.07,
+    col = 0.07,
+    width = 0.85,
+    height = 0.85,
     border = 'single',
   },
 }
@@ -74,7 +73,6 @@ local function display(opts)
   vim.wo[win].number = false
   vim.wo[win].relativenumber = false
   vim.bo[opts.buf].buflisted = false
-  vim.wo[win].winhl = opts.hl or config.hl
   vim.cmd('startinsert')
 
   -- resize non floating wins initially + or only when they're toggleable

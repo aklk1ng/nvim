@@ -40,7 +40,7 @@ local function lspinfo()
         return ''
       end
 
-      local msg = client and client.name or ''
+      local msg = ''
       if args.data and args.data.params then
         local val = args.data.params.value
         if not val.message or val.kind == 'end' then
@@ -49,12 +49,13 @@ local function lspinfo()
             client.root_dir and fn.fnamemodify(client.root_dir, ':t') or 'single'
           )
         else
-          msg = val.title
-            .. ' '
-            .. (val.message and val.message .. ' ' or '')
-            .. (val.percentage and val.percentage .. '%' or '')
+          msg = ('%s %s%s'):format(
+            val.title,
+            (val.message and val.message .. ' ' or ''),
+            (val.percentage and val.percentage .. '%' or '')
+          )
         end
-      elseif args.event == 'BufEnter' then
+      elseif args.event == 'BufEnter' or args.event == 'LspAttach' then
         msg = ('%s:%s'):format(
           client.name,
           client.root_dir and fn.fnamemodify(client.root_dir, ':t') or 'single'
@@ -100,7 +101,7 @@ local function lnumcol()
   return {
     stl = '%l:%c %P',
     event = { 'CursorHold' },
-    attr = 'Number',
+    attr = 'Repeat',
   }
 end
 

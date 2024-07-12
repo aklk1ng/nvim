@@ -1,4 +1,5 @@
 local M = {}
+local api = vim.api
 
 local query_tbl = {
   ['function'] = {
@@ -79,7 +80,7 @@ local function jump(obj, direct)
   if #matches > 0 then
     local nearest_node = nil
     local nearest_dist = nil
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local row, col = unpack(api.nvim_win_get_cursor(0))
 
     for _, node in ipairs(matches) do
       local sr, sc, _, _ = node:range()
@@ -100,7 +101,7 @@ local function jump(obj, direct)
 
     if nearest_node then
       local sr, sc, _, _ = nearest_node:range()
-      vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+      api.nvim_win_set_cursor(0, { sr + 1, sc })
     end
   end
 end

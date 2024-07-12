@@ -21,16 +21,7 @@ api.nvim_create_autocmd('TextYankPost', {
   group = aklk1ng,
   pattern = '*',
   callback = function()
-    vim.highlight.on_yank({ higroup = 'Search', timeout = 80 })
-  end,
-})
-
-api.nvim_create_autocmd('BufWritePre', {
-  group = aklk1ng,
-  pattern = '*',
-  callback = function()
-    -- remove trailing spaces
-    vim.cmd([[silent %s/\s\+$//e]])
+    vim.highlight.on_yank()
   end,
 })
 

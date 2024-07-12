@@ -54,7 +54,6 @@ function M.run()
 
   prepare()
   api.nvim_command('term ' .. cmd)
-  -- _G.Terms.runner({ pos = 'vsp', id = 'quickrunTerm', cmd = cmd})
 end
 
 return M

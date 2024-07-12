@@ -16,7 +16,7 @@ end
 ---@param bufnr integer
 local function on_attach(client, bufnr)
   if client.supports_method(methods.textDocument_signatureHelp) then
-    _G.map('i', '<C-k>', function()
+    _G.map({ 'i', 's' }, '<C-k>', function()
       -- Close the completion menu first (if open).
       local cmp = require('cmp')
       if cmp.visible() then
@@ -54,12 +54,17 @@ local function on_attach(client, bufnr)
   --   vim.diagnostic.jump({ count = -1, float = true, severity = 'ERROR' })
   -- end, { buffer = bufnr })
   -- _G.map('n', 'K', vim.lsp.buf.hover, { buffer = bufnr })
-  -- _G.map('n', 'gr', vim.lsp.buf.rename, { buffer = bufnr })
-  -- _G.map('n', 'ga', vim.lsp.buf.code_action, { buffer = bufnr })
+  -- _G.map('n', 'grn', vim.lsp.buf.rename, { buffer = bufnr })
+  -- _G.map('n', 'ga', function()
+  --   -- use the telescope wrap builtin code action behavior
+  --   if not _G.wrap_code_action then
+  --     require('utils.select')
+  --   end
+  --   vim.lsp.buf.code_action()
+  -- end, { buffer = bufnr })
   -- _G.map('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr })
-  -- _G.map('n', 'gh', vim.lsp.buf.references, { buffer = bufnr })
+  -- _G.map('n', 'grr', vim.lsp.buf.references, { buffer = bufnr })
   -- _G.map('n', 'gi', vim.lsp.buf.implementation, { buffer = bufnr })
-  -- _G.map('n', 'gt', vim.lsp.buf.type_definition, { buffer = bufnr })
 end
 
 vim.diagnostic.config({
