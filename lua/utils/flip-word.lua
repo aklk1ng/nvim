@@ -32,7 +32,7 @@ local tbl = {
   ['/'] = '%',
 }
 
--- just stolen from the `vim` module
+-- Just stolen from the `vim` module.
 local function tbl_keys(t)
   local keys = {}
   for k in pairs(t) do

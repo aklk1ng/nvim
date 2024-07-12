@@ -1,4 +1,4 @@
-local get_node_text = vim.treesitter.get_node_text
+local api, ts = vim.api, vim.treesitter
 
 local M = {}
 local tbl = {
@@ -34,11 +34,11 @@ local function execute(l, concat, r, node, bufnr)
   local right = node:field(r)
 
   for i = 1, #right do
-    res = res .. get_node_text(right[i], bufnr)
+    res = res .. ts.get_node_text(right[i], bufnr)
   end
   res = res .. concat
   for i = 1, #left do
-    res = res .. get_node_text(left[i], bufnr)
+    res = res .. ts.get_node_text(left[i], bufnr)
   end
 
   local t = {}
@@ -47,20 +47,20 @@ local function execute(l, concat, r, node, bufnr)
     table.insert(t, line)
   end
 
-  -- replace the ternary with the swapped text
+  -- Replace the ternary with the swapped text.
   local sr, sc = left[1]:start()
   local er, ec = right[#right]:end_()
-  vim.api.nvim_buf_set_text(bufnr, sr, sc, er, ec, t)
+  api.nvim_buf_set_text(bufnr, sr, sc, er, ec, t)
 end
 
 function M.swap()
-  local bufnr = vim.api.nvim_get_current_buf()
-  if not vim.treesitter.language.get_lang(vim.bo[bufnr].filetype) then
+  local bufnr = api.nvim_get_current_buf()
+  if not ts.language.get_lang(vim.bo[bufnr].filetype) then
     vim.notify('No treesitter parser for current language')
     return
   end
 
-  local node = vim.treesitter.get_node({ bufnr })
+  local node = ts.get_node({ bufnr })
   node = find_node(node)
 
   if not node then

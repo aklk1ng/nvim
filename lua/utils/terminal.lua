@@ -1,4 +1,4 @@
--- copy from Nvchad
+-- Copy from Nvchad.
 
 local api, fn = vim.api, vim.fn
 local g = vim.g
@@ -15,19 +15,18 @@ local pos_data = {
 }
 
 local config = {
-  hl = 'Normal:term,WinSeparator:WinSeparator',
   sizes = { sp = 0.4, vsp = 0.45 },
   float = {
     relative = 'editor',
-    row = 0.03,
-    col = 0.04,
-    width = 0.9,
-    height = 0.9,
+    row = 0.07,
+    col = 0.07,
+    width = 0.85,
+    height = 0.85,
     border = 'single',
   },
 }
 
--- used for initially resizing terms
+-- Used for initially resizing terms.
 vim.g.nvhterm = false
 vim.g.nvvterm = false
 
@@ -74,10 +73,9 @@ local function display(opts)
   vim.wo[win].number = false
   vim.wo[win].relativenumber = false
   vim.bo[opts.buf].buflisted = false
-  vim.wo[win].winhl = opts.hl or config.hl
   vim.cmd('startinsert')
 
-  -- resize non floating wins initially + or only when they're toggleable
+  -- Resize non floating wins initially + or only when they're toggleable.
   if
     (opts.pos == 'sp' and not vim.g.nvhterm)
     or (opts.pos == 'vsp' and not vim.g.nvvterm)
@@ -96,7 +94,7 @@ local function create(opts)
   local buf_exists = opts.buf
   opts.buf = opts.buf or api.nvim_create_buf(false, true)
 
-  -- handle cmd opt
+  -- Handle cmd opt.
   local shell = vim.o.shell
   local cmd = shell
 
@@ -140,17 +138,17 @@ Terms.toggle = function(opts)
   end
 end
 
--- spawns term with *cmd & runs the *cmd if the keybind is run again
+-- Spawns term with *cmd & runs the *cmd if the keybind is run again.
 Terms.runner = function(opts)
   local x = opts_to_id(opts.id)
   local clear_cmd = opts.clear_cmd or 'clear; '
   opts.buf = x and x.buf or nil
 
-  -- if buf doesnt exist
+  -- If buf doesnt exist.
   if x == nil then
     create(opts)
   else
-    -- window isnt visible
+    -- Window isnt visible.
     if fn.bufwinid(x.buf) == -1 then
       display(opts)
     end

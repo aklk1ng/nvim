@@ -1,71 +1,71 @@
-local opt = vim.opt
+local o = vim.o
 local indent = 2
 
-opt.fileencoding = 'utf-8'
-opt.splitright = true
-opt.splitbelow = true
-opt.splitkeep = 'screen'
-opt.writebackup = false
-opt.virtualedit = 'block'
-opt.showmode = false
-opt.tabstop = indent
-opt.shiftwidth = indent
-opt.showcmd = false
-opt.cmdheight = 0
-opt.ruler = false
-opt.termguicolors = true
-opt.shiftround = true
-opt.expandtab = true
-opt.cursorline = true
-opt.inccommand = 'split'
-opt.whichwrap = 'h,l,<,>,[,],~'
-opt.breakindentopt = 'shift:4'
-opt.breakindent = true
-opt.textwidth = 100
-opt.colorcolumn = '100'
-opt.laststatus = 3
-opt.scrolloff = 5
-opt.signcolumn = 'yes'
-opt.completeopt = 'menu,menuone,noselect,popup'
-opt.copyindent = true
-opt.smartindent = true
-opt.cindent = true
-opt.number = true
--- actually there is no symbol to the left of number in my neovim
-opt.numberwidth = 2
-opt.mouse = 'a'
-opt.exrc = true
+o.fileencoding = 'utf-8'
+o.splitright = true
+o.splitbelow = true
+o.splitkeep = 'screen'
+o.writebackup = false
+o.virtualedit = 'block'
+o.showmode = false
+o.tabstop = indent
+o.shiftwidth = indent
+o.showcmd = false
+o.cmdheight = 0
+o.ruler = false
+o.termguicolors = true
+o.shiftround = true
+o.expandtab = true
+o.cursorline = true
+o.inccommand = 'split'
+o.whichwrap = 'h,l,<,>,[,],~'
+o.breakindentopt = 'shift:4'
+o.breakindent = true
+o.textwidth = 100
+o.colorcolumn = '100'
+o.laststatus = 3
+o.scrolloff = 5
+o.signcolumn = 'yes'
+o.shortmess = 'aoOTcF'
+o.completeopt = 'menu,menuone,noselect,fuzzy,popup'
+o.copyindent = true
+o.smartindent = true
+o.cindent = true
+o.number = true
+-- Actually there is no symbol to the left of number in my neovim.
+o.numberwidth = 2
+o.mouse = 'a'
+o.exrc = true
 
-opt.list = true
-opt.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'
+o.list = true
+o.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'
 
-opt.foldcolumn = '1'
-opt.foldmethod = 'expr'
-opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-opt.foldtext = ''
-opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-opt.foldlevel = 99
-opt.foldlevelstart = 99
+o.foldcolumn = '1'
+o.foldtext = ''
+o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
+o.foldlevel = 99
+o.foldlevelstart = 99
 
-opt.swapfile = false
+o.swapfile = false
 
-opt.pumblend = 10
-opt.pumheight = 15
+o.pumblend = 10
+o.pumheight = 15
 
-opt.updatetime = 400
-opt.timeoutlen = 500
-opt.ttimeoutlen = 10
-opt.redrawtime = 1500
+o.updatetime = 400
+o.timeoutlen = 500
+o.ttimeoutlen = 10
+o.redrawtime = 1500
 
-opt.wildignorecase = true
-opt.ignorecase = true
-opt.infercase = true
-opt.smartcase = true
-opt.clipboard = 'unnamedplus'
+o.wildignorecase = true
+o.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
+o.ignorecase = true
+o.infercase = true
+o.smartcase = true
+o.clipboard = 'unnamedplus'
 
-opt.stc = '%=%l%s'
+o.stc = '%=%l%s'
 
 if vim.fn.executable('rg') == 1 then
-  vim.opt.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-  vim.opt.grepprg = 'rg --vimgrep --no-heading --smart-case'
+  o.grepformat = '%f:%l:%c:%m,%f:%l:%m'
+  o.grepprg = 'rg --vimgrep --no-heading --smart-case'
 end

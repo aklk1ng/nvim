@@ -45,6 +45,8 @@ function M.run()
     cmd = 'go run ' .. name
   elseif ft == 'lua' then
     cmd = 'lua ' .. name
+  elseif ft == 'make' then
+    cmd = 'make'
   end
 
   if not cmd then
@@ -54,7 +56,6 @@ function M.run()
 
   prepare()
   api.nvim_command('term ' .. cmd)
-  -- _G.Terms.runner({ pos = 'vsp', id = 'quickrunTerm', cmd = cmd})
 end
 
 return M

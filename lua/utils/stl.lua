@@ -1,4 +1,4 @@
---@see https://github.com/nvimdev
+-- https://github.com/nvimdev/modeline.nvim
 
 local co, fn, api, lsp, iter = coroutine, vim.fn, vim.api, vim.lsp, vim.iter
 
@@ -40,21 +40,19 @@ local function lspinfo()
         return ''
       end
 
-      local msg = client and client.name or ''
+      local msg = ''
       if args.data and args.data.params then
         local val = args.data.params.value
         if not val.message or val.kind == 'end' then
-          msg = ('%s:%s'):format(
-            client.name,
-            client.root_dir and fn.fnamemodify(client.root_dir, ':t') or 'single'
-          )
+          msg = client.name
         else
-          msg = val.title
-            .. ' '
-            .. (val.message and val.message .. ' ' or '')
-            .. (val.percentage and val.percentage .. '%' or '')
+          msg = ('%s %s%s'):format(
+            val.title,
+            (val.message and val.message .. ' ' or ''),
+            (val.percentage and val.percentage .. '%' or '')
+          )
         end
-      elseif args.event == 'BufEnter' then
+      elseif args.event == 'BufEnter' or args.event == 'LspAttach' then
         msg = ('%s:%s'):format(
           client.name,
           client.root_dir and fn.fnamemodify(client.root_dir, ':t') or 'single'
@@ -69,27 +67,6 @@ local function lspinfo()
   }
 end
 
-local function branch()
-  return {
-    stl = function()
-      local icon = ' '
-      local cmd = 'cd '
-        .. fn.fnamemodify(api.nvim_buf_get_name(0), ':h')
-        .. ' 2>/dev/null'
-        .. ' && git branch --show-current 2>/dev/null'
-      local handle = io.popen(cmd, 'r')
-      if not handle then
-        return ''
-      end
-      local res = handle:read('*a')
-      handle:close()
-      return #res > 0 and icon .. vim.trim(res) or ''
-    end,
-    event = { 'BufEnter' },
-    attr = 'Include',
-  }
-end
-
 local function pad()
   return {
     stl = '%=',
@@ -100,7 +77,7 @@ local function lnumcol()
   return {
     stl = '%l:%c %P',
     event = { 'CursorHold' },
-    attr = 'Number',
+    attr = 'Repeat',
   }
 end
 
@@ -122,7 +99,7 @@ end
 local function diagError()
   return {
     stl = function()
-      return diagnostic_info(1)
+      return diagnostic_info(vim.diagnostic.severity.ERROR)
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
     attr = 'DiagnosticError',
@@ -132,7 +109,7 @@ end
 local function diagWarn()
   return {
     stl = function()
-      return diagnostic_info(2)
+      return diagnostic_info(vim.diagnostic.severity.WARN)
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
     attr = 'DiagnosticWarn',
@@ -142,7 +119,7 @@ end
 local function diagInfo()
   return {
     stl = function()
-      return diagnostic_info(3)
+      return diagnostic_info(vim.diagnostic.severity.INFO)
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
     attr = 'DiagnosticInfo',
@@ -152,15 +129,15 @@ end
 local function diagHint()
   return {
     stl = function()
-      return diagnostic_info(4)
+      return diagnostic_info(vim.diagnostic.severity.HINT)
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
     attr = 'DiagnosticHint',
   }
 end
 
--- just use the attr as the name
--- so i don't need to set the highlight group
+-- I just use the `attr` as the name
+-- so i don't need to set the highlight group again.
 local function stl_format(name, val)
   return '%#' .. (name or 'StatusLine') .. '#' .. val .. '%*'
 end
@@ -181,8 +158,6 @@ local function default()
     pad(),
 
     lnumcol(),
-    sep(),
-    branch(),
   }
   local e, pieces = {}, {}
   iter(ipairs(comps))

@@ -1,10 +1,10 @@
--- enable lua byte code caching
+-- Enable lua byte code caching.
 if vim.loader then
   vim.loader.enable()
 end
 
 local g = vim.g
--- disable_distribution_plugins
+-- Disable_distribution_plugins.
 g.loaded_gzip = 1
 g.loaded_tar = 1
 g.loaded_tarPlugin = 1
@@ -20,7 +20,7 @@ g.loaded_rrhelper = 1
 g.loaded_matchit = 1
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
--- disable default providers
+-- Disable default providers.
 for _, provider in ipairs({ 'python3', 'ruby', 'node', 'perl' }) do
   g['loaded_' .. provider .. '_provider'] = 0
 end

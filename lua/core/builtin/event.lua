@@ -1,7 +1,7 @@
-local api = vim.api
+local api, au = vim.api, vim.api.nvim_create_autocmd
 local aklk1ng = api.nvim_create_augroup('aklk1ngGroup', {})
 
-api.nvim_create_autocmd('FileType', {
+au('FileType', {
   group = aklk1ng,
   pattern = { 'help', 'checkhealth', 'dashboard', 'qf', 'netrw', 'query' },
   callback = function(arg)
@@ -9,36 +9,17 @@ api.nvim_create_autocmd('FileType', {
   end,
 })
 
-api.nvim_create_autocmd('FileType', {
+au('TextYankPost', {
   group = aklk1ng,
-  pattern = 'qf',
   callback = function()
-    vim.opt_local.buflisted = false
+    vim.highlight.on_yank()
   end,
 })
 
-api.nvim_create_autocmd('TextYankPost', {
+-- Return to the last edited position.
+au('BufReadPost', {
   group = aklk1ng,
-  pattern = '*',
   callback = function()
-    vim.highlight.on_yank({ higroup = 'Search', timeout = 80 })
-  end,
-})
-
-api.nvim_create_autocmd('BufWritePre', {
-  group = aklk1ng,
-  pattern = '*',
-  callback = function()
-    -- remove trailing spaces
-    vim.cmd([[silent %s/\s\+$//e]])
-  end,
-})
-
-api.nvim_create_autocmd('BufReadPost', {
-  group = aklk1ng,
-  pattern = '*',
-  callback = function()
-    -- return to the last edited position
     local pos = vim.fn.getpos('\'"')
     if pos[2] > 0 and pos[2] <= vim.fn.line('$') then
       api.nvim_win_set_cursor(0, { pos[2], pos[3] - 1 })
@@ -47,8 +28,8 @@ api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
--- Check if we need to reload the file when it changed
-api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+-- Check if we need to reload the file when it changed.
+au({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   group = aklk1ng,
   callback = function()
     if vim.o.buftype ~= 'nofile' then
@@ -57,7 +38,7 @@ api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   end,
 })
 
-api.nvim_create_autocmd('TermOpen', {
+au('TermOpen', {
   group = aklk1ng,
   callback = function()
     vim.o.number = false
@@ -65,30 +46,73 @@ api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
--- just load lazily when not opening a file
-api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+au({ 'BufRead', 'BufNewFile' }, {
   once = true,
   group = aklk1ng,
-  pattern = '*',
   callback = function()
     require('core.builtin.lsp')
     require('utils')
   end,
 })
 
-api.nvim_create_autocmd('BufEnter', {
+au('BufEnter', {
   once = true,
   group = aklk1ng,
-  pattern = '*',
   callback = function()
     require('keymap')
   end,
 })
 
+au('FileType', {
+  group = aklk1ng,
+  callback = function(args)
+    if not pcall(vim.treesitter.start, args.buf) then
+      return
+    end
+    -- Disable foldexpr in bigfile.
+    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
+    if ok and stats and stats.size > 500 * 1024 then
+      return
+    end
+
+    api.nvim_buf_call(args.buf, function()
+      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
+      vim.cmd.normal('zx')
+    end)
+  end,
+})
+
+au('BufEnter', {
+  group = aklk1ng,
+  callback = function()
+    local bufname = api.nvim_buf_get_name(0)
+    if not vim.uv.fs_stat(bufname) then
+      return
+    end
+
+    local cwd = vim.fs.dirname(bufname)
+    -- Try to get root from lsp.
+    vim.tbl_map(function(client)
+      local filetypes, root = client.config.filetypes, client.config.root_dir
+      if filetypes and vim.fn.index(filetypes, vim.bo.ft) ~= -1 and root then
+        vim.cmd.lcd(root)
+        return
+      end
+    end, vim.lsp.get_clients({ buf = 0 }))
+    -- Try to find a file that's supposed to be in the root.
+    local result = vim.fs.find(_G.root_patterns, { path = cwd, upward = true, stop = vim.env.HOME })
+    if not vim.tbl_isempty(result) then
+      vim.cmd.lcd(vim.fs.dirname(result[1]))
+      return
+    end
+    vim.cmd.lcd(cwd)
+  end,
+})
+
 if vim.fn.executable('fcitx5-remote') == 1 then
-  api.nvim_create_autocmd('InsertLeavePre', {
+  au('InsertLeavePre', {
     group = aklk1ng,
-    pattern = '*',
     callback = function()
       os.execute('fcitx5-remote -c')
     end,
