@@ -5,9 +5,6 @@ _G.map('i', ',', ',<C-g>u')
 _G.map('i', '.', '.<C-g>u')
 _G.map('i', ';', ';<C-g>u')
 
-_G.map('i', '<C-a>', '<Esc>^i')
-_G.map('i', '<C-e>', '<End>')
-
 -- Black hole registers
 _G.map({ 'n', 'x' }, 'x', '"_x')
 _G.map({ 'n', 'x' }, 'X', '"_X')

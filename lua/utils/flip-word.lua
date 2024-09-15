@@ -32,7 +32,7 @@ local tbl = {
   ['/'] = '%',
 }
 
--- Just stolen from the `vim` module.
+-- Just stolen from the `vim` stadard module.
 local function tbl_keys(t)
   local keys = {}
   for k in pairs(t) do
@@ -50,10 +50,9 @@ local function reverse(t)
   end
   for _, k in ipairs(keys) do
     local v = t[k]
-    if t[v] then
-      vim.notify('The table found an existing value')
+    if not t[v] then
+      t[v] = k
     end
-    t[v] = k
   end
   return t
 end

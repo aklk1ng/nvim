@@ -63,26 +63,6 @@ au('BufEnter', {
   end,
 })
 
-au('FileType', {
-  group = aklk1ng,
-  callback = function(args)
-    if not pcall(vim.treesitter.start, args.buf) then
-      return
-    end
-    -- Disable foldexpr in bigfile.
-    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(args.buf))
-    if ok and stats and stats.size > 500 * 1024 then
-      return
-    end
-
-    api.nvim_buf_call(args.buf, function()
-      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-      vim.wo[0][0].foldmethod = 'expr'
-      vim.cmd.normal('zx')
-    end)
-  end,
-})
-
 au('BufEnter', {
   group = aklk1ng,
   callback = function()
@@ -92,20 +72,6 @@ au('BufEnter', {
     end
 
     local cwd = vim.fs.dirname(bufname)
-    -- Try to get root from lsp.
-    vim.tbl_map(function(client)
-      local filetypes, root = client.config.filetypes, client.config.root_dir
-      if filetypes and vim.fn.index(filetypes, vim.bo.ft) ~= -1 and root then
-        vim.cmd.lcd(root)
-        return
-      end
-    end, vim.lsp.get_clients({ buf = 0 }))
-    -- Try to find a file that's supposed to be in the root.
-    local result = vim.fs.find(_G.root_patterns, { path = cwd, upward = true, stop = vim.env.HOME })
-    if not vim.tbl_isempty(result) then
-      vim.cmd.lcd(vim.fs.dirname(result[1]))
-      return
-    end
     vim.cmd.lcd(cwd)
   end,
 })
