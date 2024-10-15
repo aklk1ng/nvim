@@ -41,8 +41,6 @@ _G.map('n', '<leader>t', _G.cmd('tabnew'))
 _G.map('n', '<leader>c', _G.cmd('tabclose'))
 _G.map('n', '<Tab>', vim.cmd.bnext, { silent = true })
 _G.map('n', '<S-Tab>', vim.cmd.bprev, { silent = true })
-_G.map('n', '<leader>n', vim.cmd.tabnext, { silent = true })
-_G.map('n', '<leader>p', vim.cmd.tabprev, { silent = true })
 _G.map('n', '<leader>d', _G.cmd(vim.bo.buftype == 'terminal' and 'q!' or 'confirm bdelete'))
 
 -- Toggle the quickfix window.
@@ -59,8 +57,6 @@ _G.map('n', '\\', function()
     end
   end
 end)
-_G.map('n', '<leader>j', _G.cmd('cnext'))
-_G.map('n', '<leader>k', _G.cmd('cprev'))
 
 _G.map('n', '<leader><leader>i', function()
   local client = vim.lsp.get_clients({ bufnr = 0 })[1]

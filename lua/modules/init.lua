@@ -170,7 +170,7 @@ function M.lspconfig()
   lspconfig.clangd.setup({
     cmd = { 'clangd', '--background-index' },
     init_options = {
-      fallback_flags = { '-std=c++20' },
+      fallbackFlags = { '-std=c++20' },
     },
     on_attach = M._attach,
     capabilities = M.capabilities,
@@ -356,6 +356,12 @@ function M.fzflua()
     buffers = {
       no_header = true,
       preview_opts = 'hidden',
+      winopts = {
+        height = 0.4,
+        width = 1,
+        row = 1,
+        col = 0,
+      },
     },
     git = {
       bcommits = {

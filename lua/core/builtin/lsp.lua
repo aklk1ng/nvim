@@ -67,7 +67,7 @@ end
 
 vim.diagnostic.config({
   signs = false,
-  virtual_text = true,
+  virtual_text = false,
   float = {
     border = 'rounded',
   },
@@ -122,7 +122,7 @@ local function enhanced_float_handler(handler, focusable)
     end
 
     -- Conceal everything.
-    vim.wo[winnr].concealcursor = 'n'
+    vim.wo[winnr].concealcursor = 'nv'
 
     -- Extra highlights.
     add_inline_highlights(bufnr)

@@ -30,11 +30,11 @@ _G.map('n', '<leader>r', quickrun.run)
 _G.map('n', 'ta', flip_word.toggle)
 
 -- toggleable
-_G.map({ 'n', 't' }, '[t', function()
+_G.map('n', '[t', function()
   _G.Terms.toggle({ pos = 'vsp', id = 'vtoggleTerm' })
 end, { desc = 'terminal toggleable vertical term' })
 
-_G.map({ 'n', 't' }, ']t', function()
+_G.map('n', ']t', function()
   _G.Terms.toggle({ pos = 'sp', id = 'htoggleTerm' })
 end, { desc = 'terminal new horizontal term' })
 

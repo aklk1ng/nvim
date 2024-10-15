@@ -1,6 +1,18 @@
-_G.map('n', '<leader>g', _G.cmd('Gitsigns diffthis'))
-_G.map('n', ']g', _G.cmd('silent! Gitsigns next_hunk'), { silent = true })
-_G.map('n', '[g', _G.cmd('silent! Gitsigns prev_hunk'), { silent = true })
+_G.map('n', '<leader>g', _G.cmd('Gitsigns diffthis vertical=true'))
+_G.map('n', ']c', function()
+  if vim.wo.diff then
+    vim.cmd.normal({ ']c', bang = true })
+  else
+    require('gitsigns').nav_hunk('next', { target = 'all' })
+  end
+end, { silent = true })
+_G.map('n', '[c', function()
+  if vim.wo.diff then
+    vim.cmd.normal({ '[c', bang = true })
+  else
+    require('gitsigns').nav_hunk('prev', { target = 'all' })
+  end
+end, { silent = true })
 _G.map('n', '<leader>b', _G.cmd('Gitsigns toggle_current_line_blame'))
 
 _G.map('n', '<leader>e', _G.cmd('Oil --float'))
@@ -15,6 +27,8 @@ _G.map('n', '<leader>fs', _G.cmd('FzfLua lsp_document_symbols'))
 _G.map('n', '<leader>fS', _G.cmd('FzfLua lsp_workspace_symbols'))
 _G.map('n', '<leader>fh', _G.cmd('FzfLua helptags'))
 _G.map('n', '<leader>fk', _G.cmd('FzfLua keymaps'))
+_G.map('n', '<leader>ft', _G.cmd('FzfLua tabs'))
+_G.map('n', '<leader>fd', _G.cmd('FzfLua lsp_workspace_diagnostics'))
 _G.map('n', '<leader>fl', _G.cmd('FzfLua live_grep_native'))
 _G.map('n', '<leader>/', _G.cmd('FzfLua grep_curbuf'))
 _G.map('n', '<leader>fg', _G.cmd('FzfLua git_status'))

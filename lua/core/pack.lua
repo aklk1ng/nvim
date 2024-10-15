@@ -15,6 +15,9 @@ function M:boot_strap()
   vim.opt.runtimepath:prepend(lazypath)
   local lazy = require('lazy')
   local opts = {
+    rocks = {
+      enabled = false,
+    },
     lockfile = vim.fn.stdpath('data') .. '/lazy-lock.json',
     git = {
       log = { '-10' },

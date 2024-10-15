@@ -5,7 +5,7 @@ local api = vim.api
 local function prepare()
   local cmds = {
     'silent w',
-    'vnew',
+    'new',
   }
   for _, cmd in pairs(cmds) do
     api.nvim_command(cmd)
@@ -27,7 +27,7 @@ function M.run()
       .. ' && rm ./'
       .. bin
   elseif ft == 'cpp' then
-    cmd = 'g++ -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare -std=c++20 '
+    cmd = 'clang++ -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare -std=c++20 '
       .. name
       .. ' -o '
       .. bin

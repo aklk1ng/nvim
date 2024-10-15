@@ -12,7 +12,7 @@ local function fileinfo()
   return {
     stl = '%f%r%m',
     event = { 'BufEnter' },
-    attr = 'Operator',
+    attr = 'Normal',
   }
 end
 
@@ -28,7 +28,7 @@ local function search()
       return string.format('[%d/%d]', current, cnt)
     end,
     event = { 'CursorHold' },
-    attr = 'Repeat',
+    attr = 'Normal',
   }
 end
 
@@ -63,7 +63,7 @@ local function lspinfo()
       return '%.40{"' .. msg .. '"}'
     end,
     event = { 'LspProgress', 'LspAttach', 'LspDetach', 'BufEnter' },
-    attr = 'Function',
+    attr = 'Normal',
   }
 end
 
@@ -77,7 +77,7 @@ local function lnumcol()
   return {
     stl = '%l:%c %P',
     event = { 'CursorHold' },
-    attr = 'Repeat',
+    attr = 'Normal',
   }
 end
 

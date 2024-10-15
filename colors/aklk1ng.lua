@@ -95,7 +95,7 @@ local syntax = {
   Operator = { fg = p.fg },
   Title = { fg = p.orange, bold = true },
   Special = { fg = p.yellow },
-  Function = { fg = p.blue },
+  Function = { fg = p.fg },
   String = { fg = p.green },
   Character = { link = 'String' },
   Type = { fg = p.yellow },

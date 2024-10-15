@@ -63,19 +63,6 @@ au('BufEnter', {
   end,
 })
 
-au('BufEnter', {
-  group = aklk1ng,
-  callback = function()
-    local bufname = api.nvim_buf_get_name(0)
-    if not vim.uv.fs_stat(bufname) then
-      return
-    end
-
-    local cwd = vim.fs.dirname(bufname)
-    vim.cmd.lcd(cwd)
-  end,
-})
-
 if vim.fn.executable('fcitx5-remote') == 1 then
   au('InsertLeavePre', {
     group = aklk1ng,
