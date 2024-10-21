@@ -43,20 +43,13 @@ local function lspinfo()
       local msg = ''
       if args.data and args.data.params then
         local val = args.data.params.value
-        if not val.message or val.kind == 'end' then
-          msg = client.name
-        else
+        if val.message and val.kind ~= 'end' then
           msg = ('%s %s%s'):format(
             val.title,
             (val.message and val.message .. ' ' or ''),
             (val.percentage and val.percentage .. '%' or '')
           )
         end
-      elseif args.event == 'BufEnter' or args.event == 'LspAttach' then
-        msg = ('%s:%s'):format(
-          client.name,
-          client.root_dir and fn.fnamemodify(client.root_dir, ':t') or 'single'
-        )
       elseif args.event == 'LspDetach' then
         msg = ''
       end
@@ -146,13 +139,13 @@ local function default()
   local comps = {
     fileinfo(),
     sep(),
-    lspinfo(),
-    sep(),
     diagError(),
     diagWarn(),
     diagInfo(),
     diagHint(),
     search(),
+    sep(),
+    lspinfo(),
 
     pad(),
     pad(),

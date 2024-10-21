@@ -12,7 +12,7 @@ au('FileType', {
 au('TextYankPost', {
   group = aklk1ng,
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
