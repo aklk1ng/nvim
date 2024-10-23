@@ -64,8 +64,6 @@ _G.map('n', '<leader><leader>i', function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
   end
 end)
-_G.map('n', '<leader>u', vim.diagnostic.hide)
-_G.map('n', '<leader>i', vim.diagnostic.show)
 
 -- Move lines
 _G.map('x', '<A-j>', "<Esc><Cmd>'<,'>move'>+1<CR>gv=gv")
