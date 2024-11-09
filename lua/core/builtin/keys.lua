@@ -5,6 +5,8 @@ _G.map('i', ',', ',<C-g>u')
 _G.map('i', '.', '.<C-g>u')
 _G.map('i', ';', ';<C-g>u')
 
+_G.map('i', '<C-l>', '<C-x><C-l>')
+
 -- Black hole registers
 _G.map({ 'n', 'x' }, 'x', '"_x')
 _G.map({ 'n', 'x' }, 'X', '"_X')
@@ -13,9 +15,11 @@ _G.map({ 'n', 'x' }, 'C', '"_C')
 _G.map({ 'n', 'x' }, 's', '"_s')
 _G.map({ 'n', 'x' }, 'S', '"_S')
 
+_G.map('n', '<C-x><C-f>', ":e <C-R>=expand('%:p:h')<CR>")
+_G.map('n', '<C-x>k', ':bdelete ')
+
 _G.map('n', '<leader>q', _G.cmd('q'))
-_G.map('n', '<C-q>', _G.cmd('qa!'))
-_G.map('n', '<leader>x', _G.cmd('silent !chmod +x %'))
+_G.map('n', '<C-x>c', _G.cmd('qa!'))
 _G.map('n', '|', _G.cmd('Inspect'))
 _G.map('n', 'j', 'gj')
 _G.map('n', 'k', 'gk')
@@ -42,6 +46,7 @@ _G.map('n', '<leader>c', _G.cmd('tabclose'))
 _G.map('n', '<Tab>', vim.cmd.bnext, { silent = true })
 _G.map('n', '<S-Tab>', vim.cmd.bprev, { silent = true })
 _G.map('n', '<leader>d', _G.cmd(vim.bo.buftype == 'terminal' and 'q!' or 'confirm bdelete'))
+_G.map('n', '<C-q>', vim.diagnostic.setqflist)
 
 -- Toggle the quickfix window.
 -- When toggling these, ignore error messages and restore the cursor to the original window when opening the list.
@@ -64,10 +69,6 @@ _G.map('n', '<leader><leader>i', function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
   end
 end)
-
--- Move lines
-_G.map('x', '<A-j>', "<Esc><Cmd>'<,'>move'>+1<CR>gv=gv")
-_G.map('x', '<A-k>', "<Esc><Cmd>'<,'>move'<-2<CR>gv=gv")
 
 -- Better indenting
 _G.map('x', '<', '<gv')

@@ -11,7 +11,6 @@ o.showmode = false
 o.tabstop = indent
 o.shiftwidth = indent
 o.showcmd = false
-o.cmdheight = 0
 o.ruler = false
 o.termguicolors = true
 o.shiftround = true
@@ -32,10 +31,8 @@ o.copyindent = true
 o.smartindent = true
 o.cindent = true
 o.number = true
--- Actually there is no symbol to the left of number in my neovim.
-o.numberwidth = 2
+o.numberwidth = 3
 o.mouse = 'a'
-o.exrc = true
 
 o.list = true
 o.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'

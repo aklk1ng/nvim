@@ -63,6 +63,12 @@ au('BufEnter', {
   end,
 })
 
+au('BufWritePost', {
+  group = aklk1ng,
+  pattern = '*/colors/*.lua',
+  command = 'source %',
+})
+
 if vim.fn.executable('fcitx5-remote') == 1 then
   au('InsertLeavePre', {
     group = aklk1ng,

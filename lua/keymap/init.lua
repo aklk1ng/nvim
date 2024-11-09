@@ -15,7 +15,8 @@ _G.map('n', '[c', function()
 end, { silent = true })
 _G.map('n', '<leader>b', _G.cmd('Gitsigns toggle_current_line_blame'))
 
-_G.map('n', '<leader>e', _G.cmd('Oil --float'))
+_G.map('n', '<leader>e', _G.cmd('Oil'))
+_G.map('n', '<C-x>d', ':Oil ~/')
 
 _G.map('n', '<leader>o', _G.cmd('ColorizerToggle'))
 

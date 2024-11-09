@@ -28,14 +28,14 @@ vim.ui.input = function(opts, on_confirm)
   end
   _G.map('n', '<Esc>', function()
     api.nvim_win_close(win, true)
-    vim.api.nvim_buf_delete(buf, { force = true })
+    api.nvim_buf_delete(buf, { force = true })
     api.nvim_input('<Esc>l')
     on_confirm(nil)
   end, { buffer = buf })
   _G.map({ 'i', 'n' }, '<cr>', function()
     local text = api.nvim_buf_get_lines(buf, 0, -1, false)[1]
     api.nvim_win_close(win, true)
-    vim.api.nvim_buf_delete(buf, { force = true })
+    api.nvim_buf_delete(buf, { force = true })
     if mode == 'n' then
       api.nvim_input('<Esc>l')
     end

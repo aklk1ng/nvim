@@ -32,6 +32,12 @@ local tbl = {
   ['/'] = '%',
 }
 
+local special_tbl = {
+  ['lua'] = {
+    ['=='] = '~=',
+  },
+}
+
 -- Just stolen from the `vim` stadard module.
 local function tbl_keys(t)
   local keys = {}
@@ -43,7 +49,7 @@ local function tbl_keys(t)
   return keys
 end
 
-local function reverse(t)
+local function tbl_add_reverse_lookup(t)
   local keys = tbl_keys(t)
   if not keys then
     return nil
@@ -57,10 +63,7 @@ local function reverse(t)
   return t
 end
 
-tbl = reverse(tbl)
-if not tbl then
-  return
-end
+tbl = tbl_add_reverse_lookup(tbl)
 
 function M.toggle()
   local cur = api.nvim_win_get_cursor(0)
@@ -70,9 +73,16 @@ function M.toggle()
   local word = fn.getline(s_l, e_l)[1]:sub(s_r, e_r)
   api.nvim_feedkeys(api.nvim_replace_termcodes('<Esc>', true, true, true), 'v', true)
 
-  local new_word = tbl[word]
+  local new_map = tbl_add_reverse_lookup(special_tbl[vim.o.filetype] or {})
+  new_map = vim.tbl_extend('force', tbl, new_map or {})
+  if not new_map then
+    vim.notify('Word map is nil', vim.log.levels.ERROR)
+    api.nvim_win_set_cursor(0, cur)
+    return
+  end
+  local new_word = new_map[word]
   if not new_word then
-    vim.notify('Unsupported word', vim.log.levels.INFO)
+    vim.notify('Unsupported word', vim.log.levels.WARN)
     api.nvim_win_set_cursor(0, cur)
     return
   end

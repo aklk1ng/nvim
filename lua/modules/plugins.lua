@@ -27,11 +27,6 @@ packadd({
 })
 
 packadd({
-  'kevinhwang91/nvim-bqf',
-  ft = 'qf',
-})
-
-packadd({
   'nvim-treesitter/nvim-treesitter',
   event = { 'BufRead', 'BufNewfile' },
   build = ':TSUpdate',

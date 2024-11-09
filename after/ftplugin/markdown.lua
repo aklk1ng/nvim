@@ -11,12 +11,3 @@ end
 
 _G.map('n', '<2-LeftMouse>', ToggleTodoStatus, { buffer = true })
 _G.map('n', '<CR>', ToggleTodoStatus, { buffer = true })
-
-_G.map('n', 'gk', function()
-  vim.cmd('silent! ?^##\\+\\s.*$')
-  vim.cmd('nohlsearch')
-end, { buffer = true })
-_G.map('n', 'gj', function()
-  vim.cmd('silent! /^##\\+\\s.*$')
-  vim.cmd('nohlsearch')
-end, { buffer = true })

@@ -7,6 +7,33 @@ function M.snippet()
 end
 
 function M.cmp()
+  local cmp_kinds = {
+    Text = '',
+    Method = '',
+    Function = '',
+    Constructor = '',
+    Field = '',
+    Variable = '',
+    Class = '',
+    Interface = '',
+    Module = '',
+    Property = '',
+    Unit = '',
+    Value = '',
+    Enum = '',
+    Keyword = '',
+    Snippet = '',
+    Color = '',
+    File = '',
+    Reference = '',
+    Folder = '',
+    EnumMember = '',
+    Constant = '',
+    Struct = '',
+    Event = '',
+    Operator = '',
+    TypeParameter = '',
+  }
   local cmp = require('cmp')
 
   local function expand(snippet)
@@ -125,6 +152,13 @@ function M.cmp()
       { name = 'buffer' },
       { name = 'snippets', priority = 100 },
     }),
+    formatting = {
+      fields = { 'kind', 'abbr', 'menu' },
+      format = function(_, vim_item)
+        vim_item.kind = cmp_kinds[vim_item.kind] or ''
+        return vim_item
+      end,
+    },
   })
 
   cmp.event:on('menu_opened', function(event)
@@ -169,9 +203,7 @@ function M.lspconfig()
   local lspconfig = require('lspconfig')
   lspconfig.clangd.setup({
     cmd = { 'clangd', '--background-index' },
-    init_options = {
-      fallbackFlags = { '-std=c++20' },
-    },
+    init_options = { fallbackFlags = { vim.bo.filetype == 'cpp' and '-std=c++23' or nil } },
     on_attach = M._attach,
     capabilities = M.capabilities,
   })
@@ -296,6 +328,7 @@ function M.treesitter()
     },
   })
   require('treesitter-context').setup({
+    multiwindow = true,
     max_lines = 3,
   })
 end
@@ -428,13 +461,22 @@ function M.surround()
 end
 
 function M.oil()
+  function _G.OilBar()
+    local dir = require('oil').get_current_dir()
+    if dir then
+      return vim.fn.fnamemodify(dir, ':~')
+    else
+      -- If there is no current directory (e.g. over ssh), just show the buffer name
+      return vim.api.nvim_buf_get_name(0)
+    end
+  end
   require('oil').setup({
-    default_file_explorer = false,
     delete_to_trash = true,
     watch_for_changes = true,
+    columns = { '' },
     win_options = {
       number = false,
-      colorcolumn = '',
+      winbar = '%{v:lua.OilBar()}',
     },
     keymaps = {
       ['<C-h>'] = false,
@@ -442,8 +484,34 @@ function M.oil()
       ['<C-k>'] = false,
       ['<C-j>'] = false,
       ['<C-s>'] = false,
+      ['gh'] = '<cmd>edit $HOME<CR>',
+      ['<M-v>'] = {
+        'actions.select',
+        opts = { vertical = true },
+        desc = 'Open the entry in a vertical split',
+      },
+      ['<M-s>'] = {
+        'actions.select',
+        opts = { horizontal = true },
+        desc = 'Open the entry in a horizontal split',
+      },
+      ['gl'] = {
+        desc = 'Toggle detail view',
+        callback = function()
+          local oil = require('oil')
+          local config = require('oil.config')
+          if #config.columns == 1 then
+            oil.set_columns({ 'permissions', 'size', 'mtime' })
+          else
+            oil.set_columns({ '' })
+          end
+        end,
+      },
     },
     view_options = {
+      is_always_hidden = function(name, bufnr)
+        return name == '..'
+      end,
       show_hidden = true,
     },
   })

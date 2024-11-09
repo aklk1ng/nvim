@@ -2,38 +2,37 @@
 
 local co, fn, api, lsp, iter = coroutine, vim.fn, vim.api, vim.lsp, vim.iter
 
+local function get_stl_bg()
+  return api.nvim_get_hl(0, { name = 'StatusLine' }).bg or 'black'
+end
+
+local function stl_attr(group)
+  local color = api.nvim_get_hl(0, { name = group, link = false })
+  return {
+    bg = get_stl_bg(),
+    fg = color.fg,
+  }
+end
+
 local function sep()
   return {
+    name = 'sep',
     stl = ' ',
   }
 end
 
 local function fileinfo()
   return {
+    name = 'fileinfo',
     stl = '%f%r%m',
     event = { 'BufEnter' },
-    attr = 'Normal',
-  }
-end
-
-local function search()
-  return {
-    stl = function()
-      local s = fn.searchcount()
-      if vim.v.hlsearch == 0 or s.total == 0 then
-        return ''
-      end
-      local current = s.current
-      local cnt = math.min(s.total, s.maxcount)
-      return string.format('[%d/%d]', current, cnt)
-    end,
-    event = { 'CursorHold' },
-    attr = 'Normal',
+    attr = stl_attr('Normal'),
   }
 end
 
 local function lspinfo()
   return {
+    name = 'lspinfo',
     stl = function(args)
       local client = lsp.get_clients({ bufnr = 0 })[1]
       if not client then
@@ -56,26 +55,28 @@ local function lspinfo()
       return '%.40{"' .. msg .. '"}'
     end,
     event = { 'LspProgress', 'LspAttach', 'LspDetach', 'BufEnter' },
-    attr = 'Normal',
+    attr = stl_attr('Normal'),
   }
 end
 
 local function pad()
   return {
+    name = 'pad',
     stl = '%=',
   }
 end
 
 local function lnumcol()
   return {
+    name = 'lnumcol',
     stl = '%l:%c %P',
     event = { 'CursorHold' },
-    attr = 'Normal',
+    attr = stl_attr('Normal'),
   }
 end
 
 local function diagnostic_info(severity)
-  if not vim.diagnostic.is_enabled({ bufnr = 0 }) then
+  if not vim.diagnostic.is_enabled({ bufnr = 0 }) or #lsp.get_clients({ bufnr = 0 }) == 0 then
     return ''
   end
 
@@ -91,48 +92,50 @@ end
 
 local function diagError()
   return {
+    name = 'diagError',
     stl = function()
       return diagnostic_info(vim.diagnostic.severity.ERROR)
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
-    attr = 'DiagnosticError',
+    attr = stl_attr('DiagnosticError'),
   }
 end
 
 local function diagWarn()
   return {
+    name = 'diagWarn',
     stl = function()
       return diagnostic_info(vim.diagnostic.severity.WARN)
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
-    attr = 'DiagnosticWarn',
+    attr = stl_attr('DiagnosticWarn'),
   }
 end
 
 local function diagInfo()
   return {
+    name = 'diagInfo',
     stl = function()
       return diagnostic_info(vim.diagnostic.severity.INFO)
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
-    attr = 'DiagnosticInfo',
+    attr = stl_attr('DiagnosticInfo'),
   }
 end
 
 local function diagHint()
   return {
+    name = 'diagHint',
     stl = function()
       return diagnostic_info(vim.diagnostic.severity.HINT)
     end,
     event = { 'DiagnosticChanged', 'BufEnter' },
-    attr = 'DiagnosticHint',
+    attr = stl_attr('DiagnosticHint'),
   }
 end
 
--- I just use the `attr` as the name
--- so i don't need to set the highlight group again.
 local function stl_format(name, val)
-  return '%#' .. (name or 'StatusLine') .. '#' .. val .. '%*'
+  return '%#' .. ('Stl' .. name) .. '#' .. val .. '%*'
 end
 
 local function default()
@@ -143,7 +146,6 @@ local function default()
     diagWarn(),
     diagInfo(),
     diagHint(),
-    search(),
     sep(),
     lspinfo(),
 
@@ -156,7 +158,7 @@ local function default()
   iter(ipairs(comps))
     :map(function(key, item)
       if type(item.stl) == 'string' then
-        pieces[#pieces + 1] = stl_format(item.attr, item.stl)
+        pieces[#pieces + 1] = stl_format(item.name, item.stl)
       else
         pieces[#pieces + 1] = ''
         for _, event in ipairs({ unpack(item.event or {}) }) do
@@ -165,6 +167,9 @@ local function default()
           end
           e[event][#e[event] + 1] = key
         end
+      end
+      if item.attr and item.name then
+        api.nvim_set_hl(0, ('Stl%s'):format(item.name), item.attr)
       end
     end)
     :totable()
@@ -176,7 +181,7 @@ local function render(comps, events, pieces)
     while true do
       local event = args.event
       for _, idx in ipairs(events[event]) do
-        pieces[idx] = stl_format(comps[idx].attr, comps[idx].stl(args))
+        pieces[idx] = stl_format(comps[idx].name, comps[idx].stl(args))
       end
 
       vim.opt.stl = table.concat(pieces)
