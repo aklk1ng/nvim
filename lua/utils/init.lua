@@ -4,8 +4,10 @@ local swap = require('utils.treesitter.swap')
 local select = require('utils.treesitter.select')
 require('utils.stl').setup()
 require('utils.terminal')
+require('utils.input')
+require('utils.qf')
 
-_G.map('n', 'ts', swap.swap)
+_G.map('n', 'ts', swap.act)
 _G.map({ 'x', 'o' }, 'if', function()
   select.act('function', false)
 end)
@@ -27,14 +29,6 @@ end)
 
 _G.map('n', '<leader>r', quickrun.run)
 _G.map('n', 'ta', flip_word.toggle)
-
-_G.map('n', '[t', function()
-  _G.Terms.toggle({ pos = 'vsp', id = 'vtoggleTerm' })
-end, { desc = 'terminal toggleable vertical term' })
-
-_G.map('n', ']t', function()
-  _G.Terms.toggle({ pos = 'sp', id = 'htoggleTerm' })
-end, { desc = 'terminal new horizontal term' })
 
 _G.map({ 'n', 't' }, '<A-i>', function()
   _G.Terms.toggle({ pos = 'float', id = 'floatTerm' })

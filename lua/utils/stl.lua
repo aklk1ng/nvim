@@ -1,6 +1,6 @@
 -- https://github.com/nvimdev/modeline.nvim
 
-local co, fn, api, lsp, iter = coroutine, vim.fn, vim.api, vim.lsp, vim.iter
+local co, api, lsp, iter = coroutine, vim.api, vim.lsp, vim.iter
 
 local function get_stl_bg()
   return api.nvim_get_hl(0, { name = 'StatusLine' }).bg or 'black'

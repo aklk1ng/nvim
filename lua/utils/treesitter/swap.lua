@@ -53,7 +53,7 @@ local function execute(l, concat, r, node, bufnr)
   api.nvim_buf_set_text(bufnr, sr, sc, er, ec, t)
 end
 
-function M.swap()
+function M.act()
   local bufnr = api.nvim_get_current_buf()
   if not ts.language.get_lang(vim.bo[bufnr].filetype) then
     vim.notify('No treesitter parser for current language')

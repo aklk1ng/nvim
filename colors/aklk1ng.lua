@@ -4,12 +4,12 @@ vim.o.termguicolors = true
 vim.g.colors_name = 'aklk1ng'
 
 local p = {
-  bg = '#1d2022',
+  bg = '#1d1f20',
   shade_1 = '#242729',
   shade_2 = '#313538',
   shade_3 = '#43484d',
-  shade_4 = '#606c72',
-  fg = '#8b8b8b',
+  shade_4 = '#677075',
+  fg = '#8e8e8e',
   red = '#a35858',
   pink = '#946c81',
   orange = '#957157',
@@ -17,7 +17,7 @@ local p = {
   green = '#6c8846',
   blue = '#537e96',
   cyan = '#6096a1',
-  purple = '#746496',
+  purple = '#76659c',
   none = 'NONE',
 }
 
@@ -67,6 +67,7 @@ local syntax = {
   WinBar = { link = 'StatusLine' },
   WinBarNC = { link = 'StatusLineNC' },
   TabLine = { fg = p.shade_4 },
+  NonText = { fg = p.shade_4 },
   StatusLine = { bg = p.shade_1 },
   StatusLineNC = { link = 'StatusLine' },
   NormalFloat = { fg = p.fg },
@@ -125,6 +126,7 @@ local syntax = {
   ['@function'] = { fg = p.fg },
   ['@function.builtin'] = { link = '@function' },
   ['@function.macro'] = { link = 'Constant' },
+  ['@macro'] = { link = 'Constant' },
   ['@method'] = { link = '@function' },
   ['@property'] = { link = '@variable' },
   ['@type.qualifier'] = { fg = p.green },

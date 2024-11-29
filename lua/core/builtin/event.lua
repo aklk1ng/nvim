@@ -42,6 +42,7 @@ au('TermOpen', {
   group = aklk1ng,
   callback = function()
     vim.o.number = false
+    vim.o.relativenumber = false
     vim.o.signcolumn = 'no'
   end,
 })
@@ -61,12 +62,6 @@ au('BufEnter', {
   callback = function()
     require('keymap')
   end,
-})
-
-au('BufWritePost', {
-  group = aklk1ng,
-  pattern = '*/colors/*.lua',
-  command = 'source %',
 })
 
 if vim.fn.executable('fcitx5-remote') == 1 then

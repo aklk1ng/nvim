@@ -2,7 +2,7 @@ local M = {}
 
 function M.snippet()
   require('snippets').setup({
-    search_paths = { vim.fn.stdpath('config') .. '/lua/snippets/' },
+    search_paths = { vim.fn.stdpath('config') .. '/snippets' },
   })
 end
 
@@ -11,23 +11,23 @@ function M.cmp()
     Text = '',
     Method = '',
     Function = '',
-    Constructor = '',
+    Constructor = '',
     Field = '',
     Variable = '',
     Class = '',
-    Interface = '',
+    Interface = ' ',
     Module = '',
     Property = '',
     Unit = '',
-    Value = '',
+    Value = '',
     Enum = '',
     Keyword = '',
     Snippet = '',
-    Color = '',
-    File = '',
-    Reference = '',
+    Color = '',
+    File = '',
+    Reference = '',
     Folder = '',
-    EnumMember = '',
+    EnumMember = '',
     Constant = '',
     Struct = '',
     Event = '',
@@ -115,7 +115,7 @@ function M.cmp()
         scrollbar = false,
       },
       documentation = {
-        winhighlight = 'Normal:Pmenu,FloatBorder:CursorLine',
+        winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
       },
     },
     view = {
@@ -128,7 +128,7 @@ function M.cmp()
     },
     mapping = cmp.mapping.preset.insert({
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<C-y>'] = cmp.mapping.confirm({ select = true }),
       ['<C-Space>'] = cmp.mapping.complete(),
@@ -303,18 +303,12 @@ function M.treesitter()
     ensure_installed = {
       'c',
       'cpp',
-      'python',
       'lua',
-      'bash',
-      'rust',
-      'diff',
-      'go',
       'markdown',
       'markdown_inline',
       'vimdoc',
       'comment',
     },
-    sync_install = true,
     highlight = {
       enable = true,
       disable = function(_, buf)
@@ -326,10 +320,6 @@ function M.treesitter()
         return false
       end,
     },
-  })
-  require('treesitter-context').setup({
-    multiwindow = true,
-    max_lines = 3,
   })
 end
 
@@ -372,7 +362,7 @@ function M.fzflua()
         ['ctrl-s'] = actions.file_split,
         ['ctrl-v'] = actions.file_vsplit,
         ['ctrl-t'] = actions.file_tabedit,
-        ['ctrl-q'] = actions.file_sel_to_qf,
+        ['ctrl-q'] = actions.file_sel_to_ll,
       },
     },
     files = {
@@ -476,6 +466,7 @@ function M.oil()
     columns = { '' },
     win_options = {
       number = false,
+      relativenumber = false,
       winbar = '%{v:lua.OilBar()}',
     },
     keymaps = {
@@ -531,7 +522,7 @@ function M.conform()
       lua = { 'stylua' },
       go = { 'gofmt' },
       python = { 'isort', 'black' },
-      rust = { 'rustfmt', lsp_format = 'fallback' },
+      rust = { 'rustfmt' },
       sh = { 'shfmt' },
       toml = { 'taplo' },
       typescript = { 'prettier' },
@@ -599,7 +590,7 @@ function M.conform()
         return
       end
 
-      return { timeout_ms = 500, lsp_format = 'fallback' }
+      return { timeout_ms = 500, lsp_format = 'fallback', quiet = true }
     end,
   })
 end

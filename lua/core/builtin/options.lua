@@ -10,7 +10,7 @@ o.virtualedit = 'block'
 o.showmode = false
 o.tabstop = indent
 o.shiftwidth = indent
-o.showcmd = false
+o.showcmd = true
 o.ruler = false
 o.termguicolors = true
 o.shiftround = true
@@ -31,6 +31,7 @@ o.copyindent = true
 o.smartindent = true
 o.cindent = true
 o.number = true
+o.relativenumber = true
 o.numberwidth = 3
 o.mouse = 'a'
 
@@ -45,9 +46,6 @@ o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
 o.foldlevel = 99
 o.foldlevelstart = 99
 
-o.swapfile = false
-
-o.pumblend = 10
 o.pumheight = 15
 
 o.updatetime = 400
@@ -56,10 +54,10 @@ o.ttimeoutlen = 10
 o.redrawtime = 1500
 
 o.wildignorecase = true
-o.wildignore = '.hg,.svn,*~,*.png,*.jpg,*.gif,*.min.js,*.swp,*.o,vendor,dist,_site'
 o.ignorecase = true
 o.infercase = true
 o.smartcase = true
+o.swapfile = false
 o.clipboard = 'unnamedplus'
 
 o.stc = '%=%l%s'

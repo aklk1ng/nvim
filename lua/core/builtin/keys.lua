@@ -1,4 +1,4 @@
-_G.map('i', '<C-c>', '<Esc>')
+_G.map('i', '<C-c>', '<C-c>')
 
 -- Useful undo break-point
 _G.map('i', ',', ',<C-g>u')
@@ -19,7 +19,7 @@ _G.map('n', '<C-x><C-f>', ":e <C-R>=expand('%:p:h')<CR>")
 _G.map('n', '<C-x>k', ':bdelete ')
 
 _G.map('n', '<leader>q', _G.cmd('q'))
-_G.map('n', '<C-x>c', _G.cmd('qa!'))
+_G.map('n', '<C-x>c', _G.cmd('confirm qa'))
 _G.map('n', '|', _G.cmd('Inspect'))
 _G.map('n', 'j', 'gj')
 _G.map('n', 'k', 'gk')
@@ -41,15 +41,19 @@ _G.map('n', '<A-,>', '<C-w>-')
 _G.map('n', '<A-.>', '<C-w>+')
 _G.map('n', '<A-->', _G.cmd('resize | vertical resize'))
 _G.map('n', '<A-=>', '<C-w>=')
-_G.map('n', '<leader>t', _G.cmd('tabnew'))
-_G.map('n', '<leader>c', _G.cmd('tabclose'))
-_G.map('n', '<Tab>', vim.cmd.bnext, { silent = true })
-_G.map('n', '<S-Tab>', vim.cmd.bprev, { silent = true })
-_G.map('n', '<leader>d', _G.cmd(vim.bo.buftype == 'terminal' and 'q!' or 'confirm bdelete'))
-_G.map('n', '<C-q>', vim.diagnostic.setqflist)
+_G.map('n', '<leader>tn', _G.cmd('tab split'))
+_G.map('n', '<leader>tc', _G.cmd('silent! tabclose'))
+_G.map('n', '<leader>d', _G.cmd(vim.bo.buftype == 'terminal' and 'q!' or 'Bdelete'))
+_G.map('n', '<C-q>', vim.diagnostic.setloclist)
+
+_G.map('n', '<C-x>[', _G.cmd('vnew | term'))
+_G.map('n', '<C-x>]', _G.cmd('new | resize-5 | term'))
+
+-- Move lines
+_G.map('x', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv")
+_G.map('x', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv")
 
 -- Toggle the quickfix window.
--- When toggling these, ignore error messages and restore the cursor to the original window when opening the list.
 local silent_mods = { mods = { silent = true, emsg_silent = true } }
 _G.map('n', '\\', function()
   if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
@@ -62,10 +66,22 @@ _G.map('n', '\\', function()
     end
   end
 end)
+-- Toggle the location-list window.
+_G.map('n', '<C-\\>', function()
+  if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
+    vim.cmd.lclose(silent_mods)
+  elseif #vim.fn.getloclist(0) > 0 then
+    local win = vim.api.nvim_get_current_win()
+    vim.cmd.lopen(silent_mods)
+    if win ~= vim.api.nvim_get_current_win() then
+      vim.cmd.wincmd('p')
+    end
+  end
+end)
 
 _G.map('n', '<leader><leader>i', function()
   local client = vim.lsp.get_clients({ bufnr = 0 })[1]
-  if client and client.supports_method('textDocument/inlayHint', { bunr = 0 }) then
+  if client and client:supports_method('textDocument/inlayHint', 0) then
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
   end
 end)
@@ -73,6 +89,9 @@ end)
 -- Better indenting
 _G.map('x', '<', '<gv')
 _G.map('x', '>', '>gv')
+
+-- Inside a snippet, use backspace to remove the placeholder
+_G.map('s', '<BS>', '<C-O>s')
 
 _G.map('c', '<C-b>', '<Left>')
 _G.map('c', '<C-f>', '<Right>')
