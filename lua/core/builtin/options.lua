@@ -40,8 +40,6 @@ o.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'
 
 o.foldcolumn = '1'
 o.foldtext = ''
-o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-o.foldmethod = 'expr'
 o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
 o.foldlevel = 99
 o.foldlevelstart = 99

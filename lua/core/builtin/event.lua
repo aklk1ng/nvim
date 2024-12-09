@@ -38,12 +38,21 @@ au({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   end,
 })
 
-au('TermOpen', {
+au('FileType', {
   group = aklk1ng,
-  callback = function()
-    vim.o.number = false
-    vim.o.relativenumber = false
-    vim.o.signcolumn = 'no'
+  callback = function(args)
+    if args.match == 'asl' then
+      return
+    end
+    if not pcall(vim.treesitter.start, args.buf) then
+      return
+    end
+
+    api.nvim_buf_call(args.buf, function()
+      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
+      vim.cmd.normal('zx')
+    end)
   end,
 })
 

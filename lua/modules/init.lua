@@ -306,6 +306,7 @@ function M.treesitter()
       'lua',
       'markdown',
       'markdown_inline',
+      'query',
       'vimdoc',
       'comment',
     },
@@ -327,9 +328,10 @@ function M.fzflua()
   local actions = require('fzf-lua.actions')
   require('fzf-lua').setup({
     winopts = {
-      height = 0.9,
-      width = 0.9,
-      row = 0.4,
+      height = 0.55,
+      width = 1,
+      row = 1,
+      col = 0,
       backdrop = 100,
       preview = {
         border = 'noborder',
@@ -367,45 +369,24 @@ function M.fzflua()
     },
     files = {
       no_header = true,
-      actions = {
-        ['ctrl-d'] = function(...)
-          actions.file_vsplit(...)
-          vim.cmd('windo diffthis')
-          local switch = vim.api.nvim_replace_termcodes('<C-w>h', true, false, true)
-          vim.api.nvim_feedkeys(switch, 't', false)
-        end,
-      },
+      file_icons = false,
+      git_icons = false,
+      color_icons = false,
     },
     buffers = {
       no_header = true,
       preview_opts = 'hidden',
-      winopts = {
-        height = 0.4,
-        width = 1,
-        row = 1,
-        col = 0,
-      },
     },
     git = {
       bcommits = {
         prompt = 'Logs:',
         actions = {
-          ['ctrl-d'] = function(...)
+          ['ctrl-]'] = function(...)
             actions.git_buf_vsplit(...)
             vim.cmd('windo diffthis')
             local switch = vim.api.nvim_replace_termcodes('<C-w>h', true, false, true)
             vim.api.nvim_feedkeys(switch, 't', false)
           end,
-        },
-        preview_opts = 'nohidden',
-      },
-    },
-    autocmds = {
-      winopts = {
-        preview = {
-          layout = 'horizontal',
-          horizontal = 'down:40%',
-          wrap = 'wrap',
         },
       },
     },
@@ -421,12 +402,6 @@ function M.fzflua()
         },
       },
       finder = {
-        winopts = {
-          height = 0.4,
-          width = 1,
-          row = 1,
-          col = 0,
-        },
         providers = {
           { 'references', prefix = require('fzf-lua').utils.ansi_codes.blue('ref ') },
           { 'definitions', prefix = require('fzf-lua').utils.ansi_codes.green('def ') },
@@ -436,12 +411,6 @@ function M.fzflua()
     },
     registers = {
       preview_opts = 'hidden',
-      winopts = {
-        preview = {
-          layout = 'horizontal',
-          horizontal = 'down:45%',
-        },
-      },
     },
   })
 end

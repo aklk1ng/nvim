@@ -47,6 +47,7 @@ packadd({
 
 packadd({
   'stevearc/conform.nvim',
+  cmd = { 'ConformInfo' },
   event = 'BufWritePre',
   keys = {
     {
@@ -78,6 +79,7 @@ packadd({
 packadd({
   'stevearc/oil.nvim',
   cmd = 'Oil',
+  event = 'VimEnter */*',
   config = mod.oil,
 })
 

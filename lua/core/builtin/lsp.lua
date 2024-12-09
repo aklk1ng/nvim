@@ -2,14 +2,6 @@
 
 local api, lsp = vim.api, vim.lsp
 local methods = lsp.protocol.Methods
-local hover = lsp.buf.hover
-
----@diagnostic disable-next-line: duplicate-set-field
-lsp.buf.hover = function()
-  return hover({
-    border = 'rounded',
-  })
-end
 
 --- Sets up LSP keymaps and autocommands for the given buffer.
 ---@param client vim.lsp.Client
@@ -57,7 +49,7 @@ local function on_attach(client, bufnr)
   end, { buffer = bufnr })
   _G.map('n', 'K', lsp.buf.hover, { buffer = bufnr })
   _G.map('n', 'grn', lsp.buf.rename, { buffer = bufnr })
-  _G.map('n', 'ga', function()
+  _G.map('n', 'gra', function()
     -- Use the fzf-lua wrapper.
     require('fzf-lua').register_ui_select({}, true)
     lsp.buf.code_action()
@@ -70,9 +62,6 @@ end
 vim.diagnostic.config({
   signs = false,
   virtual_text = false,
-  float = {
-    border = 'rounded',
-  },
 })
 
 --- HACK: Override `vim.lsp.util.stylize_markdown` to use Treesitter.

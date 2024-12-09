@@ -43,8 +43,6 @@ function M:boot_strap()
     },
     checker = {
       enabled = true,
-      notify = true,
-      frequency = 3600,
     },
   }
   M.load_modules()
