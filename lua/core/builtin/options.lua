@@ -59,8 +59,3 @@ o.swapfile = false
 o.clipboard = 'unnamedplus'
 
 o.stc = '%=%l%s'
-
-if vim.fn.executable('rg') == 1 then
-  o.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-  o.grepprg = 'rg --vimgrep --no-heading --smart-case'
-end

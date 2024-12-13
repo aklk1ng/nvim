@@ -188,116 +188,6 @@ function M.cmp()
   end
 end
 
-function M.lspconfig()
-  ---@diagnostic disable-next-line: unused-local
-  M._attach = function(client, bufnr)
-    vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
-    -- client.server_capabilities.semanticTokensProvider = nil
-  end
-  --Enable (broadcasting) snippet capability for completion
-  M.capabilities = vim.lsp.protocol.make_client_capabilities()
-  if pcall(require, 'cmp_nvim_lsp') then
-    M.capabilities = require('cmp_nvim_lsp').default_capabilities(M.capabilities)
-  end
-
-  local lspconfig = require('lspconfig')
-  lspconfig.clangd.setup({
-    cmd = { 'clangd', '--background-index' },
-    init_options = { fallbackFlags = { vim.bo.filetype == 'cpp' and '-std=c++23' or nil } },
-    on_attach = M._attach,
-    capabilities = M.capabilities,
-  })
-  lspconfig.gopls.setup({
-    on_attach = M._attach,
-    capabilities = M.capabilities,
-    settings = {
-      gopls = {
-        usePlaceholders = true,
-        completeUnimported = true,
-        analyses = {
-          unusedparams = true,
-        },
-        staticcheck = true,
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
-        },
-      },
-    },
-  })
-  lspconfig.lua_ls.setup({
-    on_attach = M._attach,
-    capabilities = M.capabilities,
-    on_init = function(client)
-      local path = client.workspace_folders and client.workspace_folders[1].name
-      local fs_stat = vim.uv.fs_stat
-      if path and (fs_stat(path .. '/.luarc.json') or fs_stat(path .. '/.luarc.jsonc')) then
-        return
-      end
-
-      client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-        runtime = {
-          version = 'LuaJIT',
-        },
-        workspace = {
-          checkThirdParty = false,
-          library = {
-            vim.env.VIMRUNTIME,
-            '${3rd}/luv/library',
-          },
-        },
-        completion = {
-          callSnippet = 'Replace',
-        },
-        hint = {
-          enable = true,
-        },
-      })
-    end,
-    settings = {
-      Lua = {},
-    },
-  })
-  lspconfig.rust_analyzer.setup({
-    on_attach = M._attach,
-    capabilities = M.capabilities,
-    settings = {
-      ['rust-analyzer'] = {
-        imports = {
-          granularity = {
-            group = 'module',
-          },
-          prefix = 'self',
-        },
-        cargo = {
-          buildScripts = {
-            enable = true,
-          },
-        },
-        procMacro = {
-          enable = true,
-        },
-      },
-    },
-  })
-
-  local servers = {
-    'pyright',
-    'bashls',
-  }
-  for _, server in ipairs(servers) do
-    lspconfig[server].setup({
-      on_attach = M._attach,
-      capabilities = M.capabilities,
-    })
-  end
-end
-
 function M.treesitter()
   require('nvim-treesitter.configs').setup({
     ensure_installed = {
@@ -328,7 +218,7 @@ function M.fzflua()
   local actions = require('fzf-lua.actions')
   require('fzf-lua').setup({
     winopts = {
-      height = 0.55,
+      height = 0.60,
       width = 1,
       row = 1,
       col = 0,
@@ -345,16 +235,7 @@ function M.fzflua()
       },
       fzf = {
         false,
-        ['ctrl-w'] = 'unix-line-discard',
-        ['ctrl-u'] = 'half-page-up',
-        ['ctrl-d'] = 'half-page-down',
-        ['ctrl-a'] = 'beginning-of-line',
-        ['ctrl-e'] = 'end-of-line',
         ['ctrl-y'] = 'toggle-all',
-        ['ctrl-h'] = 'backward-word',
-        ['ctrl-l'] = 'forward-word',
-        ['ctrl-k'] = 'first',
-        ['ctrl-j'] = 'last',
       },
     },
     actions = {
@@ -368,13 +249,11 @@ function M.fzflua()
       },
     },
     files = {
-      no_header = true,
       file_icons = false,
       git_icons = false,
       color_icons = false,
     },
     buffers = {
-      no_header = true,
       preview_opts = 'hidden',
     },
     git = {
@@ -467,6 +346,9 @@ function M.oil()
           end
         end,
       },
+    },
+    confirmation = {
+      border = 'none',
     },
     view_options = {
       is_always_hidden = function(name, bufnr)
