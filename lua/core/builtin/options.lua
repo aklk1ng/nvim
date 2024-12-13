@@ -33,6 +33,7 @@ o.cindent = true
 o.number = true
 o.relativenumber = true
 o.numberwidth = 3
+o.jumpoptions = 'stack,view'
 o.mouse = 'a'
 
 o.list = true
@@ -40,11 +41,13 @@ o.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'
 
 o.foldcolumn = '1'
 o.foldtext = ''
-o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
+o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff:╱'
 o.foldlevel = 99
 o.foldlevelstart = 99
 
 o.pumheight = 15
+
+o.guicursor = o.guicursor:gsub('t[^,]*', 't:block-blinkon0')
 
 o.updatetime = 400
 o.timeoutlen = 500
@@ -59,8 +62,3 @@ o.swapfile = false
 o.clipboard = 'unnamedplus'
 
 o.stc = '%=%l%s'
-
-if vim.fn.executable('rg') == 1 then
-  o.grepformat = '%f:%l:%c:%m,%f:%l:%m'
-  o.grepprg = 'rg --vimgrep --no-heading --smart-case'
-end

@@ -10,11 +10,8 @@ g.terms = {}
 
 local config = {
   relative = 'editor',
-  row = 0.06,
-  col = 0.06,
   width = 0.85,
   height = 0.85,
-  border = 'single',
 }
 
 -------------------------- util funcs -----------------------------
@@ -37,8 +34,8 @@ local function create_float(buffer, float_opts)
 
   opts.width = math.ceil(opts.width * vim.o.columns)
   opts.height = math.ceil(opts.height * vim.o.lines)
-  opts.row = math.ceil(opts.row * vim.o.lines)
-  opts.col = math.ceil(opts.col * vim.o.columns)
+  opts.row = opts.row or math.ceil(vim.o.lines - opts.height) / 2
+  opts.col = opts.rol or math.ceil(vim.o.columns - opts.width) / 2
 
   api.nvim_open_win(buffer, true, opts)
 end
@@ -87,7 +84,7 @@ local function create(opts)
   }
 
   if not buf_exists then
-    fn.termopen(cmd, termopen_opts)
+    vim.fn.jobstart(cmd, { term = true })
   end
 end
 
@@ -99,7 +96,7 @@ Terms.toggle = function(opts)
   if (x == nil or not api.nvim_buf_is_valid(x.buf)) or fn.bufwinid(x.buf) == -1 then
     create(opts)
   else
-    api.nvim_win_close(x.win, true)
+    api.nvim_win_hide(x.win)
   end
 end
 

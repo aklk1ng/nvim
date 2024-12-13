@@ -1,6 +1,6 @@
 -- https://github.com/nvimdev/modeline.nvim
 
-local co, api, lsp, iter = coroutine, vim.api, vim.lsp, vim.iter
+local co, api, lsp, iter, diagnostic = coroutine, vim.api, vim.lsp, vim.iter, vim.diagnostic
 
 local function get_stl_bg()
   return api.nvim_get_hl(0, { name = 'StatusLine' }).bg or 'black'
@@ -76,7 +76,7 @@ local function lnumcol()
 end
 
 local function diagnostic_info(severity)
-  if not vim.diagnostic.is_enabled({ bufnr = 0 }) or #lsp.get_clients({ bufnr = 0 }) == 0 then
+  if not diagnostic.is_enabled({ bufnr = 0 }) or #lsp.get_clients({ bufnr = 0 }) == 0 then
     return ''
   end
 
@@ -94,9 +94,9 @@ local function diagError()
   return {
     name = 'diagError',
     stl = function()
-      return diagnostic_info(vim.diagnostic.severity.ERROR)
+      return diagnostic_info(diagnostic.severity.ERROR)
     end,
-    event = { 'DiagnosticChanged', 'BufEnter' },
+    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
     attr = stl_attr('DiagnosticError'),
   }
 end
@@ -105,9 +105,9 @@ local function diagWarn()
   return {
     name = 'diagWarn',
     stl = function()
-      return diagnostic_info(vim.diagnostic.severity.WARN)
+      return diagnostic_info(diagnostic.severity.WARN)
     end,
-    event = { 'DiagnosticChanged', 'BufEnter' },
+    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
     attr = stl_attr('DiagnosticWarn'),
   }
 end
@@ -116,9 +116,9 @@ local function diagInfo()
   return {
     name = 'diagInfo',
     stl = function()
-      return diagnostic_info(vim.diagnostic.severity.INFO)
+      return diagnostic_info(diagnostic.severity.INFO)
     end,
-    event = { 'DiagnosticChanged', 'BufEnter' },
+    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
     attr = stl_attr('DiagnosticInfo'),
   }
 end
@@ -127,15 +127,15 @@ local function diagHint()
   return {
     name = 'diagHint',
     stl = function()
-      return diagnostic_info(vim.diagnostic.severity.HINT)
+      return diagnostic_info(diagnostic.severity.HINT)
     end,
-    event = { 'DiagnosticChanged', 'BufEnter' },
+    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
     attr = stl_attr('DiagnosticHint'),
   }
 end
 
 local function stl_format(name, val)
-  return '%#' .. ('Stl' .. name) .. '#' .. val .. '%*'
+  return ('%%#Stl%s#%s%%*'):format(name, val)
 end
 
 local function default()
@@ -157,7 +157,9 @@ local function default()
   local e, pieces = {}, {}
   iter(ipairs(comps))
     :map(function(key, item)
-      if type(item.stl) == 'string' then
+      if type(item) == 'string' then
+        pieces[#pieces + 1] = item
+      elseif type(item.stl) == 'string' then
         pieces[#pieces + 1] = stl_format(item.name, item.stl)
       else
         pieces[#pieces + 1] = ''
@@ -179,8 +181,7 @@ end
 local function render(comps, events, pieces)
   return co.create(function(args)
     while true do
-      local event = args.event
-      for _, idx in ipairs(events[event]) do
+      for _, idx in ipairs(events[args.event]) do
         pieces[idx] = stl_format(comps[idx].name, comps[idx].stl(args))
       end
 
