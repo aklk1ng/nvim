@@ -84,7 +84,7 @@ packadd({
 })
 
 packadd({
-  'NvChad/nvim-colorizer.lua',
-  cmd = 'ColorizerToggle',
-  config = mod.colorizer,
+  'uga-rosa/ccc.nvim',
+  cmd = { 'CccHighlighterToggle', 'CccPick' },
+  config = mod.colors,
 })

@@ -107,6 +107,8 @@ local syntax = {
   Comment = { fg = p.shade_4 },
   Delimiter = { fg = p.fg },
 
+  rustCommandLineDoc = { link = 'Comment' },
+
   DiagnosticError = { fg = p.red },
   DiagnosticWarn = { fg = p.yellow },
   DiagnosticInfo = { fg = p.blue },
@@ -160,7 +162,7 @@ local syntax = {
   ['@lsp.type.formatSpecifier'] = { link = '@punctuation.special' },
   ['@lsp.type.generic'] = { link = '@variable' },
   ['@lsp.type.unresolvedReference'] = { undercurl = true },
-  ['@lsp.type.selfTypeKeyword'] = { link = '@variable' },
+  ['@lsp.type.selfKeyword'] = { link = '@variable' },
   ['@lsp.typemod.enumMember.defaultLibrary'] = { link = 'Special' },
   ['@lsp.typemod.struct.defaultLibrary'] = { link = 'Type' },
   ['@lsp.typemod.variable.declaration'] = { link = '@variable' },

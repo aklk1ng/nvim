@@ -17,10 +17,8 @@ o.shiftround = true
 o.expandtab = true
 o.cursorline = true
 o.inccommand = 'split'
-o.whichwrap = 'h,l,<,>,[,],~'
 o.breakindentopt = 'shift:4'
 o.breakindent = true
-o.linebreak = true
 o.colorcolumn = '100'
 o.laststatus = 3
 o.scrolloff = 5
@@ -39,7 +37,6 @@ o.mouse = 'a'
 o.list = true
 o.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'
 
-o.foldcolumn = '1'
 o.foldtext = ''
 o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff:╱'
 o.foldlevel = 99
@@ -47,12 +44,9 @@ o.foldlevelstart = 99
 
 o.pumheight = 15
 
-o.guicursor = o.guicursor:gsub('t[^,]*', 't:block-blinkon0')
-
 o.updatetime = 400
 o.timeoutlen = 500
 o.ttimeoutlen = 10
-o.redrawtime = 1500
 
 o.wildignorecase = true
 o.ignorecase = true

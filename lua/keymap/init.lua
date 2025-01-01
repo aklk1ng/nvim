@@ -18,7 +18,7 @@ _G.map('n', '<leader>b', _G.cmd('Gitsigns toggle_current_line_blame'))
 _G.map('n', '<leader>e', _G.cmd('Oil'))
 _G.map('n', '<C-x>d', ':Oil ~/')
 
-_G.map('n', '<leader>o', _G.cmd('ColorizerToggle'))
+_G.map('n', '<leader>o', _G.cmd('CccHighlighterToggle'))
 
 _G.map('n', '<leader>ff', _G.cmd('FzfLua files'))
 _G.map('n', '<leader>fb', _G.cmd('FzfLua buffers'))

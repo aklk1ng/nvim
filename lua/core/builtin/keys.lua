@@ -15,7 +15,7 @@ _G.map({ 'n', 'x' }, 'C', '"_C')
 _G.map({ 'n', 'x' }, 's', '"_s')
 _G.map({ 'n', 'x' }, 'S', '"_S')
 
-_G.map('n', '<C-x>f', ":e <C-R>=expand('%:p:h')<CR>")
+_G.map('n', '<C-x>f', ":e <C-R>=expand('%:p:~:h')<CR>")
 _G.map('n', '<C-x>k', ':bdelete ')
 
 _G.map('n', '<leader>q', _G.cmd('q'))
@@ -76,6 +76,7 @@ _G.map('n', '<C-\\>', function()
   end
 end)
 
+-- Toggle the inlayHint
 _G.map('n', '<leader><leader>i', function()
   local client = vim.lsp.get_clients({ bufnr = 0 })[1]
   if client and client:supports_method('textDocument/inlayHint', 0) then
@@ -96,11 +97,11 @@ _G.map('c', '<C-a>', '<Home>')
 _G.map('c', '<C-e>', '<End>')
 _G.map('c', '<C-d>', '<Del>')
 -- Cwd
-_G.map('c', '%c', "<C-R>=expand('%:p:h')<CR>")
+_G.map('c', '%c', "<C-R>=expand('%:p:~:h')<CR>")
 -- Filename
 _G.map('c', '%t', "<C-R>=expand('%:t')<CR>")
 -- Full path
-_G.map('c', '%p', "<C-R>=expand('%:p')<CR>")
+_G.map('c', '%p', "<C-R>=expand('%:p:~')<CR>")
 -- Terminal mappings
 _G.map('t', '<A-Esc>', '<C-\\><C-n>')
 _G.map('t', '<A-h>', '<C-\\><C-n><C-w>h')

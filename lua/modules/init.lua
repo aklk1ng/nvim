@@ -463,8 +463,8 @@ function M.conform()
   })
 end
 
-function M.colorizer()
-  require('colorizer').setup()
+function M.colors()
+  require('ccc').setup()
 end
 
 return M
