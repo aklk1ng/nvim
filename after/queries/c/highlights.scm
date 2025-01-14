@@ -1,5 +1,5 @@
 ; extends
 
-; for neovim enum
+; neovim enum
 ((identifier) @constant
- (#lua-match? @constant "^k[A-Z]"))
+  (#lua-match? @constant "^k[A-Z]"))

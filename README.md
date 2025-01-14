@@ -1,6 +1,4 @@
-## Version
-
-**nightly**
+Always **nightly** until `1.0` :D
 
 ## Thanks
 

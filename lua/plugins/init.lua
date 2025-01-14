@@ -1,4 +1,4 @@
-local mod = require('modules')
+local mod = require('plugins.config')
 
 packadd({
   'hrsh7th/nvim-cmp',
@@ -15,14 +15,22 @@ packadd({
 })
 
 packadd({
-  'neovim/nvim-lspconfig',
-  event = { 'BufRead', 'BufNewfile' },
-  config = mod.lspconfig,
-})
-
-packadd({
   'ibhagwan/fzf-lua',
   cmd = 'FzfLua',
+  init = function()
+    ---@diagnostic disable-next-line: duplicate-set-field
+    vim.ui.select = function(items, opts, on_choice)
+      local ui_select = require('fzf-lua.providers.ui_select')
+
+      if not ui_select.is_registered() then
+        ui_select.register()
+      end
+
+      if #items > 0 then
+        return vim.ui.select(items, opts, on_choice)
+      end
+    end
+  end,
   config = mod.fzflua,
 })
 
@@ -40,14 +48,14 @@ packadd({
 })
 
 packadd({
-  'kylechui/nvim-surround',
+  'echasnovski/mini.align',
+  version = '*',
   event = { 'BufRead', 'BufNewfile' },
-  config = mod.surround,
+  config = mod.align,
 })
 
 packadd({
   'stevearc/conform.nvim',
-  cmd = { 'ConformInfo' },
   event = 'BufWritePre',
   keys = {
     {
@@ -57,13 +65,8 @@ packadd({
           { async = true, lsp_fallback = 'fallback', quiet = true },
           function(err)
             if not err then
-              local mode = vim.api.nvim_get_mode().mode
-              if vim.startswith(string.lower(mode), 'v') then
-                vim.api.nvim_feedkeys(
-                  vim.api.nvim_replace_termcodes('<Esc>', true, false, true),
-                  'n',
-                  true
-                )
+              if vim.startswith(string.lower(vim.fn.mode()), 'v') then
+                vim.api.nvim_feedkeys(vim.keycode('<Esc>'), 'n', true)
               end
             end
           end
@@ -78,13 +81,13 @@ packadd({
 
 packadd({
   'stevearc/oil.nvim',
-  cmd = 'Oil',
   event = 'VimEnter */*',
+  cmd = 'Oil',
   config = mod.oil,
 })
 
 packadd({
-  'uga-rosa/ccc.nvim',
-  cmd = { 'CccHighlighterToggle', 'CccPick' },
-  config = mod.colors,
+  'catgoose/nvim-colorizer.lua',
+  cmd = { 'ColorizerToggle' },
+  config = mod.colorizer,
 })

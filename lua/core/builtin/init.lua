@@ -1,5 +1,0 @@
-require('core.builtin.globals')
-require('core.builtin.keys')
-require('core.builtin.options')
-require('core.builtin.event')
-require('core.builtin.api')

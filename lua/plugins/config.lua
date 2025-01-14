@@ -7,6 +7,9 @@ function M.snippet()
 end
 
 function M.cmp()
+  _G._capabilities = require('cmp_nvim_lsp').default_capabilities()
+  vim.lsp.config('*', { _capabilities = _G._capabilities })
+
   local cmp_kinds = {
     Text = '',
     Method = '',
@@ -36,86 +39,16 @@ function M.cmp()
   }
   local cmp = require('cmp')
 
-  local function expand(snippet)
-    -- Native sessions don't support nested snippet sessions.
-    -- Always use the top-level session.
-    -- Otherwise, when on the first placeholder and selecting a new completion,
-    -- the nested session will be used instead of the top-level session.
-    -- See: https://github.com/LazyVim/LazyVim/issues/3199
-    local session = vim.snippet.active() and vim.snippet._session or nil
-
-    local ok, err = pcall(vim.snippet.expand, snippet)
-    if not ok then
-      local fixed = M.snippet_fix(snippet)
-      ok = pcall(vim.snippet.expand, fixed)
-
-      local msg = ok and 'Failed to parse snippet,\nbut was able to fix it automatically.'
-        or ('Failed to parse snippet.\n' .. err)
-      vim.notify(
-        ([[%s
-```%s
-%s
-```]]):format(msg, vim.bo.filetype, snippet),
-        vim.log.levels.WARN
-      )
-    end
-
-    -- Restore top-level session when needed
-    if session then
-      vim.snippet._session = session
-    end
-  end
-
-  local function snippet_replace(snippet, fn)
-    return snippet:gsub('%$%b{}', function(m)
-      local n, name = m:match('^%${(%d+):(.+)}$')
-      return n and fn({ n = n, text = name }) or m
-    end) or snippet
-  end
-
-  local function snippet_preview(snippet)
-    local ok, parsed = pcall(function()
-      return vim.lsp._snippet_grammar.parse(snippet)
-    end)
-    return ok and tostring(parsed)
-      or snippet_replace(snippet, function(placeholder)
-        return snippet_preview(placeholder.text)
-      end):gsub('%$0', '')
-  end
-
-  local function add_missing_snippet_docs(window)
-    local Kind = cmp.lsp.CompletionItemKind
-    local entries = window:get_entries()
-    for _, entry in ipairs(entries) do
-      if entry:get_kind() == Kind.Snippet then
-        local item = entry:get_completion_item()
-        if not item.documentation and item.insertText then
-          item.documentation = {
-            kind = cmp.lsp.MarkupKind.Markdown,
-            value = string.format(
-              '```%s\n%s\n```',
-              vim.bo.filetype,
-              snippet_preview(item.insertText)
-            ),
-          }
-        end
-      end
-    end
-  end
-
   cmp.setup({
     snippet = {
       expand = function(args)
-        expand(args.body)
+        vim.snippet.expand(args.body)
       end,
     },
     window = {
       completion = {
         side_padding = 0,
         scrollbar = false,
-      },
-      documentation = {
-        winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
       },
     },
     view = {
@@ -131,7 +64,6 @@ function M.cmp()
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-      ['<C-Space>'] = cmp.mapping.complete(),
       ['<Tab>'] = cmp.mapping(function(fallback)
         if vim.snippet.active({ direction = 1 }) then
           vim.snippet.jump(1)
@@ -161,10 +93,6 @@ function M.cmp()
     },
   })
 
-  cmp.event:on('menu_opened', function(event)
-    add_missing_snippet_docs(event.window)
-  end)
-
   -- Override the documentation handler to remove the redundant detail section.
   ---@diagnostic disable-next-line: duplicate-set-field
   require('cmp.entry').get_documentation = function(self)
@@ -180,8 +108,8 @@ function M.cmp()
       local dot_index = string.find(ft, '%.')
       if dot_index ~= nil then
         ft = string.sub(ft, 0, dot_index - 1)
+        return (vim.split(('```%s\n%s```'):format(ft, vim.trim(item.detail)), '\n'))
       end
-      return (vim.split(('```%s\n%s```'):format(ft, vim.trim(item.detail)), '\n'))
     end
 
     return {}
@@ -194,11 +122,12 @@ function M.treesitter()
       'c',
       'cpp',
       'lua',
+      'rust',
+      'python',
       'markdown',
       'markdown_inline',
       'query',
       'vimdoc',
-      'comment',
     },
     highlight = {
       enable = true,
@@ -217,15 +146,16 @@ end
 function M.fzflua()
   local actions = require('fzf-lua.actions')
   require('fzf-lua').setup({
+    {
+      'max-perf',
+      'ivy',
+    },
     winopts = {
       height = 0.60,
-      width = 1,
-      row = 1,
-      col = 0,
       backdrop = 100,
+      title_flags = false,
       preview = {
-        border = 'noborder',
-        scrollbar = 'float',
+        horizontal = 'right:50%',
       },
     },
     keymap = {
@@ -235,7 +165,6 @@ function M.fzflua()
       },
       fzf = {
         false,
-        ['ctrl-y'] = 'toggle-all',
       },
     },
     actions = {
@@ -248,23 +177,15 @@ function M.fzflua()
         ['ctrl-q'] = actions.file_sel_to_ll,
       },
     },
-    files = {
-      file_icons = false,
-      git_icons = false,
-      color_icons = false,
-    },
-    buffers = {
-      preview_opts = 'hidden',
-    },
     git = {
       bcommits = {
         prompt = 'Logs:',
         actions = {
           ['ctrl-]'] = function(...)
+            local curwin = vim.api.nvim_get_current_win()
             actions.git_buf_vsplit(...)
             vim.cmd('windo diffthis')
-            local switch = vim.api.nvim_replace_termcodes('<C-w>h', true, false, true)
-            vim.api.nvim_feedkeys(switch, 't', false)
+            vim.api.nvim_set_current_win(curwin)
           end,
         },
       },
@@ -285,17 +206,11 @@ function M.fzflua()
           { 'references', prefix = require('fzf-lua').utils.ansi_codes.blue('ref ') },
           { 'definitions', prefix = require('fzf-lua').utils.ansi_codes.green('def ') },
           { 'implementations', prefix = require('fzf-lua').utils.ansi_codes.green('impl') },
+          { 'typedefs', prefix = require('fzf-lua').utils.ansi_codes.red('tdef') },
         },
       },
     },
-    registers = {
-      preview_opts = 'hidden',
-    },
   })
-end
-
-function M.surround()
-  require('nvim-surround').setup()
 end
 
 function M.oil()
@@ -352,34 +267,27 @@ function M.oil()
         return name == '..'
       end,
       show_hidden = true,
-      highlight_filename = function(entry, is_hidden, is_link_target, is_link_orphan)
-        if entry.type == 'link' and not entry.meta.link_stat and not is_link_target then
-          return 'OilDelete'
-        end
-      end,
     },
     confirmation = {
-      border = 'none',
+      border = vim.o.winborder,
     },
     float = {
-      border = 'none',
+      border = vim.o.winborder,
     },
     progress = {
-      border = 'none',
+      border = vim.o.winborder,
     },
     ssh = {
-      border = 'none',
+      border = vim.o.winborder,
     },
     keymaps_help = {
-      border = 'none',
+      border = vim.o.winborder,
     },
   })
 end
 
 function M.gitsigns()
-  require('gitsigns').setup({
-    attach_to_untracked = true,
-  })
+  require('gitsigns').setup()
 end
 
 function M.conform()
@@ -405,6 +313,7 @@ function M.conform()
       html = { 'prettier' },
       css = { 'prettier' },
       fish = { 'fish_indent' },
+      query = { 'format-queries' },
     },
     formatters = {
       clang_format = {
@@ -412,7 +321,7 @@ function M.conform()
         args = {
           '--style={'
             .. 'IndentWidth: '
-            .. vim.opt_local.shiftwidth:get()
+            .. vim.api.nvim_get_option_value('shiftwidth', {})
             .. ','
             .. 'AlwaysBreakTemplateDeclarations: true,'
             .. 'AllowShortEnumsOnASingleLine: false,'
@@ -463,8 +372,17 @@ function M.conform()
   })
 end
 
-function M.colors()
-  require('ccc').setup()
+function M.colorizer()
+  require('colorizer').setup()
+end
+
+function M.align()
+  require('mini.align').setup({
+    mappings = {
+      start = 'gl',
+      start_with_preview = 'gL',
+    },
+  })
 end
 
 return M
