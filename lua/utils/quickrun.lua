@@ -1,17 +1,5 @@
 local M = {}
 
-local api = vim.api
-
-local function prepare()
-  local cmds = {
-    'silent w',
-    'new',
-  }
-  for _, cmd in pairs(cmds) do
-    api.nvim_command(cmd)
-  end
-end
-
 function M.run()
   local ft = vim.bo.filetype
   local name = vim.fn.expand('%')
@@ -54,8 +42,8 @@ function M.run()
     return
   end
 
-  prepare()
-  api.nvim_command('term ' .. cmd)
+  vim.api.nvim_command('silent write')
+  _G.Terms.runner({ pos = 'sp', cmd = cmd, id = 'QuickRun' })
 end
 
 return M

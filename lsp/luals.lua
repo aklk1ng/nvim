@@ -7,8 +7,6 @@ return {
     '.luacheckrc',
     '.stylua.toml',
     'stylua.toml',
-    'selene.toml',
-    'selene.yml',
   },
   on_init = function(client)
     local path = client.workspace_folders and client.workspace_folders[1].name

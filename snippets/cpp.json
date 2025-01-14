@@ -1,27 +1,11 @@
 {
   "all": {
     "prefix": "all",
-    "body": [
-      "$1.begin(), $1.end()"
-    ]
+    "body": ["$1.begin(), $1.end()"]
   },
   "rall": {
     "prefix": "rall",
-    "body": [
-      "$1.rbegin(), $1.rend()"
-    ]
-  },
-  "sst": {
-    "prefix": "sst",
-    "body": [
-      "#include <iostream>",
-      "",
-      "int main(int argc, char *argv[]) {",
-      "\t$0",
-      "\treturn 0;",
-      "}"
-    ],
-    "description": "starter for cpp"
+    "body": ["$1.rbegin(), $1.rend()"]
   },
   "cf": {
     "prefix": "cf",
@@ -48,7 +32,6 @@
       "",
       "\treturn 0;",
       "}"
-    ],
-    "description": "codeforces"
+    ]
   }
 }

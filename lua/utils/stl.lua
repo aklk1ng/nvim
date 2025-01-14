@@ -1,19 +1,23 @@
 -- https://github.com/nvimdev/modeline.nvim
 
-local co, api, lsp, iter, diagnostic = coroutine, vim.api, vim.lsp, vim.iter, vim.diagnostic
-
-local function get_stl_bg()
-  return api.nvim_get_hl(0, { name = 'StatusLine' }).bg or 'black'
-end
+---@class Compoment
+---@field name string Used for highlight group name if need(**attr is true**).
+---@field stl string|function Result is the evaluated text.
+---@field event? table<string> Triggered events.
+---@field attr? string|boolean if `attr` is true, the `stl` field return whole evaluated text. otherwise, set the highlight group if need.
 
 local function stl_attr(group)
-  local color = api.nvim_get_hl(0, { name = group, link = false })
   return {
-    bg = get_stl_bg(),
-    fg = color.fg,
+    fg = vim.api.nvim_get_hl(0, { name = group, link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = 'StatusLine' }).bg,
   }
 end
 
+local function stl_format(hl, val)
+  return ('%%#Stl%s#%s%%*'):format(hl, val)
+end
+
+---@return Compoment
 local function sep()
   return {
     name = 'sep',
@@ -21,20 +25,22 @@ local function sep()
   }
 end
 
+---@return Compoment
 local function fileinfo()
   return {
     name = 'fileinfo',
     stl = '%f%r%m',
     event = { 'BufEnter' },
-    attr = stl_attr('Normal'),
+    attr = 'Normal',
   }
 end
 
+---@return Compoment
 local function lspinfo()
   return {
     name = 'lspinfo',
     stl = function(args)
-      local client = lsp.get_clients({ bufnr = 0 })[1]
+      local client = vim.lsp.get_clients({ bufnr = 0 })[1]
       if not client then
         return ''
       end
@@ -55,10 +61,11 @@ local function lspinfo()
       return '%.40{"' .. msg .. '"}'
     end,
     event = { 'LspProgress', 'LspAttach', 'LspDetach', 'BufEnter' },
-    attr = stl_attr('Normal'),
+    attr = 'Normal',
   }
 end
 
+---@return Compoment
 local function pad()
   return {
     name = 'pad',
@@ -66,86 +73,50 @@ local function pad()
   }
 end
 
+---@return Compoment
+local function diagnostic()
+  local levels = { 'ERROR', 'WARN', 'INFO', 'HINT' }
+
+  return {
+    name = 'diagnostic',
+    stl = function()
+      if
+        not vim.diagnostic.is_enabled({ bufnr = 0 }) or #vim.lsp.get_clients({ bufnr = 0 }) == 0
+      then
+        return ''
+      end
+
+      local counts = vim.diagnostic.count(0)
+      local res = {}
+      for _, level in ipairs(levels) do
+        local n = counts[vim.diagnostic.severity[level]]
+        if n then
+          table.insert(res, ('%%#Diagnostic%s#%s%%*'):format(level, level:sub(0, 1) .. n))
+        end
+      end
+      return table.concat(res, ' ')
+    end,
+    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
+    attr = true,
+  }
+end
+
+---@return Compoment
 local function lnumcol()
   return {
     name = 'lnumcol',
     stl = '%l:%c %P',
     event = { 'CursorHold' },
-    attr = stl_attr('Normal'),
+    attr = 'Normal',
   }
 end
 
-local function diagnostic_info(severity)
-  if not diagnostic.is_enabled({ bufnr = 0 }) or #lsp.get_clients({ bufnr = 0 }) == 0 then
-    return ''
-  end
-
-  local tbl = {
-    'E',
-    'W',
-    'I',
-    'H',
-  }
-  local count = vim.diagnostic.count(0)[severity]
-  return not count and '' or tbl[severity] .. tostring(count) .. ' '
-end
-
-local function diagError()
-  return {
-    name = 'diagError',
-    stl = function()
-      return diagnostic_info(diagnostic.severity.ERROR)
-    end,
-    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
-    attr = stl_attr('DiagnosticError'),
-  }
-end
-
-local function diagWarn()
-  return {
-    name = 'diagWarn',
-    stl = function()
-      return diagnostic_info(diagnostic.severity.WARN)
-    end,
-    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
-    attr = stl_attr('DiagnosticWarn'),
-  }
-end
-
-local function diagInfo()
-  return {
-    name = 'diagInfo',
-    stl = function()
-      return diagnostic_info(diagnostic.severity.INFO)
-    end,
-    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
-    attr = stl_attr('DiagnosticInfo'),
-  }
-end
-
-local function diagHint()
-  return {
-    name = 'diagHint',
-    stl = function()
-      return diagnostic_info(diagnostic.severity.HINT)
-    end,
-    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
-    attr = stl_attr('DiagnosticHint'),
-  }
-end
-
-local function stl_format(name, val)
-  return ('%%#Stl%s#%s%%*'):format(name, val)
-end
-
+---@return Compoment[], table<string, table<integer, integer>>, string[]
 local function default()
   local comps = {
     fileinfo(),
     sep(),
-    diagError(),
-    diagWarn(),
-    diagInfo(),
-    diagHint(),
+    diagnostic(),
     sep(),
     lspinfo(),
 
@@ -155,12 +126,17 @@ local function default()
     lnumcol(),
   }
   local e, pieces = {}, {}
-  iter(ipairs(comps))
+  vim
+    .iter(ipairs(comps))
     :map(function(key, item)
       if type(item) == 'string' then
         pieces[#pieces + 1] = item
       elseif type(item.stl) == 'string' then
-        pieces[#pieces + 1] = stl_format(item.name, item.stl)
+        if item.attr == true then
+          pieces[#pieces + 1] = item.stl
+        else
+          pieces[#pieces + 1] = stl_format(item.name, item.stl)
+        end
       else
         pieces[#pieces + 1] = ''
         for _, event in ipairs({ unpack(item.event or {}) }) do
@@ -170,23 +146,30 @@ local function default()
           e[event][#e[event] + 1] = key
         end
       end
-      if item.attr and item.name then
-        api.nvim_set_hl(0, ('Stl%s'):format(item.name), item.attr)
+      if type(item.attr) == 'string' then
+        vim.api.nvim_set_hl(0, ('Stl%s'):format(item.name), stl_attr(item.attr))
       end
     end)
     :totable()
   return comps, e, pieces
 end
 
+---@param comps Compoment[]
+---@param events table<string, table<integer, integer>>,
+---@param pieces string[]
 local function render(comps, events, pieces)
-  return co.create(function(args)
+  return coroutine.create(function(args)
     while true do
       for _, idx in ipairs(events[args.event]) do
-        pieces[idx] = stl_format(comps[idx].name, comps[idx].stl(args))
+        if comps[idx].attr == true then
+          pieces[idx] = comps[idx].stl(args)
+        else
+          pieces[idx] = stl_format(comps[idx].name, comps[idx].stl(args))
+        end
       end
 
       vim.opt.stl = table.concat(pieces)
-      args = co.yield()
+      args = coroutine.yield()
     end
   end)
 end
@@ -195,13 +178,11 @@ return {
   setup = function()
     local comps, events, pieces = default()
     local stl_render = render(comps, events, pieces)
-    iter(vim.tbl_keys(events)):map(function(e)
-      local tmp = e
-
-      api.nvim_create_autocmd(tmp, {
+    vim.iter(vim.tbl_keys(events)):map(function(e)
+      vim.api.nvim_create_autocmd(e, {
         callback = function(args)
           vim.schedule(function()
-            local ok, res = co.resume(stl_render, args)
+            local ok, res = coroutine.resume(stl_render, args)
             if not ok then
               vim.notify('StatusLine render failed ' .. res, vim.log.levels.ERROR)
             end
