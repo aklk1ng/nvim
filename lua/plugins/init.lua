@@ -1,4 +1,4 @@
-local mod = require('modules')
+local mod = require('plugins.config')
 
 packadd({
   'hrsh7th/nvim-cmp',
@@ -12,12 +12,6 @@ packadd({
     },
   },
   config = mod.cmp,
-})
-
-packadd({
-  'neovim/nvim-lspconfig',
-  event = { 'BufRead', 'BufNewfile' },
-  config = mod.lspconfig,
 })
 
 packadd({
@@ -46,8 +40,14 @@ packadd({
 })
 
 packadd({
+  'echasnovski/mini.align',
+  version = '*',
+  event = { 'BufRead', 'BufNewfile' },
+  config = mod.align,
+})
+
+packadd({
   'stevearc/conform.nvim',
-  cmd = { 'ConformInfo' },
   event = 'BufWritePre',
   keys = {
     {
@@ -78,13 +78,13 @@ packadd({
 
 packadd({
   'stevearc/oil.nvim',
-  cmd = 'Oil',
   event = 'VimEnter */*',
+  cmd = 'Oil',
   config = mod.oil,
 })
 
 packadd({
-  'uga-rosa/ccc.nvim',
-  cmd = { 'CccHighlighterToggle', 'CccPick' },
-  config = mod.colors,
+  'catgoose/nvim-colorizer.lua',
+  cmd = { 'ColorizerToggle' },
+  config = mod.colorizer,
 })

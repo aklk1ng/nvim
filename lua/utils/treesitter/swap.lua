@@ -1,6 +1,5 @@
-local api, ts = vim.api, vim.treesitter
-
 local M = {}
+
 local tbl = {
   ['conditional_expression'] = {
     'consequence',
@@ -14,6 +13,9 @@ local tbl = {
   },
 }
 
+---Find the same node go up the parent tree.
+---@param node TSNode?
+---@return TSNode?
 local function find_node(node)
   if not node then
     return
@@ -24,21 +26,26 @@ local function find_node(node)
       return node
     end
   end
-  node = node:parent()
-  return find_node(node)
+  return find_node(node:parent())
 end
 
+---Execute the swap operatoration according the (left, right) name and concat char.
+---@param l string
+---@param concat string
+---@param r string
+---@param node TSNode
+---@param bufnr integer
 local function execute(l, concat, r, node, bufnr)
   local res = ''
   local left = node:field(l)
   local right = node:field(r)
 
   for i = 1, #right do
-    res = res .. ts.get_node_text(right[i], bufnr)
+    res = res .. vim.treesitter.get_node_text(right[i], bufnr)
   end
   res = res .. concat
   for i = 1, #left do
-    res = res .. ts.get_node_text(left[i], bufnr)
+    res = res .. vim.treesitter.get_node_text(left[i], bufnr)
   end
 
   local t = {}
@@ -50,19 +57,18 @@ local function execute(l, concat, r, node, bufnr)
   -- Replace the ternary with the swapped text.
   local sr, sc = left[1]:start()
   local er, ec = right[#right]:end_()
-  api.nvim_buf_set_text(bufnr, sr, sc, er, ec, t)
+  vim.api.nvim_buf_set_text(bufnr, sr, sc, er, ec, t)
 end
 
 function M.act()
-  local bufnr = api.nvim_get_current_buf()
-  if not ts.language.get_lang(vim.bo[bufnr].filetype) then
+  local bufnr = vim.api.nvim_get_current_buf()
+  if not vim.treesitter.language.get_lang(vim.bo[bufnr].filetype) then
     vim.notify('No treesitter parser for current language')
     return
   end
 
-  local node = ts.get_node({ bufnr })
+  local node = vim.treesitter.get_node({ bufnr })
   node = find_node(node)
-
   if not node then
     vim.notify('No expression found')
     return
