@@ -33,6 +33,7 @@ o.relativenumber = true
 o.numberwidth = 3
 o.jumpoptions = 'stack,view'
 o.mouse = 'a'
+o.spell = false
 
 o.list = true
 o.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'

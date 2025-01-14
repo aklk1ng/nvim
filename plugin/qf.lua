@@ -14,10 +14,9 @@ local type_hl = {
   I = 'DiagnosticSignInfo',
   H = 'DiagnosticSignHint',
 }
-local fname_hl = 'Directory'
 local lnum_col_hl = 'Number'
 
--- Truncate the filename from the beginnign if its length exceeds the threshold
+-- Truncate the filename from the beginning if its length exceeds the threshold
 local function trim_path(path)
   local fname = vim.fn.fnamemodify(path, ':p:.:~')
   if fname == '' then
@@ -29,6 +28,7 @@ local function trim_path(path)
   return fname
 end
 
+---@private
 ---Format qf list item and return a transformed one with necessary information for constructing the
 ---entry in qf.
 ---@param raw table qf item, see :h getqflist
@@ -40,7 +40,6 @@ function M.format_qf_item(raw)
     col = '', -- <col>-<end_col>
     type = raw.type,
     text = raw.text,
-    fname_hl = fname_hl,
     lnum_col_hl = lnum_col_hl,
     type_hl = type_hl[raw.type],
   }
@@ -117,12 +116,6 @@ function _G.qftf(info)
         table.insert(entry, fname)
         hl_col_start = hl_col_end + 1
         hl_col_end = hl_col_start + #fname
-        table.insert(highlights, {
-          group = item.fname_hl,
-          line = line_idx,
-          col = hl_col_start,
-          end_col = hl_col_end,
-        })
       end
       -- Line number and column number
       local lnum_col = item.lnum

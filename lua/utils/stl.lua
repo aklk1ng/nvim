@@ -1,15 +1,9 @@
 -- https://github.com/nvimdev/modeline.nvim
 
-local co, api, lsp, iter, diagnostic = coroutine, vim.api, vim.lsp, vim.iter, vim.diagnostic
-
-local function get_stl_bg()
-  return api.nvim_get_hl(0, { name = 'StatusLine' }).bg or 'black'
-end
-
 local function stl_attr(group)
-  local color = api.nvim_get_hl(0, { name = group, link = false })
+  local color = vim.api.nvim_get_hl(0, { name = group, link = false })
   return {
-    bg = get_stl_bg(),
+    bg = vim.api.nvim_get_hl(0, { name = 'StatusLine' }).bg or 'black',
     fg = color.fg,
   }
 end
@@ -34,7 +28,7 @@ local function lspinfo()
   return {
     name = 'lspinfo',
     stl = function(args)
-      local client = lsp.get_clients({ bufnr = 0 })[1]
+      local client = vim.lsp.get_clients({ bufnr = 0 })[1]
       if not client then
         return ''
       end
@@ -76,7 +70,7 @@ local function lnumcol()
 end
 
 local function diagnostic_info(severity)
-  if not diagnostic.is_enabled({ bufnr = 0 }) or #lsp.get_clients({ bufnr = 0 }) == 0 then
+  if not vim.diagnostic.is_enabled({ bufnr = 0 }) or #vim.lsp.get_clients({ bufnr = 0 }) == 0 then
     return ''
   end
 
@@ -94,7 +88,7 @@ local function diagError()
   return {
     name = 'diagError',
     stl = function()
-      return diagnostic_info(diagnostic.severity.ERROR)
+      return diagnostic_info(vim.diagnostic.severity.ERROR)
     end,
     event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
     attr = stl_attr('DiagnosticError'),
@@ -105,7 +99,7 @@ local function diagWarn()
   return {
     name = 'diagWarn',
     stl = function()
-      return diagnostic_info(diagnostic.severity.WARN)
+      return diagnostic_info(vim.diagnostic.severity.WARN)
     end,
     event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
     attr = stl_attr('DiagnosticWarn'),
@@ -116,7 +110,7 @@ local function diagInfo()
   return {
     name = 'diagInfo',
     stl = function()
-      return diagnostic_info(diagnostic.severity.INFO)
+      return diagnostic_info(vim.diagnostic.severity.INFO)
     end,
     event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
     attr = stl_attr('DiagnosticInfo'),
@@ -127,7 +121,7 @@ local function diagHint()
   return {
     name = 'diagHint',
     stl = function()
-      return diagnostic_info(diagnostic.severity.HINT)
+      return diagnostic_info(vim.diagnostic.severity.HINT)
     end,
     event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
     attr = stl_attr('DiagnosticHint'),
@@ -155,7 +149,8 @@ local function default()
     lnumcol(),
   }
   local e, pieces = {}, {}
-  iter(ipairs(comps))
+  vim
+    .iter(ipairs(comps))
     :map(function(key, item)
       if type(item) == 'string' then
         pieces[#pieces + 1] = item
@@ -171,7 +166,7 @@ local function default()
         end
       end
       if item.attr and item.name then
-        api.nvim_set_hl(0, ('Stl%s'):format(item.name), item.attr)
+        vim.api.nvim_set_hl(0, ('Stl%s'):format(item.name), item.attr)
       end
     end)
     :totable()
@@ -179,14 +174,14 @@ local function default()
 end
 
 local function render(comps, events, pieces)
-  return co.create(function(args)
+  return coroutine.create(function(args)
     while true do
       for _, idx in ipairs(events[args.event]) do
         pieces[idx] = stl_format(comps[idx].name, comps[idx].stl(args))
       end
 
       vim.opt.stl = table.concat(pieces)
-      args = co.yield()
+      args = coroutine.yield()
     end
   end)
 end
@@ -195,13 +190,11 @@ return {
   setup = function()
     local comps, events, pieces = default()
     local stl_render = render(comps, events, pieces)
-    iter(vim.tbl_keys(events)):map(function(e)
-      local tmp = e
-
-      api.nvim_create_autocmd(tmp, {
+    vim.iter(vim.tbl_keys(events)):map(function(e)
+      vim.api.nvim_create_autocmd(e, {
         callback = function(args)
           vim.schedule(function()
-            local ok, res = co.resume(stl_render, args)
+            local ok, res = coroutine.resume(stl_render, args)
             if not ok then
               vim.notify('StatusLine render failed ' .. res, vim.log.levels.ERROR)
             end

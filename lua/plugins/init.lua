@@ -1,23 +1,10 @@
-local mod = require('modules')
+local mod = require('plugins.config')
 
 packadd({
-  'hrsh7th/nvim-cmp',
+  'saghen/blink.cmp',
   event = 'InsertEnter',
-  dependencies = {
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/cmp-buffer' },
-    {
-      'garymjr/nvim-snippets',
-      config = mod.snippet,
-    },
-  },
-  config = mod.cmp,
-})
-
-packadd({
-  'neovim/nvim-lspconfig',
-  event = { 'BufRead', 'BufNewfile' },
-  config = mod.lspconfig,
+  build = 'cargo build --release',
+  config = mod.blink,
 })
 
 packadd({
@@ -78,13 +65,13 @@ packadd({
 
 packadd({
   'stevearc/oil.nvim',
-  cmd = 'Oil',
   event = 'VimEnter */*',
+  cmd = 'Oil',
   config = mod.oil,
 })
 
 packadd({
-  'uga-rosa/ccc.nvim',
-  cmd = { 'CccHighlighterToggle', 'CccPick' },
+  'catgoose/nvim-colorizer.lua',
+  cmd = { 'ColorizerToggle' },
   config = mod.colors,
 })

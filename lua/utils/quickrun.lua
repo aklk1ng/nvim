@@ -1,14 +1,12 @@
 local M = {}
 
-local api = vim.api
-
 local function prepare()
   local cmds = {
     'silent w',
     'new',
   }
   for _, cmd in pairs(cmds) do
-    api.nvim_command(cmd)
+    vim.api.nvim_command(cmd)
   end
 end
 
@@ -55,7 +53,7 @@ function M.run()
   end
 
   prepare()
-  api.nvim_command('term ' .. cmd)
+  vim.api.nvim_command('term ' .. cmd)
 end
 
 return M

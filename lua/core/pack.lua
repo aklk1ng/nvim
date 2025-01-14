@@ -3,7 +3,7 @@ local M = {}
 M.plugins = {}
 
 function M.load_modules()
-  require('modules.plugins')
+  require('plugins')
 end
 
 function M:boot_strap()
@@ -13,7 +13,6 @@ function M:boot_strap()
     vim.api.nvim_command(cmd)
   end
   vim.opt.runtimepath:prepend(lazypath)
-  local lazy = require('lazy')
   local opts = {
     rocks = {
       enabled = false,
@@ -46,7 +45,7 @@ function M:boot_strap()
     },
   }
   M.load_modules()
-  lazy.setup(M.plugins, opts)
+  require('lazy').setup(M.plugins, opts)
 end
 
 _G.packadd = function(repo)

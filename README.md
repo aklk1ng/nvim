@@ -1,6 +1,4 @@
-## Version
-
-**nightly**
+Always **nightly**
 
 ## Thanks
 

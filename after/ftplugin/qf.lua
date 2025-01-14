@@ -17,26 +17,54 @@ local function table_remove(t, from, to)
   return rst
 end
 
-_G.map('n', 'dd', function()
-  local qflist = vim.fn.getqflist()
+vim.keymap.set('n', 'dd', function()
+  local list = {}
   local line = vim.api.nvim_win_get_cursor(0)[1]
-  table.remove(qflist, line)
-  vim.fn.setqflist(qflist)
+  if #vim.fn.getloclist(0) > 0 then
+    list = vim.fn.getloclist(0)
+    table.remove(list, line)
+    vim.fn.setloclist(0, list)
+  else
+    list = vim.fn.getqflist()
+    table.remove(list, line)
+    vim.fn.setqflist(list)
+  end
   -- Move the the nth item by number
   vim.cmd(tostring(line))
 end, { buffer = 0 })
 
-_G.map('v', 'd', function()
+vim.keymap.set('v', 'd', function()
   local esc = vim.api.nvim_replace_termcodes('<esc>', true, false, true)
   vim.api.nvim_feedkeys(esc, 'x', false)
-  local qflist = vim.fn.getqflist()
+  local list = {}
   local from = vim.fn.getpos("'<")[2]
   local to = vim.fn.getpos("'>")[2]
   if from > to then
     from, to = to, from
   end
-  qflist = table_remove(qflist, from, to)
-  vim.fn.setqflist(qflist)
+  if #vim.fn.getloclist(0) > 0 then
+    list = vim.fn.getloclist(0)
+    list = table_remove(list, from, to)
+    vim.fn.setloclist(0, list)
+  else
+    list = vim.fn.getqflist()
+    list = table_remove(list, from, to)
+    vim.fn.setqflist(list)
+  end
   -- Move the the nth item by number
   vim.cmd(tostring(from))
+end, { buffer = 0 })
+
+-- Only can filter by entry's file name and text :)
+vim.keymap.set('n', '<c-s>', function()
+  if not vim.api.nvim_get_commands({})['Cfilter'] then
+    vim.cmd('packadd cfilter')
+  end
+  local cmd = nil
+  if #vim.fn.getloclist(0) > 0 then
+    cmd = vim.api.nvim_replace_termcodes(':Lfilter', true, false, true)
+  else
+    cmd = vim.api.nvim_replace_termcodes(':Cfilter', true, false, true)
+  end
+  vim.api.nvim_feedkeys(cmd, 'n', true)
 end, { buffer = 0 })

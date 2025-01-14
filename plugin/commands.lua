@@ -1,6 +1,4 @@
-local api = vim.api
-
-api.nvim_create_user_command('Mes', function()
+vim.api.nvim_create_user_command('Mes', function()
   local mes = vim.fn.execute('message')
   local lines = {}
   for line in vim.trim(mes):gsub('\t', (' '):rep(4)):gmatch('([^\n]*)\n?') do
@@ -10,8 +8,8 @@ api.nvim_create_user_command('Mes', function()
   vim.cmd.copen()
 end, {})
 
-api.nvim_create_user_command('Root', function()
-  local bufname = api.nvim_buf_get_name(0)
+vim.api.nvim_create_user_command('Root', function()
+  local bufname = vim.api.nvim_buf_get_name(0)
   if not vim.uv.fs_stat(bufname) then
     return
   end
@@ -40,7 +38,7 @@ local function delete(opts)
   opts = type(opts) == 'function' and { filter = opts } or opts
 
   if type(opts.filter) == 'function' then
-    for _, b in ipairs(vim.tbl_filter(opts.filter, api.nvim_list_bufs())) do
+    for _, b in ipairs(vim.tbl_filter(opts.filter, vim.api.nvim_list_bufs())) do
       if vim.bo[b].buflisted then
         delete(vim.tbl_extend('force', {}, opts, { buf = b, filter = false }))
       end
@@ -49,9 +47,9 @@ local function delete(opts)
   end
 
   local buf = opts.buf or 0
-  buf = buf == 0 and api.nvim_get_current_buf() or buf
+  buf = buf == 0 and vim.api.nvim_get_current_buf() or buf
 
-  api.nvim_buf_call(buf, function()
+  vim.api.nvim_buf_call(buf, function()
     if vim.bo.modified and not opts.force then
       local choice =
         vim.fn.confirm(('Save changes to %q?'):format(vim.fn.bufname()), '&Yes\n&No\n&Cancel')
@@ -64,32 +62,46 @@ local function delete(opts)
     end
 
     for _, win in ipairs(vim.fn.win_findbuf(buf)) do
-      api.nvim_win_call(win, function()
-        if not api.nvim_win_is_valid(win) or api.nvim_win_get_buf(win) ~= buf then
+      vim.api.nvim_win_call(win, function()
+        if not vim.api.nvim_win_is_valid(win) or vim.api.nvim_win_get_buf(win) ~= buf then
           return
         end
         -- Try using alternate buffer
         local alt = vim.fn.bufnr('#')
         if alt ~= buf and vim.fn.buflisted(alt) == 1 then
-          api.nvim_win_set_buf(win, alt)
+          vim.api.nvim_win_set_buf(win, alt)
           return
         end
 
         -- Try using previous buffer
         local has_previous = pcall(vim.cmd, 'bprevious')
-        if has_previous and buf ~= api.nvim_win_get_buf(win) then
+        if has_previous and buf ~= vim.api.nvim_win_get_buf(win) then
           return
         end
 
         -- Create new listed buffer
-        local new_buf = api.nvim_create_buf(true, false)
-        api.nvim_win_set_buf(win, new_buf)
+        local new_buf = vim.api.nvim_create_buf(true, false)
+        vim.api.nvim_win_set_buf(win, new_buf)
       end)
     end
-    if api.nvim_buf_is_valid(buf) then
+    if vim.api.nvim_buf_is_valid(buf) then
       pcall(vim.cmd, (opts.wipe and 'bwipeout! ' or 'bdelete! ') .. buf)
     end
   end)
 end
 
-api.nvim_create_user_command('Bdelete', delete, {})
+vim.api.nvim_create_user_command('Bdelete', delete, {})
+
+vim.api.nvim_create_user_command('Scratch', function()
+  vim.cmd('tabnew')
+  local buf = vim.api.nvim_get_current_buf()
+  for name, value in pairs({
+    filetype = 'scratch',
+    buftype = 'nofile',
+    bufhidden = 'wipe',
+    swapfile = false,
+    modifiable = true,
+  }) do
+    vim.api.nvim_set_option_value(name, value, { buf = buf })
+  end
+end, { nargs = 0 })
