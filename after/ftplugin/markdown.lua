@@ -1,3 +1,7 @@
+vim.opt_local.tabstop = 2
+vim.opt_local.softtabstop = 2
+vim.opt_local.shiftwidth = 2
+
 ---Toggle current todo line status.
 function ToggleTodoStatus()
   local line = vim.api.nvim_get_current_line()
@@ -10,5 +14,5 @@ function ToggleTodoStatus()
   vim.cmd('silent! write')
 end
 
-_G.map('n', '<2-LeftMouse>', ToggleTodoStatus, { buffer = true })
-_G.map('n', '<CR>', ToggleTodoStatus, { buffer = true })
+vim.keymap.set('n', '<2-LeftMouse>', ToggleTodoStatus, { buffer = true })
+vim.keymap.set('n', '<CR>', ToggleTodoStatus, { buffer = true })
