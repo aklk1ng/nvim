@@ -1,3 +1,4 @@
+---@type vim.lsp.Config
 return {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
@@ -28,8 +29,14 @@ return {
       },
       completion = {
         callSnippet = 'Replace',
+        postfix = '.',
+        displayContext = 50,
       },
       hint = {
+        enable = true,
+        setType = true,
+      },
+      codeLens = {
         enable = true,
       },
     })

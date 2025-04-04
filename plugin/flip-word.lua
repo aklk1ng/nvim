@@ -1,5 +1,3 @@
-local M = {}
-
 local tbl = {
   ['true'] = 'false',
   ['True'] = 'False',
@@ -64,7 +62,7 @@ end
 
 tbl = tbl_add_reverse_lookup(tbl)
 
-function M.toggle()
+local function toggle()
   local cur = vim.api.nvim_win_get_cursor(0)
   vim.cmd('normal! viw')
   local s_l, s_r = vim.fn.getpos('v')[2], vim.fn.getpos('v')[3]
@@ -89,4 +87,4 @@ function M.toggle()
   vim.api.nvim_win_set_cursor(0, cur)
 end
 
-return M
+vim.keymap.set('n', 'ta', toggle)

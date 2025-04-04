@@ -29,7 +29,16 @@ end
 local function fileinfo()
   return {
     name = 'fileinfo',
-    stl = '%f%r%m',
+    stl = function(args)
+      -- Hack my terminal plugin
+      local bufnr = vim.api.nvim_get_current_buf()
+      local bufname = vim.api.nvim_buf_get_name(bufnr)
+      if bufname:match('term://') and vim.g.terms[tostring(bufnr)] then
+        return vim.g.terms[tostring(bufnr)].id
+      end
+
+      return '%f%r%m'
+    end,
     event = { 'BufEnter' },
     attr = 'Normal',
   }
@@ -48,7 +57,7 @@ local function lspinfo()
       local msg = ''
       if args.data and args.data.params then
         local val = args.data.params.value
-        if val.message and val.kind ~= 'end' then
+        if val.message and val.kind ~= 'end' and val.kind ~= 'report' then
           msg = ('%s %s%s'):format(
             val.title,
             (val.message and val.message .. ' ' or ''),

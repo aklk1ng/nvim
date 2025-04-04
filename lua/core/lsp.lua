@@ -1,22 +1,9 @@
 local methods = vim.lsp.protocol.Methods
 
-_G.on_attach = function(client, bufnr)
-  client.server_capabilities.semanticTokensProvider = nil
-end
-_G._capabilities = vim.lsp.protocol.make_client_capabilities()
-
-vim.lsp.config(
-  '*',
-  { root_markers = { '.git' }, on_attach = _G.on_attach, _capabilities = _G._capabilities }
-)
-
 -- https://github.com/neovim/neovim/commit/3f1d09bc94d02266d6fa588a2ccd1be1ca084cf7
-local lsp_dir = vim.fs.joinpath(vim.fn.stdpath('config') --[[@as string]], 'lsp')
+vim.lsp.config('*', { root_markers = { '.git' } })
 vim.lsp.enable(vim
-  .iter(vim.fs.dir(lsp_dir))
-  :filter(function(f)
-    return vim.fn.fnamemodify(f, ':e') == 'lua'
-  end)
+  .iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
   :map(function(f)
     return vim.fn.fnamemodify(f, ':t:r')
   end)
@@ -26,6 +13,8 @@ vim.lsp.enable(vim
 ---@param client vim.lsp.Client
 ---@param bufnr integer
 local function on_attach(client, bufnr)
+  client.server_capabilities.semanticTokensProvider = nil
+
   if client:supports_method(methods.textDocument_documentHighlight) then
     local document_highlight = vim.api.nvim_create_augroup('cursor_highlights', { clear = false })
     vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave' }, {
@@ -51,7 +40,7 @@ local function on_attach(client, bufnr)
     end, { buffer = bufnr })
   end
 
-  if client:supports_method('textDocument/inlayHint') then
+  if client:supports_method(methods.textDocument_inlayHint) then
     vim.keymap.set('n', '<leader><leader>i', function()
       vim.lsp.inlay_hint.enable(
         not vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr }),
@@ -77,23 +66,6 @@ local function on_attach(client, bufnr)
   vim.keymap.set('n', '[e', function()
     vim.diagnostic.jump({ count = -1, float = true, severity = 'ERROR' })
   end, { buffer = bufnr })
-
-  -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/clangd.lua#L4
-  if client.name == 'clangd' then
-    vim.api.nvim_create_user_command('ClangdSwitchSourceHeader', function()
-      local params = vim.lsp.util.make_text_document_params(bufnr)
-      client:request('textDocument/switchSourceHeader', params, function(err, result)
-        if err then
-          error(tostring(err))
-        end
-        if not result then
-          print('Corresponding file cannot be determined')
-          return
-        end
-        vim.api.nvim_command('edit ' .. vim.uri_to_fname(result))
-      end, bufnr)
-    end, {})
-  end
 end
 
 vim.diagnostic.config({

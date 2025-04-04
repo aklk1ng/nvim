@@ -4,7 +4,7 @@ _G.Terms = {}
 
 ---@class Config
 ---@field cmd? string
----@field id string Identifier of the terminal
+---@field id string Identifier(filetype) of the terminal
 ---@field float? boolean Position about the window, default is `false`
 ---@field size? number Size scale, between 0 to 1
 ---@field buf? integer
@@ -19,9 +19,6 @@ vim.g.terms = {}
 ---Default config.
 local config = {
   winopts = {
-    number = false,
-    relativenumber = false,
-    scrolloff = 0,
     winfixheight = true,
     winfixwidth = true,
   },
@@ -34,7 +31,6 @@ local config = {
   },
 }
 
--------------------------- util funcs -----------------------------
 ---@param index integer
 local function save_term_info(index, val)
   local terms_list = vim.g.terms
@@ -65,6 +61,7 @@ end
 ---@param opts Config
 local function display(opts)
   opts.float = opts.float and opts.float or false
+  opts.id = opts.id and opts.id or 'terminal'
   if opts.float then
     create_float(opts)
   else
@@ -77,12 +74,14 @@ local function display(opts)
   opts.win = vim.api.nvim_get_current_win()
 
   vim.bo[opts.buf].buflisted = true
-  vim.bo[opts.buf].filetype = 'terminal'
-  vim.cmd('startinsert')
-
+  vim.bo[opts.buf].filetype = opts.id
   vim.api.nvim_win_set_buf(opts.win, opts.buf)
-  opts.winopts = vim.tbl_deep_extend('force', config.winopts, opts.winopts or {})
-  for k, v in pairs(opts.winopts) do
+  -- Hack
+  if vim.bo.filetype ~= 'fzf' then
+    vim.cmd('startinsert')
+  end
+
+  for k, v in pairs(config.winopts) do
     vim.wo[opts.win][k] = v
   end
 
@@ -90,24 +89,14 @@ local function display(opts)
 end
 
 ---@param opts Config
-local function create(opts)
+local function create_win(opts)
   local buf_exists = opts.buf
   opts.buf = opts.buf or vim.api.nvim_create_buf(false, true)
-
-  -- handle cmd opt
-  local shell = vim.o.shell
-  local cmd = nil
-
-  if opts.cmd and opts.buf then
-    cmd = { shell, '-c', opts.cmd .. '; ' .. shell }
-  else
-    cmd = { shell }
-  end
 
   display(opts)
 
   if not buf_exists then
-    opts.job_id = vim.fn.jobstart(cmd, {
+    opts.job_id = vim.fn.jobstart(vim.o.shell, {
       term = true,
       on_exit = function()
         if opts.win and vim.api.nvim_win_is_valid(opts.win) then
@@ -120,43 +109,30 @@ local function create(opts)
   save_term_info(opts.buf, opts)
 end
 
---------------------------- user api -------------------------------
 ---@param opts Config
-_G.Terms.new = function(opts)
-  create(opts)
-end
-
----@param opts Config
-_G.Terms.toggle = function(opts)
+_G.Terms.run = function(opts)
+  local cmd = opts.cmd
   local x = opts2id(opts.id)
   opts = x and x or opts
+  opts.cmd = cmd
   opts.buf = x and x.buf or nil
 
   if x == nil or not vim.api.nvim_buf_is_valid(x.buf) then
-    create(opts)
+    create_win(opts)
   elseif vim.fn.bufwinid(x.buf) == -1 then
     display(opts)
   else
-    vim.api.nvim_win_hide(x.win)
-  end
-end
-
----Spawns term with `cmd` or runs the `cmd` if the term is running.
----@param opts Config
-_G.Terms.runner = function(opts)
-  local x = opts2id(opts.id)
-  opts.buf = x and x.buf or nil
-
-  -- if buf doesnt exist
-  if x == nil then
-    create(opts)
-  else
-    -- window isn't visible
-    if vim.fn.bufwinid(x.buf) == -1 then
-      display(opts)
+    if not opts.cmd then
+      vim.api.nvim_win_hide(x.win)
+      return
     end
+  end
 
-    vim.api.nvim_chan_send(x.job_id, 'clear; ' .. opts.cmd .. ' \n')
+  -- Use a timer so `cmd` will not be inserted to terminal buffer before prompt :)
+  if opts.cmd and opts.cmd ~= '' then
+    vim.defer_fn(function()
+      vim.api.nvim_chan_send(vim.g.terms[tostring(opts.buf)].job_id, opts.cmd .. ' \n')
+    end, 50)
   end
 end
 
@@ -208,9 +184,21 @@ _G.Terms.resume = function()
   end)
 end
 
---------------------------- autocmds -------------------------------
 vim.api.nvim_create_autocmd('TermClose', {
   callback = function(args)
     save_term_info(args.buf, nil)
   end,
 })
+
+vim.keymap.set({ 'n', 't' }, '<A-i>', function()
+  _G.Terms.run({ float = true, id = 'Float-Term' })
+end)
+vim.keymap.set({ 'n', 't' }, '<C-x>]', function()
+  _G.Terms.run({ id = 'VSP-Term' })
+end)
+vim.keymap.set({ 'n', 't' }, '<C-x>h', function()
+  _G.Terms.hide()
+end)
+vim.keymap.set({ 'n', 't' }, '<C-x>l', function()
+  _G.Terms.resume()
+end)

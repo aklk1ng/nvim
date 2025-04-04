@@ -1,15 +1,6 @@
 local M = {}
 
-function M.snippet()
-  require('snippets').setup({
-    search_paths = { vim.fn.stdpath('config') .. '/snippets' },
-  })
-end
-
-function M.cmp()
-  _G._capabilities = require('cmp_nvim_lsp').default_capabilities()
-  vim.lsp.config('*', { _capabilities = _G._capabilities })
-
+function M.blink()
   local cmp_kinds = {
     Text = '',
     Method = '',
@@ -37,83 +28,55 @@ function M.cmp()
     Operator = '',
     TypeParameter = '',
   }
-  local cmp = require('cmp')
-
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.snippet.expand(args.body)
-      end,
+  require('blink.cmp').setup({
+    keymap = {
+      ['<Tab>'] = { 'snippet_forward', 'fallback' },
+      ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+      ['<C-n>'] = { 'show', 'select_next', 'fallback' },
+      ['<C-p>'] = { 'show', 'select_prev', 'fallback' },
+      ['<C-y>'] = { 'select_and_accept' },
+      ['<C-e>'] = { 'cancel' },
+      ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+      ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
     },
-    window = {
-      completion = {
-        side_padding = 0,
-        scrollbar = false,
-      },
-    },
-    view = {
-      entries = {
-        follow_cursor = true,
+    sources = {
+      providers = {
+        buffer = {
+          opts = {
+            get_bufnrs = function()
+              return vim.tbl_filter(function(bufnr)
+                return vim.bo[bufnr].buftype == ''
+              end, vim.api.nvim_list_bufs())
+            end,
+          },
+        },
       },
     },
     completion = {
-      keyword_length = 1,
+      menu = {
+        draw = {
+          padding = 0,
+          columns = {
+            { 'kind_icon' },
+            { 'label', 'label_description', gap = 1 },
+          },
+        },
+      },
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 50,
+        update_delay_ms = 50,
+      },
+      ghost_text = { enabled = false },
     },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-      ['<Tab>'] = cmp.mapping(function(fallback)
-        if vim.snippet.active({ direction = 1 }) then
-          vim.snippet.jump(1)
-        else
-          fallback()
-        end
-      end, { 'i', 's' }),
-      ['<S-Tab>'] = cmp.mapping(function(fallback)
-        if vim.snippet.active({ direction = -1 }) then
-          vim.snippet.jump(-1)
-        else
-          fallback()
-        end
-      end, { 'i', 's' }),
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'buffer' },
-      { name = 'snippets', priority = 100 },
-    }),
-    formatting = {
-      fields = { 'kind', 'abbr', 'menu' },
-      format = function(_, vim_item)
-        vim_item.kind = cmp_kinds[vim_item.kind] or ''
-        return vim_item
-      end,
+    signature = {
+      enabled = true,
     },
+    appearance = {
+      kind_icons = cmp_kinds,
+    },
+    cmdline = { enabled = false },
   })
-
-  -- Override the documentation handler to remove the redundant detail section.
-  ---@diagnostic disable-next-line: duplicate-set-field
-  require('cmp.entry').get_documentation = function(self)
-    local item = self:get_completion_item()
-
-    if item.documentation then
-      return vim.lsp.util.convert_input_to_markdown_lines(item.documentation)
-    end
-
-    -- Use the item's detail as a fallback if there's no documentation.
-    if item.detail then
-      local ft = self.context.filetype
-      local dot_index = string.find(ft, '%.')
-      if dot_index ~= nil then
-        ft = string.sub(ft, 0, dot_index - 1)
-        return (vim.split(('```%s\n%s```'):format(ft, vim.trim(item.detail)), '\n'))
-      end
-    end
-
-    return {}
-  end
 end
 
 function M.treesitter()
@@ -370,10 +333,6 @@ function M.conform()
       return { timeout_ms = 500, lsp_format = 'fallback', quiet = true }
     end,
   })
-end
-
-function M.colorizer()
-  require('colorizer').setup()
 end
 
 function M.align()

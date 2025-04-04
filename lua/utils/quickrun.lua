@@ -43,7 +43,7 @@ function M.run()
   end
 
   vim.api.nvim_command('silent write')
-  _G.Terms.runner({ pos = 'sp', cmd = cmd, id = 'QuickRun' })
+  _G.Terms.run({ cmd = cmd, id = 'QuickRun' })
 end
 
 return M

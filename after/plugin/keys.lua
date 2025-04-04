@@ -8,7 +8,7 @@ map('i', ';', ';<C-g>u')
 map(
   'i',
   '<C-x>t',
-  [[<C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%a %b %d %T %Z %Y","%Y%m%d"],'strftime(v:val)')+[localtime()]),0)<CR>]],
+  [[<C-R>=repeat(complete(col('.'),map(["%Y-%m-%d %H:%M:%S","%a, %d %b %Y %H:%M:%S %z","%Y %b %d","%a %b %d %T %Z %Y","%Y%m%d"],'strftime(v:val)')),0)<CR>]],
   { silent = true, noremap = true, desc = 'Provide formatted datetime in completion menu' }
 )
 
@@ -30,6 +30,7 @@ map('n', 'j', 'gj')
 map('n', 'k', 'gk')
 map({ 'i', 'n', 'x', 's' }, '<C-s>', _G._cmd('silent! write') .. '<ESC>')
 map('n', '<ESC>', _G._cmd('nohlsearch'))
+map('n', 'q;', 'q:')
 
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-j>', '<C-w>j')
@@ -46,44 +47,6 @@ map('n', '<leader>tc', _G._cmd('silent! tabclose'))
 map('n', '<leader>d', _G._cmd(vim.bo.buftype == 'terminal' and 'q!' or 'Bdelete'))
 map('n', '<C-q>', function()
   vim.diagnostic.setloclist({ title = vim.fn.expand('%') })
-end)
-
-map('i', '<C-k>', function()
-  local pos = vim.api.nvim_win_get_cursor(0)
-  local row = pos[1]
-  local col = pos[2]
-  local line = vim.api.nvim_get_current_line()
-  local total_lines = vim.api.nvim_buf_line_count(0)
-  local trimmed_line = line:gsub('%s+$', '')
-  local killed_text = ''
-
-  if col == 0 then
-    if trimmed_line == '' then
-      if row < total_lines then
-        killed_text = '\n'
-        local next_line = vim.api.nvim_buf_get_lines(0, row, row + 1, false)[1] or ''
-        vim.api.nvim_buf_set_lines(0, row - 1, row + 1, false, { next_line })
-      end
-    else
-      killed_text = line
-      vim.api.nvim_set_current_line('')
-    end
-  else
-    if col < #trimmed_line then
-      killed_text = line:sub(col + 1)
-      vim.api.nvim_set_current_line(line:sub(1, col))
-    else
-      if row < total_lines then
-        killed_text = '\n'
-        local next_line = vim.api.nvim_buf_get_lines(0, row, row + 1, false)[1] or ''
-        vim.api.nvim_buf_set_lines(0, row - 1, row + 1, false, { line .. next_line })
-      end
-    end
-  end
-
-  if killed_text ~= '' then
-    vim.fn.setreg('"', killed_text, 'v')
-  end
 end)
 
 -- Move lines
@@ -136,38 +99,6 @@ map('x', 'gX', function()
   vim.ui.open(('https://google.com/search?q=%s'):format(vim.trim(table.concat(lines, ' '))))
   vim.api.nvim_input('<ESC>')
 end)
-map('n', 'gs', function()
-  local bufnr = vim.api.nvim_create_buf(false, true)
-  vim.fn.prompt_setprompt(bufnr, '')
-  local width = math.floor(vim.o.columns * 0.5)
-  local winid = vim.api.nvim_open_win(bufnr, true, {
-    relative = 'editor',
-    row = 5,
-    col = math.floor(vim.o.columns / 2) - math.floor(width / 2),
-    height = 4,
-    width = width,
-    border = 'single',
-    title = 'Google Search',
-    title_pos = 'center',
-  })
-  vim.cmd.startinsert()
-  vim.bo[bufnr].buftype = 'prompt'
-  vim.bo[bufnr].filetype = 'Scratch'
-  vim.wo[winid].number = false
-  vim.wo[winid].stc = ''
-  vim.wo[winid].relativenumber = false
-  vim.wo[winid].wrap = true
-  vim.wo[winid].winhl = 'Normal:Normal'
-  vim.fn.prompt_setcallback(bufnr, function(text)
-    vim.ui.open(('https://google.com/search?q=%s'):format(vim.trim(text)))
-    vim.api.nvim_win_close(winid, true)
-    vim.api.nvim_buf_delete(bufnr, { force = true })
-  end)
-  vim.keymap.set({ 'n', 'i' }, '<C-c>', function()
-    vim.api.nvim_win_close(winid, true)
-    vim.api.nvim_buf_delete(bufnr, { force = true })
-  end, { buffer = bufnr })
-end)
 
 map('n', 'yY', 'ggVGy', { desc = 'Copy entire file' })
 
@@ -211,8 +142,6 @@ map('n', '<leader>b', _G._cmd('Gitsigns toggle_current_line_blame'))
 
 map('n', '<leader>e', _G._cmd('Oil'))
 map('n', '<C-x>d', ':e ~/')
-
-map('n', '<leader>o', _G._cmd('ColorizerToggle'))
 
 map('n', '<leader>ff', _G._cmd('FzfLua files'))
 map('n', '<leader>fb', _G._cmd('FzfLua buffers'))

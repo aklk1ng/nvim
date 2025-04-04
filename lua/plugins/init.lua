@@ -1,17 +1,10 @@
 local mod = require('plugins.config')
 
 packadd({
-  'hrsh7th/nvim-cmp',
+  'Saghen/blink.cmp',
   event = 'InsertEnter',
-  dependencies = {
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/cmp-buffer' },
-    {
-      'garymjr/nvim-snippets',
-      config = mod.snippet,
-    },
-  },
-  config = mod.cmp,
+  version = '*',
+  config = mod.blink,
 })
 
 packadd({
@@ -84,10 +77,4 @@ packadd({
   event = 'VimEnter */*',
   cmd = 'Oil',
   config = mod.oil,
-})
-
-packadd({
-  'catgoose/nvim-colorizer.lua',
-  cmd = { 'ColorizerToggle' },
-  config = mod.colorizer,
 })

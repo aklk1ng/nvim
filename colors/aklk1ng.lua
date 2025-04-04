@@ -5,7 +5,7 @@ vim.g.colors_name = 'aklk1ng'
 
 local p = {
   bg = '#1d1f20',
-  shade_1 = '#232427',
+  shade_1 = '#262626',
   shade_2 = '#313538',
   shade_3 = '#43484d',
   shade_4 = '#6a7073',
@@ -69,7 +69,7 @@ local syntax = {
   PmenuMatchSel = { fg = p.green },
   PmenuSbar = { bg = p.shade_1 },
   PmenuThumb = { link = 'PmenuSbar' },
-  WildMenu = { link = 'Pmenu' },
+  WildMenu = { link = 'PmenuSel' },
   WinBar = { link = 'StatusLine' },
   WinBarNC = { link = 'StatusLineNC' },
   Question = { fg = p.cyan },
@@ -114,6 +114,13 @@ local syntax = {
   Delimiter = { fg = p.fg },
 
   rustCommentLineDoc = { link = 'Comment' },
+  -- customized
+  QfLnum = { link = 'Number' },
+  QfCol = { link = 'Number' },
+  QfError = { link = 'DiagnosticError' },
+  QfWarn = { link = 'DiagnosticWarn' },
+  QfInfo = { link = 'DiagnosticInfo' },
+  QfHint = { link = 'DiagnosticHint' },
 
   DiagnosticError = { fg = p.red },
   DiagnosticWarn = { fg = p.yellow },
@@ -158,28 +165,6 @@ local syntax = {
   ['@markup.strong.markdown_inline'] = { fg = p.orange },
   ['@markup.list.unchecked.markdown'] = { fg = p.pink },
 
-  -- nvim-cmp
-  CmpItemAbbrMatch = { link = 'PmenuMatch' },
-  CmpItemAbbrDeprecated = { strikethrough = true },
-  CmpItemKindField = { fg = p.fg },
-  CmpItemKindProperty = { fg = p.fg },
-  CmpItemKindEvent = { fg = p.pink },
-  CmpItemKindEnum = { fg = p.pink },
-  CmpItemKindKeyword = { fg = p.fg },
-  CmpItemKindConstant = { fg = p.pink },
-  CmpItemKindConstructor = { fg = p.yellow },
-  CmpItemKindReference = { fg = p.yellow },
-  CmpItemKindFunction = { fg = p.blue },
-  CmpItemKindClass = { fg = p.fg },
-  CmpItemKindModule = { fg = p.fg },
-  CmpItemKindVariable = { fg = p.fg },
-  CmpItemKindFile = { fg = p.yellow },
-  CmpItemKindUnit = { fg = p.fg },
-  CmpItemKindMethod = { fg = p.blue },
-  CmpItemKindValue = { fg = p.fg },
-  CmpItemKindEnumMember = { fg = p.pink },
-  CmpItemKindTypeParameter = { fg = p.fg },
-
   -- fzf-lua
   FzfLuaBufNr = { fg = p.fg },
   FzfLuaTabTitle = { fg = p.purple },
@@ -192,6 +177,27 @@ local syntax = {
   FzfLuaHeaderText = { fg = p.red },
   FzfLuaLiveSym = { fg = p.blue },
   FzfLuaLivePrompt = { fg = p.fg },
+
+  -- blink.cmp
+  BlinkCmpLabelMatch = { link = 'PmenuMatch' },
+  BlinkCmpKindField = { fg = p.fg },
+  BlinkCmpKindProperty = { fg = p.fg },
+  BlinkCmpKindEvent = { fg = p.pink },
+  BlinkCmpKindEnum = { fg = p.pink },
+  BlinkCmpKindKeyword = { fg = p.fg },
+  BlinkCmpKindConstant = { fg = p.pink },
+  BlinkCmpKindConstructor = { fg = p.yellow },
+  BlinkCmpKindReference = { fg = p.yellow },
+  BlinkCmpKindFunction = { fg = p.blue },
+  BlinkCmpKindClass = { fg = p.fg },
+  BlinkCmpKindModule = { fg = p.fg },
+  BlinkCmpKindVariable = { fg = p.fg },
+  BlinkCmpKindFile = { fg = p.yellow },
+  BlinkCmpKindUnit = { fg = p.fg },
+  BlinkCmpKindMethod = { fg = p.blue },
+  BlinkCmpKindValue = { fg = p.fg },
+  BlinkCmpKindEnumMember = { fg = p.pink },
+  BlinkCmpKindTypeParameter = { fg = p.fg },
 }
 
 for group, conf in pairs(syntax) do
