@@ -72,24 +72,8 @@ vim.diagnostic.config({
   signs = false,
 })
 
---- HACK: Override `vim.lsp.util.stylize_markdown` to use Treesitter.
----@param bufnr integer
----@param contents string[]
----@param opts table
----@return string[]
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.util.stylize_markdown = function(bufnr, contents, opts)
-  contents = vim.lsp.util._normalize_markdown(contents, {
-    width = vim.lsp.util._make_floating_popup_size(contents, opts),
-  })
-  vim.bo[bufnr].filetype = 'markdown'
-  pcall(vim.treesitter.start, bufnr)
-  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, contents)
-
-  return contents
-end
-
 vim.api.nvim_create_autocmd('LspAttach', {
+  group = _G._augroup,
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 

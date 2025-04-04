@@ -1,8 +1,7 @@
 local au = vim.api.nvim_create_autocmd
-local aklk1ng = vim.api.nvim_create_augroup('aklk1ngGroup', {})
 
 au('FileType', {
-  group = aklk1ng,
+  group = _G._augroup,
   pattern = { 'help', 'checkhealth', 'dashboard', 'qf', 'netrw' },
   callback = function(arg)
     vim.keymap.set('n', 'q', _G._cmd('quit'), { buffer = arg.buf, silent = true, nowait = true })
@@ -11,7 +10,7 @@ au('FileType', {
 })
 
 au('TextYankPost', {
-  group = aklk1ng,
+  group = _G._augroup,
   callback = function()
     vim.hl.on_yank()
   end,
@@ -19,7 +18,7 @@ au('TextYankPost', {
 })
 
 au('BufReadPost', {
-  group = aklk1ng,
+  group = _G._augroup,
   callback = function()
     local pos = vim.fn.getpos('\'"')
     if pos[2] > 0 and pos[2] <= vim.fn.line('$') then
@@ -32,17 +31,19 @@ au('BufReadPost', {
 
 au({ 'BufRead', 'BufNewFile' }, {
   once = true,
-  group = aklk1ng,
+  group = _G._augroup,
   callback = function()
+    vim.o.foldmethod = 'expr'
+    vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     require('core.lsp')
     require('utils')
   end,
-  desc = 'Lazy load lsp config and some plugins',
+  desc = 'Lazy load for startuptime',
 })
 
 if vim.fn.executable('fcitx5-remote') == 1 then
   au('InsertLeavePre', {
-    group = aklk1ng,
+    group = _G._augroup,
     callback = function()
       os.execute('fcitx5-remote -c')
     end,
