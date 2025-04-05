@@ -33,8 +33,8 @@ au({ 'BufRead', 'BufNewFile' }, {
   once = true,
   group = _G._augroup,
   callback = function()
-    vim.o.foldmethod = 'expr'
-    vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.wo.foldmethod = 'expr'
+    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     require('core.lsp')
     require('utils')
   end,
