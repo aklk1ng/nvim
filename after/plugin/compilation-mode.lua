@@ -1,21 +1,15 @@
----Store all compile commands.
----@type string[]
-local compile_history = {}
+---@type string|nil
+local last_command = nil
 
 local function compile_cb(command)
-  table.insert(compile_history, command)
+  command = vim.fn.expandcmd(command)
+  last_command = command
   _G.Terms.run({ cmd = command, id = 'Compilation' })
 end
 
 vim.api.nvim_create_user_command('Compile', function(args)
-  local compile_command = ''
-  if args.args == '' then
-    if compile_history[#compile_history] then
-      compile_command = compile_history[#compile_history]
-    end
-  else
-    compile_command = args.args
-  end
+  local compile_command = nil
+  compile_command = args.args == '' and last_command or args.args
   compile_cb(compile_command)
 end, {
   nargs = '*',
@@ -29,7 +23,7 @@ end, {
 })
 
 vim.api.nvim_create_user_command('ReCompile', function()
-  compile_cb(compile_history[#compile_history])
+  compile_cb(last_command)
 end, {
   bang = true,
 })

@@ -2,37 +2,22 @@ local M = {}
 
 function M.run()
   local ft = vim.bo.filetype
-  local name = vim.fn.expand('%')
-  local bin = vim.fn.expand('%<')
   local cmd
   if ft == 'c' then
-    cmd = 'gcc -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare '
-      .. name
-      .. ' -o '
-      .. bin
-      .. ' && ./'
-      .. bin
-      .. ' && rm ./'
-      .. bin
+    cmd = 'gcc -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare % -o %< && ./%< && rm ./%<'
   elseif ft == 'cpp' then
-    cmd = 'clang++ -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare -std=c++20 '
-      .. name
-      .. ' -o '
-      .. bin
-      .. ' && ./'
-      .. bin
-      .. ' && rm ./'
-      .. bin
+    cmd =
+      'clang++ -g -Wall -Wextra -Wshadow -Wno-unused -Wno-sign-compare -std=c++20 % -o %< && ./%< && rm ./%<'
   elseif ft == 'rust' then
-    cmd = 'rustc ' .. name .. ' && ./' .. bin .. ' && rm ./' .. bin
+    cmd = 'rustc % && ./%< && rm ./%<'
   elseif ft == 'python' then
-    cmd = 'python ' .. name
+    cmd = 'python %'
   elseif ft == 'sh' then
-    cmd = 'bash ' .. name
+    cmd = 'bash %'
   elseif ft == 'go' then
-    cmd = 'go run ' .. name
+    cmd = 'go run %'
   elseif ft == 'lua' then
-    cmd = 'lua ' .. name
+    cmd = 'lua %'
   elseif ft == 'make' then
     cmd = 'make'
   end
@@ -43,7 +28,7 @@ function M.run()
   end
 
   vim.api.nvim_command('silent write')
-  _G.Terms.run({ cmd = cmd, id = 'QuickRun' })
+  _G.Terms.run({ cmd = vim.fn.expandcmd(cmd), id = 'QuickRun' })
 end
 
 return M
