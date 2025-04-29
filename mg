@@ -32,6 +32,7 @@ class PluginManager:
         self.plugins_dir = XDG_DATA_HOME / "nvim/site/pack/plugins/opt"
         self.plugins_dir.mkdir(parents=True, exist_ok=True)
         self.plugins_state = self._load_state()
+        self.state_changed = False
 
     def _load_state(self):
         if not self.state_file.exists():
@@ -43,13 +44,14 @@ class PluginManager:
             return json.load(f)
 
     def _save_state(self):
-        try:
-            self.state_file.parent.mkdir(parents=True, exist_ok=True)
+        if self.state_changed:
+            try:
+                self.state_file.parent.mkdir(parents=True, exist_ok=True)
 
-            with open(self.state_file, "w") as f:
-                json.dump(self.plugins_state, f, indent=2)
-        except (OSError, IOError) as e:
-            print(f"{Colors.RED}Error saving state: {e}{Colors.RESET}")
+                with open(self.state_file, "w") as f:
+                    json.dump(self.plugins_state, f, indent=2)
+            except (OSError, IOError) as e:
+                print(f"{Colors.RED}Error saving state: {e}{Colors.RESET}")
 
     async def _run_git_async(self, args, cwd):
         process = await asyncio.create_subprocess_exec(
@@ -113,8 +115,6 @@ class PluginManager:
         tasks = [handler(repo, config) for repo, config in plugins.items()]
         await asyncio.gather(*tasks)
 
-        self._save_state()
-
     async def _handle_install(self, repo, config):
         branch = config.get("branch", None)
         commit = config.get("commit", None)
@@ -158,6 +158,7 @@ class PluginManager:
             "branch": branch or actual_branch or "",
             "commit": commit,
         }
+        self.state_changed = True
 
         await self._run_command(run_command, str(plugin_dir))
 
@@ -167,14 +168,6 @@ class PluginManager:
 
         await self._process_plugins(plugins, self._handle_install)
 
-    async def _handle_diff(self, plugins):
-        diff = {}
-        for key, value1 in plugins.items():
-            if key not in self.plugins_state:
-                diff[key] = value1
-
-        await self.remove()
-        await self._process_plugins(diff, self._handle_install)
         self._save_state()
 
     async def _handle_update(self, repo, config):
@@ -235,6 +228,7 @@ class PluginManager:
                 "branch": branch,
                 "commit": new_commit,
             }
+            self.state_changed = True
 
             await self._run_command(run_command, str(plugin_dir))
 
@@ -242,14 +236,25 @@ class PluginManager:
         with open(self.config_file, "r") as f:
             plugins = json.load(f)
 
-        await self._handle_diff(plugins)
+        missing_plugins = {}
+        for key, value1 in plugins.items():
+            if key not in self.plugins_state:
+                missing_plugins[key] = value1
+
+        await self.remove()
+        # Install missing plugins
+        await self._process_plugins(missing_plugins, self._handle_install)
+        # Update exists plugins
         await self._process_plugins(plugins, self._handle_update)
+
+        self._save_state()
 
     async def _remove_plugin(self, repo, plugin_dir):
         if plugin_dir.exists():
             print(f"{Colors.RED}Removing{Colors.RESET} {repo}")
             await asyncio.to_thread(shutil.rmtree, plugin_dir)
             del self.plugins_state[repo]
+            self.state_changed = True
 
     async def remove(self):
         with open(self.config_file, "r") as f:
@@ -274,9 +279,7 @@ class PluginManager:
                 if plugin_dir.exists():
                     print(f"{Colors.RED}Removing{Colors.RESET} {repo}")
                     shutil.rmtree(plugin_dir)
-                    self.plugins_state.pop(repo, None)
-            self._save_state()
-            await self.install()
+                    del self.plugins_state[repo]
         else:
             if self.plugins_dir.exists():
                 print(f"{Colors.RED}Removing all plugins{Colors.RESET}")
@@ -285,8 +288,8 @@ class PluginManager:
                 parents=True, exist_ok=True
             )  # Recreate the plugins directory
             self.plugins_state.clear()
-            self._save_state()
-            await self.install()
+
+        await self.install()
 
     async def log(self, n=5):
         for repo in self.plugins_state.keys():
