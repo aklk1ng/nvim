@@ -4,10 +4,10 @@ vim.o.termguicolors = true
 vim.g.colors_name = 'aklk1ng'
 
 local p = {
-  bg = '#1b1b1b',
-  shade_1 = '#232323',
-  shade_2 = '#313538',
-  shade_3 = '#404347',
+  bg = '#1a1a1a',
+  shade_1 = '#242424',
+  shade_2 = '#333639',
+  shade_3 = '#3e4144',
   shade_4 = '#6a7073',
   fg = '#919191',
   red = '#a35858',
