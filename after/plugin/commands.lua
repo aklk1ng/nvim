@@ -14,8 +14,13 @@ end
 vim.api.nvim_create_user_command('Mes', function()
   vim.cmd('vertical new')
   scratch_buf_init()
-  vim.cmd('redir => msg_output | silent messages | redir END')
-  vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.fn.split(vim.g.msg_output, '\n'))
+  vim.api.nvim_buf_set_lines(
+    0,
+    0,
+    -1,
+    false,
+    vim.fn.split(vim.api.nvim_exec2('message', { output = true }).output, '\n')
+  )
 end, { nargs = 0 })
 
 vim.api.nvim_create_user_command('Root', function()
@@ -37,8 +42,6 @@ vim.api.nvim_create_user_command('Root', function()
 end, { nargs = 0 })
 
 -- https://github.com/folke/snacks.nvim/blob/main/lua/snacks/bufdelete.lua
-
---- Delete a buffer.
 local function delete()
   local buf = vim.api.nvim_get_current_buf()
 
@@ -83,7 +86,7 @@ local function delete()
   end)
 end
 
-vim.api.nvim_create_user_command('Bdelete', delete, {})
+vim.api.nvim_create_user_command('Bdelete', delete, { nargs = 0 })
 
 vim.api.nvim_create_user_command('Scratch', function()
   vim.cmd('tabnew')

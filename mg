@@ -1,0 +1,370 @@
+#!/usr/bin/env python3
+
+import argparse
+import asyncio
+import json
+import os
+import shutil
+from datetime import datetime
+from pathlib import Path
+
+XDG_DATA_HOME = Path(os.getenv("XDG_DATA_HOME") or "~/.local/share").expanduser()
+XDG_CONFIG_HOME = Path(os.getenv("XDG_CONFIG_HOME") or "~/.config").expanduser()
+
+
+class Colors:
+    RESET = "\033[0m"
+    RED = "\033[31m"
+    GREEN = "\033[32m"
+    YELLOW = "\033[33m"
+    BLUE = "\033[34m"
+    MAGENTA = "\033[35m"
+    CYAN = "\033[36m"
+    WHITE = "\033[37m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
+
+
+class PluginManager:
+    def __init__(self):
+        self.config_file = XDG_CONFIG_HOME / "nvim/plugins.json"
+        self.state_file = XDG_DATA_HOME / "nvim/plugin_state.json"
+        self.plugins_dir = XDG_DATA_HOME / "nvim/site/pack/plugins/opt"
+        self.plugins_dir.mkdir(parents=True, exist_ok=True)
+        self.plugins_state = self._load_state()
+
+    def _load_state(self):
+        if not self.state_file.exists():
+            print(f"{Colors.YELLOW}Creating state file{Colors.RESET}")
+            self.state_file.parent.mkdir(parents=True, exist_ok=True)
+            self.state_file.write_text("{}")
+            return {}
+        with open(self.state_file, "r") as f:
+            return json.load(f)
+
+    def _save_state(self):
+        try:
+            self.state_file.parent.mkdir(parents=True, exist_ok=True)
+
+            with open(self.state_file, "w") as f:
+                json.dump(self.plugins_state, f, indent=2)
+        except (OSError, IOError) as e:
+            print(f"{Colors.RED}Error saving state: {e}{Colors.RESET}")
+
+    async def _run_git_async(self, args, cwd):
+        process = await asyncio.create_subprocess_exec(
+            "git",
+            *args,
+            cwd=str(cwd),
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+        )
+        stdout, stderr = await process.communicate()
+
+        if process.returncode != 0:
+            raise Exception(f"Git command failed: {' '.join(args)}\n{stderr.decode()}")
+
+        return stdout.decode().strip()
+
+    async def _run_command(self, cmd, cwd):
+        if cmd:
+            print(
+                f"{Colors.BLUE}Running{Colors.RESET} {Colors.GREEN}{cmd}{Colors.RESET} with {cwd.split('/')[-1]}"
+            )
+            process = await asyncio.create_subprocess_shell(
+                cmd,
+                cwd=cwd,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )
+            stdout, stderr = await process.communicate()
+            if process.returncode != 0:
+                print(f"{Colors.RED}Error:{Colors.RESET} {stderr.decode().strip()}")
+            else:
+                print(f"{stdout.decode().strip()}")
+
+    def _format_log(self, log_output, repo, spaces: int):
+        print(f"{Colors.UNDERLINE}{repo}{Colors.RESET}")
+        current_time = datetime.now()
+
+        for line in log_output.splitlines():
+            commit_hash, commit_time, commit_message = line.split(" ", 2)
+            commit_time = datetime.fromtimestamp(int(commit_time))
+            time_diff = current_time - commit_time
+
+            if time_diff.days > 0:
+                time_str = (
+                    f"{time_diff.days} day{'s' if time_diff.days > 1 else ''} ago"
+                )
+            elif time_diff.seconds >= 3600:
+                hours = time_diff.seconds // 3600
+                time_str = f"{hours} hour{'s' if hours > 1 else ''} ago"
+            elif time_diff.seconds >= 60:
+                minutes = time_diff.seconds // 60
+                time_str = f"{minutes} minute{'s' if minutes > 1 else ''} ago"
+            else:
+                time_str = "just now"
+
+            print(
+                f"{' ' * spaces}{Colors.MAGENTA}{commit_hash}{Colors.RESET} {commit_message} {Colors.CYAN}({time_str}){Colors.RESET}"
+            )
+
+    async def _process_plugins(self, plugins, handler):
+        tasks = [handler(repo, config) for repo, config in plugins.items()]
+        await asyncio.gather(*tasks)
+
+        self._save_state()
+
+    async def _handle_install(self, repo, config):
+        branch = config.get("branch", None)
+        commit = config.get("commit", None)
+        run_command = config.get("run", None)
+
+        plugin_dir = self.plugins_dir / repo.split("/")[-1]
+        if repo in self.plugins_state and plugin_dir.exists():
+            return
+        print(f"{Colors.BLUE}Installing{Colors.RESET} {repo}")
+        if branch:
+            await self._run_git_async(
+                [
+                    "clone",
+                    "--branch",
+                    branch,
+                    f"https://github.com/{repo}.git",
+                    str(plugin_dir),
+                ],
+                cwd=self.plugins_dir,
+            )
+        else:
+            await self._run_git_async(
+                ["clone", f"https://github.com/{repo}.git", str(plugin_dir)],
+                cwd=self.plugins_dir,
+            )
+
+        try:
+            actual_branch = await self._run_git_async(
+                ["branch", "--show-current"], cwd=plugin_dir
+            )
+        except Exception:
+            actual_branch = None
+
+        commit = commit or await self._run_git_async(
+            ["rev-parse", "HEAD"], cwd=plugin_dir
+        )
+        # Back to HEAD detached
+        await self._run_git_async(["checkout", commit], cwd=plugin_dir)
+
+        self.plugins_state[repo] = {
+            "branch": branch or actual_branch or "",
+            "commit": commit,
+        }
+
+        await self._run_command(run_command, str(plugin_dir))
+
+    async def install(self):
+        with open(self.config_file, "r") as f:
+            plugins = json.load(f)
+
+        await self._process_plugins(plugins, self._handle_install)
+
+    async def _handle_diff(self, plugins):
+        diff = {}
+        for key, value1 in plugins.items():
+            if key not in self.plugins_state:
+                diff[key] = value1
+
+        await self.remove()
+        await self._process_plugins(diff, self._handle_install)
+        self._save_state()
+
+    async def _handle_update(self, repo, config):
+        branch = config.get("branch", None) or self.plugins_state[repo].get(
+            "branch", None
+        )
+        commit = config.get("commit", None)
+        run_command = config.get("run", None)
+        is_pin = config.get("pin", False)
+        is_dev = config.get("dev", False)
+        plugin_dir = self.plugins_dir / repo.split("/")[-1]
+
+        if not plugin_dir.exists():
+            return
+
+        if commit:
+            await self._run_git_async(["checkout", commit], cwd=plugin_dir)
+            self.plugins_state[repo] = {
+                "branch": branch,
+                "commit": commit,
+            }
+        else:
+            if is_pin or is_dev:
+                return
+            if not branch or branch == "":
+                default_branch = await self._run_git_async(
+                    ["symbolic-ref", "refs/remotes/origin/HEAD"],
+                    cwd=plugin_dir,
+                )
+                branch = default_branch.split("/")[-1]
+
+            await self._run_git_async(["fetch"], cwd=plugin_dir)
+
+        old_commit = self.plugins_state[repo]["commit"]
+        new_commit = await self._run_git_async(
+            ["rev-parse", f"origin/{branch}"], cwd=plugin_dir
+        )
+
+        if old_commit == new_commit:
+            # Back to HEAD detached
+            await self._run_git_async(["checkout", new_commit], cwd=plugin_dir)
+            return
+
+        log_output = await self._run_git_async(
+            ["log", f"{old_commit}..{new_commit}", "--pretty=format:%h %ct %s"],
+            cwd=plugin_dir,
+        )
+        self._format_log(log_output, repo, 2)
+
+        user_input = (
+            input(f"{Colors.YELLOW}Do you want to update {repo}? (y/n): {Colors.RESET}")
+            .strip()
+            .lower()
+        )
+        if user_input == "y":
+            await self._run_git_async(["checkout", new_commit], cwd=plugin_dir)
+            self.plugins_state[repo] = {
+                "branch": branch,
+                "commit": new_commit,
+            }
+
+            await self._run_command(run_command, str(plugin_dir))
+
+    async def update(self):
+        with open(self.config_file, "r") as f:
+            plugins = json.load(f)
+
+        await self._handle_diff(plugins)
+        await self._process_plugins(plugins, self._handle_update)
+
+    async def _remove_plugin(self, repo, plugin_dir):
+        if plugin_dir.exists():
+            print(f"{Colors.RED}Removing{Colors.RESET} {repo}")
+            await asyncio.to_thread(shutil.rmtree, plugin_dir)
+            del self.plugins_state[repo]
+
+    async def remove(self):
+        with open(self.config_file, "r") as f:
+            plugins = json.load(f)
+
+        installed_plugins = set(self.plugins_state.keys())
+        configured_plugins = set(plugins.keys())
+
+        tasks = [
+            self._remove_plugin(repo, self.plugins_dir / repo.split("/")[-1])
+            for repo in installed_plugins - configured_plugins
+        ]
+
+        await asyncio.gather(*tasks)
+
+        self._save_state()
+
+    async def sync(self, plugins=None):
+        if plugins:
+            for repo in plugins:
+                plugin_dir = self.plugins_dir / repo.split("/")[-1]
+                if plugin_dir.exists():
+                    print(f"{Colors.RED}Removing{Colors.RESET} {repo}")
+                    shutil.rmtree(plugin_dir)
+                    self.plugins_state.pop(repo, None)
+            self._save_state()
+            await self.install()
+        else:
+            if self.plugins_dir.exists():
+                print(f"{Colors.RED}Removing all plugins{Colors.RESET}")
+                shutil.rmtree(self.plugins_dir)
+            self.plugins_dir.mkdir(
+                parents=True, exist_ok=True
+            )  # Recreate the plugins directory
+            self.plugins_state.clear()
+            self._save_state()
+            await self.install()
+
+    async def log(self, n=5):
+        for repo in self.plugins_state.keys():
+            plugin_dir = self.plugins_dir / repo.split("/")[-1]
+            if not plugin_dir.exists():
+                print(f"{repo} {Colors.YELLOW}not installed{Colors.RESET}")
+                continue
+
+            log_output = await self._run_git_async(
+                ["log", "-n", str(n), "--pretty=format:%h %ct %s"], cwd=plugin_dir
+            )
+            self._format_log(log_output, repo, 2)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawTextHelpFormatter,
+    )
+    subparsers = parser.add_subparsers(
+        dest="action", required=True, help="Available actions"
+    )
+
+    subparsers.add_parser(
+        "install",
+        help="Install all plugins from plugins.json",
+    )
+
+    subparsers.add_parser(
+        "update",
+        help="Update all installed plugins to the latest version",
+    )
+
+    subparsers.add_parser(
+        "remove",
+        help="Remove plugins not listed in plugins.json",
+    )
+
+    sync_parser = subparsers.add_parser(
+        "sync",
+        help="Remove all plugins and reinstall from plugins.json",
+    )
+    sync_parser.add_argument(
+        "plugins",
+        nargs="*",
+        default=None,
+        help="List of plugins to sync. If not provided, all plugins will be synced.",
+    )
+
+    log_parser = subparsers.add_parser(
+        "log",
+        help="Show the recent commits for all installed plugins",
+    )
+    log_parser.add_argument(
+        "n",
+        type=int,
+        nargs="?",
+        default=5,
+        help="Number of recent commits to show for each plugin (default: 5)",
+    )
+
+    args = parser.parse_args()
+
+    manager = PluginManager()
+
+    try:
+        if args.action == "install":
+            asyncio.run(manager.install())
+        elif args.action == "update":
+            asyncio.run(manager.update())
+        elif args.action == "remove":
+            asyncio.run(manager.remove())
+        elif args.action == "sync":
+            asyncio.run(manager.sync(args.plugins))
+        elif args.action == "log":
+            asyncio.run(manager.log(args.n))
+    except KeyboardInterrupt:
+        print(f"\n{Colors.RED}Operation interrupted by user. Exiting...{Colors.RESET}")
+
+
+if __name__ == "__main__":
+    main()

@@ -14,8 +14,7 @@ o.expandtab = true
 o.cursorline = true
 o.inccommand = 'split'
 o.colorcolumn = '100'
-o.laststatus = 3
-o.scrolloff = 5
+o.scrolloff = 3
 o.signcolumn = 'yes'
 o.shortmess = 'loOTcCF'
 o.completeopt = 'menu,menuone,noselect,fuzzy,popup'
@@ -24,6 +23,7 @@ o.relativenumber = true
 o.numberwidth = 3
 o.jumpoptions = 'stack,view'
 o.mouse = 'a'
+o.complete = '.,w,b,u,t,i,]'
 
 o.list = true
 o.listchars = 'tab:» ,nbsp:+,trail:·,extends:→,precedes:←,'

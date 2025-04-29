@@ -28,7 +28,6 @@ return {
         },
       },
       completion = {
-        callSnippet = 'Replace',
         postfix = '.',
         displayContext = 50,
       },

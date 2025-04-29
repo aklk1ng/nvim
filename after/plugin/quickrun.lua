@@ -1,6 +1,4 @@
-local M = {}
-
-function M.run()
+local function run()
   local ft = vim.bo.filetype
   local cmd
   if ft == 'c' then
@@ -31,4 +29,4 @@ function M.run()
   _G.Terms.run({ cmd = vim.fn.expandcmd(cmd), id = 'QuickRun' })
 end
 
-return M
+vim.keymap.set('n', '<leader>r', run)

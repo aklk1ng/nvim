@@ -29,16 +29,7 @@ end
 local function fileinfo()
   return {
     name = 'fileinfo',
-    stl = function(args)
-      -- Hack my terminal plugin
-      local bufnr = vim.api.nvim_get_current_buf()
-      local bufname = vim.api.nvim_buf_get_name(bufnr)
-      if bufname:match('term://') and vim.g.terms[tostring(bufnr)] then
-        return vim.g.terms[tostring(bufnr)].id
-      end
-
-      return '%f%r%m'
-    end,
+    stl = '%f%r%m',
     event = { 'BufEnter' },
     attr = 'Normal',
   }
@@ -57,7 +48,11 @@ local function lspinfo()
       local msg = ''
       if args.data and args.data.params then
         local val = args.data.params.value
-        if val.message and val.kind ~= 'end' and val.kind ~= 'report' then
+        if
+          val.message
+          and val.kind ~= 'end'
+          and not (vim.bo.filetype == 'go' and val.kind == 'report')
+        then
           msg = ('%s %s%s'):format(
             val.title,
             (val.message and val.message .. ' ' or ''),
@@ -183,21 +178,17 @@ local function render(comps, events, pieces)
   end)
 end
 
-return {
-  setup = function()
-    local comps, events, pieces = default()
-    local stl_render = render(comps, events, pieces)
-    vim.iter(vim.tbl_keys(events)):map(function(e)
-      vim.api.nvim_create_autocmd(e, {
-        callback = function(args)
-          vim.schedule(function()
-            local ok, res = coroutine.resume(stl_render, args)
-            if not ok then
-              vim.notify('StatusLine render failed ' .. res, vim.log.levels.ERROR)
-            end
-          end)
-        end,
-      })
-    end)
-  end,
-}
+local comps, events, pieces = default()
+local stl_render = render(comps, events, pieces)
+vim.iter(vim.tbl_keys(events)):map(function(e)
+  vim.api.nvim_create_autocmd(e, {
+    callback = function(args)
+      vim.schedule(function()
+        local ok, res = coroutine.resume(stl_render, args)
+        if not ok then
+          vim.notify('StatusLine render failed ' .. res, vim.log.levels.ERROR)
+        end
+      end)
+    end,
+  })
+end)

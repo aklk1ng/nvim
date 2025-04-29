@@ -3,10 +3,22 @@ local au = vim.api.nvim_create_autocmd
 au('FileType', {
   group = _G._augroup,
   pattern = { 'help', 'checkhealth', 'dashboard', 'qf', 'netrw' },
-  callback = function(arg)
-    vim.keymap.set('n', 'q', _G._cmd('quit'), { buffer = arg.buf, silent = true, nowait = true })
+  callback = function(args)
+    vim.keymap.set('n', 'q', _G._cmd('quit'), { buffer = args.buf, silent = true, nowait = true })
   end,
-  desc = 'Quit some buffers quickly',
+})
+
+-- https://github.com/nvim-treesitter/nvim-treesitter/issues/6436
+-- Fuck treesitter
+au('FileType', {
+  group = _G._augroup,
+  pattern = { 'python' },
+  callback = function(args)
+    if not pcall(vim.treesitter.get_parser, args.buf, args.match) then
+      return
+    end
+    vim.o.syntax = 'on'
+  end,
 })
 
 au('TextYankPost', {
@@ -14,7 +26,6 @@ au('TextYankPost', {
   callback = function()
     vim.hl.on_yank()
   end,
-  desc = 'Highlight text when yank',
 })
 
 au('BufReadPost', {
@@ -26,7 +37,13 @@ au('BufReadPost', {
       vim.api.nvim_input('zz')
     end
   end,
-  desc = 'Return to the last edited position',
+})
+
+au({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+  group = _G._augroup,
+  callback = function()
+    vim.cmd('checktime')
+  end,
 })
 
 au({ 'BufRead', 'BufNewFile' }, {
@@ -35,10 +52,7 @@ au({ 'BufRead', 'BufNewFile' }, {
   callback = function()
     vim.wo.foldmethod = 'expr'
     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-    require('core.lsp')
-    require('utils')
   end,
-  desc = 'Lazy load for startuptime',
 })
 
 if vim.fn.executable('fcitx5-remote') == 1 then
@@ -47,6 +61,5 @@ if vim.fn.executable('fcitx5-remote') == 1 then
     callback = function()
       os.execute('fcitx5-remote -c')
     end,
-    desc = 'Automatically switch fcitx5 input method',
   })
 end

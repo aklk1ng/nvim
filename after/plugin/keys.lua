@@ -28,9 +28,10 @@ map('n', '<C-x>c', _G._cmd('confirm qa'))
 map('n', '|', _G._cmd('Inspect'))
 map('n', 'j', 'gj')
 map('n', 'k', 'gk')
+map('n', 'gV', '`[v`]')
 map({ 'i', 'n', 'x', 's' }, '<C-s>', _G._cmd('silent! write') .. '<ESC>')
 map('n', '<ESC>', _G._cmd('nohlsearch'))
-map('n', 'q;', 'q:')
+map('n', '<C-x>d', ':e ~/')
 
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-j>', '<C-w>j')
@@ -41,8 +42,6 @@ map('n', '<A-]>', '<C-w>>')
 map('n', '<A-,>', '<C-w>-')
 map('n', '<A-.>', '<C-w>+')
 map('n', '<A-->', _G._cmd('resize | vertical resize'))
-map('n', '<leader>tn', _G._cmd('tabnew'))
-map('n', '<C-w>Q', _G._cmd('silent! tabclose'))
 map('n', '<leader>d', _G._cmd(vim.bo.buftype == 'terminal' and 'q!' or 'Bdelete'))
 map('n', '<C-q>', function()
   vim.diagnostic.setloclist({ title = vim.fn.expand('%') })
@@ -111,41 +110,3 @@ map('t', '<A-h>', '<C-\\><C-n><C-w>h')
 map('t', '<A-j>', '<C-\\><C-n><C-w>j')
 map('t', '<A-k>', '<C-\\><C-n><C-w>k')
 map('t', '<A-l>', '<C-\\><C-n><C-w>l')
-
---===================================================================
------------------------------- Plugins ------------------------------
---===================================================================
-
-map('n', '<leader>g', _G._cmd('Gitsigns diffthis vertical=true'))
-map('n', ']c', function()
-  if vim.wo.diff then
-    vim.cmd.normal({ ']c', bang = true })
-  else
-    require('gitsigns').nav_hunk('next', { target = 'all' })
-  end
-end, { silent = true })
-map('n', '[c', function()
-  if vim.wo.diff then
-    vim.cmd.normal({ '[c', bang = true })
-  else
-    require('gitsigns').nav_hunk('prev', { target = 'all' })
-  end
-end, { silent = true })
-map('n', '<leader>b', _G._cmd('Gitsigns toggle_current_line_blame'))
-
-map('n', '<leader>e', _G._cmd('Oil'))
-map('n', '<C-x>d', ':e ~/')
-
-map('n', '<leader>ff', _G._cmd('FzfLua files'))
-map('n', '<leader>fb', _G._cmd('FzfLua buffers'))
-map('n', '<leader>fo', _G._cmd('FzfLua oldfiles'))
-map('n', '<leader>fh', _G._cmd('FzfLua helptags'))
-map('n', '<leader>fk', _G._cmd('FzfLua keymaps'))
-map('n', '<leader>fm', _G._cmd('FzfLua manpages'))
-map('n', '<leader>fd', _G._cmd('FzfLua lsp_document_diagnostics'))
-map('n', '<leader>fD', _G._cmd('FzfLua lsp_workspace_diagnostics'))
-map('n', '<leader>/', _G._cmd('FzfLua lgrep_curbuf'))
-map('n', '<leader>fg', _G._cmd('FzfLua git_status'))
-map('n', 'gh', _G._cmd('FzfLua lsp_finder'))
-map('n', 'gp', _G._cmd('FzfLua lsp_definitions'))
-map('n', '<leader>fw', _G._cmd('FzfLua grep_cword'))
