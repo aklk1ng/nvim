@@ -207,8 +207,6 @@ class PluginManager:
         )
 
         if old_commit == new_commit:
-            # Back to HEAD detached
-            await self._run_git_async(["checkout", new_commit], cwd=plugin_dir)
             return
 
         log_output = await self._run_git_async(
@@ -311,17 +309,14 @@ def main():
     subparsers = parser.add_subparsers(
         dest="action", required=True, help="Available actions"
     )
-
     subparsers.add_parser(
         "install",
         help="Install all plugins from plugins.json",
     )
-
     subparsers.add_parser(
         "update",
         help="Update all installed plugins to the latest version",
     )
-
     subparsers.add_parser(
         "remove",
         help="Remove plugins not listed in plugins.json",
