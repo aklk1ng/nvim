@@ -1,6 +1,5 @@
 require('plugins.fzf-lua')
 require('plugins.oil')
-require('plugins.align')
 require('plugins.gitsigns')
 require('plugins.conform')
 require('plugins.treesitter')

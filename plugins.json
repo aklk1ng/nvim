@@ -3,7 +3,6 @@
   "ibhagwan/fzf-lua": {},
   "nvim-treesitter/nvim-treesitter": {},
   "lewis6991/gitsigns.nvim": {},
-  "echasnovski/mini.align": {},
   "stevearc/conform.nvim": {},
   "stevearc/oil.nvim": {}
 }
