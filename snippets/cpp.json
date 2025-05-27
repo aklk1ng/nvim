@@ -1,12 +1,4 @@
 {
-  "all": {
-    "prefix": "all",
-    "body": ["$1.begin(), $1.end()"]
-  },
-  "rall": {
-    "prefix": "rall",
-    "body": ["$1.rbegin(), $1.rend()"]
-  },
   "cf": {
     "prefix": "cf",
     "body": [

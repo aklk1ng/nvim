@@ -11,18 +11,6 @@ local scratch_buf_init = function()
   end
 end
 
-vim.api.nvim_create_user_command('Mes', function()
-  vim.cmd('vertical new')
-  scratch_buf_init()
-  vim.api.nvim_buf_set_lines(
-    0,
-    0,
-    -1,
-    false,
-    vim.fn.split(vim.api.nvim_exec2('message', { output = true }).output, '\n')
-  )
-end, { nargs = 0 })
-
 vim.api.nvim_create_user_command('Root', function()
   local bufname = vim.api.nvim_buf_get_name(0)
   if not vim.uv.fs_stat(bufname) then

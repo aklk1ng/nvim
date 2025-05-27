@@ -1,1 +1,2 @@
-syn clear pythonBuiltin
+hi link pythonBuiltin NONE
+hi link pythonExceptions NONE

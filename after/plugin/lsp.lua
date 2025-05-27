@@ -1,5 +1,8 @@
 local methods = vim.lsp.protocol.Methods
 
+vim.opt.completeopt = 'menu,menuone,noselect,fuzzy,popup'
+vim.opt.completeitemalign = 'kind,abbr,menu'
+
 vim.lsp.config('*', { root_markers = { '.git' } })
 vim.lsp.enable(vim
   .iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
@@ -10,6 +13,11 @@ vim.lsp.enable(vim
 
 vim.diagnostic.config({
   signs = false,
+  jump = {
+    on_jump = function(diagnostic, bufnr)
+      vim.diagnostic.open_float({ bufnr = bufnr, scope = 'cursor', focus = false })
+    end,
+  },
 })
 
 vim.lsp.log.set_level(vim.log.levels.OFF)
@@ -66,17 +74,11 @@ local function on_attach(client, bufnr)
     vim.keymap.set('n', 'gp', _G._cmd('FzfLua lsp_definitions'), { buffer = bufnr })
   end
 
-  vim.keymap.set('n', ']d', function()
-    vim.diagnostic.jump({ count = 1, float = true })
-  end, { buffer = bufnr })
-  vim.keymap.set('n', '[d', function()
-    vim.diagnostic.jump({ count = -1, float = true })
-  end, { buffer = bufnr })
   vim.keymap.set('n', ']e', function()
-    vim.diagnostic.jump({ count = 1, float = true, severity = 'ERROR' })
+    vim.diagnostic.jump({ count = 1, severity = 'ERROR' })
   end, { buffer = bufnr })
   vim.keymap.set('n', '[e', function()
-    vim.diagnostic.jump({ count = -1, float = true, severity = 'ERROR' })
+    vim.diagnostic.jump({ count = -1, severity = 'ERROR' })
   end, { buffer = bufnr })
 
   if client:supports_method(methods.textDocument_completion) then
@@ -102,22 +104,11 @@ local function on_attach(client, bufnr)
         local info = doc.value or ''
         return {
           menu = '',
+          kind = _G._cmp_kinds[kind] or ' ',
           kind_hlgroup = string.format('Kind%s', kind),
           info = info and info:gsub('\n+%s*\n$', '') or nil,
         }
       end,
-    })
-
-    vim.api.nvim_create_autocmd('TextChangedP', {
-      buffer = bufnr,
-      group = _G._augroup,
-      command = 'let g:_ts_force_sync_parsing = v:true',
-    })
-
-    vim.api.nvim_create_autocmd('CompleteDone', {
-      buffer = bufnr,
-      group = _G._augroup,
-      command = 'let g:_ts_force_sync_parsing = v:false',
     })
 
     -- https://github.com/neovim/neovim/pull/32553
@@ -126,7 +117,7 @@ local function on_attach(client, bufnr)
       group = _G._augroup,
       callback = function()
         local info = vim.fn.complete_info({ 'selected' })
-        if info.preview_bufnr then
+        if info.preview_bufnr and vim.bo[info.preview_bufnr].filetype == '' then
           vim.bo[info.preview_bufnr].filetype = 'markdown'
           vim.wo[info.preview_winid].conceallevel = 2
           vim.wo[info.preview_winid].concealcursor = 'niv'

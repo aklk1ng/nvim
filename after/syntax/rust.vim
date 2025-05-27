@@ -1,2 +1,2 @@
-syn clear rustSelf
-syn clear rustFuncCall
+hi link rustSelf NONE
+hi link rustFuncCall NONE

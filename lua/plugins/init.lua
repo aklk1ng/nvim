@@ -1,5 +1,0 @@
-require('plugins.fzf-lua')
-require('plugins.oil')
-require('plugins.gitsigns')
-require('plugins.conform')
-require('plugins.treesitter')

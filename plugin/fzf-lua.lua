@@ -78,6 +78,10 @@ require('fzf-lua').setup({
     },
     symbols = { symbol_style = 3 },
   },
+  diagnostics = {
+    diag_source = false,
+    diag_code = false,
+  },
 })
 
 vim.keymap.set('n', '<leader>ff', _G._cmd('FzfLua files'))
@@ -89,6 +93,7 @@ vim.keymap.set('n', '<leader>fm', _G._cmd('FzfLua manpages'))
 vim.keymap.set('n', '<leader>fs', _G._cmd('FzfLua lsp_document_symbols'))
 vim.keymap.set('n', '<leader>fd', _G._cmd('FzfLua lsp_document_diagnostics'))
 vim.keymap.set('n', '<leader>fD', _G._cmd('FzfLua lsp_workspace_diagnostics'))
+vim.keymap.set('n', '<leader>fl', _G._cmd('FzfLua live_grep'))
 vim.keymap.set('n', '<leader>/', _G._cmd('FzfLua lgrep_curbuf'))
 vim.keymap.set('n', '<leader>fg', _G._cmd('FzfLua git_status'))
 vim.keymap.set('n', 'gh', _G._cmd('FzfLua lsp_finder'))

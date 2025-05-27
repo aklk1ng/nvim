@@ -61,6 +61,7 @@ _G._cmp_kinds = {
 }
 
 vim.cmd.colorscheme('aklk1ng')
+
 local plugins = vim.fn.stdpath('data') .. '/site/pack/plugins/opt'
 local handle = assert(vim.uv.fs_opendir(plugins, nil, 4096))
 local entries = vim.uv.fs_readdir(handle, nil)
@@ -73,4 +74,3 @@ for _, t in ipairs(entries) do
   end
 end
 vim.cmd.helptags('ALL')
-require('plugins')

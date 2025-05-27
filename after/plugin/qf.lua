@@ -1,8 +1,5 @@
 -- https://github.com/rockyzhang24/dotfiles/blob/master/.config/nvim/lua/rockyz/quickfix.lua
 
-local MAX_FNAME_LEN = 50 -- threshold for filename length. 0 means no limit.
-local TRUNCATE_PREFIX = '...'
-
 local function normalize(item)
   local fname = ''
   if item.bufnr > 0 then
@@ -11,9 +8,6 @@ local function normalize(item)
       fname = '[No Name]'
     else
       fname = fname:gsub('^' .. vim.env.HOME, '~')
-    end
-    if MAX_FNAME_LEN > 0 and #fname > MAX_FNAME_LEN then
-      fname = TRUNCATE_PREFIX .. fname:sub(-MAX_FNAME_LEN)
     end
   end
   -- Is showing end_lnum and end_col in quickfix helpful? I don't think so!
@@ -40,13 +34,7 @@ function _G.qftf(info)
     local item = normalize(items[i])
     local line
     if items[i].valid == 1 then
-      line = fmt:format(
-        item.filename,
-        item.lnum,
-        item.col,
-        item.type == '' and '' or item.type,
-        item.text
-      )
+      line = fmt:format(item.filename, item.lnum, item.col, item.type, item.text)
     else
       line = item.text
     end

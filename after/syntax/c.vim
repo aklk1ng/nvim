@@ -1,1 +1,1 @@
-syn clear cFormat
+hi link cFormat NONE

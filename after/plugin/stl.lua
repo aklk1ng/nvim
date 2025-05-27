@@ -95,12 +95,16 @@ local function diagnostic()
       for _, level in ipairs(levels) do
         local n = counts[vim.diagnostic.severity[level]]
         if n then
-          table.insert(res, ('%%#Diagnostic%s#%s%%*'):format(level, level:sub(0, 1) .. n))
+          table.insert(res, ('%%#Diagnostic%s#%s%%*'):format(level, n))
         end
       end
-      return table.concat(res, ' ')
+      if #res > 0 then
+        return '[' .. table.concat(res, ' ') .. ']'
+      else
+        return ''
+      end
     end,
-    event = { 'DiagnosticChanged', 'BufEnter', 'LspAttach' },
+    event = { 'DiagnosticChanged', 'LspAttach' },
     attr = true,
   }
 end

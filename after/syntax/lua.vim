@@ -1,1 +1,1 @@
-syn clear luaTable
+hi link luaTable NONE

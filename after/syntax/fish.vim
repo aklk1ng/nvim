@@ -1,1 +1,1 @@
-syn clear fishCommand
+hi link fishCommand NONE

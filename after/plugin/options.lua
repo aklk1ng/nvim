@@ -17,7 +17,6 @@ o.colorcolumn = '100'
 o.scrolloff = 3
 o.signcolumn = 'yes'
 o.shortmess = 'loOTcCF'
-o.completeopt = 'menu,menuone,noselect,fuzzy,popup'
 o.number = true
 o.relativenumber = true
 o.numberwidth = 3
@@ -47,3 +46,5 @@ o.swapfile = false
 o.clipboard = 'unnamedplus'
 
 o.stc = '%=%l%s'
+
+require('vim._extui').enable({})
