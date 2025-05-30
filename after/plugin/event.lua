@@ -8,19 +8,6 @@ au('FileType', {
   end,
 })
 
--- https://github.com/nvim-treesitter/nvim-treesitter/issues/6436
--- Fuck treesitter
-au('FileType', {
-  group = _G._augroup,
-  pattern = { 'python' },
-  callback = function(args)
-    if not pcall(vim.treesitter.get_parser, args.buf, args.match) then
-      return
-    end
-    vim.o.syntax = 'on'
-  end,
-})
-
 au('TextYankPost', {
   group = _G._augroup,
   callback = function()
@@ -43,15 +30,6 @@ au({ 'FocusGained', 'TermClose', 'TermLeave' }, {
   group = _G._augroup,
   callback = function()
     vim.cmd('checktime')
-  end,
-})
-
-au({ 'BufRead', 'BufNewFile' }, {
-  once = true,
-  group = _G._augroup,
-  callback = function()
-    vim.wo.foldmethod = 'expr'
-    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
   end,
 })
 

@@ -1,7 +1,7 @@
 {
   "nvimdev/phoenix.nvim": {},
   "ibhagwan/fzf-lua": {},
-  "nvim-treesitter/nvim-treesitter": {},
+  "nvim-treesitter/nvim-treesitter": { "branch": "main" },
   "lewis6991/gitsigns.nvim": {},
   "stevearc/conform.nvim": {},
   "stevearc/oil.nvim": {}
