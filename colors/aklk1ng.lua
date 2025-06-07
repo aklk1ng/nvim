@@ -6,7 +6,7 @@ vim.g.colors_name = 'aklk1ng'
 local p = {
   bg = '#1a1a1a',
   shade_1 = '#242424',
-  shade_2 = '#333639',
+  shade_2 = '#323437',
   shade_3 = '#3e4144',
   shade_4 = '#6a7073',
   fg = '#919191',
@@ -59,7 +59,7 @@ local syntax = {
   qfFileName = { fg = p.fg },
   Underlined = { fg = p.orange, underline = true },
   WarningMsg = { fg = p.yellow, bold = true },
-  MatchParen = { fg = p.pink, bg = p.shade_3, bold = true },
+  MatchParen = { fg = p.cyan, bg = p.shade_2, bold = true },
   Whitespace = { fg = p.shade_3 },
   SpecialKey = { fg = p.fg },
   Pmenu = { bg = p.shade_1 },
@@ -161,7 +161,7 @@ local syntax = {
   -- treesitter
   ['@function'] = { fg = p.fg },
   ['@function.builtin'] = { fg = p.fg },
-  ['@function.macro'] = { link = 'Constant' },
+  ['@function.macro'] = { link = 'Function' },
   ['@macro'] = { link = 'Constant' },
   ['@method'] = { link = '@function' },
   ['@property'] = { link = '@variable' },

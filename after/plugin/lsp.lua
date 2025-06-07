@@ -28,19 +28,19 @@ vim.lsp.log.set_level(vim.log.levels.OFF)
 local function on_attach(client, bufnr)
   client.server_capabilities.semanticTokensProvider = nil
 
-  -- if client:supports_method(methods.textDocument_documentHighlight) then
-  --   local document_highlight = vim.api.nvim_create_augroup('cursor_highlights', { clear = false })
-  --   vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave' }, {
-  --     group = document_highlight,
-  --     buffer = bufnr,
-  --     callback = vim.lsp.buf.document_highlight,
-  --   })
-  --   vim.api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter', 'BufLeave' }, {
-  --     group = document_highlight,
-  --     buffer = bufnr,
-  --     callback = vim.lsp.buf.clear_references,
-  --   })
-  -- end
+  if client:supports_method(methods.textDocument_documentHighlight) then
+    local document_highlight = vim.api.nvim_create_augroup('cursor_highlights', { clear = false })
+    vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave' }, {
+      group = document_highlight,
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter', 'BufLeave' }, {
+      group = document_highlight,
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
 
   if client:supports_method('textDocument/documentColor') then
     vim.lsp.document_color.enable(true, bufnr)
@@ -75,10 +75,10 @@ local function on_attach(client, bufnr)
   end
 
   vim.keymap.set('n', ']e', function()
-    vim.diagnostic.jump({ count = 1, severity = 'ERROR' })
+    vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
   end, { buffer = bufnr })
   vim.keymap.set('n', '[e', function()
-    vim.diagnostic.jump({ count = -1, severity = 'ERROR' })
+    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
   end, { buffer = bufnr })
 
   if client:supports_method(methods.textDocument_completion) then

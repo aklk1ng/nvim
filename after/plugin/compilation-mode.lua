@@ -23,6 +23,10 @@ end, {
 })
 
 vim.api.nvim_create_user_command('ReCompile', function()
+  if not last_command then
+    return
+  end
+
   compile_cb(last_command)
 end, {
   bang = true,

@@ -12,17 +12,12 @@ map(
   { silent = true, noremap = true, desc = 'Provide formatted datetime in completion menu' }
 )
 
--- Black hole registers
 map({ 'n', 'x' }, 'x', '"_x')
 map({ 'n', 'x' }, 'X', '"_X')
 map({ 'n', 'x' }, 'c', '"_c')
 map({ 'n', 'x' }, 'C', '"_C')
 map({ 'n', 'x' }, 's', '"_s')
 map({ 'n', 'x' }, 'S', '"_S')
-
--- Paste without overwriting default register
-map('v', 'p', '"_d"+p')
-map('v', 'P', '"_d"+P')
 
 map('n', '<C-x><C-f>', ":e <C-R>=expand('%:p:~:h')<CR>")
 map('n', '<C-x>k', ':bdelete ')

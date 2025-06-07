@@ -124,7 +124,8 @@ class PluginManager:
             await self._run_git_async(
                 [
                     "clone",
-                    "--depth 1",
+                    "--depth",
+                    "1",
                     "--recurse-submodules",
                     "--shallow-submodules",
                     "--branch",
@@ -138,7 +139,8 @@ class PluginManager:
             await self._run_git_async(
                 [
                     "clone",
-                    "--depth 1",
+                    "--depth",
+                    "1",
                     "--recurse-submodules",
                     "--shallow-submodules",
                     f"https://github.com/{repo}.git",
