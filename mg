@@ -124,7 +124,7 @@ class PluginManager:
             await self._run_git_async(
                 [
                     "clone",
-                    "--depth",
+                    "--depth",  # No "--depth 1"
                     "1",
                     "--recurse-submodules",
                     "--shallow-submodules",
@@ -200,12 +200,17 @@ class PluginManager:
         else:
             if is_pin or is_dev:
                 return
+            old_branch = self.plugins_state[repo]["branch"]
             if not branch or branch == "":
                 default_branch = await self._run_git_async(
                     ["symbolic-ref", "refs/remotes/origin/HEAD"],
                     cwd=plugin_dir,
                 )
                 branch = default_branch.split("/")[-1]
+            elif branch != old_branch:
+                # Need to install plugin with new branch
+                await self._remove_plugin(repo, plugin_dir)
+                await self._handle_install(repo, config)
 
             await self._run_git_async(
                 [

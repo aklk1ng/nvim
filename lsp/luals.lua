@@ -29,7 +29,6 @@ return {
       },
       completion = {
         postfix = '.',
-        displayContext = 50,
       },
       hint = {
         enable = true,
