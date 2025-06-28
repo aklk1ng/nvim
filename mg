@@ -5,8 +5,11 @@ import asyncio
 import json
 import os
 import shutil
+from asyncio.subprocess import PIPE
+from collections.abc import Awaitable
 from datetime import datetime
 from pathlib import Path
+from typing import Callable, TypedDict
 
 XDG_DATA_HOME = Path(os.getenv("XDG_DATA_HOME") or "~/.local/share").expanduser()
 XDG_CONFIG_HOME = Path(os.getenv("XDG_CONFIG_HOME") or "~/.config").expanduser()
@@ -23,16 +26,33 @@ BOLD = "\033[1m"
 UNDERLINE = "\033[4m"
 
 
-class PluginManager:
-    def __init__(self):
-        self.config_file = XDG_CONFIG_HOME / "nvim/plugins.json"
-        self.state_file = XDG_DATA_HOME / "nvim/plugin_state.json"
-        self.plugins_dir = XDG_DATA_HOME / "nvim/site/pack/plugins/opt"
-        self.plugins_dir.mkdir(parents=True, exist_ok=True)
-        self.plugins_state = self._load_state()
-        self.state_changed = False
+class PluginConfig(TypedDict, total=False):
+    """Configuration for a single plugin, where all fields are optional."""
 
-    def _load_state(self):
+    branch: str | None
+    commit: str | None
+    run: str
+    dev: bool | None
+    pin: bool | None
+
+
+class PluginState(TypedDict):
+    """State of an installed plugin."""
+
+    branch: str
+    commit: str
+
+
+class PluginManager:
+    def __init__(self) -> None:
+        self.config_file: Path = XDG_CONFIG_HOME / "nvim/plugins.json"
+        self.state_file: Path = XDG_DATA_HOME / "nvim/plugin_state.json"
+        self.plugins_dir: Path = XDG_DATA_HOME / "nvim/site/pack/plugins/opt"
+        self.plugins_dir.mkdir(parents=True, exist_ok=True)
+        self.plugins_state: dict[str, PluginState] = self._load_state()
+        self.state_changed: bool = False
+
+    def _load_state(self) -> dict[str, PluginState]:
         if not self.state_file.exists():
             print(f"{YELLOW}Creating state file{RESET}")
             self.state_file.parent.mkdir(parents=True, exist_ok=True)
@@ -41,7 +61,7 @@ class PluginManager:
         with open(self.state_file, "r") as f:
             return json.load(f)
 
-    def _save_state(self):
+    def _save_state(self) -> None:
         if self.state_changed:
             try:
                 self.state_file.parent.mkdir(parents=True, exist_ok=True)
@@ -51,13 +71,13 @@ class PluginManager:
             except (OSError, IOError) as e:
                 print(f"{RED}Error saving state: {e}{RESET}")
 
-    async def _run_git_async(self, args, cwd):
+    async def _run_git_async(self, args: list[str], cwd: Path) -> str:
         process = await asyncio.create_subprocess_exec(
             "git",
             *args,
             cwd=str(cwd),
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
+            stdout=PIPE,
+            stderr=PIPE,
         )
         stdout, stderr = await process.communicate()
 
@@ -66,13 +86,13 @@ class PluginManager:
 
         return stdout.decode().strip()
 
-    async def _run_command(self, cmd, cwd):
+    async def _run_command(self, cmd: str, cwd: str) -> None:
         if cmd:
             print(f"{BLUE}Running{RESET} {GREEN}{cmd}{RESET} with {cwd.split('/')[-1]}")
             process = await asyncio.create_subprocess_shell(
                 cmd,
                 cwd=cwd,
-                stdout=asyncio.subprocess.PIPE,
+                stdout=PIPE,
                 stderr=asyncio.subprocess.PIPE,
             )
             stdout, stderr = await process.communicate()
@@ -81,7 +101,7 @@ class PluginManager:
             else:
                 print(f"{stdout.decode().strip()}")
 
-    def _format_log(self, log_output, repo, spaces: int):
+    def _format_log(self, log_output: str, repo: str, spaces: int) -> None:
         print(f"{UNDERLINE}{repo}{RESET}")
         current_time = datetime.now()
 
@@ -107,14 +127,18 @@ class PluginManager:
                 f"{' ' * spaces}{MAGENTA}{commit_hash}{RESET} {commit_message} {CYAN}({time_str}){RESET}"
             )
 
-    async def _process_plugins(self, plugins, handler):
+    async def _process_plugins(
+        self,
+        plugins: dict[str, PluginConfig],
+        handler: Callable[[str, PluginConfig], Awaitable[None]],
+    ) -> None:
         tasks = [handler(repo, config) for repo, config in plugins.items()]
         await asyncio.gather(*tasks)
 
-    async def _handle_install(self, repo, config):
-        branch = config.get("branch", None)
-        commit = config.get("commit", None)
-        run_command = config.get("run", None)
+    async def _handle_install(self, repo: str, config: PluginConfig) -> None:
+        branch: str | None = config.get("branch", None)
+        commit: str | None = config.get("commit", None)
+        run_command: str = config.get("run", "")
 
         plugin_dir = self.plugins_dir / repo.split("/")[-1]
         if repo in self.plugins_state and plugin_dir.exists():
@@ -170,20 +194,20 @@ class PluginManager:
 
         await self._run_command(run_command, str(plugin_dir))
 
-    async def install(self):
+    async def install(self) -> None:
         with open(self.config_file, "r") as f:
-            plugins = json.load(f)
+            plugins: dict[str, PluginConfig] = json.load(f)
 
         await self._process_plugins(plugins, self._handle_install)
 
         self._save_state()
 
-    async def _handle_update(self, repo, config):
+    async def _handle_update(self, repo: str, config: PluginConfig) -> None:
         branch = config.get("branch", None) or self.plugins_state[repo].get(
             "branch", None
         )
         commit = config.get("commit", None)
-        run_command = config.get("run", None)
+        run_command = config.get("run", "")
         is_pin = config.get("pin", False)
         is_dev = config.get("dev", False)
         plugin_dir = self.plugins_dir / repo.split("/")[-1]
@@ -252,11 +276,11 @@ class PluginManager:
 
             await self._run_command(run_command, str(plugin_dir))
 
-    async def update(self):
+    async def update(self) -> None:
         with open(self.config_file, "r") as f:
-            plugins = json.load(f)
+            plugins: dict[str, PluginConfig] = json.load(f)
 
-        missing_plugins = {}
+        missing_plugins: dict[str, PluginConfig] = {}
         for key, value1 in plugins.items():
             if key not in self.plugins_state:
                 missing_plugins[key] = value1
@@ -269,16 +293,16 @@ class PluginManager:
 
         self._save_state()
 
-    async def _remove_plugin(self, repo, plugin_dir):
+    async def _remove_plugin(self, repo: str, plugin_dir: Path) -> None:
         if plugin_dir.exists():
             print(f"{RED}Removing{RESET} {repo}")
             await asyncio.to_thread(shutil.rmtree, plugin_dir)
             del self.plugins_state[repo]
             self.state_changed = True
 
-    async def clean(self):
+    async def clean(self) -> None:
         with open(self.config_file, "r") as f:
-            plugins = json.load(f)
+            plugins: dict[str, PluginConfig] = json.load(f)
 
         installed_plugins = set(self.plugins_state.keys())
         configured_plugins = set(plugins.keys())
@@ -292,7 +316,7 @@ class PluginManager:
 
         self._save_state()
 
-    async def sync(self, plugins=None):
+    async def sync(self, plugins: list[str] | None = None) -> None:
         if plugins:
             for repo in plugins:
                 plugin_dir = self.plugins_dir / repo.split("/")[-1]
@@ -311,7 +335,7 @@ class PluginManager:
 
         await self.install()
 
-    async def log(self, n=5):
+    async def log(self, n: int = 5) -> None:
         for repo in self.plugins_state.keys():
             plugin_dir = self.plugins_dir / repo.split("/")[-1]
             if not plugin_dir.exists():
@@ -324,7 +348,7 @@ class PluginManager:
             self._format_log(log_output, repo, 2)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawTextHelpFormatter,
     )

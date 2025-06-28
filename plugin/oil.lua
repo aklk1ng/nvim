@@ -7,6 +7,7 @@ function _G.OilBar()
     return vim.api.nvim_buf_get_name(0)
   end
 end
+
 require('oil').setup({
   delete_to_trash = true,
   watch_for_changes = true,

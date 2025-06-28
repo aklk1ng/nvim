@@ -19,9 +19,6 @@ map({ 'n', 'x' }, 'C', '"_C')
 map({ 'n', 'x' }, 's', '"_s')
 map({ 'n', 'x' }, 'S', '"_S')
 
-map('n', '<C-x><C-f>', ":e <C-R>=expand('%:p:~:h')<CR>")
-map('n', '<C-x>k', ':bdelete ')
-
 map('n', '<leader>q', _G._cmd('q'))
 map('n', '<C-x>c', _G._cmd('confirm qa'))
 map('n', '|', _G._cmd('Inspect'))
@@ -30,6 +27,8 @@ map('n', 'k', 'gk')
 map('n', 'gV', '`[v`]')
 map({ 'i', 'n', 'x', 's' }, '<C-s>', _G._cmd('silent! write') .. '<ESC>')
 map('n', '<ESC>', _G._cmd('nohlsearch'))
+map('n', '<C-x><C-f>', ":e <C-R>=expand('%:p:~:h')<CR>")
+map('n', '<C-x>k', ':bdelete ')
 map('n', '<C-x>d', ':e ~/')
 
 map('n', '<C-h>', '<C-w>h')
@@ -92,8 +91,6 @@ map('x', 'gX', function()
   vim.ui.open(('https://google.com/search?q=%s'):format(vim.trim(table.concat(lines, ' '))))
   vim.api.nvim_input('<ESC>')
 end)
-
-map('s', '<BS>', '<C-O>s', { desc = 'Inside a snippet, use backspace to remove the placeholder' })
 
 map('c', '<C-b>', '<Left>')
 map('c', '<C-f>', '<Right>')

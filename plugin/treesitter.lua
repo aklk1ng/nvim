@@ -10,7 +10,6 @@ local parsers = {
   'vimdoc',
 }
 require('nvim-treesitter').install(parsers)
-
 require('nvim-treesitter-textobjects').setup({
   select = {
     -- Automatically jump forward to textobj, similar to targets.vim
@@ -26,6 +25,7 @@ require('nvim-treesitter-textobjects').setup({
     set_jumps = true,
   },
 })
+
 vim.keymap.set({ 'x', 'o' }, 'af', function()
   require('nvim-treesitter-textobjects.select').select_textobject('@function.outer', 'textobjects')
 end)

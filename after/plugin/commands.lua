@@ -11,24 +11,6 @@ local scratch_buf_init = function()
   end
 end
 
-vim.api.nvim_create_user_command('Root', function()
-  local bufname = vim.api.nvim_buf_get_name(0)
-  if not vim.uv.fs_stat(bufname) then
-    return
-  end
-
-  vim.tbl_map(function(client)
-    local filetypes, root = client.config.filetypes, client.config.root_dir
-    if filetypes and vim.fn.index(filetypes, vim.bo.ft) ~= -1 and root then
-      vim.cmd.lcd(root)
-      return
-    end
-  end, vim.lsp.get_clients({ buf = 0 }))
-
-  local cwd = vim.fs.dirname(bufname)
-  vim.cmd.lcd(cwd)
-end, { nargs = 0 })
-
 -- https://github.com/folke/snacks.nvim/blob/main/lua/snacks/bufdelete.lua
 local function delete()
   local buf = vim.api.nvim_get_current_buf()

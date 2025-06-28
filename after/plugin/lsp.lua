@@ -42,13 +42,6 @@ local function on_attach(client, bufnr)
     })
   end
 
-  if client:supports_method('textDocument/documentColor') then
-    vim.lsp.document_color.enable(true, bufnr)
-    vim.keymap.set('n', '<leader>o', function()
-      vim.lsp.document_color.enable(not vim.lsp.document_color.is_enabled())
-    end, { buffer = bufnr })
-  end
-
   if client:supports_method(methods.textDocument_signatureHelp) then
     vim.keymap.set({ 'i', 's' }, '<C-g>', function()
       local ok, cmp = pcall(require, 'cmp')

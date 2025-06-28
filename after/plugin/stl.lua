@@ -35,36 +35,22 @@ local function fileinfo()
   }
 end
 
----@return Compoment
-local function lspinfo()
+local function progress()
+  local spinner = { '⣶', '⣧', '⣏', '⡟', '⠿', '⢻', '⣹', '⣼' }
+  local idx = 1
   return {
-    name = 'lspinfo',
     stl = function(args)
-      local client = vim.lsp.get_clients({ bufnr = 0 })[1]
-      if not client then
-        return ''
-      end
-
-      local msg = ''
       if args.data and args.data.params then
         local val = args.data.params.value
-        if
-          val.message
-          and val.kind ~= 'end'
-          and not (vim.bo.filetype == 'go' and val.kind == 'report')
-        then
-          msg = ('%s %s%s'):format(
-            val.title,
-            (val.message and val.message .. ' ' or ''),
-            (val.percentage and val.percentage .. '%' or '')
-          )
+        if val.message and val.kind ~= 'end' then
+          idx = idx + 1 > #spinner and 1 or idx + 1
+          return ('%s'):format(spinner[idx - 1 > 0 and idx - 1 or 1])
         end
-      elseif args.event == 'LspDetach' then
-        msg = ''
       end
-      return '%.40{"' .. msg .. '"}'
+      return ''
     end,
-    event = { 'LspProgress', 'LspAttach', 'LspDetach', 'BufEnter' },
+    name = 'LspProgress',
+    event = { 'LspProgress' },
     attr = 'Normal',
   }
 end
@@ -104,7 +90,7 @@ local function diagnostic()
         return ''
       end
     end,
-    event = { 'DiagnosticChanged', 'LspAttach' },
+    event = { 'DiagnosticChanged', 'LspAttach', 'LspDetach' },
     attr = true,
   }
 end
@@ -125,12 +111,12 @@ local function default()
     fileinfo(),
     sep(),
     diagnostic(),
+
+    pad(),
+    pad(),
+
+    progress(),
     sep(),
-    lspinfo(),
-
-    pad(),
-    pad(),
-
     lnumcol(),
   }
   local e, pieces = {}, {}
