@@ -74,7 +74,7 @@ require('conform').setup({
       return
     end
 
-    return { timeout_ms = 500, lsp_format = 'fallback', quiet = true }
+    return { async = true, lsp_format = 'fallback', quiet = true }
   end,
 })
 

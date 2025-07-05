@@ -62,15 +62,16 @@ _G._cmp_kinds = {
 
 vim.cmd.colorscheme('aklk1ng')
 
-local plugins = vim.fn.stdpath('data') .. '/site/pack/plugins/opt'
-local handle = assert(vim.uv.fs_opendir(plugins, nil, 4096))
-local entries = vim.uv.fs_readdir(handle, nil)
-if not entries then
-  return
+local git = function(name)
+  return 'https://github.com/' .. name
 end
-for _, t in ipairs(entries) do
-  if t.type == 'directory' then
-    vim.cmd.packadd(t.name)
-  end
-end
-vim.cmd.helptags('ALL')
+
+vim.pack.add({
+  git('nvimdev/phoenix.nvim'),
+  git('ibhagwan/fzf-lua'),
+  { src = git('nvim-treesitter/nvim-treesitter'), version = 'main' },
+  { src = git('nvim-treesitter/nvim-treesitter-textobjects'), version = 'main' },
+  git('lewis6991/gitsigns.nvim'),
+  git('stevearc/conform.nvim'),
+  git('stevearc/oil.nvim'),
+})
