@@ -11,8 +11,8 @@ local p = {
   shade_4 = '#6a7073',
   fg = '#919191',
   red = '#a35858',
-  pink = '#946c81',
-  orange = '#957157',
+  pink = '#96647b',
+  orange = '#986b4b',
   yellow = '#918754',
   green = '#6c8846',
   blue = '#527e91',
@@ -25,7 +25,7 @@ local p = {
 }
 
 ---@type table<string, vim.api.keyset.highlight>
-local syntax = {
+local groups = {
   Normal = { fg = p.fg, bg = p.bg },
   NormalNc = { link = 'Normal' },
   SignColumn = { fg = p.fg, bg = p.bg },
@@ -95,10 +95,10 @@ local syntax = {
   SpellRare = { sp = p.blue, undercurl = true },
   TabLine = { fg = p.shade_4 },
   NonText = { fg = p.shade_4 },
-  StatusLine = { bg = p.shade_1 },
+  StatusLine = { bg = p.bg },
   StatusLineNC = { link = 'StatusLine' },
-  WinBar = { link = 'StatusLine' },
-  WinBarNC = { link = 'StatusLineNC' },
+  WinBar = { bg = p.bg },
+  WinBarNC = { link = 'WinBar' },
   NormalFloat = { bg = p.shade_1 },
   FloatBorder = { fg = p.fg },
   Visual = { bg = p.shade_2 },
@@ -109,16 +109,15 @@ local syntax = {
   Constant = { fg = p.pink },
   PreProc = { fg = p.fg },
   PreCondit = { fg = p.shade_4 },
-  Define = { fg = p.purple },
-  Conditional = { fg = p.purple },
-  Repeat = { fg = p.purple },
-  Keyword = { fg = p.purple },
-  Exception = { fg = p.purple },
-  Statement = { fg = p.purple },
-  StorageClass = { fg = p.purple },
-  Tag = { fg = p.blue },
-  Label = { fg = p.purple },
-  Structure = { fg = p.purple },
+  Define = { fg = p.fg },
+  Conditional = { fg = p.fg },
+  Repeat = { fg = p.fg },
+  Keyword = { fg = p.fg },
+  Exception = { fg = p.fg },
+  Statement = { fg = p.fg },
+  StorageClass = { fg = p.fg },
+  Label = { fg = p.fg },
+  Structure = { fg = p.fg },
   Operator = { fg = p.fg },
   Title = { fg = p.pink, bold = true },
   Special = { fg = p.yellow },
@@ -126,12 +125,11 @@ local syntax = {
   String = { fg = p.green },
   Character = { link = 'String' },
   Type = { fg = p.fg },
-  Typedef = { link = 'Type' },
+  Typedef = { fg = p.blue },
   Identifier = { fg = p.yellow },
   Comment = { fg = p.orange },
   Delimiter = { fg = p.fg },
-
-  rustCommentLineDoc = { link = 'Comment' },
+  Tag = { fg = p.blue },
 
   QfLnum = { link = 'Number' },
   QfCol = { link = 'Number' },
@@ -197,6 +195,6 @@ local syntax = {
   FzfLuaLivePrompt = { fg = p.fg },
 }
 
-for group, conf in pairs(syntax) do
-  vim.api.nvim_set_hl(0, group, conf)
+for name, val in pairs(groups) do
+  vim.api.nvim_set_hl(0, name, val)
 end
