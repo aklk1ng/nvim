@@ -29,7 +29,7 @@ vim.ui.input = function(opts, on_confirm)
     vim.api.nvim_buf_delete(buf, { force = true })
     on_confirm(nil)
   end, { buffer = buf })
-  vim.keymap.set({ 'i', 'n' }, '<CR>', function()
+  vim.keymap.set('n', '<CR>', function()
     local text = vim.api.nvim_buf_get_lines(buf, 0, -1, false)[1]
     vim.api.nvim_win_close(win, true)
     vim.api.nvim_buf_delete(buf, { force = true })

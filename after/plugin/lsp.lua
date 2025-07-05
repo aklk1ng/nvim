@@ -104,20 +104,28 @@ local function on_attach(client, bufnr)
       end,
     })
 
-    -- https://github.com/neovim/neovim/pull/32553
-    vim.api.nvim_create_autocmd('CompleteChanged', {
-      buffer = bufnr,
-      group = _G._augroup,
-      callback = function()
-        local info = vim.fn.complete_info({ 'selected' })
-        if info.preview_bufnr and vim.bo[info.preview_bufnr].filetype == '' then
-          vim.bo[info.preview_bufnr].filetype = 'markdown'
-          vim.wo[info.preview_winid].conceallevel = 2
-          vim.wo[info.preview_winid].concealcursor = 'niv'
-          vim.wo[info.preview_winid].wrap = true
-        end
-      end,
-    })
+    if
+      #vim.api.nvim_get_autocmds({
+        buffer = bufnr,
+        event = { 'CompleteChanged' },
+        group = _G._augroup,
+      }) == 0
+    then
+      -- https://github.com/neovim/neovim/pull/32553
+      vim.api.nvim_create_autocmd('CompleteChanged', {
+        buffer = bufnr,
+        group = _G._augroup,
+        callback = function()
+          local info = vim.fn.complete_info({ 'selected' })
+          if info.preview_bufnr and vim.bo[info.preview_bufnr].filetype == '' then
+            vim.bo[info.preview_bufnr].filetype = 'markdown'
+            vim.wo[info.preview_winid].conceallevel = 2
+            vim.wo[info.preview_winid].concealcursor = 'niv'
+            vim.wo[info.preview_winid].wrap = true
+          end
+        end,
+      })
+    end
   end
 end
 
