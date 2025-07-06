@@ -35,14 +35,19 @@ local function fileinfo()
   }
 end
 
+---@return Compoment
 local function progress()
-  local spinner = { '⣶', '⣧', '⣏', '⡟', '⠿', '⢻', '⣹', '⣼' }
+  local spinner = { '⣧', '⣏', '⡟', '⠿', '⢻', '⣹', '⣼' }
   local idx = 1
   return {
     stl = function(args)
       if args.data and args.data.params then
         local val = args.data.params.value
-        if val.message and val.kind ~= 'end' then
+        if
+          val.message
+          and val.kind ~= 'end'
+          and not (vim.bo.filetype == 'go' and val.kind == 'report')
+        then
           idx = idx + 1 > #spinner and 1 or idx + 1
           return ('%s'):format(spinner[idx - 1 > 0 and idx - 1 or 1])
         end
