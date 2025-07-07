@@ -4,14 +4,7 @@
 ---@field name string Used for highlight group name if need(**attr is true**).
 ---@field stl string|function Result is the evaluated text.
 ---@field event? table<string> Triggered events.
----@field attr? string|boolean if `attr` is true, the `stl` field return whole evaluated text. otherwise, set the highlight group if need.
-
-local function stl_attr(group)
-  return {
-    fg = vim.api.nvim_get_hl(0, { name = group, link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = 'StatusLine' }).bg,
-  }
-end
+---@field attr? boolean if `attr` is true, the `stl` field return whole evaluated text.
 
 local function stl_format(hl, val)
   return ('%%#Stl%s#%s%%*'):format(hl, val)
@@ -31,13 +24,12 @@ local function fileinfo()
     name = 'fileinfo',
     stl = '%f%r%m',
     event = { 'BufEnter' },
-    attr = 'Normal',
   }
 end
 
 ---@return Compoment
 local function progress()
-  local spinner = { '⣧', '⣏', '⡟', '⠿', '⢻', '⣹', '⣼' }
+  local spinner = { '-', '\\', '|', '/' }
   local idx = 1
   return {
     stl = function(args)
@@ -56,7 +48,6 @@ local function progress()
     end,
     name = 'LspProgress',
     event = { 'LspProgress' },
-    attr = 'Normal',
   }
 end
 
@@ -106,7 +97,6 @@ local function lnumcol()
     name = 'lnumcol',
     stl = '%l:%c %P',
     event = { 'CursorHold' },
-    attr = 'Normal',
   }
 end
 
@@ -144,9 +134,6 @@ local function default()
           end
           e[event][#e[event] + 1] = key
         end
-      end
-      if type(item.attr) == 'string' then
-        vim.api.nvim_set_hl(0, ('Stl%s'):format(item.name), stl_attr(item.attr))
       end
     end)
     :totable()

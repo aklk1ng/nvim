@@ -5,9 +5,9 @@ vim.g.colors_name = 'aklk1ng'
 
 local p = {
   bg = '#1a1a1a',
-  shade_1 = '#242424',
-  shade_2 = '#323437',
-  shade_3 = '#3e4144',
+  shade_1 = '#232323',
+  shade_2 = '#303337',
+  shade_3 = '#3c3f42',
   shade_4 = '#6a7073',
   fg = '#919191',
   red = '#a35858',
@@ -95,8 +95,8 @@ local groups = {
   SpellRare = { sp = p.blue, undercurl = true },
   TabLine = { fg = p.shade_4 },
   NonText = { fg = p.shade_4 },
-  StatusLine = { bg = p.bg },
-  StatusLineNC = { link = 'StatusLine' },
+  StatusLine = { bg = p.shade_2 },
+  StatusLineNC = { bg = p.shade_1 },
   WinBar = { bg = p.bg },
   WinBarNC = { link = 'WinBar' },
   NormalFloat = { bg = p.shade_1 },

@@ -74,4 +74,5 @@ vim.pack.add({
   git('lewis6991/gitsigns.nvim'),
   git('stevearc/conform.nvim'),
   git('stevearc/oil.nvim'),
+  git('uga-rosa/ccc.nvim'),
 })
