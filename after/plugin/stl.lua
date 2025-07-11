@@ -121,7 +121,7 @@ local function default()
       if type(item) == 'string' then
         pieces[#pieces + 1] = item
       elseif type(item.stl) == 'string' then
-        if item.attr == true then
+        if item.attr and item.attr == true then
           pieces[#pieces + 1] = item.stl
         else
           pieces[#pieces + 1] = stl_format(item.name, item.stl)
@@ -147,7 +147,7 @@ local function render(comps, events, pieces)
   return coroutine.create(function(args)
     while true do
       for _, idx in ipairs(events[args.event]) do
-        if comps[idx].attr == true then
+        if comps[idx].attr and comps[idx].attr == true then
           pieces[idx] = comps[idx].stl(args)
         else
           pieces[idx] = stl_format(comps[idx].name, comps[idx].stl(args))

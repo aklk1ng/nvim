@@ -58,7 +58,7 @@ vim.keymap.set({ 'n', 'x', 'o' }, '[o', function()
 end)
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = parsers,
+  pattern = require('nvim-treesitter').get_installed(),
   callback = function(args)
     vim.wo.foldmethod = 'expr'
     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'

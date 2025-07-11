@@ -57,6 +57,7 @@ local groups = {
   QuickFixLine = { bg = p.shade_1, bold = true },
   qfLineNr = { link = 'Number' },
   qfFileName = { fg = p.fg },
+  MsgSeparator = { link = 'WinSeparator' },
   Underlined = { fg = p.orange, underline = true },
   WarningMsg = { fg = p.yellow, bold = true },
   MatchParen = { fg = p.cyan, bg = p.shade_2, bold = true },
@@ -153,8 +154,6 @@ local groups = {
   DiagnosticUnderlineInfo = { sp = p.blue, undercurl = true },
   DiagnosticUnderlineHint = { sp = p.cyan, undercurl = true },
   DiagnosticUnderlineOk = { sp = p.green, undercurl = true },
-  LspInlayHint = { fg = p.shade_4 },
-  LspSignatureActiveParameter = { bg = p.shade_2 },
 
   -- treesitter
   ['@function'] = { fg = p.fg },

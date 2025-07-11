@@ -43,14 +43,7 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method(methods.textDocument_signatureHelp) then
-    vim.keymap.set({ 'i', 's' }, '<C-g>', function()
-      local ok, cmp = pcall(require, 'cmp')
-      if ok and cmp.visible() then
-        cmp.close()
-      end
-
-      vim.lsp.buf.signature_help()
-    end, { buffer = bufnr })
+    vim.keymap.set({ 'i', 's' }, '<C-g>', vim.lsp.buf.signature_help, { buffer = bufnr })
   end
 
   if client:supports_method(methods.textDocument_inlayHint) then
