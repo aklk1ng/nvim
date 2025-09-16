@@ -22,7 +22,7 @@ require('fzf-lua').setup({
     backdrop = 100,
     title_flags = false,
     preview = {
-      horizontal = 'right:50%',
+      vertical = 'right:50%',
     },
   },
   keymap = {

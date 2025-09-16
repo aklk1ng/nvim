@@ -50,6 +50,7 @@ local groups = {
   DiffDelete = { bg = p.diffdel },
   DiffText = { bg = p.difftext },
   Directory = { fg = p.blue },
+  OkMsg = { fg = p.green },
   ErrorMsg = { fg = p.red },
   Error = { fg = p.red, bold = true },
   ModeMsg = { fg = p.fg },
