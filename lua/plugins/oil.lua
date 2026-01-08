@@ -53,21 +53,6 @@ require('oil').setup({
     end,
     show_hidden = true,
   },
-  confirmation = {
-    border = vim.o.winborder,
-  },
-  float = {
-    border = vim.o.winborder,
-  },
-  progress = {
-    border = vim.o.winborder,
-  },
-  ssh = {
-    border = vim.o.winborder,
-  },
-  keymaps_help = {
-    border = vim.o.winborder,
-  },
 })
 
 vim.keymap.set('n', '<leader>e', _G._cmd('Oil'))

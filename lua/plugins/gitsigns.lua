@@ -1,5 +1,3 @@
-require('gitsigns').setup({})
-
 vim.keymap.set('n', '<leader>g', _G._cmd('Gitsigns diffthis vertical=true'))
 vim.keymap.set('n', ']c', function()
   if vim.wo.diff then

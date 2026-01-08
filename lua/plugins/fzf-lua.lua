@@ -20,7 +20,6 @@ require('fzf-lua').setup({
   winopts = {
     height = 0.60,
     backdrop = 100,
-    title_flags = false,
     preview = {
       vertical = 'right:50%',
     },
