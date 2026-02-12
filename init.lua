@@ -107,7 +107,7 @@ o.clipboard = 'unnamedplus'
 
 o.stc = '%=%l%s'
 
-require('vim._extui').enable({})
+require('vim._core.ui2').enable({})
 
 local map = vim.keymap.set
 
