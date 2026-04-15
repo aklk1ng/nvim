@@ -9,20 +9,20 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fzf-lua": {
-      "rev": "c9e7b7bfbd01f949164988ee1684035468e1995c",
+      "rev": "4be0a6923a64dc411489b57b77a6bf6f30404e66",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "50c205548d8b037b7ff6378fca6d21146f0b6161",
+      "rev": "8d82c240f190fc33723d48c308ccc1ed8baad69d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "nvim-treesitter": {
-      "rev": "7caec274fd19c12b55902a5b795100d21531391f",
+      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "nvim-treesitter-textobjects": {
-      "rev": "93d60a475f0b08a8eceb99255863977d3a25f310",
+      "rev": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
     },
